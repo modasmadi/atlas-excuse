@@ -2,6 +2,1366 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATLAS Workspace – محمود الصمادي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --radius-lg: 22px;
+      --radius-xl: 28px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.35);
+      --shadow-card: 0 14px 30px rgba(0, 0, 0, 0.28);
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.25s ease-out;
+
+      --primary: #27b0ff;
+      --primary-soft: rgba(39, 176, 255, 0.13);
+      --danger: #ff5c7a;
+      --success: #46d19b;
+      --text-main: #eaf6ff;
+      --text-soft: #a6b5d2;
+
+      --bg-main: #020717;
+      --bg-elevated: #060b22;
+      --bg-deep: radial-gradient(circle at top left, #132347 0, #020717 55%);
+      --card-bg: #050a1b;
+      --border-subtle: rgba(255, 255, 255, 0.04);
+    }
+
+    /* ثيم فاتح */
+    body[data-theme="light"] {
+      --bg-main: #f4f6fb;
+      --bg-elevated: #ffffff;
+      --bg-deep: radial-gradient(circle at top left, #ffffff 0, #e9f0ff 60%);
+      --card-bg: #ffffff;
+      --text-main: #0e172a;
+      --text-soft: #4b5563;
+      --border-subtle: rgba(15, 23, 42, 0.06);
+      --shadow-soft: 0 16px 35px rgba(15, 23, 42, 0.1);
+      --shadow-card: 0 14px 26px rgba(15, 23, 42, 0.08);
+    }
+
+    /* ثيم أسود OLED */
+    body[data-theme="oled"] {
+      --bg-main: #000000;
+      --bg-elevated: #02040b;
+      --bg-deep: radial-gradient(circle at top left, #071325 0, #000000 60%);
+      --card-bg: #02040b;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --shadow-soft: 0 0 0 rgba(0, 0, 0, 0);
+      --shadow-card: 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-main);
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .app-shell {
+      width: 100%;
+      max-width: 1380px;
+      margin: 18px auto 30px;
+      padding: 16px 18px 24px;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.02),
+        rgba(15, 23, 42, 0.7)
+      );
+      border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header.app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 18px;
+      background: radial-gradient(circle at 25% 0, #4adeff 0, #2563eb 40%, #020617 80%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e5f1ff;
+      font-weight: 800;
+      font-size: 22px;
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.6);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .user-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .theme-switcher {
+      display: inline-flex;
+      padding: 4px;
+      gap: 4px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .theme-pill {
+      border: none;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: transparent;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .theme-pill.active {
+      background: var(--primary-soft);
+      color: var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    .user-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-subtle);
+      font-size: 12px;
+    }
+
+    .user-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 25% 0, #fde047 0, #f97316 40%, #7c2d12 90%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0b1020;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: none;
+      padding: 7px 13px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast), color var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #020617;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.7);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(37, 99, 235, 0.85);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-soft);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-outline:hover {
+      background: rgba(148, 163, 184, 0.1);
+    }
+
+    .btn-small {
+      padding: 4px 10px;
+      font-size: 11px;
+    }
+
+    main.layout {
+      display: grid;
+      grid-template-columns: 0.85fr 1.1fr 0.95fr;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-card);
+      padding: 14px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .card-subtitle {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 10px;
+      color: var(--text-soft);
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .greeting-main {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .greeting-secondary {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .stat-chip {
+      flex: 1 1 90px;
+      min-width: 0;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.2), transparent 60%);
+      border-radius: 14px;
+      padding: 8px 9px;
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stat-value {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .stat-controls {
+      display: flex;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .stat-controls button {
+      flex: 1;
+      border-radius: 999px;
+      border: none;
+      font-size: 11px;
+      padding: 3px 0;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text-soft);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      transition: background var(--transition-fast), color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .stat-controls button:hover {
+      background: var(--primary-soft);
+      color: var(--text-main);
+      transform: translateY(-0.5px);
+    }
+
+    .excuse-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      font-size: 11px;
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .chip.active {
+      background: var(--primary-soft);
+      color: var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    .excuse-box {
+      margin-top: 4px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.9),
+        rgba(30, 64, 175, 0.9)
+      );
+      border: 1px solid rgba(129, 140, 248, 0.45);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .excuse-label {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 2px;
+    }
+
+    .excuse-text {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .trust-meter {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .trust-bar {
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.7);
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .trust-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #f97316, #facc15, #22c55e);
+      width: 70%;
+      transition: width 0.35s ease-out;
+    }
+
+    .notes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 260px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .note-card {
+      border-radius: 16px;
+      padding: 8px 10px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      background: radial-gradient(circle at top left, rgba(51, 65, 85, 0.4), transparent 55%);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .note-header-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .note-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .note-meta {
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    .note-body {
+      font-size: 12px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    .note-image {
+      margin-top: 4px;
+      border-radius: 12px;
+      max-height: 130px;
+      object-fit: cover;
+      width: 100%;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .note-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .note-toolbar input[type="color"] {
+      width: 32px;
+      height: 22px;
+      border-radius: 999px;
+      border: none;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .note-form {
+      margin-bottom: 8px;
+      padding: 8px 10px;
+      border-radius: 16px;
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .note-form input,
+    .note-form textarea {
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--text-main);
+      padding: 5px 8px;
+      font-size: 12px;
+      resize: vertical;
+      outline: none;
+    }
+
+    .note-form input::placeholder,
+    .note-form textarea::placeholder {
+      color: rgba(148, 163, 184, 0.7);
+    }
+
+    .note-form-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .note-form-row > * {
+      flex: 1;
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 11px;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      align-items: center;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* شاشة تسجيل الدخول */
+    .auth-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 55%),
+        linear-gradient(145deg, #020617, #020617);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 420px;
+      padding: 24px 22px 20px;
+      border-radius: 28px;
+      background: rgba(15, 23, 42, 0.96);
+      box-shadow: 0 22px 70px rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .auth-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .auth-subtitle {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 14px;
+    }
+
+    .auth-provider-btn {
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+
+    .auth-note {
+      font-size: 11px;
+      color: var(--text-soft);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    .badge-online {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      font-size: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(22, 163, 74, 0.7);
+      background: rgba(6, 95, 70, 0.5);
+      color: #bbf7d0;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.3);
+    }
+
+    @media (max-width: 1100px) {
+      main.layout {
+        grid-template-columns: 1fr;
+      }
+      .column {
+        order: unset;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .app-shell {
+        margin: 10px;
+        padding: 14px 10px 18px;
+        border-radius: 20px;
+      }
+      header.app-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      main.layout {
+        gap: 12px;
+      }
+      .card {
+        padding: 12px 12px;
+      }
+    }
+  </style>
+
+  <!-- Firebase (نسخة 8 كلاسيكية – أسهل للتعامل من ملف واحد) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+
+<body data-theme="dark">
+  <div class="app-shell">
+    <!-- شاشة تسجيل الدخول -->
+    <div class="auth-overlay" id="authOverlay">
+      <div class="auth-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div>
+            <div class="auth-title">مرحباً بك في ATLAS Workspace</div>
+            <div class="auth-subtitle">
+              مساحة شخصية لتنظيم يومك: أعذار جاهزة، نوتات، تتبّع مياه/نوم/صلاة/جيم – وكلها محفوظة بحسابك.
+            </div>
+          </div>
+          <div class="brand-logo">A</div>
+        </div>
+
+        <button class="btn btn-primary auth-provider-btn" id="googleLoginBtn">
+          🔐 تسجيل الدخول باستخدام Google
+        </button>
+
+        <div class="auth-note">
+          تسجيل الدخول فقط لحفظ بياناتك على السحابة. لن نشارك معلوماتك مع أي جهة.
+        </div>
+      </div>
+    </div>
+
+    <!-- الهيدر -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-logo">A</div>
+        <div class="brand-text">
+          <span class="brand-title">ATLAS Workspace</span>
+          <span class="brand-subtitle">مكتب محمود الصمادي – مُصمَّم لروتين يومك</span>
+        </div>
+      </div>
+
+      <div class="user-controls">
+        <div class="theme-switcher">
+          <button class="theme-pill active" data-theme="dark">داكن</button>
+          <button class="theme-pill" data-theme="oled">أسود OLED</button>
+          <button class="theme-pill" data-theme="light">فاتح</button>
+        </div>
+
+        <div class="user-chip" id="userChip">
+          <div class="user-avatar" id="userAvatar">A</div>
+          <div>
+            <div id="userNameLabel" style="font-size:12px;font-weight:600;">
+              زائر بدون تسجيل
+            </div>
+            <div style="font-size:10px;color:var(--text-soft);">
+              سجّل الدخول لحفظ نوتاتك
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-outline btn-small" id="logoutBtn" style="display:none;">
+          تسجيل الخروج
+        </button>
+      </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="layout" id="mainLayout" style="opacity:0.0; pointer-events:none;">
+      <!-- العمود الأيسر: التحية + الويدجت -->
+      <section class="column column-left">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">روتين اليوم 👋</div>
+              <div class="card-subtitle">
+                تحية خاصة + ملخص سريع لليوم.
+              </div>
+            </div>
+            <span class="badge-online">
+              <span class="badge-dot"></span> يعمل الآن 24/7
+            </span>
+          </div>
+
+          <div class="greeting-main" id="greetingMain">صباح الخير 🌤️</div>
+          <div class="greeting-secondary" id="greetingSecondary">
+            خلينا نرتّب يومك مع بعض.
+          </div>
+
+          <div class="stats-row" style="margin-top:8px;">
+            <div class="stat-chip" data-counter="water">
+              <div class="stat-label">
+                <span>المياه 💧</span>
+                <span id="waterTarget">هدفك: 8 أكواب</span>
+              </div>
+              <div class="stat-value" id="waterValue">0 كوب</div>
+              <div class="stat-controls">
+                <button data-action="dec">-</button>
+                <button data-action="inc">+ 1</button>
+              </div>
+            </div>
+
+            <div class="stat-chip" data-counter="sleep">
+              <div class="stat-label">
+                <span>النوم 😴</span>
+                <span id="sleepTarget">هدفك: 8 ساعات</span>
+              </div>
+              <div class="stat-value" id="sleepValue">0 ساعة</div>
+              <div class="stat-controls">
+                <button data-action="dec">-</button>
+                <button data-action="inc">+ 0.5</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-row" style="margin-top:8px;">
+            <div class="stat-chip" data-counter="prayer">
+              <div class="stat-label">
+                <span>الصلاة 🕌</span>
+                <span>5 فروض</span>
+              </div>
+              <div class="stat-value" id="prayerValue">0 / 5</div>
+              <div class="stat-controls">
+                <button data-action="dec">-</button>
+                <button data-action="inc">+ 1</button>
+              </div>
+            </div>
+
+            <div class="stat-chip" data-counter="gym">
+              <div class="stat-label">
+                <span>الجيم 🏋️‍♂️</span>
+                <span>أيام الأسبوع</span>
+              </div>
+              <div class="stat-value" id="gymValue">0 حصة</div>
+              <div class="stat-controls">
+                <button data-action="dec">-</button>
+                <button data-action="inc">+ 1</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">عداد الحالة الذهنية 🎧</div>
+              <div class="card-subtitle">
+                اختر شعورك اليوم عشان يساعدك ATLAS يضبط روتينك.
+              </div>
+            </div>
+            <span class="pill">Moood Tracker</span>
+          </div>
+
+          <div class="chip-row" id="moodChips">
+            <button class="chip active" data-mood="focus">مركّز</button>
+            <button class="chip" data-mood="tired">مرهق</button>
+            <button class="chip" data-mood="social">اجتماعي</button>
+            <button class="chip" data-mood="lazy">مالي خُلُق</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- العمود الأوسط: صانع الأعذار -->
+      <section class="column column-center">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">مولّد الأعذار ATLAS غَذِّرني 🫣</div>
+              <div class="card-subtitle">
+                اختر الموقف ونوع العذر… وخلي ATLAS يجهّز لك عذر مرتب وجاهز للنسخ.
+              </div>
+            </div>
+            <span class="pill">للواجبات، الشغل، الاجتماعات، والطلعات</span>
+          </div>
+
+          <div class="excuse-layout">
+            <div>
+              <div class="card-subtitle" style="margin-bottom:4px;">1. اختر نوع الموقف 🎯</div>
+              <div class="chip-row" id="contextChips">
+                <button class="chip active" data-context="whatsapp">واتساب / أونلاين</button>
+                <button class="chip" data-context="family">أهل / عائلة</button>
+                <button class="chip" data-context="work">شغل / وظيفة</button>
+                <button class="chip" data-context="study">مدرسة / جامعة</button>
+                <button class="chip" data-context="delay">تأخير عن موعد</button>
+              </div>
+            </div>
+
+            <div>
+              <div class="card-subtitle" style="margin-bottom:4px;">2. اختر المزاج 😏</div>
+              <div class="chip-row" id="toneChips">
+                <button class="chip active" data-tone="soft">لطيف هادي</button>
+                <button class="chip" data-tone="serious">رسمي ومحترم</button>
+                <button class="chip" data-tone="funny">مزح ثقيل شوي</button>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:flex-end;margin-top:4px;">
+              <button class="btn btn-primary btn-small" id="generateExcuseBtn">
+                🎲 اعذرني
+              </button>
+            </div>
+
+            <div class="excuse-box">
+              <div class="excuse-label">العذر الحالي:</div>
+              <div class="excuse-text" id="excuseText">
+                كنت حاط الجوال على الصامت وما انتبهت لإشعارات الواتساب، أول ما شفت رسالتك رجعتلك.
+              </div>
+
+              <div class="trust-meter">
+                مقياس: احتمال يصدقوك 👇
+                <div class="trust-bar">
+                  <div class="trust-fill" id="trustFill"></div>
+                </div>
+                <span id="trustLabel">تقديريًا: 79% – عذر منطقي، يعتمد على مزاج الشخص المقابل 😅</span>
+              </div>
+
+              <div style="margin-top:8px;display:flex;justify-content:space-between;gap:6px;align-items:center;">
+                <small style="color:var(--text-soft);">
+                  * ملاحظة: الموقع ساخر للضحك والترفيه فقط – لا تستعمله في أشياء تؤذيك أو تؤذي غيرك.
+                </small>
+                <button class="btn btn-outline btn-small" id="copyExcuseBtn">📋 نسخ العذر</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- العمود الأيمن: النوتات + مجتمع الأفكار -->
+      <section class="column column-right">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">نوتاتك اليومية 📝</div>
+              <div class="card-subtitle">
+                اكتب خطّتك، أفكارك، أو حتى ملاحظات من محادثة… مع عناوين وألوان وصور.
+              </div>
+            </div>
+            <span class="pill">محفوظة بحسابك في السحابة</span>
+          </div>
+
+          <form class="note-form" id="noteForm">
+            <div class="note-toolbar">
+              <span style="font-size:11px;color:var(--text-soft);">
+                نوتة جديدة:
+              </span>
+              <input type="color" id="noteColor" value="#1d4ed8" title="لون النوتة" />
+              <select id="noteFontSize" style="border-radius:999px;border:1px solid rgba(148,163,184,0.4);background:rgba(15,23,42,0.7);color:var(--text-main);font-size:11px;padding:2px 6px;">
+                <option value="13">خط عادي</option>
+                <option value="15">خط متوسط</option>
+                <option value="17">خط كبير</option>
+              </select>
+            </div>
+
+            <div class="note-form-row">
+              <input id="noteTitle" type="text" placeholder="عنوان النوتة – مثال: خطة تداول الأسبوع" required />
+              <input id="noteImageUrl" type="text" placeholder="رابط صورة (اختياري)" />
+            </div>
+
+            <textarea id="noteContent" rows="3" placeholder="اكتب نوتتك هنا…" required></textarea>
+
+            <div style="display:flex;justify-content:flex-end;gap:6px;">
+              <button type="submit" class="btn btn-primary btn-small">
+                + حفظ النوتة
+              </button>
+            </div>
+          </form>
+
+          <div class="notes-list" id="notesList">
+            <!-- النوتات المحمّلة من Firestore -->
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">معرض أفكار المستخدمين (قريباً) 🌍</div>
+              <div class="card-subtitle">
+                لاحقاً نضيف صفحة تستعرض أجمل تصميمات النوتات من مستخدمين ATLAS حول العالم.
+              </div>
+            </div>
+            <span class="pill">Community</span>
+          </div>
+
+          <p style="font-size:12px;color:var(--text-soft);margin-top:4px;">
+            مؤقتاً… إذا عملت صفحة نوتات مرتبة وعجبتك، خذ لقطة شاشة وشاركها مع أصحابك – وخليهم يجربوا
+            <strong>ATLAS Workspace</strong> من نفس الرابط.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>صُنع بحبّ بواسطة محمود الصمادي – ATLAS Workspace ©</span>
+      <span>هذا الموقع يعمل من متصفحك مع Firebase فقط، بدون أي سيرفرات معقّدة.</span>
+    </footer>
+  </div>
+
+  <script>
+    // ===== 1. إعداد Firebase =====
+    const firebaseConfig = {
+      apiKey: "AIzaSyDTOtQbGaLpGtDc34GXzcdppCvEJ60TYSs",
+      authDomain: "atlas-workspace.firebaseapp.com",
+      projectId: "atlas-workspace",
+      storageBucket: "atlas-workspace.firebasestorage.app",
+      messagingSenderId: "95882710960",
+      appId: "1:95882710960:web:9fcafcc1d4d057029ad075",
+      measurementId: "G-KJ446WXXHG",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // مراجع DOM أساسية
+    const authOverlay = document.getElementById("authOverlay");
+    const mainLayout = document.getElementById("mainLayout");
+    const googleLoginBtn = document.getElementById("googleLoginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const userChip = document.getElementById("userChip");
+    const userNameLabel = document.getElementById("userNameLabel");
+    const userAvatar = document.getElementById("userAvatar");
+    const greetingMain = document.getElementById("greetingMain");
+    const greetingSecondary = document.getElementById("greetingSecondary");
+
+    let currentUser = null;
+    let userDocRef = null;
+    let notesUnsubscribe = null;
+
+    // ===== 2. ثيم الموقع =====
+    const themeButtons = document.querySelectorAll(".theme-pill");
+    function applyTheme(theme) {
+      document.body.setAttribute("data-theme", theme);
+      localStorage.setItem("atlas_theme", theme);
+      themeButtons.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.theme === theme);
+      });
+      if (currentUser && userDocRef) {
+        userDocRef.set({ theme: theme }, { merge: true }).catch(console.error);
+      }
+    }
+    themeButtons.forEach((btn) => {
+      btn.addEventListener("click", () => applyTheme(btn.dataset.theme));
+    });
+
+    const savedTheme = localStorage.getItem("atlas_theme") || "dark";
+    applyTheme(savedTheme);
+
+    // ===== 3. تسجيل الدخول باستخدام Google =====
+    googleLoginBtn.addEventListener("click", async () => {
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        await auth.signInWithPopup(provider);
+      } catch (err) {
+        alert("تعذر تسجيل الدخول: " + err.message);
+      }
+    });
+
+    logoutBtn.addEventListener("click", () => auth.signOut());
+
+    auth.onAuthStateChanged(async (user) => {
+      currentUser = user || null;
+
+      if (!user) {
+        // مستخدم غير مسجل
+        authOverlay.style.display = "flex";
+        mainLayout.style.opacity = "0.0";
+        mainLayout.style.pointerEvents = "none";
+        logoutBtn.style.display = "none";
+        userNameLabel.textContent = "زائر بدون تسجيل";
+        userAvatar.textContent = "A";
+        if (notesUnsubscribe) {
+          notesUnsubscribe();
+        }
+        return;
+      }
+
+      // مستخدم مسجل
+      authOverlay.style.display = "none";
+      mainLayout.style.opacity = "1";
+      mainLayout.style.pointerEvents = "auto";
+      logoutBtn.style.display = "inline-flex";
+
+      const name = user.displayName || user.email || "مستخدم ATLAS";
+      userNameLabel.textContent = name;
+      userAvatar.textContent = (name[0] || "A").toUpperCase();
+
+      userDocRef = db.collection("users").doc(user.uid);
+
+      // تحميل بيانات المستخدم + إنشاء افتراضيات لو مش موجودة
+      const snapshot = await userDocRef.get();
+      if (!snapshot.exists) {
+        await userDocRef.set({
+          water: 0,
+          sleep: 0,
+          prayer: 0,
+          gym: 0,
+          theme: savedTheme,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+      } else {
+        const data = snapshot.data();
+        updateCountersFromData(data);
+        if (data.theme) {
+          applyTheme(data.theme);
+        }
+      }
+
+      // تحميل النوتات
+      subscribeToNotes();
+
+      updateGreeting(name);
+    });
+
+    function updateGreeting(name) {
+      const hour = new Date().getHours();
+      let greeting = "مرحباً";
+      let emoji = "✨";
+
+      if (hour >= 5 && hour < 12) {
+        greeting = "صباح الخير";
+        emoji = "🌤️";
+      } else if (hour >= 12 && hour < 18) {
+        greeting = "مساء الخير";
+        emoji = "🌇";
+      } else {
+        greeting = "مساء الهدوء";
+        emoji = "🌙";
+      }
+      greetingMain.textContent = `${greeting}، ${name.split(" ")[0]} ${emoji}`;
+      greetingSecondary.textContent =
+        "اختر ثيمك المفضل واضبط عداداتك ونوتاتك… وكل شيء يظل محفوظ معك.";
+    }
+
+    // ===== 4. عدادات (مياه / نوم / صلاة / جيم) =====
+    const counters = {
+      water: 0,
+      sleep: 0,
+      prayer: 0,
+      gym: 0,
+    };
+
+    function updateCounterUI() {
+      document.getElementById("waterValue").textContent =
+        counters.water + (counters.water === 1 ? " كوب" : " أكواب");
+      document.getElementById("sleepValue").textContent = counters.sleep + " ساعة";
+      document.getElementById("prayerValue").textContent = `${counters.prayer} / 5`;
+      document.getElementById("gymValue").textContent = counters.gym + " حصة";
+    }
+
+    function updateCountersFromData(data) {
+      counters.water = data.water ?? 0;
+      counters.sleep = data.sleep ?? 0;
+      counters.prayer = data.prayer ?? 0;
+      counters.gym = data.gym ?? 0;
+      updateCounterUI();
+    }
+
+    async function persistCounters() {
+      if (!currentUser || !userDocRef) return;
+      try {
+        await userDocRef.set(
+          {
+            water: counters.water,
+            sleep: counters.sleep,
+            prayer: counters.prayer,
+            gym: counters.gym,
+          },
+          { merge: true }
+        );
+      } catch (err) {
+        console.error("خطأ أثناء حفظ العداد:", err);
+      }
+    }
+
+    document.querySelectorAll(".stat-chip").forEach((chip) => {
+      const type = chip.dataset.counter;
+      chip.querySelectorAll(".stat-controls button").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const action = btn.dataset.action;
+          if (type === "sleep") {
+            counters.sleep += action === "inc" ? 0.5 : -0.5;
+            if (counters.sleep < 0) counters.sleep = 0;
+          } else if (type === "prayer") {
+            counters.prayer += action === "inc" ? 1 : -1;
+            if (counters.prayer < 0) counters.prayer = 0;
+            if (counters.prayer > 5) counters.prayer = 5;
+          } else {
+            counters[type] += action === "inc" ? 1 : -1;
+            if (counters[type] < 0) counters[type] = 0;
+          }
+          updateCounterUI();
+          persistCounters();
+        });
+      });
+    });
+
+    // ===== 5. موود + أعذار =====
+    const moodChips = document.getElementById("moodChips");
+    moodChips.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("chip")) return;
+      moodChips.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
+      e.target.classList.add("active");
+    });
+
+    function wireChipGroup(id) {
+      const container = document.getElementById(id);
+      container.addEventListener("click", (e) => {
+        if (!e.target.classList.contains("chip")) return;
+        container.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
+        e.target.classList.add("active");
+      });
+    }
+    wireChipGroup("contextChips");
+    wireChipGroup("toneChips");
+
+    const excusesDB = {
+      whatsapp: {
+        soft: [
+          "كنت حاط الجوال على الصامت وما انتبهت لإشعارات الواتساب، أول ما شفت رسالتك رجعتلك.",
+          "النت كان يفصل ويرجع وما وصلني إشعار رسالتك غير متأخر، سامحني على التأخير.",
+        ],
+        serious: [
+          "كنت في اجتماع عمل وما قدرت أمسك الجوال نهائياً، أول ما خلصت فتحت الواتساب ورديت عليك.",
+          "كنت خارج البيت وبيانات الجوال خلصت فجأة، أول ما وصلت للواي فاي فتحت الواتساب ورجعتلك.",
+        ],
+        funny: [
+          "دخلت الواتساب أنسى ليه دخلت، وطلعت بدون ما أرد… دماغي اليوم على وضع الطيران 🤦‍♂️.",
+          "كنت بعمل تنظيف لجهات الاتصال وطار عقلي معهن، الحمدلله رسالتك لسّا عندي 😅.",
+        ],
+      },
+      family: {
+        soft: [
+          "كنت برتّب شغلات في البيت ومسكور ظهري، ما انتبهت إن الجوال يرن.",
+          "كنت نايم بدري عشان أصحى نشيط، والله ما سمعت الجوال.",
+        ],
+        serious: [
+          "كنت برا البيت في مشوار ضروري وما كان معي مجال أرد، أول ما خلصت رجعت خبرتكم.",
+        ],
+        funny: [
+          "من كثر ما الجوال يرن خفت يكون تحصيل كهربا، تركته يستريح شوي 😂.",
+        ],
+      },
+      work: {
+        soft: [
+          "كنت مركز في تسليم شغل مهم وما فتحت الواتساب عشان ما أتشتت، أول ما خلصت دخلت على رسالتك.",
+        ],
+        serious: [
+          "كان عندي ضغط شغل واجتماعات متتالية، ففضلت أخلصهم وبعدها أرجع على جميع الرسائل.",
+        ],
+        funny: [
+          "كنت بكتب إيميل محترم ورحت نسخته هون بالغلط، فقررت أرجع للواقع وأرد عليك الآن 😅.",
+        ],
+      },
+      study: {
+        soft: [
+          "كنت بدرس ومسكر كل الإشعارات عشان أركز، أول ما أخذت بريك فتحت رسالتك.",
+        ],
+        serious: [
+          "كان عندي امتحان/محاضرة وما كان مسموح نمسك الجوال، أول ما خلصت رديت عليك.",
+        ],
+        funny: [
+          "الكتاب كان مفتوح والجوال بعيد… والنتيجة: لا درست ولا رديت 😅 بس هيني رجعت.",
+        ],
+      },
+      delay: {
+        soft: [
+          "علقت شوي بالطريق بسبب زحمة، بس هيني جاي بالطريق إليك.",
+        ],
+        serious: [
+          "صار ظرف طارئ بسيط أخّرني، بس أنا ملتزم أرجعلك وأوضّح لك كل شيء.",
+        ],
+        funny: [
+          "كنت جاي بالطريق، الزمن مش راضي يمشي معي اليوم… واضح إنه الاثنين متآمر عليّ 😂.",
+        ],
+      },
+    };
+
+    const trustLabel = document.getElementById("trustLabel");
+    const trustFill = document.getElementById("trustFill");
+    const excuseTextEl = document.getElementById("excuseText");
+
+    function randomFromArray(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    document
+      .getElementById("generateExcuseBtn")
+      .addEventListener("click", () => {
+        const context =
+          document.querySelector("#contextChips .chip.active")?.dataset.context ||
+          "whatsapp";
+        const tone =
+          document.querySelector("#toneChips .chip.active")?.dataset.tone || "soft";
+
+        const pool = excusesDB[context]?.[tone] || excusesDB.whatsapp.soft;
+        const excuse = randomFromArray(pool);
+        excuseTextEl.textContent = excuse;
+
+        const trust = Math.floor(65 + Math.random() * 30);
+        trustFill.style.width = trust + "%";
+        trustLabel.textContent =
+          "تقديريًا: " +
+          trust +
+          "% – يعتمد على مزاج الشخص المقابل وطريقة إلقائك للعذر 😉";
+      });
+
+    document.getElementById("copyExcuseBtn").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(excuseTextEl.textContent.trim());
+        alert("تم نسخ العذر، جاهز للصق في واتساب أو أي مكان ✅");
+      } catch (err) {
+        alert("ما قدرت أنسخ النص تلقائياً، انسخه يدويًا لو سمحت.");
+      }
+    });
+
+    // ===== 6. نظام النوتات =====
+    const notesListEl = document.getElementById("notesList");
+    const noteForm = document.getElementById("noteForm");
+    const noteTitleInput = document.getElementById("noteTitle");
+    const noteImageUrlInput = document.getElementById("noteImageUrl");
+    const noteContentInput = document.getElementById("noteContent");
+    const noteColorInput = document.getElementById("noteColor");
+    const noteFontSizeSelect = document.getElementById("noteFontSize");
+
+    function subscribeToNotes() {
+      if (!currentUser) return;
+      if (notesUnsubscribe) {
+        notesUnsubscribe();
+      }
+      notesUnsubscribe = db
+        .collection("notes")
+        .where("uid", "==", currentUser.uid)
+        .orderBy("createdAt", "desc")
+        .onSnapshot((snapshot) => {
+          notesListEl.innerHTML = "";
+          if (snapshot.empty) {
+            notesListEl.innerHTML =
+              '<div style="font-size:12px;color:var(--text-soft);">لا توجد نوتات بعد – اكتب أول نوتة فوق 👆</div>';
+            return;
+          }
+          snapshot.forEach((doc) => {
+            const note = doc.data();
+            renderNote(doc.id, note);
+          });
+        });
+    }
+
+    function renderNote(id, note) {
+      const div = document.createElement("div");
+      div.className = "note-card";
+      if (note.color) {
+        div.style.borderColor = note.color;
+        div.style.background = `linear-gradient(135deg, ${note.color}30, transparent 60%)`;
+      }
+
+      const created = note.createdAt?.toDate
+        ? note.createdAt.toDate().toLocaleString("ar-JO")
+        : "";
+
+      div.innerHTML = `
+        <div class="note-header-line">
+          <div class="note-title">${note.title || "بدون عنوان"}</div>
+          <div class="note-meta">${created}</div>
+        </div>
+        <div class="note-body" style="font-size:${note.fontSize || 13}px;">
+          ${note.content ? note.content.replace(/\n/g, "<br>") : ""}
+        </div>
+        ${
+          note.imageUrl
+            ? `<img class="note-image" src="${note.imageUrl}" alt="Note image" onerror="this.style.display='none';"/>`
+            : ""
+        }
+      `;
+
+      notesListEl.appendChild(div);
+    }
+
+    noteForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!currentUser) {
+        alert("سجّل الدخول أولاً لحفظ النوتة على حسابك.");
+        return;
+      }
+      const title = noteTitleInput.value.trim();
+      const content = noteContentInput.value.trim();
+      const imageUrl = noteImageUrlInput.value.trim();
+      const color = noteColorInput.value;
+      const fontSize = parseInt(noteFontSizeSelect.value, 10) || 13;
+
+      if (!content) return;
+
+      try {
+        await db.collection("notes").add({
+          uid: currentUser.uid,
+          title,
+          content,
+          imageUrl: imageUrl || null,
+          color,
+          fontSize,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+
+        noteTitleInput.value = "";
+        noteImageUrlInput.value = "";
+        noteContentInput.value = "";
+      } catch (err) {
+        console.error(err);
+        alert("حدث خطأ أثناء حفظ النوتة، حاول مرة أخرى.");
+      }
+    });
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
   <title>ATLAS Workspace – محمود الصمادي</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- خط عربي + إنجليزي -->
