@@ -2,2887 +2,109 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ATLAS Workspace – محمود الصمادي</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <title>ATLAS Workspace - محمود الصمادي</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
     :root {
-      --radius-lg: 22px;
-      --radius-xl: 28px;
-      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.35);
-      --shadow-card: 0 14px 30px rgba(0, 0, 0, 0.28);
-      --transition-fast: 0.18s ease-out;
-      --transition-med: 0.25s ease-out;
-
-      --primary: #27b0ff;
-      --primary-soft: rgba(39, 176, 255, 0.13);
-      --danger: #ff5c7a;
-      --success: #46d19b;
-      --text-main: #eaf6ff;
-      --text-soft: #a6b5d2;
-
-      --bg-main: #020717;
-      --bg-elevated: #060b22;
-      --bg-deep: radial-gradient(circle at top left, #132347 0, #020717 55%);
-      --card-bg: #050a1b;
-      --border-subtle: rgba(255, 255, 255, 0.04);
+      --bg: #050816;
+      --bg-soft: #0b1020;
+      --bg-card: #0f172a;
+      --bg-oled: #000000;
+      --accent: #22c1c3;
+      --accent-soft: rgba(34, 193, 195, 0.15);
+      --text: #f9fafb;
+      --text-soft: #9ca3af;
+      --border: #1f2937;
+      --danger: #ef4444;
+      --radius-xl: 18px;
+      --radius-lg: 14px;
+      --shadow-soft: 0 18px 40px rgba(0,0,0,0.55);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     /* ثيم فاتح */
-    body[data-theme="light"] {
-      --bg-main: #f4f6fb;
-      --bg-elevated: #ffffff;
-      --bg-deep: radial-gradient(circle at top left, #ffffff 0, #e9f0ff 60%);
-      --card-bg: #ffffff;
-      --text-main: #0e172a;
+    .theme-light {
+      --bg: #f3f4f6;
+      --bg-soft: #e5e7eb;
+      --bg-card: #ffffff;
+      --text: #020617;
       --text-soft: #4b5563;
-      --border-subtle: rgba(15, 23, 42, 0.06);
-      --shadow-soft: 0 16px 35px rgba(15, 23, 42, 0.1);
-      --shadow-card: 0 14px 26px rgba(15, 23, 42, 0.08);
+      --border: #e5e7eb;
+      --shadow-soft: 0 10px 30px rgba(15,23,42,0.12);
     }
 
     /* ثيم أسود OLED */
-    body[data-theme="oled"] {
-      --bg-main: #000000;
-      --bg-elevated: #02040b;
-      --bg-deep: radial-gradient(circle at top left, #071325 0, #000000 60%);
-      --card-bg: #02040b;
-      --border-subtle: rgba(255, 255, 255, 0.06);
-      --shadow-soft: 0 0 0 rgba(0, 0, 0, 0);
-      --shadow-card: 0 0 0 rgba(0, 0, 0, 0);
+    .theme-oled {
+      --bg: #000000;
+      --bg-soft: #020617;
+      --bg-card: #020617;
+      --shadow-soft: 0 18px 40px rgba(0,0,0,0.9);
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1e293b 0, var(--bg) 55%);
+      color: var(--text);
       min-height: 100vh;
-      font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      background: var(--bg-deep);
-      color: var(--text-main);
       display: flex;
       align-items: stretch;
       justify-content: center;
+      padding: 20px;
     }
 
     .app-shell {
       width: 100%;
-      max-width: 1380px;
-      margin: 18px auto 30px;
-      padding: 16px 18px 24px;
-      background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.02),
-        rgba(15, 23, 42, 0.7)
-      );
-      border-radius: 32px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      max-width: 1200px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, rgba(148,163,184,0.1), rgba(15,23,42,0.9));
+      padding: 1px;
       box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(20px);
-      position: relative;
-      overflow: hidden;
     }
 
-    header.app-header {
+    .app-inner {
+      border-radius: 25px;
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.22), transparent 60%),
+                  radial-gradient(circle at bottom right, rgba(251,191,36,0.16), transparent 55%),
+                  var(--bg);
+      min-height: calc(100vh - 40px);
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      padding: 16px;
+      gap: 12px;
+    }
+
+    header {
+      display: flex;
       align-items: center;
-      gap: 18px;
-      margin-bottom: 18px;
+      justify-content: space-between;
+      gap: 12px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .brand-logo {
-      width: 44px;
-      height: 44px;
-      border-radius: 18px;
-      background: radial-gradient(circle at 25% 0, #4adeff 0, #2563eb 40%, #020617 80%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #e5f1ff;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #22c1c3, #0f172a);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#e5e7eb;
       font-weight: 800;
       font-size: 22px;
-      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.6);
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .brand-title {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    .brand-subtitle {
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .user-controls {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .theme-switcher {
-      display: inline-flex;
-      padding: 4px;
-      gap: 4px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .theme-pill {
-      border: none;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      background: transparent;
-      color: var(--text-soft);
-      cursor: pointer;
-      transition: background var(--transition-fast), color var(--transition-fast),
-        transform var(--transition-fast);
-    }
-
-    .theme-pill.active {
-      background: var(--primary-soft);
-      color: var(--text-main);
-      transform: translateY(-1px);
-    }
-
-    .user-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid var(--border-subtle);
-      font-size: 12px;
-    }
-
-    .user-avatar {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 25% 0, #fde047 0, #f97316 40%, #7c2d12 90%);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 700;
-      color: #0b1020;
-    }
-
-    .btn {
-      border-radius: 999px;
-      border: none;
-      padding: 7px 13px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background var(--transition-fast), transform var(--transition-fast),
-        box-shadow var(--transition-fast), color var(--transition-fast);
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #020617;
-      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.7);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 32px rgba(37, 99, 235, 0.85);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--text-soft);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .btn-outline:hover {
-      background: rgba(148, 163, 184, 0.1);
-    }
-
-    .btn-small {
-      padding: 4px 10px;
-      font-size: 11px;
-    }
-
-    main.layout {
-      display: grid;
-      grid-template-columns: 0.85fr 1.1fr 0.95fr;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    .column {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-card);
-      padding: 14px 16px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 8px;
-      gap: 8px;
-    }
-
-    .card-title {
-      font-size: 15px;
-      font-weight: 700;
-    }
-
-    .card-subtitle {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .pill {
-      border-radius: 999px;
-      padding: 3px 9px;
-      font-size: 10px;
-      color: var(--text-soft);
-      border: 1px solid var(--border-subtle);
-      background: rgba(15, 23, 42, 0.7);
-    }
-
-    .greeting-main {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .greeting-secondary {
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-bottom: 10px;
-    }
-
-    .stats-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .stat-chip {
-      flex: 1 1 90px;
-      min-width: 0;
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.2), transparent 60%);
-      border-radius: 14px;
-      padding: 8px 9px;
-      border: 1px solid var(--border-subtle);
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .stat-label {
-      font-size: 11px;
-      color: var(--text-soft);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .stat-value {
-      font-size: 15px;
-      font-weight: 700;
-    }
-
-    .stat-controls {
-      display: flex;
-      gap: 4px;
-      margin-top: 4px;
-    }
-
-    .stat-controls button {
-      flex: 1;
-      border-radius: 999px;
-      border: none;
-      font-size: 11px;
-      padding: 3px 0;
-      cursor: pointer;
-      background: rgba(15, 23, 42, 0.8);
-      color: var(--text-soft);
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      transition: background var(--transition-fast), color var(--transition-fast),
-        transform var(--transition-fast);
-    }
-
-    .stat-controls button:hover {
-      background: var(--primary-soft);
-      color: var(--text-main);
-      transform: translateY(-0.5px);
-    }
-
-    .excuse-layout {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .chip {
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      padding: 4px 10px;
-      font-size: 11px;
-      background: rgba(15, 23, 42, 0.8);
-      color: var(--text-soft);
-      cursor: pointer;
-      transition: background var(--transition-fast), color var(--transition-fast),
-        transform var(--transition-fast);
-    }
-
-    .chip.active {
-      background: var(--primary-soft);
-      color: var(--text-main);
-      transform: translateY(-1px);
-    }
-
-    .excuse-box {
-      margin-top: 4px;
-      padding: 10px 12px;
-      border-radius: 16px;
-      background: linear-gradient(
-        135deg,
-        rgba(15, 23, 42, 0.9),
-        rgba(30, 64, 175, 0.9)
-      );
-      border: 1px solid rgba(129, 140, 248, 0.45);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .excuse-label {
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-bottom: 2px;
-    }
-
-    .excuse-text {
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .trust-meter {
-      margin-top: 8px;
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .trust-bar {
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.7);
-      overflow: hidden;
-      margin-top: 4px;
-    }
-
-    .trust-fill {
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #f97316, #facc15, #22c55e);
-      width: 70%;
-      transition: width 0.35s ease-out;
-    }
-
-    .notes-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      max-height: 260px;
-      overflow: auto;
-      padding-right: 4px;
-    }
-
-    .note-card {
-      border-radius: 16px;
-      padding: 8px 10px;
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      background: radial-gradient(circle at top left, rgba(51, 65, 85, 0.4), transparent 55%);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .note-header-line {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .note-title {
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .note-meta {
-      font-size: 10px;
-      color: var(--text-soft);
-    }
-
-    .note-body {
-      font-size: 12px;
-      line-height: 1.7;
-      white-space: pre-wrap;
-    }
-
-    .note-image {
-      margin-top: 4px;
-      border-radius: 12px;
-      max-height: 130px;
-      object-fit: cover;
-      width: 100%;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-    }
-
-    .note-toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-
-    .note-toolbar input[type="color"] {
-      width: 32px;
-      height: 22px;
-      border-radius: 999px;
-      border: none;
-      padding: 0;
-      background: transparent;
-      cursor: pointer;
-    }
-
-    .note-form {
-      margin-bottom: 8px;
-      padding: 8px 10px;
-      border-radius: 16px;
-      border: 1px dashed rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.6);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .note-form input,
-    .note-form textarea {
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background: rgba(15, 23, 42, 0.7);
-      color: var(--text-main);
-      padding: 5px 8px;
-      font-size: 12px;
-      resize: vertical;
-      outline: none;
-    }
-
-    .note-form input::placeholder,
-    .note-form textarea::placeholder {
-      color: rgba(148, 163, 184, 0.7);
-    }
-
-    .note-form-row {
-      display: flex;
-      gap: 6px;
-    }
-
-    .note-form-row > * {
-      flex: 1;
-    }
-
-    footer {
-      margin-top: 18px;
-      font-size: 11px;
-      color: var(--text-soft);
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-      align-items: center;
-    }
-
-    footer a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    /* شاشة تسجيل الدخول */
-    .auth-overlay {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 55%),
-        linear-gradient(145deg, #020617, #020617);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 20;
-    }
-
-    .auth-card {
-      width: 100%;
-      max-width: 420px;
-      padding: 24px 22px 20px;
-      border-radius: 28px;
-      background: rgba(15, 23, 42, 0.96);
-      box-shadow: 0 22px 70px rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-    }
-
-    .auth-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .auth-subtitle {
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-bottom: 14px;
-    }
-
-    .auth-provider-btn {
-      width: 100%;
-      justify-content: center;
-      margin-bottom: 8px;
-    }
-
-    .auth-note {
-      font-size: 11px;
-      color: var(--text-soft);
-      text-align: center;
-      margin-top: 6px;
-    }
-
-    .badge-online {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 8px;
-      font-size: 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(22, 163, 74, 0.7);
-      background: rgba(6, 95, 70, 0.5);
-      color: #bbf7d0;
-    }
-
-    .badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.3);
-    }
-
-    @media (max-width: 1100px) {
-      main.layout {
-        grid-template-columns: 1fr;
-      }
-      .column {
-        order: unset;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .app-shell {
-        margin: 10px;
-        padding: 14px 10px 18px;
-        border-radius: 20px;
-      }
-      header.app-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      main.layout {
-        gap: 12px;
-      }
-      .card {
-        padding: 12px 12px;
-      }
-    }
-  </style>
-
-  <!-- Firebase (نسخة 8 كلاسيكية – أسهل للتعامل من ملف واحد) -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-</head>
-
-<body data-theme="dark">
-  <div class="app-shell">
-    <!-- شاشة تسجيل الدخول -->
-    <div class="auth-overlay" id="authOverlay">
-      <div class="auth-card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-          <div>
-            <div class="auth-title">مرحباً بك في ATLAS Workspace</div>
-            <div class="auth-subtitle">
-              مساحة شخصية لتنظيم يومك: أعذار جاهزة، نوتات، تتبّع مياه/نوم/صلاة/جيم – وكلها محفوظة بحسابك.
-            </div>
-          </div>
-          <div class="brand-logo">A</div>
-        </div>
-
-        <button class="btn btn-primary auth-provider-btn" id="googleLoginBtn">
-          🔐 تسجيل الدخول باستخدام Google
-        </button>
-
-        <div class="auth-note">
-          تسجيل الدخول فقط لحفظ بياناتك على السحابة. لن نشارك معلوماتك مع أي جهة.
-        </div>
-      </div>
-    </div>
-
-    <!-- الهيدر -->
-    <header class="app-header">
-      <div class="brand">
-        <div class="brand-logo">A</div>
-        <div class="brand-text">
-          <span class="brand-title">ATLAS Workspace</span>
-          <span class="brand-subtitle">مكتب محمود الصمادي – مُصمَّم لروتين يومك</span>
-        </div>
-      </div>
-
-      <div class="user-controls">
-        <div class="theme-switcher">
-          <button class="theme-pill active" data-theme="dark">داكن</button>
-          <button class="theme-pill" data-theme="oled">أسود OLED</button>
-          <button class="theme-pill" data-theme="light">فاتح</button>
-        </div>
-
-        <div class="user-chip" id="userChip">
-          <div class="user-avatar" id="userAvatar">A</div>
-          <div>
-            <div id="userNameLabel" style="font-size:12px;font-weight:600;">
-              زائر بدون تسجيل
-            </div>
-            <div style="font-size:10px;color:var(--text-soft);">
-              سجّل الدخول لحفظ نوتاتك
-            </div>
-          </div>
-        </div>
-
-        <button class="btn btn-outline btn-small" id="logoutBtn" style="display:none;">
-          تسجيل الخروج
-        </button>
-      </div>
-    </header>
-
-    <!-- المحتوى الرئيسي -->
-    <main class="layout" id="mainLayout" style="opacity:0.0; pointer-events:none;">
-      <!-- العمود الأيسر: التحية + الويدجت -->
-      <section class="column column-left">
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">روتين اليوم 👋</div>
-              <div class="card-subtitle">
-                تحية خاصة + ملخص سريع لليوم.
-              </div>
-            </div>
-            <span class="badge-online">
-              <span class="badge-dot"></span> يعمل الآن 24/7
-            </span>
-          </div>
-
-          <div class="greeting-main" id="greetingMain">صباح الخير 🌤️</div>
-          <div class="greeting-secondary" id="greetingSecondary">
-            خلينا نرتّب يومك مع بعض.
-          </div>
-
-          <div class="stats-row" style="margin-top:8px;">
-            <div class="stat-chip" data-counter="water">
-              <div class="stat-label">
-                <span>المياه 💧</span>
-                <span id="waterTarget">هدفك: 8 أكواب</span>
-              </div>
-              <div class="stat-value" id="waterValue">0 كوب</div>
-              <div class="stat-controls">
-                <button data-action="dec">-</button>
-                <button data-action="inc">+ 1</button>
-              </div>
-            </div>
-
-            <div class="stat-chip" data-counter="sleep">
-              <div class="stat-label">
-                <span>النوم 😴</span>
-                <span id="sleepTarget">هدفك: 8 ساعات</span>
-              </div>
-              <div class="stat-value" id="sleepValue">0 ساعة</div>
-              <div class="stat-controls">
-                <button data-action="dec">-</button>
-                <button data-action="inc">+ 0.5</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="stats-row" style="margin-top:8px;">
-            <div class="stat-chip" data-counter="prayer">
-              <div class="stat-label">
-                <span>الصلاة 🕌</span>
-                <span>5 فروض</span>
-              </div>
-              <div class="stat-value" id="prayerValue">0 / 5</div>
-              <div class="stat-controls">
-                <button data-action="dec">-</button>
-                <button data-action="inc">+ 1</button>
-              </div>
-            </div>
-
-            <div class="stat-chip" data-counter="gym">
-              <div class="stat-label">
-                <span>الجيم 🏋️‍♂️</span>
-                <span>أيام الأسبوع</span>
-              </div>
-              <div class="stat-value" id="gymValue">0 حصة</div>
-              <div class="stat-controls">
-                <button data-action="dec">-</button>
-                <button data-action="inc">+ 1</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">عداد الحالة الذهنية 🎧</div>
-              <div class="card-subtitle">
-                اختر شعورك اليوم عشان يساعدك ATLAS يضبط روتينك.
-              </div>
-            </div>
-            <span class="pill">Moood Tracker</span>
-          </div>
-
-          <div class="chip-row" id="moodChips">
-            <button class="chip active" data-mood="focus">مركّز</button>
-            <button class="chip" data-mood="tired">مرهق</button>
-            <button class="chip" data-mood="social">اجتماعي</button>
-            <button class="chip" data-mood="lazy">مالي خُلُق</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- العمود الأوسط: صانع الأعذار -->
-      <section class="column column-center">
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">مولّد الأعذار ATLAS غَذِّرني 🫣</div>
-              <div class="card-subtitle">
-                اختر الموقف ونوع العذر… وخلي ATLAS يجهّز لك عذر مرتب وجاهز للنسخ.
-              </div>
-            </div>
-            <span class="pill">للواجبات، الشغل، الاجتماعات، والطلعات</span>
-          </div>
-
-          <div class="excuse-layout">
-            <div>
-              <div class="card-subtitle" style="margin-bottom:4px;">1. اختر نوع الموقف 🎯</div>
-              <div class="chip-row" id="contextChips">
-                <button class="chip active" data-context="whatsapp">واتساب / أونلاين</button>
-                <button class="chip" data-context="family">أهل / عائلة</button>
-                <button class="chip" data-context="work">شغل / وظيفة</button>
-                <button class="chip" data-context="study">مدرسة / جامعة</button>
-                <button class="chip" data-context="delay">تأخير عن موعد</button>
-              </div>
-            </div>
-
-            <div>
-              <div class="card-subtitle" style="margin-bottom:4px;">2. اختر المزاج 😏</div>
-              <div class="chip-row" id="toneChips">
-                <button class="chip active" data-tone="soft">لطيف هادي</button>
-                <button class="chip" data-tone="serious">رسمي ومحترم</button>
-                <button class="chip" data-tone="funny">مزح ثقيل شوي</button>
-              </div>
-            </div>
-
-            <div style="display:flex;justify-content:flex-end;margin-top:4px;">
-              <button class="btn btn-primary btn-small" id="generateExcuseBtn">
-                🎲 اعذرني
-              </button>
-            </div>
-
-            <div class="excuse-box">
-              <div class="excuse-label">العذر الحالي:</div>
-              <div class="excuse-text" id="excuseText">
-                كنت حاط الجوال على الصامت وما انتبهت لإشعارات الواتساب، أول ما شفت رسالتك رجعتلك.
-              </div>
-
-              <div class="trust-meter">
-                مقياس: احتمال يصدقوك 👇
-                <div class="trust-bar">
-                  <div class="trust-fill" id="trustFill"></div>
-                </div>
-                <span id="trustLabel">تقديريًا: 79% – عذر منطقي، يعتمد على مزاج الشخص المقابل 😅</span>
-              </div>
-
-              <div style="margin-top:8px;display:flex;justify-content:space-between;gap:6px;align-items:center;">
-                <small style="color:var(--text-soft);">
-                  * ملاحظة: الموقع ساخر للضحك والترفيه فقط – لا تستعمله في أشياء تؤذيك أو تؤذي غيرك.
-                </small>
-                <button class="btn btn-outline btn-small" id="copyExcuseBtn">📋 نسخ العذر</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- العمود الأيمن: النوتات + مجتمع الأفكار -->
-      <section class="column column-right">
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">نوتاتك اليومية 📝</div>
-              <div class="card-subtitle">
-                اكتب خطّتك، أفكارك، أو حتى ملاحظات من محادثة… مع عناوين وألوان وصور.
-              </div>
-            </div>
-            <span class="pill">محفوظة بحسابك في السحابة</span>
-          </div>
-
-          <form class="note-form" id="noteForm">
-            <div class="note-toolbar">
-              <span style="font-size:11px;color:var(--text-soft);">
-                نوتة جديدة:
-              </span>
-              <input type="color" id="noteColor" value="#1d4ed8" title="لون النوتة" />
-              <select id="noteFontSize" style="border-radius:999px;border:1px solid rgba(148,163,184,0.4);background:rgba(15,23,42,0.7);color:var(--text-main);font-size:11px;padding:2px 6px;">
-                <option value="13">خط عادي</option>
-                <option value="15">خط متوسط</option>
-                <option value="17">خط كبير</option>
-              </select>
-            </div>
-
-            <div class="note-form-row">
-              <input id="noteTitle" type="text" placeholder="عنوان النوتة – مثال: خطة تداول الأسبوع" required />
-              <input id="noteImageUrl" type="text" placeholder="رابط صورة (اختياري)" />
-            </div>
-
-            <textarea id="noteContent" rows="3" placeholder="اكتب نوتتك هنا…" required></textarea>
-
-            <div style="display:flex;justify-content:flex-end;gap:6px;">
-              <button type="submit" class="btn btn-primary btn-small">
-                + حفظ النوتة
-              </button>
-            </div>
-          </form>
-
-          <div class="notes-list" id="notesList">
-            <!-- النوتات المحمّلة من Firestore -->
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">معرض أفكار المستخدمين (قريباً) 🌍</div>
-              <div class="card-subtitle">
-                لاحقاً نضيف صفحة تستعرض أجمل تصميمات النوتات من مستخدمين ATLAS حول العالم.
-              </div>
-            </div>
-            <span class="pill">Community</span>
-          </div>
-
-          <p style="font-size:12px;color:var(--text-soft);margin-top:4px;">
-            مؤقتاً… إذا عملت صفحة نوتات مرتبة وعجبتك، خذ لقطة شاشة وشاركها مع أصحابك – وخليهم يجربوا
-            <strong>ATLAS Workspace</strong> من نفس الرابط.
-          </p>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <span>صُنع بحبّ بواسطة محمود الصمادي – ATLAS Workspace ©</span>
-      <span>هذا الموقع يعمل من متصفحك مع Firebase فقط، بدون أي سيرفرات معقّدة.</span>
-    </footer>
-  </div>
-
-  <script>
-    // ===== 1. إعداد Firebase =====
-    const firebaseConfig = {
-      apiKey: "AIzaSyDTOtQbGaLpGtDc34GXzcdppCvEJ60TYSs",
-      authDomain: "atlas-workspace.firebaseapp.com",
-      projectId: "atlas-workspace",
-      storageBucket: "atlas-workspace.firebasestorage.app",
-      messagingSenderId: "95882710960",
-      appId: "1:95882710960:web:9fcafcc1d4d057029ad075",
-      measurementId: "G-KJ446WXXHG",
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-
-    // مراجع DOM أساسية
-    const authOverlay = document.getElementById("authOverlay");
-    const mainLayout = document.getElementById("mainLayout");
-    const googleLoginBtn = document.getElementById("googleLoginBtn");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const userChip = document.getElementById("userChip");
-    const userNameLabel = document.getElementById("userNameLabel");
-    const userAvatar = document.getElementById("userAvatar");
-    const greetingMain = document.getElementById("greetingMain");
-    const greetingSecondary = document.getElementById("greetingSecondary");
-
-    let currentUser = null;
-    let userDocRef = null;
-    let notesUnsubscribe = null;
-
-    // ===== 2. ثيم الموقع =====
-    const themeButtons = document.querySelectorAll(".theme-pill");
-    function applyTheme(theme) {
-      document.body.setAttribute("data-theme", theme);
-      localStorage.setItem("atlas_theme", theme);
-      themeButtons.forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.theme === theme);
-      });
-      if (currentUser && userDocRef) {
-        userDocRef.set({ theme: theme }, { merge: true }).catch(console.error);
-      }
-    }
-    themeButtons.forEach((btn) => {
-      btn.addEventListener("click", () => applyTheme(btn.dataset.theme));
-    });
-
-    const savedTheme = localStorage.getItem("atlas_theme") || "dark";
-    applyTheme(savedTheme);
-
-    // ===== 3. تسجيل الدخول باستخدام Google =====
-    googleLoginBtn.addEventListener("click", async () => {
-      try {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        await auth.signInWithPopup(provider);
-      } catch (err) {
-        alert("تعذر تسجيل الدخول: " + err.message);
-      }
-    });
-
-    logoutBtn.addEventListener("click", () => auth.signOut());
-
-    auth.onAuthStateChanged(async (user) => {
-      currentUser = user || null;
-
-      if (!user) {
-        // مستخدم غير مسجل
-        authOverlay.style.display = "flex";
-        mainLayout.style.opacity = "0.0";
-        mainLayout.style.pointerEvents = "none";
-        logoutBtn.style.display = "none";
-        userNameLabel.textContent = "زائر بدون تسجيل";
-        userAvatar.textContent = "A";
-        if (notesUnsubscribe) {
-          notesUnsubscribe();
-        }
-        return;
-      }
-
-      // مستخدم مسجل
-      authOverlay.style.display = "none";
-      mainLayout.style.opacity = "1";
-      mainLayout.style.pointerEvents = "auto";
-      logoutBtn.style.display = "inline-flex";
-
-      const name = user.displayName || user.email || "مستخدم ATLAS";
-      userNameLabel.textContent = name;
-      userAvatar.textContent = (name[0] || "A").toUpperCase();
-
-      userDocRef = db.collection("users").doc(user.uid);
-
-      // تحميل بيانات المستخدم + إنشاء افتراضيات لو مش موجودة
-      const snapshot = await userDocRef.get();
-      if (!snapshot.exists) {
-        await userDocRef.set({
-          water: 0,
-          sleep: 0,
-          prayer: 0,
-          gym: 0,
-          theme: savedTheme,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        });
-      } else {
-        const data = snapshot.data();
-        updateCountersFromData(data);
-        if (data.theme) {
-          applyTheme(data.theme);
-        }
-      }
-
-      // تحميل النوتات
-      subscribeToNotes();
-
-      updateGreeting(name);
-    });
-
-    function updateGreeting(name) {
-      const hour = new Date().getHours();
-      let greeting = "مرحباً";
-      let emoji = "✨";
-
-      if (hour >= 5 && hour < 12) {
-        greeting = "صباح الخير";
-        emoji = "🌤️";
-      } else if (hour >= 12 && hour < 18) {
-        greeting = "مساء الخير";
-        emoji = "🌇";
-      } else {
-        greeting = "مساء الهدوء";
-        emoji = "🌙";
-      }
-      greetingMain.textContent = `${greeting}، ${name.split(" ")[0]} ${emoji}`;
-      greetingSecondary.textContent =
-        "اختر ثيمك المفضل واضبط عداداتك ونوتاتك… وكل شيء يظل محفوظ معك.";
-    }
-
-    // ===== 4. عدادات (مياه / نوم / صلاة / جيم) =====
-    const counters = {
-      water: 0,
-      sleep: 0,
-      prayer: 0,
-      gym: 0,
-    };
-
-    function updateCounterUI() {
-      document.getElementById("waterValue").textContent =
-        counters.water + (counters.water === 1 ? " كوب" : " أكواب");
-      document.getElementById("sleepValue").textContent = counters.sleep + " ساعة";
-      document.getElementById("prayerValue").textContent = `${counters.prayer} / 5`;
-      document.getElementById("gymValue").textContent = counters.gym + " حصة";
-    }
-
-    function updateCountersFromData(data) {
-      counters.water = data.water ?? 0;
-      counters.sleep = data.sleep ?? 0;
-      counters.prayer = data.prayer ?? 0;
-      counters.gym = data.gym ?? 0;
-      updateCounterUI();
-    }
-
-    async function persistCounters() {
-      if (!currentUser || !userDocRef) return;
-      try {
-        await userDocRef.set(
-          {
-            water: counters.water,
-            sleep: counters.sleep,
-            prayer: counters.prayer,
-            gym: counters.gym,
-          },
-          { merge: true }
-        );
-      } catch (err) {
-        console.error("خطأ أثناء حفظ العداد:", err);
-      }
-    }
-
-    document.querySelectorAll(".stat-chip").forEach((chip) => {
-      const type = chip.dataset.counter;
-      chip.querySelectorAll(".stat-controls button").forEach((btn) => {
-        btn.addEventListener("click", async () => {
-          const action = btn.dataset.action;
-          if (type === "sleep") {
-            counters.sleep += action === "inc" ? 0.5 : -0.5;
-            if (counters.sleep < 0) counters.sleep = 0;
-          } else if (type === "prayer") {
-            counters.prayer += action === "inc" ? 1 : -1;
-            if (counters.prayer < 0) counters.prayer = 0;
-            if (counters.prayer > 5) counters.prayer = 5;
-          } else {
-            counters[type] += action === "inc" ? 1 : -1;
-            if (counters[type] < 0) counters[type] = 0;
-          }
-          updateCounterUI();
-          persistCounters();
-        });
-      });
-    });
-
-    // ===== 5. موود + أعذار =====
-    const moodChips = document.getElementById("moodChips");
-    moodChips.addEventListener("click", (e) => {
-      if (!e.target.classList.contains("chip")) return;
-      moodChips.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
-      e.target.classList.add("active");
-    });
-
-    function wireChipGroup(id) {
-      const container = document.getElementById(id);
-      container.addEventListener("click", (e) => {
-        if (!e.target.classList.contains("chip")) return;
-        container.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
-        e.target.classList.add("active");
-      });
-    }
-    wireChipGroup("contextChips");
-    wireChipGroup("toneChips");
-
-    const excusesDB = {
-      whatsapp: {
-        soft: [
-          "كنت حاط الجوال على الصامت وما انتبهت لإشعارات الواتساب، أول ما شفت رسالتك رجعتلك.",
-          "النت كان يفصل ويرجع وما وصلني إشعار رسالتك غير متأخر، سامحني على التأخير.",
-        ],
-        serious: [
-          "كنت في اجتماع عمل وما قدرت أمسك الجوال نهائياً، أول ما خلصت فتحت الواتساب ورديت عليك.",
-          "كنت خارج البيت وبيانات الجوال خلصت فجأة، أول ما وصلت للواي فاي فتحت الواتساب ورجعتلك.",
-        ],
-        funny: [
-          "دخلت الواتساب أنسى ليه دخلت، وطلعت بدون ما أرد… دماغي اليوم على وضع الطيران 🤦‍♂️.",
-          "كنت بعمل تنظيف لجهات الاتصال وطار عقلي معهن، الحمدلله رسالتك لسّا عندي 😅.",
-        ],
-      },
-      family: {
-        soft: [
-          "كنت برتّب شغلات في البيت ومسكور ظهري، ما انتبهت إن الجوال يرن.",
-          "كنت نايم بدري عشان أصحى نشيط، والله ما سمعت الجوال.",
-        ],
-        serious: [
-          "كنت برا البيت في مشوار ضروري وما كان معي مجال أرد، أول ما خلصت رجعت خبرتكم.",
-        ],
-        funny: [
-          "من كثر ما الجوال يرن خفت يكون تحصيل كهربا، تركته يستريح شوي 😂.",
-        ],
-      },
-      work: {
-        soft: [
-          "كنت مركز في تسليم شغل مهم وما فتحت الواتساب عشان ما أتشتت، أول ما خلصت دخلت على رسالتك.",
-        ],
-        serious: [
-          "كان عندي ضغط شغل واجتماعات متتالية، ففضلت أخلصهم وبعدها أرجع على جميع الرسائل.",
-        ],
-        funny: [
-          "كنت بكتب إيميل محترم ورحت نسخته هون بالغلط، فقررت أرجع للواقع وأرد عليك الآن 😅.",
-        ],
-      },
-      study: {
-        soft: [
-          "كنت بدرس ومسكر كل الإشعارات عشان أركز، أول ما أخذت بريك فتحت رسالتك.",
-        ],
-        serious: [
-          "كان عندي امتحان/محاضرة وما كان مسموح نمسك الجوال، أول ما خلصت رديت عليك.",
-        ],
-        funny: [
-          "الكتاب كان مفتوح والجوال بعيد… والنتيجة: لا درست ولا رديت 😅 بس هيني رجعت.",
-        ],
-      },
-      delay: {
-        soft: [
-          "علقت شوي بالطريق بسبب زحمة، بس هيني جاي بالطريق إليك.",
-        ],
-        serious: [
-          "صار ظرف طارئ بسيط أخّرني، بس أنا ملتزم أرجعلك وأوضّح لك كل شيء.",
-        ],
-        funny: [
-          "كنت جاي بالطريق، الزمن مش راضي يمشي معي اليوم… واضح إنه الاثنين متآمر عليّ 😂.",
-        ],
-      },
-    };
-
-    const trustLabel = document.getElementById("trustLabel");
-    const trustFill = document.getElementById("trustFill");
-    const excuseTextEl = document.getElementById("excuseText");
-
-    function randomFromArray(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    document
-      .getElementById("generateExcuseBtn")
-      .addEventListener("click", () => {
-        const context =
-          document.querySelector("#contextChips .chip.active")?.dataset.context ||
-          "whatsapp";
-        const tone =
-          document.querySelector("#toneChips .chip.active")?.dataset.tone || "soft";
-
-        const pool = excusesDB[context]?.[tone] || excusesDB.whatsapp.soft;
-        const excuse = randomFromArray(pool);
-        excuseTextEl.textContent = excuse;
-
-        const trust = Math.floor(65 + Math.random() * 30);
-        trustFill.style.width = trust + "%";
-        trustLabel.textContent =
-          "تقديريًا: " +
-          trust +
-          "% – يعتمد على مزاج الشخص المقابل وطريقة إلقائك للعذر 😉";
-      });
-
-    document.getElementById("copyExcuseBtn").addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(excuseTextEl.textContent.trim());
-        alert("تم نسخ العذر، جاهز للصق في واتساب أو أي مكان ✅");
-      } catch (err) {
-        alert("ما قدرت أنسخ النص تلقائياً، انسخه يدويًا لو سمحت.");
-      }
-    });
-
-    // ===== 6. نظام النوتات =====
-    const notesListEl = document.getElementById("notesList");
-    const noteForm = document.getElementById("noteForm");
-    const noteTitleInput = document.getElementById("noteTitle");
-    const noteImageUrlInput = document.getElementById("noteImageUrl");
-    const noteContentInput = document.getElementById("noteContent");
-    const noteColorInput = document.getElementById("noteColor");
-    const noteFontSizeSelect = document.getElementById("noteFontSize");
-
-    function subscribeToNotes() {
-      if (!currentUser) return;
-      if (notesUnsubscribe) {
-        notesUnsubscribe();
-      }
-      notesUnsubscribe = db
-        .collection("notes")
-        .where("uid", "==", currentUser.uid)
-        .orderBy("createdAt", "desc")
-        .onSnapshot((snapshot) => {
-          notesListEl.innerHTML = "";
-          if (snapshot.empty) {
-            notesListEl.innerHTML =
-              '<div style="font-size:12px;color:var(--text-soft);">لا توجد نوتات بعد – اكتب أول نوتة فوق 👆</div>';
-            return;
-          }
-          snapshot.forEach((doc) => {
-            const note = doc.data();
-            renderNote(doc.id, note);
-          });
-        });
-    }
-
-    function renderNote(id, note) {
-      const div = document.createElement("div");
-      div.className = "note-card";
-      if (note.color) {
-        div.style.borderColor = note.color;
-        div.style.background = `linear-gradient(135deg, ${note.color}30, transparent 60%)`;
-      }
-
-      const created = note.createdAt?.toDate
-        ? note.createdAt.toDate().toLocaleString("ar-JO")
-        : "";
-
-      div.innerHTML = `
-        <div class="note-header-line">
-          <div class="note-title">${note.title || "بدون عنوان"}</div>
-          <div class="note-meta">${created}</div>
-        </div>
-        <div class="note-body" style="font-size:${note.fontSize || 13}px;">
-          ${note.content ? note.content.replace(/\n/g, "<br>") : ""}
-        </div>
-        ${
-          note.imageUrl
-            ? `<img class="note-image" src="${note.imageUrl}" alt="Note image" onerror="this.style.display='none';"/>`
-            : ""
-        }
-      `;
-
-      notesListEl.appendChild(div);
-    }
-
-    noteForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (!currentUser) {
-        alert("سجّل الدخول أولاً لحفظ النوتة على حسابك.");
-        return;
-      }
-      const title = noteTitleInput.value.trim();
-      const content = noteContentInput.value.trim();
-      const imageUrl = noteImageUrlInput.value.trim();
-      const color = noteColorInput.value;
-      const fontSize = parseInt(noteFontSizeSelect.value, 10) || 13;
-
-      if (!content) return;
-
-      try {
-        await db.collection("notes").add({
-          uid: currentUser.uid,
-          title,
-          content,
-          imageUrl: imageUrl || null,
-          color,
-          fontSize,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        });
-
-        noteTitleInput.value = "";
-        noteImageUrlInput.value = "";
-        noteContentInput.value = "";
-      } catch (err) {
-        console.error(err);
-        alert("حدث خطأ أثناء حفظ النوتة، حاول مرة أخرى.");
-      }
-    });
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <title>ATLAS Workspace – محمود الصمادي</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- خط عربي + إنجليزي -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-
-  <style>
-    :root {
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --radius-sm: 8px;
-      --transition-fast: 0.18s ease-out;
-      /* ألوان الوضع الداكن الافتراضي */
-      --bg-main: #050816;
-      --bg-elevated: #0b1020;
-      --bg-softer: #11172a;
-      --border-subtle: rgba(255,255,255,0.06);
-      --accent: #00b3ff;
-      --accent-soft: rgba(0,179,255,0.09);
-      --accent-strong: #00d4ff;
-      --text-main: #f5f7ff;
-      --text-soft: #b8bfdc;
-      --danger: #ff4b6a;
-      --success: #2ecc71;
-      --shadow-soft: 0 18px 45px rgba(0,0,0,0.55);
-    }
-
-    /* ثيم لايت */
-    body.theme-light {
-      --bg-main: #f5f7fb;
-      --bg-elevated: #ffffff;
-      --bg-softer: #eef1fa;
-      --border-subtle: rgba(10,20,60,0.09);
-      --accent: #1769ff;
-      --accent-soft: rgba(23,105,255,0.08);
-      --accent-strong: #1450c8;
-      --text-main: #111827;
-      --text-soft: #6b7280;
-      --shadow-soft: 0 14px 35px rgba(15,23,42,0.18);
-    }
-
-    /* ثيم OLED أسود كامل */
-    body.theme-oled {
-      --bg-main: #000000;
-      --bg-elevated: #050509;
-      --bg-softer: #070711;
-      --border-subtle: rgba(255,255,255,0.05);
-      --accent: #00e0ff;
-      --accent-soft: rgba(0,224,255,0.12);
-      --accent-strong: #4dffb5;
-      --text-main: #f9fafb;
-      --text-soft: #9ca3af;
-      --shadow-soft: 0 20px 60px rgba(0,0,0,0.85);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      min-height: 100vh;
-      font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #111827 0, var(--bg-main) 45%, #000 100%);
-      color: var(--text-main);
-      display: flex;
-      align-items: stretch;
-      justify-content: center;
-    }
-
-    /* حاوية التطبيق */
-    .app-shell {
-      flex: 1;
-      max-width: 1320px;
-      margin: 20px auto;
-      display: flex;
-      gap: 18px;
-      padding: 12px;
-    }
-
-    /* شاشة تسجيل الدخول */
-    .auth-screen {
-      margin: auto;
-      max-width: 480px;
-      width: 100%;
-      background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(15,118,255,0.12));
-      border-radius: 28px;
-      padding: 28px 26px 24px;
-      box-shadow: var(--shadow-soft);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .auth-logo-circle {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 20%, #4ade80, #22c55e 40%, #0b1120 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #f9fafb;
-      font-weight: 800;
-      font-size: 26px;
-      margin-bottom: 16px;
-      box-shadow: 0 12px 30px rgba(34,197,94,0.45);
-    }
-
-    .auth-title {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .auth-sub {
-      font-size: 14px;
-      color: var(--text-soft);
-      margin-bottom: 18px;
-    }
-
-    .auth-created {
-      font-size: 13px;
-      color: var(--text-soft);
-      margin-bottom: 22px;
-    }
-
-    .auth-created span {
-      color: var(--accent-strong);
-      font-weight: 600;
-    }
-
-    .auth-btn {
-      width: 100%;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.3);
-      background: rgba(15,23,42,0.8);
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--text-main);
-      cursor: pointer;
-      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    }
-
-    .auth-btn:hover {
-      background: rgba(15,118,255,0.12);
-      border-color: rgba(59,130,246,0.8);
-      transform: translateY(-1px);
-      box-shadow: 0 10px 26px rgba(37,99,235,0.35);
-    }
-
-    .auth-btn img {
-      width: 20px;
-      height: 20px;
-    }
-
-    .auth-btn span {
-      flex: 1;
-      text-align: center;
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .auth-divider {
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-soft);
-      margin: 18px 0 12px;
-      position: relative;
-    }
-
-    .auth-divider::before,
-    .auth-divider::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      width: 32%;
-      height: 1px;
-      background: linear-gradient(to left, transparent, rgba(148,163,184,0.5));
-    }
-
-    .auth-divider::after {
-      left: 68%;
-      transform: translateY(-50%);
-    }
-    .auth-divider::before {
-      right: 68%;
-      transform: translateY(-50%);
-    }
-
-    .auth-footer-note {
-      margin-top: 12px;
-      font-size: 11px;
-      color: var(--text-soft);
-      line-height: 1.8;
-    }
-
-    .auth-footer-note strong {
-      color: var(--accent-strong);
-    }
-
-    /* بعد تسجيل الدخول */
-    .hidden {
-      display: none !important;
-    }
-
-    /* الشريط الجانبي */
-    .sidebar {
-      width: 240px;
-      background: rgba(8,12,28,0.92);
-      border-radius: 26px;
-      padding: 18px 16px;
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-soft);
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .sidebar-top {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .avatar {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid rgba(56,189,248,0.8);
-      box-shadow: 0 0 0 2px rgba(15,23,42,0.9);
-      flex-shrink: 0;
-    }
-
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .avatar-fallback {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at 30% 20%, #06b6d4, #3b82f6 40%, #020617 100%);
-      font-weight: 800;
-      font-size: 22px;
-      color: #e5f4ff;
-    }
-
-    .user-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .user-meta-name {
-      font-size: 15px;
-      font-weight: 700;
-    }
-
-    .user-meta-email {
-      font-size: 11px;
-      color: var(--text-soft);
-      direction: ltr;
-      text-align: left;
-    }
-
-    .sidebar-section-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-soft);
-      margin-top: 6px;
-      margin-bottom: 6px;
-    }
-
-    .nav-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .nav-item {
-      border-radius: 999px;
-      padding: 7px 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--text-soft);
-      cursor: pointer;
-      border: 1px solid transparent;
-      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
-    }
-
-    .nav-item span.nav-icon {
-      width: 22px;
-      text-align: center;
-      font-size: 15px;
-    }
-
-    .nav-item.active,
-    .nav-item:hover {
-      background: var(--accent-soft);
-      color: var(--accent-strong);
-      border-color: rgba(56,189,248,0.7);
-      transform: translateY(-1px);
-    }
-
-    .sidebar-footer {
-      margin-top: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .logout-btn {
-      border-radius: 999px;
-      border: 1px solid rgba(248,113,113,0.5);
-      background: rgba(127,29,29,0.2);
-      color: #fecaca;
-      font-size: 12px;
-      padding: 7px 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      justify-content: center;
-      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
-    }
-
-    .logout-btn:hover {
-      background: rgba(220,38,38,0.45);
-      transform: translateY(-1px);
-      box-shadow: 0 10px 22px rgba(185,28,28,0.55);
-    }
-
-    .made-by {
-      font-size: 10px;
-      text-align: center;
-      color: var(--text-soft);
-      line-height: 1.7;
-    }
-
-    .made-by strong {
-      color: var(--accent-strong);
-    }
-
-    /* محتوى التطبيق */
-    .main-panel {
-      flex: 1;
-      background: rgba(6,10,24,0.96);
-      border-radius: 26px;
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-soft);
-      padding: 18px 18px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      overflow: hidden;
-    }
-
-    .top-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .top-bar-left {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .greeting {
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .greeting span {
-      color: var(--accent-strong);
-    }
-
-    .greeting-sub {
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .theme-toggle {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--bg-softer);
-      padding: 4px;
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-    }
-
-    .theme-btn {
-      font-size: 11px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      background: transparent;
-      color: var(--text-soft);
-      transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
-    }
-
-    .theme-btn.active {
-      background: var(--accent-soft);
-      color: var(--accent-strong);
-      transform: translateY(-1px);
-    }
-
-    .widgets-row {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 10px;
-    }
-
-    .widget-card {
-      background: var(--bg-softer);
-      border-radius: var(--radius-md);
-      padding: 10px 10px 10px;
-      border: 1px solid var(--border-subtle);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 12px;
-    }
-
-    .widget-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-    }
-
-    .widget-title {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 600;
-      font-size: 12px;
-    }
-
-    .widget-pill {
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.9);
-      color: var(--accent-strong);
-      border: 1px solid rgba(56,189,248,0.7);
-    }
-
-    .widget-value {
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .widget-controls {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: 2px;
-    }
-
-    .widget-btn {
-      flex: 1;
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      background: rgba(15,23,42,0.85);
-      color: var(--text-soft);
-      font-size: 11px;
-      padding: 4px 6px;
-      cursor: pointer;
-      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
-    }
-
-    .widget-btn:hover {
-      background: var(--accent-soft);
-      color: var(--accent-strong);
-      border-color: rgba(56,189,248,0.8);
-      transform: translateY(-1px);
-    }
-
-    .widget-progress {
-      margin-top: 4px;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.9);
-      overflow: hidden;
-    }
-
-    .widget-progress-inner {
-      height: 100%;
-      width: 0%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-strong));
-      transition: width 0.25s ease-out;
-    }
-
-    /* قسم النوتات */
-    .notes-area {
-      flex: 1;
-      display: grid;
-      grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
-      gap: 12px;
-      min-height: 0;
-    }
-
-    .notes-list {
-      background: var(--bg-softer);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-subtle);
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      overflow-y: auto;
-    }
-
-    .section-title-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 4px;
-    }
-
-    .section-title-row h3 {
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .section-title-row span {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .primary-pill-btn {
-      border-radius: 999px;
-      border: none;
-      padding: 5px 10px;
-      font-size: 11px;
-      cursor: pointer;
-      background: var(--accent-soft);
-      color: var(--accent-strong);
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
-    }
-
-    .primary-pill-btn:hover {
-      background: rgba(56,189,248,0.22);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(56,189,248,0.4);
-    }
-
-    .note-card {
-      background: rgba(15,23,42,0.95);
-      border-radius: 14px;
-      border: 1px solid rgba(148,163,184,0.18);
-      padding: 8px 9px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      cursor: pointer;
-      transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
-    }
-
-    .note-card:hover {
-      border-color: rgba(56,189,248,0.9);
-      background: rgba(15,23,42,0.98);
-      transform: translateY(-1px);
-      box-shadow: 0 10px 25px rgba(15,23,42,0.75);
-    }
-
-    .note-card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-    }
-
-    .note-card-title {
-      font-size: 13px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .note-chip {
-      font-size: 10px;
-      padding: 1px 6px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.9);
-      border: 1px solid rgba(148,163,184,0.5);
-      color: var(--text-soft);
-    }
-
-    .note-card-meta {
-      font-size: 10px;
-      color: var(--text-soft);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-    }
-
-    .note-card-snippet {
-      font-size: 11px;
-      color: var(--text-soft);
-      max-height: 34px;
-      overflow: hidden;
-    }
-
-    /* محرر النوت */
-    .note-editor {
-      background: var(--bg-softer);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-subtle);
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      overflow: hidden;
-    }
-
-    .note-editor input,
-    .note-editor textarea,
-    .note-editor select {
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid rgba(148,163,184,0.35);
-      background: rgba(15,23,42,0.9);
-      padding: 7px 9px;
-      color: var(--text-main);
-      font-size: 12px;
-      resize: vertical;
-      min-height: 0;
-      outline: none;
-      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
-      font-family: inherit;
-    }
-
-    .note-editor input:focus,
-    .note-editor textarea:focus,
-    .note-editor select:focus {
-      border-color: rgba(56,189,248,0.9);
-      box-shadow: 0 0 0 1px rgba(56,189,248,0.6);
-      transform: translateY(-0.5px);
-    }
-
-    .note-editor textarea {
-      min-height: 120px;
-      line-height: 1.7;
-    }
-
-    .note-editor-row {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .note-editor-row > * {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .note-editor-label {
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-bottom: 2px;
-    }
-
-    .note-editor-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      margin-top: 2px;
-    }
-
-    .note-editor-actions {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .ghost-btn {
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.45);
-      background: transparent;
-      color: var(--text-soft);
-      font-size: 11px;
-      padding: 5px 10px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    }
-
-    .ghost-btn:hover {
-      background: rgba(15,23,42,0.95);
-      color: var(--accent-strong);
-      border-color: rgba(56,189,248,0.85);
-      transform: translateY(-1px);
-      box-shadow: 0 9px 20px rgba(15,23,42,0.8);
-    }
-
-    .ghost-btn.destroy {
-      border-color: rgba(248,113,113,0.7);
-      color: #fecaca;
-    }
-
-    .ghost-btn.destroy:hover {
-      background: rgba(127,29,29,0.9);
-      box-shadow: 0 9px 20px rgba(239,68,68,0.7);
-      color: #fff1f2;
-    }
-
-    .note-preview-image {
-      width: 100%;
-      max-height: 160px;
-      border-radius: 12px;
-      object-fit: cover;
-      border: 1px solid rgba(148,163,184,0.5);
-      margin-top: 4px;
-    }
-
-    .small-helper {
-      font-size: 10px;
-      color: var(--text-soft);
-    }
-
-    @media (max-width: 1024px) {
-      .app-shell {
-        flex-direction: column;
-      }
-      .sidebar {
-        flex-direction: row;
-        align-items: center;
-        width: 100%;
-        padding: 12px;
-      }
-      .sidebar-top {
-        flex: 1;
-      }
-      .nav-list {
-        flex-direction: row;
-        flex-wrap: wrap;
-      }
-      .sidebar-footer {
-        align-items: flex-end;
-      }
-      .notes-area {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 720px) {
-      .widgets-row {
-        grid-template-columns: repeat(2, minmax(0,1fr));
-      }
-      .auth-screen {
-        margin: 0 10px;
-      }
-    }
-  </style>
-</head>
-
-<body class="theme-dark">
-  <!-- شاشة تسجيل الدخول -->
-  <div id="auth-screen" class="auth-screen">
-    <div class="auth-logo-circle">A</div>
-    <div class="auth-title">ATLAS Workspace</div>
-    <div class="auth-sub">مساحتك اليومية لتنظيم حياتك: نوتات، عادات، وتتبع ماء / نوم / صلاة / جيم… في مكان واحد.</div>
-    <div class="auth-created">هذا الموقع من إنشاء <span>محمود الصمادي</span> – powered by Firebase.</div>
-
-    <button id="google-login" class="auth-btn">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
-      <span>تسجيل الدخول بحساب Google</span>
-    </button>
-
-    <div class="auth-divider"> أو </div>
-
-    <p class="auth-footer-note">
-      بعد تسجيل الدخول سيتم حفظ نوتاتك وإعداداتك على حسابك، وتقدر تفتحها من أي جهاز.<br />
-      يمكنك لاحقًا إضافة طرق تسجيل أخرى (Apple, Facebook…) من إعدادات Firebase.
-    </p>
-  </div>
-
-  <!-- التطبيق بعد تسجيل الدخول -->
-  <div id="app-shell" class="app-shell hidden">
-    <!-- الشريط الجانبي -->
-    <aside class="sidebar">
-      <div class="sidebar-top">
-        <div class="avatar">
-          <div id="user-avatar-fallback" class="avatar-fallback">A</div>
-          <img id="user-avatar-img" src="" alt="" style="display:none;" />
-        </div>
-        <div class="user-meta">
-          <div id="user-name" class="user-meta-name">محمود الصمادي</div>
-          <div id="user-email" class="user-meta-email">example@gmail.com</div>
-        </div>
-      </div>
-
-      <div>
-        <div class="sidebar-section-label">الأقسام</div>
-        <nav class="nav-list">
-          <div class="nav-item active"><span class="nav-icon">🏠</span>لوحة اليوم</div>
-          <div class="nav-item"><span class="nav-icon">📝</span>النوتات</div>
-          <div class="nav-item"><span class="nav-icon">📊</span>العادات / الودجت</div>
-          <div class="nav-item"><span class="nav-icon">🌐</span>المجتمع (قريباً)</div>
-        </nav>
-      </div>
-
-      <div class="sidebar-footer">
-        <button id="logout-btn" class="logout-btn">تسجيل الخروج</button>
-        <div class="made-by">
-          ATLAS Workspace v1.0<br />
-          صُمم بواسطة <strong>محمود الصمادي</strong> – للإنتاجية اليومية.
-        </div>
-      </div>
-    </aside>
-
-    <!-- لوحة المحتوى الرئيسية -->
-    <main class="main-panel">
-      <header class="top-bar">
-        <div class="top-bar-left">
-          <div id="greeting" class="greeting">صباح الخير، <span>محمود</span> 👋</div>
-          <div class="greeting-sub">رتّب يومك، سجّل نوتاتك، وتابع عاداتك من مكان واحد.</div>
-        </div>
-        <div class="theme-toggle">
-          <button class="theme-btn active" data-theme="dark">داكن</button>
-          <button class="theme-btn" data-theme="light">فاتح</button>
-          <button class="theme-btn" data-theme="oled">أسود OLED</button>
-        </div>
-      </header>
-
-      <!-- ويدجت الحياه اليومية -->
-      <section class="widgets-row" id="widgets-row">
-        <div class="widget-card" data-widget="water">
-          <div class="widget-header">
-            <div class="widget-title"><span>💧</span>ماء اليوم</div>
-            <span class="widget-pill">هدف: 8 أكواب</span>
-          </div>
-          <div class="widget-value" id="water-value">0 / 8 أكواب</div>
-          <div class="widget-controls">
-            <button class="widget-btn" data-action="minus">− 1</button>
-            <button class="widget-btn" data-action="plus">+ 1</button>
-            <button class="widget-btn" data-action="reset">تصفير</button>
-          </div>
-          <div class="widget-progress">
-            <div class="widget-progress-inner" id="water-progress"></div>
-          </div>
-        </div>
-
-        <div class="widget-card" data-widget="sleep">
-          <div class="widget-header">
-            <div class="widget-title"><span>😴</span>نوم الليلة</div>
-            <span class="widget-pill">هدف: 8 ساعات</span>
-          </div>
-          <div class="widget-value" id="sleep-value">0 / 8 ساعات</div>
-          <div class="widget-controls">
-            <button class="widget-btn" data-action="minus">− 1</button>
-            <button class="widget-btn" data-action="plus">+ 1</button>
-            <button class="widget-btn" data-action="reset">تصفير</button>
-          </div>
-          <div class="widget-progress">
-            <div class="widget-progress-inner" id="sleep-progress"></div>
-          </div>
-        </div>
-
-        <div class="widget-card" data-widget="prayer">
-          <div class="widget-header">
-            <div class="widget-title"><span>🕌</span>الصلوات</div>
-            <span class="widget-pill">هدف: 5 / 5</span>
-          </div>
-          <div class="widget-value" id="prayer-value">0 / 5 صلوات</div>
-          <div class="widget-controls">
-            <button class="widget-btn" data-action="minus">− 1</button>
-            <button class="widget-btn" data-action="plus">+ 1</button>
-            <button class="widget-btn" data-action="reset">تصفير</button>
-          </div>
-          <div class="widget-progress">
-            <div class="widget-progress-inner" id="prayer-progress"></div>
-          </div>
-        </div>
-
-        <div class="widget-card" data-widget="gym">
-          <div class="widget-header">
-            <div class="widget-title"><span>🏋️‍♂️</span>التمرين / الجيم</div>
-            <span class="widget-pill">هدف: 3 مرات / أسبوع</span>
-          </div>
-          <div class="widget-value" id="gym-value">0 / 3 جلسات</div>
-          <div class="widget-controls">
-            <button class="widget-btn" data-action="minus">− 1</button>
-            <button class="widget-btn" data-action="plus">+ 1</button>
-            <button class="widget-btn" data-action="reset">تصفير</button>
-          </div>
-          <div class="widget-progress">
-            <div class="widget-progress-inner" id="gym-progress"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- نوتات + محرر -->
-      <section class="notes-area">
-        <!-- قائمة النوتات -->
-        <div class="notes-list">
-          <div class="section-title-row">
-            <div>
-              <h3>نوتاتك</h3>
-              <span>كل نوتة تقدر تخصص شكلها وألوانها وصورتها.</span>
-            </div>
-            <button id="new-note-btn" class="primary-pill-btn">+ نوتة جديدة</button>
-          </div>
-
-          <div id="notes-container">
-            <!-- يتم تعبئتها من جافاسكربت -->
-          </div>
-        </div>
-
-        <!-- محرر النوت -->
-        <div class="note-editor">
-          <div class="section-title-row">
-            <div>
-              <h3 id="editor-title-label">إنشاء نوتة جديدة</h3>
-              <span id="editor-sub-label">ابدأ العنوان… ثم اكتب فكرتك، مذكّرتك، أو خطة اليوم.</span>
-            </div>
-          </div>
-
-          <div>
-            <div class="note-editor-label">العنوان</div>
-            <input id="note-title" placeholder="عنوان النوتة (مثال: خطة تداول NFP، خطة أسبوع الدراسة…)" />
-          </div>
-
-          <div>
-            <div class="note-editor-label">محتوى النوتة</div>
-            <textarea id="note-content" placeholder="اكتب هنا كل التفاصيل، الأفكار، أو المهام…"></textarea>
-          </div>
-
-          <div>
-            <div class="note-editor-label">رابط صورة (اختياري)</div>
-            <input id="note-image" placeholder="مثال: https://…" />
-            <div class="small-helper">لو وضعت رابط صورة صحيح، سيتم عرضها أعلى النوتة كغلاف.</div>
-            <img id="note-preview-image" class="note-preview-image" src="" alt="" style="display:none;" />
-          </div>
-
-          <div class="note-editor-row">
-            <div>
-              <div class="note-editor-label">حجم الخط</div>
-              <select id="note-font-size">
-                <option value="14">صغير مريح</option>
-                <option value="16" selected>متوسط يومي</option>
-                <option value="18">كبير وواضح</option>
-                <option value="20">عنواني / عرض</option>
-              </select>
-            </div>
-            <div>
-              <div class="note-editor-label">سماكة الخط</div>
-              <select id="note-font-weight">
-                <option value="400">عادي</option>
-                <option value="500">شبه عريض</option>
-                <option value="600" selected>عريض واضح</option>
-                <option value="700">عريض جداً</option>
-              </select>
-            </div>
-            <div>
-              <div class="note-editor-label">لون الخط</div>
-              <input id="note-color" type="color" value="#e5e7eb" />
-            </div>
-          </div>
-
-          <div class="note-editor-footer">
-            <div class="small-helper">
-              يمكنك لاحقًا مشاركة لقطات من نوتاتك الإبداعية على TikTok / Instagram كقوالب ATLAS.
-            </div>
-            <div class="note-editor-actions">
-              <button id="delete-note-btn" class="ghost-btn destroy" style="display:none;">حذف النوتة</button>
-              <button id="save-note-btn" class="ghost-btn">💾 حفظ النوتة</button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <!-- Firebase + منطق التطبيق -->
-  <script type="module">
-    // تحميل Firebase v10 من CDN
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import {
-      getAuth,
-      GoogleAuthProvider,
-      signInWithPopup,
-      onAuthStateChanged,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import {
-      getFirestore,
-      doc,
-      setDoc,
-      getDoc,
-      collection,
-      addDoc,
-      getDocs,
-      updateDoc,
-      deleteDoc,
-      serverTimestamp,
-      query,
-      orderBy
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-    // إعدادات مشروعك (من Firebase Console)
-    const firebaseConfig = {
-      apiKey: "AIzaSyDTOtQbGaLpGtDc34GXzcdppCvEJ60TYSs",
-      authDomain: "atlas-workspace.firebaseapp.com",
-      projectId: "atlas-workspace",
-      storageBucket: "atlas-workspace.firebasestorage.app",
-      messagingSenderId: "95882710960",
-      appId: "1:95882710960:web:9fcafcc1d4d057029ad075",
-      measurementId: "G-KJ446WXXHG"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const provider = new GoogleAuthProvider();
-
-    // عناصر DOM
-    const authScreen = document.getElementById("auth-screen");
-    const appShell = document.getElementById("app-shell");
-    const googleLoginBtn = document.getElementById("google-login");
-    const logoutBtn = document.getElementById("logout-btn");
-    const userNameEl = document.getElementById("user-name");
-    const userEmailEl = document.getElementById("user-email");
-    const userAvatarImg = document.getElementById("user-avatar-img");
-    const userAvatarFallback = document.getElementById("user-avatar-fallback");
-    const greetingEl = document.getElementById("greeting");
-
-    const themeButtons = document.querySelectorAll(".theme-btn");
-
-    const widgetsConfig = {
-      water: { target: 8, label: "أكواب" },
-      sleep: { target: 8, label: "ساعات" },
-      prayer: { target: 5, label: "صلوات" },
-      gym: { target: 3, label: "جلسات" }
-    };
-
-    let currentUser = null;
-    let currentNoteId = null;
-
-    // عناصر النوت
-    const notesContainer = document.getElementById("notes-container");
-    const newNoteBtn = document.getElementById("new-note-btn");
-    const noteTitleInput = document.getElementById("note-title");
-    const noteContentInput = document.getElementById("note-content");
-    const noteImageInput = document.getElementById("note-image");
-    const notePreviewImage = document.getElementById("note-preview-image");
-    const noteFontSizeSelect = document.getElementById("note-font-size");
-    const noteFontWeightSelect = document.getElementById("note-font-weight");
-    const noteColorInput = document.getElementById("note-color");
-    const saveNoteBtn = document.getElementById("save-note-btn");
-    const deleteNoteBtn = document.getElementById("delete-note-btn");
-    const editorTitleLabel = document.getElementById("editor-title-label");
-    const editorSubLabel = document.getElementById("editor-sub-label");
-
-    /*************** 1. تسجيل الدخول / الخروج ***************/
-    googleLoginBtn.addEventListener("click", async () => {
-      try {
-        await signInWithPopup(auth, provider);
-      } catch (err) {
-        alert("صار خطأ أثناء تسجيل الدخول بحساب Google: " + err.message);
-        console.error(err);
-      }
-    });
-
-    logoutBtn.addEventListener("click", async () => {
-      try {
-        await signOut(auth);
-      } catch (err) {
-        console.error(err);
-      }
-    });
-
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        currentUser = user;
-        authScreen.classList.add("hidden");
-        appShell.classList.remove("hidden");
-
-        await saveUserProfile(user);
-        applyUserInfoToUI(user);
-        setGreeting(user);
-        loadThemeFromLocal();
-        await loadWidgets();
-        await loadNotes();
-      } else {
-        currentUser = null;
-        appShell.classList.add("hidden");
-        authScreen.classList.remove("hidden");
-      }
-    });
-
-    async function saveUserProfile(user) {
-      const userRef = doc(db, "users", user.uid);
-      const snap = await getDoc(userRef);
-      if (!snap.exists()) {
-        await setDoc(userRef, {
-          displayName: user.displayName || "",
-          email: user.email || "",
-          photoURL: user.photoURL || "",
-          createdAt: serverTimestamp()
-        });
-      } else {
-        // تحديث بسيط للاسم/الصورة لو تغيّروا
-        await updateDoc(userRef, {
-          displayName: user.displayName || "",
-          photoURL: user.photoURL || ""
-        }).catch(() => {});
-      }
-    }
-
-    function applyUserInfoToUI(user) {
-      const name = user.displayName || "بدون اسم";
-      userNameEl.textContent = name;
-      userEmailEl.textContent = user.email || "";
-
-      const firstLetter = (name[0] || "A").toUpperCase();
-      userAvatarFallback.textContent = firstLetter;
-
-      if (user.photoURL) {
-        userAvatarImg.src = user.photoURL;
-        userAvatarImg.style.display = "block";
-        userAvatarFallback.style.display = "none";
-      } else {
-        userAvatarImg.style.display = "none";
-        userAvatarFallback.style.display = "flex";
-      }
-    }
-
-    function setGreeting(user) {
-      const hours = new Date().getHours();
-      let greetingText = "مرحباً";
-      if (hours >= 5 && hours < 12) greetingText = "صباح الخير";
-      else if (hours >= 12 && hours < 18) greetingText = "مساء الخير";
-      else greetingText = "سهرة موفّقة";
-
-      const name = user.displayName ? user.displayName.split(" ")[0] : "صديقي";
-      greetingEl.innerHTML = `${greetingText}، <span>${name}</span> 👋`;
-    }
-
-    /*************** 2. الثيم (داكن / فاتح / OLED) ***************/
-    themeButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const theme = btn.dataset.theme;
-        setTheme(theme);
-      });
-    });
-
-    function setTheme(theme) {
-      document.body.classList.remove("theme-dark", "theme-light", "theme-oled");
-      if (theme === "light") document.body.classList.add("theme-light");
-      else if (theme === "oled") document.body.classList.add("theme-oled");
-      else document.body.classList.add("theme-dark");
-
-      themeButtons.forEach((b) => b.classList.remove("active"));
-      document.querySelector(`.theme-btn[data-theme="${theme}"]`).classList.add("active");
-      localStorage.setItem("atlas-theme", theme);
-    }
-
-    function loadThemeFromLocal() {
-      const saved = localStorage.getItem("atlas-theme") || "dark";
-      setTheme(saved);
-    }
-
-    /*************** 3. ويدجت الماء / النوم / الصلاة / الجيم ***************/
-    async function loadWidgets() {
-      if (!currentUser) return;
-      const ref = doc(db, "users", currentUser.uid, "meta", "widgets");
-      const snap = await getDoc(ref);
-      let data;
-      if (snap.exists()) {
-        data = snap.data();
-      } else {
-        data = { water: 0, sleep: 0, prayer: 0, gym: 0 };
-        await setDoc(ref, data);
-      }
-      Object.keys(widgetsConfig).forEach((key) => {
-        updateWidgetUI(key, data[key] || 0);
-      });
-    }
-
-    async function saveWidgetsPartial(newValues) {
-      if (!currentUser) return;
-      const ref = doc(db, "users", currentUser.uid, "meta", "widgets");
-      await setDoc(ref, newValues, { merge: true });
-    }
-
-    function updateWidgetUI(key, value) {
-      const config = widgetsConfig[key];
-      const valueEl = document.getElementById(`${key}-value`);
-      const progressEl = document.getElementById(`${key}-progress`);
-
-      if (!config) return;
-      valueEl.textContent = `${value} / ${config.target} ${config.label}`;
-      const ratio = Math.min(1, Math.max(0, value / config.target));
-      if (progressEl) progressEl.style.width = (ratio * 100).toFixed(0) + "%";
-    }
-
-    document.querySelectorAll(".widget-card").forEach((card) => {
-      const key = card.dataset.widget;
-      const config = widgetsConfig[key];
-      card.querySelectorAll(".widget-btn").forEach((btn) => {
-        btn.addEventListener("click", async () => {
-          if (!currentUser) return;
-          const ref = doc(db, "users", currentUser.uid, "meta", "widgets");
-          const snap = await getDoc(ref);
-          let data = snap.exists() ? snap.data() : { water: 0, sleep: 0, prayer: 0, gym: 0 };
-          let current = data[key] || 0;
-
-          const action = btn.dataset.action;
-          if (action === "plus") current++;
-          if (action === "minus") current = Math.max(0, current - 1);
-          if (action === "reset") current = 0;
-
-          // لا نتجاوز الهدف كثيراً
-          current = Math.min(current, config.target * 2);
-          data[key] = current;
-
-          await saveWidgetsPartial({ [key]: current });
-          updateWidgetUI(key, current);
-        });
-      });
-    });
-
-    /*************** 4. النوتات ***************/
-    function resetEditor() {
-      currentNoteId = null;
-      editorTitleLabel.textContent = "إنشاء نوتة جديدة";
-      editorSubLabel.textContent = "ابدأ العنوان والمحتوى… ثم احفظها لتظهر في قائمة النوتات.";
-      noteTitleInput.value = "";
-      noteContentInput.value = "";
-      noteImageInput.value = "";
-      notePreviewImage.style.display = "none";
-      noteFontSizeSelect.value = "16";
-      noteFontWeightSelect.value = "600";
-      noteColorInput.value = "#e5e7eb";
-      deleteNoteBtn.style.display = "none";
-    }
-
-    newNoteBtn.addEventListener("click", resetEditor);
-
-    noteImageInput.addEventListener("input", () => {
-      const url = noteImageInput.value.trim();
-      if (url) {
-        notePreviewImage.src = url;
-        notePreviewImage.style.display = "block";
-      } else {
-        notePreviewImage.style.display = "none";
-      }
-    });
-
-    async function loadNotes() {
-      if (!currentUser) return;
-      notesContainer.innerHTML = "<div class='small-helper'>جاري تحميل النوتات…</div>";
-      const notesRef = collection(db, "users", currentUser.uid, "notes");
-      const q = query(notesRef, orderBy("updatedAt", "desc"));
-      const snap = await getDocs(q);
-      if (snap.empty) {
-        notesContainer.innerHTML = "<div class='small-helper'>لا توجد نوتات بعد. أنشئ أول نوتة من زر “نوتة جديدة”.</div>";
-        return;
-      }
-      notesContainer.innerHTML = "";
-      snap.forEach((docSnap) => {
-        const note = docSnap.data();
-        const card = document.createElement("div");
-        card.className = "note-card";
-        card.dataset.id = docSnap.id;
-        card.dataset.fontSize = note.fontSize || 16;
-        card.dataset.fontWeight = note.fontWeight || 600;
-        card.dataset.color = note.textColor || "#e5e7eb";
-
-        const updatedDate = note.updatedAt?.toDate ? note.updatedAt.toDate() : new Date();
-        const timeStr = updatedDate.toLocaleString("ar-EG", {
-          month: "short",
-          day: "numeric",
-          hour: "numeric",
-          minute: "2-digit"
-        });
-
-        card.innerHTML = `
-          <div class="note-card-header">
-            <div class="note-card-title">
-              <span>${note.icon || "🗒️"}</span>
-              <span>${note.title || "نوتة بدون عنوان"}</span>
-            </div>
-            <span class="note-chip">${note.category || "عام"}</span>
-          </div>
-          <div class="note-card-snippet" style="font-size:${(note.fontSize || 16) - 2}px; color:${note.textColor || "#e5e7eb"}; font-weight:${note.fontWeight || 600};">
-            ${note.content ? note.content.slice(0, 110) + (note.content.length > 110 ? "…" : "") : "لا يوجد محتوى بعد."}
-          </div>
-          <div class="note-card-meta">
-            <span>آخر تحديث: ${timeStr}</span>
-            <span>${note.pin ? "📌 مثبت" : ""}</span>
-          </div>
-        `;
-
-        card.addEventListener("click", () => {
-          openNoteInEditor(docSnap.id, note);
-        });
-
-        notesContainer.appendChild(card);
-      });
-    }
-
-    function openNoteInEditor(id, note) {
-      currentNoteId = id;
-      editorTitleLabel.textContent = "تعديل النوتة";
-      editorSubLabel.textContent = "عدّل المحتوى أو التنسيق ثم اضغط حفظ لتحديث النوتة.";
-      noteTitleInput.value = note.title || "";
-      noteContentInput.value = note.content || "";
-      noteImageInput.value = note.imageUrl || "";
-      if (note.imageUrl) {
-        notePreviewImage.src = note.imageUrl;
-        notePreviewImage.style.display = "block";
-      } else {
-        notePreviewImage.style.display = "none";
-      }
-      noteFontSizeSelect.value = String(note.fontSize || 16);
-      noteFontWeightSelect.value = String(note.fontWeight || 600);
-      noteColorInput.value = note.textColor || "#e5e7eb";
-      deleteNoteBtn.style.display = "inline-flex";
-    }
-
-    saveNoteBtn.addEventListener("click", async () => {
-      if (!currentUser) {
-        alert("يلزم تسجيل الدخول لحفظ النوتات.");
-        return;
-      }
-      const title = noteTitleInput.value.trim();
-      const content = noteContentInput.value.trim();
-      const imageUrl = noteImageInput.value.trim();
-      const fontSize = parseInt(noteFontSizeSelect.value, 10) || 16;
-      const fontWeight = parseInt(noteFontWeightSelect.value, 10) || 600;
-      const textColor = noteColorInput.value || "#e5e7eb";
-
-      if (!title && !content) {
-        alert("اكتب عنواناً أو محتوى قبل الحفظ.");
-        return;
-      }
-
-      const notesRef = collection(db, "users", currentUser.uid, "notes");
-
-      const payload = {
-        title: title || "نوتة بدون عنوان",
-        content,
-        imageUrl,
-        fontSize,
-        fontWeight,
-        textColor,
-        icon: "🗒️",
-        category: "عام",
-        updatedAt: serverTimestamp()
-      };
-
-      if (currentNoteId) {
-        const ref = doc(db, "users", currentUser.uid, "notes", currentNoteId);
-        await updateDoc(ref, payload);
-      } else {
-        payload.createdAt = serverTimestamp();
-        await addDoc(notesRef, payload);
-      }
-
-      await loadNotes();
-      resetEditor();
-    });
-
-    deleteNoteBtn.addEventListener("click", async () => {
-      if (!currentUser || !currentNoteId) return;
-      const confirmDelete = confirm("متأكد إنك تريد حذف هذه النوتة نهائياً؟");
-      if (!confirmDelete) return;
-      const ref = doc(db, "users", currentUser.uid, "notes", currentNoteId);
-      await deleteDoc(ref);
-      await loadNotes();
-      resetEditor();
-    });
-
-    // تهيئة أولية
-    resetEditor();
-    loadThemeFromLocal();
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ATLAS Workspace – مساحة محمود الصمادي اليومية</title>
-
-  <!-- خطوط عربية وإنجليزية بسيطة -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html, body {
-      height: 100%;
-    }
-
-    body {
-      font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text-main);
-      line-height: 1.6;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    /* الثيمات */
-    body.theme-dark {
-      --bg: #020617;
-      --bg-soft: #020617;
-      --card: #020617;
-      --card-soft: #020617;
-      --border-subtle: #1e293b;
-      --accent: #0ea5e9;
-      --accent-soft: rgba(14,165,233,0.1);
-      --accent-strong: #0284c7;
-      --text-main: #e5e7eb;
-      --text-soft: #9ca3af;
-      --danger: #f97373;
-    }
-
-    body.theme-light {
-      --bg: #f3f4f6;
-      --bg-soft: #e5e7eb;
-      --card: #ffffff;
-      --card-soft: #f9fafb;
-      --border-subtle: #d1d5db;
-      --accent: #2563eb;
-      --accent-soft: rgba(37,99,235,0.08);
-      --accent-strong: #1d4ed8;
-      --text-main: #111827;
-      --text-soft: #6b7280;
-      --danger: #dc2626;
-    }
-
-    body.theme-oled {
-      --bg: #000000;
-      --bg-soft: #020617;
-      --card: #020617;
-      --card-soft: #020617;
-      --border-subtle: #111827;
-      --accent: #22d3ee;
-      --accent-soft: rgba(34,211,238,0.12);
-      --accent-strong: #06b6d4;
-      --text-main: #f9fafb;
-      --text-soft: #9ca3af;
-      --danger: #fb7185;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .app-shell {
-      min-height: 100vh;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 16px 12px 32px;
-    }
-
-    /* الهيدر */
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, rgba(14,165,233,0.25), rgba(79,70,229,0.25));
-      border: 1px solid rgba(148,163,184,0.4);
-      box-shadow: 0 18px 45px rgba(15,23,42,0.7);
-      margin-bottom: 20px;
-      backdrop-filter: blur(16px);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at 20% 0%, #22d3ee, #0f172a);
-      color: #e5faff;
-      font-weight: 700;
-      font-size: 18px;
+      box-shadow: 0 0 30px rgba(34,193,195,0.6);
     }
 
     .brand-text-title {
@@ -2895,1147 +117,978 @@
       color: var(--text-soft);
     }
 
-    .topbar-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .header-right {
+      display:flex;
+      align-items:center;
+      gap:10px;
     }
 
-    .pill {
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.6);
-      background: rgba(15,23,42,0.65);
-      padding: 4px 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: #e5e7eb;
+    .theme-switcher {
+      display:flex;
+      gap:6px;
+      padding:4px;
+      border-radius:999px;
+      background:rgba(15,23,42,0.9);
+      border:1px solid rgba(148,163,184,0.3);
     }
 
-    .select {
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      background: rgba(15,23,42,0.9);
-      color: var(--text-main);
-      padding: 4px 10px;
-      font-size: 12px;
-      outline: none;
-      cursor: pointer;
+    .pill-btn {
+      border:none;
+      padding:5px 10px;
+      border-radius:999px;
+      font-size:11px;
+      cursor:pointer;
+      background:transparent;
+      color:var(--text-soft);
     }
 
-    .ghost-btn {
-      border-radius: 999px;
-      border: 1px solid rgba(248,113,113,0.6);
-      background: rgba(127,29,29,0.08);
-      color: #fecaca;
-      padding: 4px 12px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.1s ease;
+    .pill-btn.active {
+      background:var(--accent-soft);
+      color:var(--text);
     }
 
-    .ghost-btn:hover {
-      background: rgba(248,113,113,0.18);
-      transform: translateY(-1px);
+    .btn {
+      border:none;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:12px;
+      cursor:pointer;
+      background:linear-gradient(135deg,#22c1c3,#6366f1);
+      color:#f9fafb;
+      box-shadow:0 10px 25px rgba(37,99,235,0.45);
+      display:flex;
+      align-items:center;
+      gap:6px;
+      white-space:nowrap;
     }
 
-    /* اللياوت الأساسي */
-    .main-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
-      gap: 18px;
+    .btn-secondary {
+      background:transparent;
+      border:1px solid rgba(148,163,184,0.6);
+      box-shadow:none;
+      color:var(--text-soft);
     }
 
-    @media (max-width: 900px) {
-      .main-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
+    .status-dot {
+      width:9px;height:9px;
+      border-radius:999px;
+      background:#22c55e;
+      box-shadow:0 0 10px rgba(34,197,94,0.9);
     }
 
-    .card {
-      background: radial-gradient(circle at 0 0, rgba(148,163,184,0.25), rgba(15,23,42,0.98));
-      border-radius: 18px;
-      padding: 14px 14px 16px;
-      border: 1px solid rgba(30,64,175,0.4);
-      box-shadow: 0 18px 45px rgba(15,23,42,0.9);
-      position: relative;
-      overflow: hidden;
+    main {
+      display:grid;
+      grid-template-columns:240px 1fr 250px;
+      gap:12px;
+      flex:1;
+      min-height:0;
     }
 
-    .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
+    .pane {
+      border-radius:var(--radius-xl);
+      background:rgba(15,23,42,0.92);
+      border:1px solid rgba(148,163,184,0.25);
+      padding:14px;
+      backdrop-filter: blur(30px);
+      box-shadow: var(--shadow-soft);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
     }
 
-    .card-title {
-      font-size: 15px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .pane-title {
+      font-size:13px;
+      font-weight:600;
+      margin-bottom:4px;
     }
 
-    .card-sub {
-      font-size: 11px;
-      color: var(--text-soft);
+    .pane-sub {
+      font-size:11px;
+      color:var(--text-soft);
+    }
+
+    .nav-list {
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      margin-top:6px;
+    }
+
+    .nav-item {
+      padding:8px 10px;
+      border-radius:12px;
+      font-size:12px;
+      color:var(--text-soft);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      cursor:pointer;
+      transition:0.15s;
+    }
+
+    .nav-item span {
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+
+    .nav-item.active,
+    .nav-item:hover {
+      background:var(--accent-soft);
+      color:var(--text);
     }
 
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      border-radius: 999px;
-      padding: 2px 8px;
-      font-size: 10px;
-      background: rgba(15,23,42,0.8);
-      border: 1px solid rgba(148,163,184,0.6);
-      color: #e5e7eb;
+      font-size:10px;
+      padding:2px 6px;
+      border-radius:999px;
+      background:rgba(15,23,42,0.9);
+      border:1px solid rgba(148,163,184,0.4);
     }
 
-    /* كرت الترحيب */
+    .greeting-card {
+      border-radius:var(--radius-lg);
+      padding:10px 12px;
+      background:linear-gradient(135deg,rgba(34,193,195,0.08),rgba(129,140,248,0.1));
+      border:1px solid rgba(129,140,248,0.5);
+      font-size:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+    }
+
     .greeting-main {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 4px;
+      font-size:13px;
+      font-weight:600;
     }
 
-    .greeting-line {
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    .greeting-name {
-      color: var(--accent);
-    }
-
-    .greeting-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      font-size: 11px;
-      color: var(--text-soft);
-      align-items: center;
-      margin-top: 4px;
-    }
-
-    .greeting-meta span {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    /* الودجات */
     .widgets-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 12px;
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:8px;
     }
 
     .widget {
-      background: rgba(15,23,42,0.85);
-      border-radius: 14px;
-      border: 1px solid var(--border-subtle);
-      padding: 10px 10px 12px;
-      font-size: 11px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+      border-radius:14px;
+      padding:8px;
+      background:rgba(15,23,42,0.98);
+      border:1px solid rgba(148,163,184,0.35);
+      font-size:11px;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
     }
 
-    .widget-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
+    .widget-top {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:4px;
     }
 
-    .widget-title {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-weight: 600;
-      font-size: 11px;
+    .widget-label {
+      font-weight:600;
+      font-size:11px;
     }
 
-    .widget-body {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+    .widget-value {
+      font-size:11px;
+      color:var(--text-soft);
     }
 
-    .progress-bar {
-      width: 100%;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.9);
-      overflow: hidden;
-      border: 1px solid rgba(15,118,110,0.7);
+    .widget-bar {
+      height:6px;
+      border-radius:999px;
+      background:rgba(15,23,42,1);
+      overflow:hidden;
     }
 
-    .progress-bar-fill {
-      height: 100%;
-      width: 0;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #22c55e, #a3e635);
-      transition: width 0.2s ease;
+    .widget-fill {
+      height:100%;
+      width:0;
+      border-radius:999px;
+      background:linear-gradient(90deg,#22c1c3,#a855f7);
+      transition: width 0.2s;
     }
 
-    .widget-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
+    .widget-actions {
+      display:flex;
+      gap:6px;
+      margin-top:4px;
     }
 
-    .small-btn {
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      background: rgba(15,23,42,0.9);
-      color: var(--text-main);
-      padding: 2px 8px;
-      font-size: 11px;
-      cursor: pointer;
-      min-width: 30px;
-      text-align: center;
+    .btn-xs {
+      border:none;
+      padding:3px 6px;
+      border-radius:999px;
+      font-size:10px;
+      cursor:pointer;
+      background:rgba(15,23,42,0.9);
+      border:1px solid rgba(148,163,184,0.5);
+      color:var(--text-soft);
     }
 
-    .small-btn:hover {
-      background: rgba(30,64,175,0.8);
-      border-color: rgba(96,165,250,0.8);
+    .btn-xs.primary {
+      background:var(--accent-soft);
+      color:var(--text);
+      border-color:transparent;
     }
 
-    .small-input {
-      width: 70px;
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      background: rgba(15,23,42,0.9);
-      color: var(--text-main);
-      padding: 2px 8px;
-      font-size: 11px;
-      outline: none;
-      text-align: center;
+    .note-toolbar {
+      display:flex;
+      gap:8px;
+      align-items:center;
+      margin-bottom:8px;
+      flex-wrap:wrap;
     }
 
-    .prayer-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      font-size: 10px;
+    .note-toolbar select,
+    .note-toolbar input {
+      font-size:11px;
+      padding:4px 6px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.5);
+      background:rgba(15,23,42,0.9);
+      color:var(--text);
+      outline:none;
     }
 
-    .prayer-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      border-radius: 999px;
-      padding: 1px 6px;
-      background: rgba(15,23,42,0.9);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .prayer-chip input {
-      accent-color: var(--accent);
-    }
-
-    .switch-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      font-size: 11px;
-    }
-
-    /* النوتات */
-    .notes-card {
-      background: radial-gradient(circle at 100% 0, rgba(56,189,248,0.22), rgba(15,23,42,0.97));
-    }
-
-    .notes-header-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin: 6px 0 8px;
-    }
-
-    .notes-header-main {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .notes-header-title {
-      font-size: 16px;
-      font-weight: 700;
-    }
-
-    .notes-header-sub {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .primary-btn {
-      border-radius: 999px;
-      border: none;
-      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-      color: white;
-      padding: 6px 14px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(15,23,42,0.7);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .primary-btn:hover {
-      filter: brightness(1.05);
-      transform: translateY(-1px);
-    }
-
-    .notes-grid {
-      margin-top: 6px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-      gap: 10px;
-    }
-
-    .note-card {
-      background: var(--card-soft);
-      border-radius: 14px;
-      border: 1px solid rgba(15,23,42,0.8);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      min-height: 140px;
-    }
-
-    .note-cover {
-      height: 70px;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .note-body {
-      padding: 8px 10px 6px;
-      flex: 1;
+    .note-toolbar label {
+      font-size:11px;
+      color:var(--text-soft);
     }
 
     .note-title {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 4px;
+      width:100%;
+      border:none;
+      outline:none;
+      margin:4px 0 6px;
+      font-size:16px;
+      background:transparent;
+      color:var(--text);
+      font-weight:600;
     }
 
-    .note-content {
-      font-size: 11px;
-      color: var(--text-soft);
-      max-height: 90px;
-      overflow: hidden;
+    .note-editor {
+      width:100%;
+      min-height:180px;
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,0.4);
+      background:rgba(15,23,42,0.95);
+      padding:10px;
+      font-size:13px;
+      color:var(--text);
+      resize:vertical;
+      outline:none;
     }
 
-    .note-actions {
-      display: flex;
-      justify-content: space-between;
-      gap: 4px;
-      padding: 4px 7px 8px;
+    .note-preview-img {
+      width:100%;
+      max-height:160px;
+      object-fit:cover;
+      border-radius:14px;
+      margin-top:8px;
+      border:1px solid rgba(148,163,184,0.4);
     }
 
-    .note-actions button {
-      flex: 1;
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      background: rgba(15,23,42,0.9);
-      color: var(--text-main);
-      font-size: 11px;
-      padding: 2px 0;
-      cursor: pointer;
+    .notes-list {
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      margin-top:8px;
+      max-height:260px;
+      overflow:auto;
     }
 
-    .note-actions button:hover {
-      background: rgba(37,99,235,0.9);
-      border-color: rgba(96,165,250,0.9);
+    .note-card {
+      border-radius:12px;
+      padding:8px 10px;
+      background:rgba(15,23,42,0.96);
+      border:1px solid rgba(55,65,81,0.9);
+      cursor:pointer;
+      font-size:11px;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
     }
 
-    .note-actions button:nth-child(2):hover {
-      background: rgba(220,38,38,0.9);
-      border-color: rgba(248,113,113,0.95);
+    .note-card-title {
+      font-weight:600;
+      font-size:12px;
     }
 
-    .empty-text {
-      font-size: 12px;
-      color: var(--text-soft);
-      padding-top: 10px;
+    .note-card-meta {
+      display:flex;
+      justify-content:space-between;
+      color:var(--text-soft);
+      font-size:10px;
     }
 
-    /* كرت الأفكار */
-    .gallery-card {
-      margin-top: 14px;
-      background: radial-gradient(circle at 0 0, rgba(251,191,36,0.22), rgba(15,23,42,0.96));
-    }
-
-    .gallery-list {
-      margin-top: 6px;
-      font-size: 11px;
-      color: var(--text-soft);
-      display: grid;
-      gap: 4px;
-    }
-
-    .gallery-list li {
-      margin-right: 14px;
-    }
-
-    /* الفوتر */
     .footer {
-      margin-top: 18px;
-      font-size: 11px;
-      color: var(--text-soft);
-      text-align: center;
+      margin-top:6px;
+      font-size:10px;
+      color:var(--text-soft);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
     }
 
-    .footer strong {
-      color: var(--accent);
+    .footer span strong {
+      color:#e5e7eb;
     }
 
-    /* الأوفرلاي (تسجيل الدخول + مودال النوتات) */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15,23,42,0.78);
-      backdrop-filter: blur(14px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 40;
+    /* شاشة تسجيل الدخول */
+    .login-screen {
+      position:fixed;
+      inset:0;
+      background:radial-gradient(circle at top,#1e293b 0,#020617 55%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:20;
     }
 
-    .overlay.hidden {
-      display: none;
-    }
-
-    .login-card, .modal-card {
-      width: 100%;
-      max-width: 380px;
-      background: radial-gradient(circle at 50% 0, rgba(56,189,248,0.22), rgba(15,23,42,0.97));
-      border-radius: 18px;
-      padding: 16px 18px 18px;
-      border: 1px solid rgba(148,163,184,0.5);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    .login-card {
+      width:100%;
+      max-width:420px;
+      border-radius:24px;
+      background:rgba(15,23,42,0.98);
+      border:1px solid rgba(148,163,184,0.5);
+      padding:22px 20px 18px;
+      box-shadow:0 22px 60px rgba(0,0,0,0.85);
     }
 
     .login-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 4px;
+      font-size:20px;
+      font-weight:700;
+      margin-bottom:4px;
     }
 
     .login-sub {
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-bottom: 10px;
+      font-size:12px;
+      color:var(--text-soft);
+      margin-bottom:12px;
     }
 
-    .form-group {
-      margin-bottom: 10px;
-      font-size: 12px;
+    .provider-btn {
+      width:100%;
+      border-radius:999px;
+      padding:10px 12px;
+      border:1px solid rgba(148,163,184,0.6);
+      background:#020617;
+      color:var(--text);
+      font-size:13px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      cursor:pointer;
+      margin-bottom:8px;
     }
 
-    .form-label {
-      display: block;
-      margin-bottom: 3px;
+    .provider-logo {
+      width:18px;
+      height:18px;
+      border-radius:4px;
+      background:#ffffff;
     }
 
-    .form-input, .form-select, .form-textarea {
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid var(--border-subtle);
-      background: rgba(15,23,42,0.95);
-      color: var(--text-main);
-      padding: 7px 9px;
-      font-size: 12px;
-      outline: none;
+    .login-badge {
+      font-size:11px;
+      color:var(--text-soft);
+      margin-top:8px;
+      text-align:center;
     }
 
-    .form-textarea {
-      min-height: 100px;
-      resize: vertical;
+    .hidden {
+      display:none !important;
     }
 
-    .form-row {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .modal-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .secondary-btn {
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      background: rgba(15,23,42,0.95);
-      color: var(--text-main);
-      padding: 5px 14px;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .secondary-btn:hover {
-      background: rgba(30,64,175,0.9);
-      border-color: rgba(96,165,250,0.9);
-    }
-
-    .login-helper {
-      margin-top: 6px;
-      font-size: 10px;
-      color: var(--text-soft);
-    }
-
-    @media (max-width: 600px) {
-      .topbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-        border-radius: 16px;
+    @media (max-width:900px) {
+      main {
+        grid-template-columns:1fr;
       }
+    }
 
-      .topbar-right {
-        width: 100%;
-        justify-content: space-between;
+    @media (max-width:600px) {
+      .app-inner {
+        padding:10px;
       }
     }
   </style>
 </head>
 <body class="theme-dark">
-  <div class="app-shell">
-    <!-- شريط علوي -->
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-avatar">A</div>
+
+  <!-- شاشة تسجيل الدخول -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <div class="brand-logo">A</div>
         <div>
-          <div class="brand-text-title">ATLAS Workspace</div>
-          <div class="brand-text-sub">مساحتك اليومية لتنظيم حياتك – من صنع محمود الصمادي</div>
+          <div class="login-title">ATLAS Workspace</div>
+          <div class="login-sub">مساحتك اليومية لتنظيم حياتك – من صنع محمود الصمادي.</div>
         </div>
       </div>
-      <div class="topbar-right">
-        <div class="pill">
-          <span>وضع:</span>
-          <select id="theme-select" class="select">
-            <option value="dark">داكن</option>
-            <option value="light">فاتح</option>
-            <option value="oled">أسود OLED</option>
-          </select>
-        </div>
-        <button id="logout-btn" class="ghost-btn">تسجيل الخروج</button>
-      </div>
-    </header>
 
-    <main class="main-layout">
-      <!-- العمود الأيسر: تحية + ودجات -->
-      <section>
-        <article class="card">
-          <header class="card-header">
-            <div>
-              <div class="card-title">مرحباً بك 👋</div>
-              <div class="card-sub">هذه مساحة شخصية يومية تحتفظ بكل شيء يخصك في مكان واحد.</div>
-            </div>
-            <div class="badge">
-              <span style="width:7px;height:7px;border-radius:50%;background:#22c55e;"></span>
-              <span id="status-text">يعمل الآن</span>
-            </div>
-          </header>
-
-          <div class="greeting-main">
-            <div class="greeting-line">
-              <span id="greeting-text">صباح الخير</span>
-              <span class="greeting-name" id="greeting-name">ضيف</span> ☕
-            </div>
-            <div class="greeting-meta">
-              <span id="today-date"></span>
-              <span>•</span>
-              <span>كل شيء محفوظ على جهازك، بدون حسابات معقدة.</span>
-            </div>
-          </div>
-
-          <!-- ودجات -->
-          <div class="widgets-grid">
-            <!-- عداد الماء -->
-            <div class="widget">
-              <div class="widget-header">
-                <div class="widget-title">💧 مياه</div>
-                <div style="font-size:10px;color:var(--text-soft);">
-                  <span id="water-percent">0%</span> من هدفك
-                </div>
-              </div>
-              <div class="widget-body">
-                <div class="progress-bar">
-                  <div id="water-bar-fill" class="progress-bar-fill"></div>
-                </div>
-                <div class="widget-row">
-                  <span style="font-size:11px;">عدد الأكواب اليوم:</span>
-                  <strong id="water-count">0</strong>
-                </div>
-                <div class="widget-row">
-                  <button id="water-minus" class="small-btn">–</button>
-                  <button id="water-plus" class="small-btn">+</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- النوم -->
-            <div class="widget">
-              <div class="widget-header">
-                <div class="widget-title">😴 نوم</div>
-                <div style="font-size:10px;color:var(--text-soft);">آخر ليلة</div>
-              </div>
-              <div class="widget-body">
-                <div class="widget-row">
-                  <span style="font-size:11px;">عدد الساعات:</span>
-                  <input id="sleep-hours" type="number" min="0" max="24" step="0.5" class="small-input" />
-                </div>
-                <div id="sleep-label" style="font-size:10px;color:var(--text-soft);">
-                  لم تسجّل نومك بعد
-                </div>
-              </div>
-            </div>
-
-            <!-- الصلاة -->
-            <div class="widget">
-              <div class="widget-header">
-                <div class="widget-title">🕌 صلاة</div>
-                <div id="prayer-summary" style="font-size:10px;color:var(--text-soft);">0 / 5 صلوات</div>
-              </div>
-              <div class="widget-body">
-                <div class="prayer-list">
-                  <label class="prayer-chip">
-                    <input type="checkbox" data-prayer="fajr" /> فجر
-                  </label>
-                  <label class="prayer-chip">
-                    <input type="checkbox" data-prayer="dhuhr" /> ظهر
-                  </label>
-                  <label class="prayer-chip">
-                    <input type="checkbox" data-prayer="asr" /> عصر
-                  </label>
-                  <label class="prayer-chip">
-                    <input type="checkbox" data-prayer="maghrib" /> مغرب
-                  </label>
-                  <label class="prayer-chip">
-                    <input type="checkbox" data-prayer="isha" /> عشاء
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <!-- الجيم -->
-            <div class="widget">
-              <div class="widget-header">
-                <div class="widget-title">🏋️ جيم / حركة</div>
-                <div style="font-size:10px;color:var(--text-soft);">اليوم</div>
-              </div>
-              <div class="widget-body">
-                <div class="switch-row">
-                  <span id="gym-label">لم تسجّل تمرين اليوم بعد</span>
-                  <input id="gym-done" type="checkbox" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <!-- العمود الأيمن: النوتات + الأفكار -->
-      <section>
-        <article class="card notes-card">
-          <header class="notes-header-row">
-            <div class="notes-header-main">
-              <div class="notes-header-title">نوتاتك اليومية ✍️</div>
-              <div class="notes-header-sub">
-                أنشئ صفحات مخصّصة بالكامل كما تحب – غيّر الألوان، نوع الخط، حجم النص، وأضف صورة لكل نوتة.
-              </div>
-            </div>
-            <button id="new-note-btn" class="primary-btn">
-              + ملاحظة جديدة
-            </button>
-          </header>
-
-          <div class="notes-grid" id="notes-grid">
-            <!-- النوتات تتولّد هنا -->
-          </div>
-        </article>
-
-        <article class="card gallery-card">
-          <header class="card-header">
-            <div>
-              <div class="card-title">معرض الأفكار 💡</div>
-              <div class="card-sub">مساحة إلهام لتجاربك مع النوتات – تماماً مثل الصور اللي أرسلتها من Notion.</div>
-            </div>
-          </header>
-          <ul class="gallery-list">
-            <li>اصنع نوتة بعنوان <strong>خطة مالية</strong>، أضف صورة بسيطة، واستخدم لون خلفية داكن وخط كبير للعناوين.</li>
-            <li>اصنع نوتة بعنوان <strong>مخطط أسبوعي</strong>، قسّم فيها الأيام في النص، واستخدم لون مختلف لكل يوم.</li>
-            <li>جرّب نوتة بعنوان <strong>روتين الصباح</strong> أو <strong>روتين النوم</strong> واضبط معها ودجات الماء / النوم.</li>
-            <li>خذ لقطة شاشة لنوتتك المبدعة وشاركها مع أصحابك – هذا يجعل موقعك جزء من روتين حياتهم اليومي.</li>
-          </ul>
-        </article>
-      </section>
-    </main>
-
-    <footer class="footer">
-      صُمّم وبُني بتعاون بين <strong>محمود الصمادي</strong> و ATLAS Workspace.  
-      كل شيء يعمل من المتصفح مباشرة بدون تثبيت أو تسجيل معقد.
-    </footer>
-  </div>
-
-  <!-- شاشة تسجيل الدخول البسيط -->
-  <div id="login-overlay" class="overlay">
-    <form id="login-form" class="login-card">
-      <div class="login-title">مرحباً بك في مساحة محمود 🌙</div>
-      <div class="login-sub">
-        أدخل اسمك وإيميلك فقط لعرض تحية شخصية وحفظ إعداداتك على هذا الجهاز.
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="login-name">الاسم</label>
-        <input id="login-name" class="form-input" placeholder="مثال: محمود" />
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="login-email">الإيميل</label>
-        <input id="login-email" type="email" class="form-input" placeholder="example@email.com" />
-      </div>
-
-      <button type="submit" class="primary-btn" style="width:100%;justify-content:center;margin-top:6px;">
-        دخول إلى مساحتي
+      <button class="provider-btn" id="btn-google-login">
+        <div class="provider-logo"></div>
+        <span>تسجيل الدخول بحساب Google</span>
       </button>
 
-      <div class="login-helper">
-        ⇢ هذا تسجيل دخول محلي فقط (local). بياناتك تُخزَّن في متصفحك على هذا الجهاز، ويمكنك حذفها في أي وقت من إعدادات المتصفح.
+      <!-- أزرار لمستقبل (فيسبوك / أبل...) شكل فقط -->
+      <button class="provider-btn" style="opacity:0.5;cursor:not-allowed;">
+        <span>قريباً: تسجيل الدخول بحسابات أخرى</span>
+      </button>
+
+      <div class="login-badge">
+        بتسجيل الدخول، توافق على حفظ نوتاتك في سحابة Firebase الخاصة بك.
       </div>
-    </form>
+    </div>
   </div>
 
-  <!-- مودال إنشاء / تعديل النوتة -->
-  <div id="note-modal" class="overlay hidden">
-    <form class="modal-card">
-      <div class="login-title" style="margin-bottom:6px;">ملاحظة جديدة / تعديل</div>
-      <div class="login-sub">
-        خصّص كل شيء في النوتة: العنوان، النص، الألوان، نوع الخط، وحتى صورة الغلاف مثل Notion.
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="note-title-input">عنوان النوتة</label>
-        <input id="note-title-input" class="form-input" placeholder="مثال: مخطط أسبوعي، خطة دراسة، خطة مالية..." />
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="note-content-input">المحتوى</label>
-        <textarea id="note-content-input" class="form-textarea" placeholder="اكتب نوتتك هنا، يمكنك تقسيمها لأسطر مثل Notion..."></textarea>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" for="note-bg-input">لون الخلفية</label>
-          <input id="note-bg-input" type="color" class="form-input" />
+  <!-- واجهة التطبيق -->
+  <div class="app-shell">
+    <div class="app-inner">
+      <header>
+        <div class="brand">
+          <div class="brand-logo">A</div>
+          <div>
+            <div class="brand-text-title">ATLAS Workspace</div>
+            <div class="brand-text-sub">
+              مساحة إنتاجية يومية – تصميم وبرمجة <strong>محمود الصمادي</strong>.
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="note-color-input">لون الخط</label>
-          <input id="note-color-input" type="color" class="form-input" />
-        </div>
-      </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" for="note-font-input">نوع الخط</label>
-          <select id="note-font-input" class="form-select form-input">
-            <option value="Cairo">Cairo (عربي مريح)</option>
-            <option value="Nunito">Nunito (إنجليزي ناعم)</option>
-            <option value="system-ui">System UI</option>
-          </select>
+        <div class="header-right">
+          <div class="theme-switcher">
+            <button class="pill-btn active" data-theme="dark">Dark</button>
+            <button class="pill-btn" data-theme="light">Light</button>
+            <button class="pill-btn" data-theme="oled">OLED</button>
+          </div>
+          <button class="btn-secondary btn" id="btn-logout" style="padding-inline:10px;font-size:11px;">
+            <span class="status-dot" id="online-dot" style="background:#f97316;box-shadow:none;"></span>
+            <span id="user-label">غير مسجل دخول</span>
+          </button>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="note-size-input">حجم الخط</label>
-          <input id="note-size-input" type="number" min="10" max="30" class="form-input" />
-        </div>
-      </div>
+      </header>
 
-      <div class="form-group">
-        <label class="form-label" for="note-image-input">رابط صورة الغلاف (اختياري)</label>
-        <input id="note-image-input" class="form-input" placeholder="الصق رابط صورة من الإنترنت أو اتركه فارغاً" />
-      </div>
+      <main>
+        <!-- لوحة جانبية -->
+        <section class="pane">
+          <div class="pane-title">المساحة اليومية</div>
+          <div class="pane-sub">اختر ما تركز عليه اليوم.</div>
 
-      <div class="modal-actions">
-        <button id="note-cancel-btn" class="secondary-btn">إلغاء</button>
-        <button id="note-save-btn" class="primary-btn" type="submit">حفظ</button>
-      </div>
-    </form>
+          <div class="nav-list">
+            <div class="nav-item active">
+              <span>📓 نوتاتي</span>
+              <span class="badge">أساسي</span>
+            </div>
+            <div class="nav-item">
+              <span>✅ مهام اليوم</span>
+              <span class="badge">قريباً</span>
+            </div>
+            <div class="nav-item">
+              <span>📅 جدول أسبوعي</span>
+              <span class="badge">قريباً</span>
+            </div>
+            <div class="nav-item">
+              <span>🌍 مجتمع ATLAS</span>
+              <span class="badge">فكرة / تصميم</span>
+            </div>
+          </div>
+
+          <div class="greeting-card" id="greeting-card">
+            <div>
+              <div class="greeting-main" id="greeting-text">مرحباً 👋</div>
+              <div style="font-size:11px;color:var(--text-soft);" id="greeting-sub">
+                سجّل دخولك ليبدأ تنظيم يومك.
+              </div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:11px;color:var(--text-soft);">اليوم</div>
+              <div style="font-size:12px;font-weight:600;" id="greeting-date"></div>
+            </div>
+          </div>
+
+          <div style="margin-top:6px;font-size:10px;color:var(--text-soft);">
+            💡 جرّب تخصيص النوتة على ذوقك ثم التقط لقطة شاشة وشاركها مع أصدقائك.
+          </div>
+        </section>
+
+        <!-- منطقة النوتات -->
+        <section class="pane">
+          <div class="pane-title">دفتر النوتات</div>
+          <div class="pane-sub">أنشئ صفحاتك الخاصة مثل Notion – لكن بطريقتك.</div>
+
+          <div class="note-toolbar">
+            <label>حجم الخط
+              <select id="note-font-size">
+                <option value="13">صغير</option>
+                <option value="15" selected>متوسط</option>
+                <option value="18">كبير</option>
+                <option value="22">عنوان كبير</option>
+              </select>
+            </label>
+
+            <label>لون الخط
+              <input type="color" id="note-font-color" value="#ffffff" />
+            </label>
+
+            <label>خلفية النوتة
+              <input type="color" id="note-bg-color" value="#020617" />
+            </label>
+
+            <label>رابط صورة
+              <input type="text" id="note-image-url" placeholder="اختياري" style="min-width:140px;" />
+            </label>
+
+            <button class="btn-xs primary" id="btn-new-note">+ نوتة جديدة</button>
+            <button class="btn-xs" id="btn-save-note">💾 حفظ</button>
+            <button class="btn-xs" id="btn-delete-note">🗑 حذف</button>
+          </div>
+
+          <input id="note-title" class="note-title" placeholder="عنوان النوتة..." />
+
+          <textarea id="note-body" class="note-editor" placeholder="اكتب أفكارك، خططك، جدولك، أو أي شيء يخطر في بالك"></textarea>
+          <img id="note-preview-img" class="note-preview-img hidden" alt="صورة النوتة" />
+
+          <div class="pane-sub" style="margin-top:6px;">
+            ملاحظة: نوتاتك تُحفظ باسم حسابك في Firebase – يمكنك فتحها من أي جهاز بنفس الحساب.
+          </div>
+        </section>
+
+        <!-- لوحة الودجات وقائمة النوتات -->
+        <section class="pane">
+          <div class="pane-title">ودجات حياتك اليومية</div>
+          <div class="pane-sub">تابع عاداتك الأساسية بشكل سريع.</div>
+
+          <div class="widgets-grid" style="margin-top:4px;">
+            <div class="widget" data-widget="water">
+              <div class="widget-top">
+                <div class="widget-label">💧 شرب الماء</div>
+                <div class="widget-value" id="water-label">0 / 8 كاسات</div>
+              </div>
+              <div class="widget-bar"><div class="widget-fill" id="water-bar"></div></div>
+              <div class="widget-actions">
+                <button class="btn-xs primary" data-action="inc">+1</button>
+                <button class="btn-xs" data-action="reset">إعادة</button>
+              </div>
+            </div>
+
+            <div class="widget" data-widget="sleep">
+              <div class="widget-top">
+                <div class="widget-label">😴 ساعات النوم</div>
+                <div class="widget-value" id="sleep-label">0 / 8</div>
+              </div>
+              <div class="widget-bar"><div class="widget-fill" id="sleep-bar"></div></div>
+              <div class="widget-actions">
+                <button class="btn-xs primary" data-action="inc">+1</button>
+                <button class="btn-xs" data-action="reset">إعادة</button>
+              </div>
+            </div>
+
+            <div class="widget" data-widget="prayer">
+              <div class="widget-top">
+                <div class="widget-label">🕌 الصلوات</div>
+                <div class="widget-value" id="prayer-label">0 / 5</div>
+              </div>
+              <div class="widget-bar"><div class="widget-fill" id="prayer-bar"></div></div>
+              <div class="widget-actions">
+                <button class="btn-xs primary" data-action="inc">+1</button>
+                <button class="btn-xs" data-action="reset">إعادة</button>
+              </div>
+            </div>
+
+            <div class="widget" data-widget="gym">
+              <div class="widget-top">
+                <div class="widget-label">🏋️‍♂️ الجيم / التمرين</div>
+                <div class="widget-value" id="gym-label">0 / 4 أسبوعياً</div>
+              </div>
+              <div class="widget-bar"><div class="widget-fill" id="gym-bar"></div></div>
+              <div class="widget-actions">
+                <button class="btn-xs primary" data-action="inc">+1</button>
+                <button class="btn-xs" data-action="reset">إعادة</button>
+              </div>
+            </div>
+          </div>
+
+          <hr style="border:none;border-top:1px solid rgba(148,163,184,0.3);margin:10px 0;" />
+
+          <div class="pane-title">نوتاتي المحفوظة</div>
+          <div class="notes-list" id="notes-list">
+            <!-- تمتلئ من الجافاسكربت -->
+          </div>
+
+          <div class="footer">
+            <span>موقع <strong>ATLAS Workspace</strong> – صُنع بحب بواسطة محمود الصمادي.</span>
+            <span>v1 • تحت التطوير</span>
+          </div>
+        </section>
+      </main>
+    </div>
   </div>
 
-  <script>
-    const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => document.querySelectorAll(sel);
+  <!-- Firebase + منطق التطبيق -->
+  <script type="module">
+    // 1) استيراد Firebase (نسخة 9)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      getDocs,
+      query,
+      where,
+      orderBy,
+      doc,
+      setDoc,
+      deleteDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
-    const defaultState = {
-      theme: "dark",
-      trackers: {
-        water: 0,
-        waterGoal: 8,
-        sleepHours: 0,
-        prayers: { fajr: false, dhuhr: false, asr: false, maghrib: false, isha: false },
-        gymDone: false
-      },
-      notes: []
+    // 2) إعداد firebaseConfig
+    // TODO: ضع كائن firebaseConfig الذي نسخته من Firebase هنا بدل هذا المثال:
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID",
+      measurementId: "YOUR_MEASUREMENT_ID"
+    };
+
+    // 3) تهيئة Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    // عناصر واجهة الاستخدام
+    const loginScreen = document.getElementById("login-screen");
+    const btnGoogleLogin = document.getElementById("btn-google-login");
+    const btnLogout = document.getElementById("btn-logout");
+    const userLabel = document.getElementById("user-label");
+    const onlineDot = document.getElementById("online-dot");
+
+    const greetingText = document.getElementById("greeting-text");
+    const greetingSub = document.getElementById("greeting-sub");
+    const greetingDate = document.getElementById("greeting-date");
+
+    const themeButtons = document.querySelectorAll(".pill-btn");
+
+    const noteTitle = document.getElementById("note-title");
+    const noteBody = document.getElementById("note-body");
+    const noteImageUrl = document.getElementById("note-image-url");
+    const notePreviewImg = document.getElementById("note-preview-img");
+    const fontSizeSelect = document.getElementById("note-font-size");
+    const fontColorInput = document.getElementById("note-font-color");
+    const bgColorInput = document.getElementById("note-bg-color");
+    const btnNewNote = document.getElementById("btn-new-note");
+    const btnSaveNote = document.getElementById("btn-save-note");
+    const btnDeleteNote = document.getElementById("btn-delete-note");
+    const notesList = document.getElementById("notes-list");
+
+    // ودجات
+    const widgets = {
+      water: { max: 8, count: 0, bar: document.getElementById("water-bar"), label: document.getElementById("water-label") },
+      sleep: { max: 8, count: 0, bar: document.getElementById("sleep-bar"), label: document.getElementById("sleep-label") },
+      prayer: { max: 5, count: 0, bar: document.getElementById("prayer-bar"), label: document.getElementById("prayer-label") },
+      gym: { max: 4, count: 0, bar: document.getElementById("gym-bar"), label: document.getElementById("gym-label") },
     };
 
     let currentUser = null;
-    let state = JSON.parse(JSON.stringify(defaultState));
-    let editingIndex = null;
+    let currentNoteId = null;
 
-    function getUserKey() {
-      if (!currentUser) return null;
-      return "atlas-life-" + currentUser.email;
-    }
-
-    function loadUserFromStorage() {
-      const raw = localStorage.getItem("atlas-life-user");
-      if (raw) {
-        try {
-          currentUser = JSON.parse(raw);
-        } catch (e) {
-          currentUser = null;
-        }
-      }
-    }
-
-    function saveUserToStorage() {
-      if (currentUser) {
-        localStorage.setItem("atlas-life-user", JSON.stringify(currentUser));
-      } else {
-        localStorage.removeItem("atlas-life-user");
-      }
-    }
-
-    function loadState() {
-      const key = getUserKey();
-      if (!key) return;
-      const raw = localStorage.getItem(key);
-      if (raw) {
-        try {
-          const stored = JSON.parse(raw);
-          state = Object.assign({}, defaultState, stored);
-        } catch (e) {
-          state = JSON.parse(JSON.stringify(defaultState));
-        }
-      } else {
-        state = JSON.parse(JSON.stringify(defaultState));
-      }
-      applyTheme(state.theme || "dark");
-      renderAll();
-    }
-
-    function saveState() {
-      const key = getUserKey();
-      if (!key) return;
-      localStorage.setItem(key, JSON.stringify(state));
-    }
-
+    // --------- ثيم الواجهة ---------
     function applyTheme(theme) {
-      document.body.classList.remove("theme-dark", "theme-light", "theme-oled");
-      const cls = theme === "light" ? "theme-light" : theme === "oled" ? "theme-oled" : "theme-dark";
-      document.body.classList.add(cls);
-      const select = $("#theme-select");
-      if (select) select.value = theme;
-    }
+      document.body.classList.remove("theme-light", "theme-dark", "theme-oled");
+      if (theme === "light") document.body.classList.add("theme-light");
+      else if (theme === "oled") document.body.classList.add("theme-oled");
+      else document.body.classList.add("theme-dark");
+      localStorage.setItem("atlas-theme", theme);
 
-    function getGreetingText() {
-      const hour = new Date().getHours();
-      if (hour < 12) return "صباح الخير";
-      if (hour < 18) return "مساء الخير";
-      return "مساء الخير";
-    }
-
-    function formatTodayDate() {
-      const d = new Date();
-      const days = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
-      const months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
-      const dayName = days[d.getDay()];
-      const day = d.getDate();
-      const month = months[d.getMonth()];
-      const year = d.getFullYear();
-      return `${dayName} • ${day} ${month} ${year}`;
-    }
-
-    function updateGreeting() {
-      const greetEl = $("#greeting-text");
-      const nameEl = $("#greeting-name");
-      const dateEl = $("#today-date");
-      if (greetEl) greetEl.textContent = getGreetingText();
-      if (nameEl) nameEl.textContent = currentUser ? currentUser.name || "ضيف" : "ضيف";
-      if (dateEl) dateEl.textContent = formatTodayDate();
-    }
-
-    function renderTrackers() {
-      // ماء
-      const water = state.trackers.water || 0;
-      const goal = state.trackers.waterGoal || 8;
-      const percent = goal > 0 ? Math.min(100, Math.round(water / goal * 100)) : 0;
-      $("#water-count").textContent = water;
-      $("#water-percent").textContent = percent + "%";
-      $("#water-bar-fill").style.width = percent + "%";
-
-      // نوم
-      const sleepHoursInput = $("#sleep-hours");
-      if (sleepHoursInput) {
-        sleepHoursInput.value = state.trackers.sleepHours || "";
-      }
-      const sleepLabel = $("#sleep-label");
-      if (sleepLabel) {
-        sleepLabel.textContent = state.trackers.sleepHours
-          ? `نمت ${state.trackers.sleepHours} ساعة`
-          : "لم تسجّل نومك بعد";
-      }
-
-      // صلاة
-      const prayers = state.trackers.prayers || {};
-      ["fajr","dhuhr","asr","maghrib","isha"].forEach(key => {
-        const cb = document.querySelector(`input[data-prayer="${key}"]`);
-        if (cb) cb.checked = !!prayers[key];
-      });
-      const done = Object.values(prayers).filter(Boolean).length;
-      const summary = $("#prayer-summary");
-      if (summary) summary.textContent = `${done} / 5 صلوات`;
-
-      // جيم
-      const gymToggle = $("#gym-done");
-      if (gymToggle) {
-        gymToggle.checked = !!state.trackers.gymDone;
-      }
-      const gymLabel = $("#gym-label");
-      if (gymLabel) {
-        gymLabel.textContent = state.trackers.gymDone
-          ? "أحسنت! تمرّنت اليوم 💪"
-          : "لم تسجّل تمرين اليوم بعد";
-      }
-    }
-
-    function renderNotes() {
-      const container = $("#notes-grid");
-      if (!container) return;
-      container.innerHTML = "";
-
-      if (!state.notes || !state.notes.length) {
-        container.innerHTML = '<p class="empty-text">لا توجد ملاحظات بعد. اضغط "ملاحظة جديدة" للبدء ✍️</p>';
-        return;
-      }
-
-      state.notes.forEach((note, index) => {
-        const card = document.createElement("article");
-        card.className = "note-card";
-        card.style.backgroundColor = note.bg || "var(--card-soft)";
-        card.style.color = note.color || "var(--text-main)";
-        card.style.fontFamily = note.fontFamily || "Cairo";
-        card.style.fontSize = (note.fontSize || 16) + "px";
-
-        let html = "";
-        if (note.image) {
-          const safeUrl = note.image.replace(/'/g, "&#39;");
-          html += `<div class="note-cover" style="background-image:url('${safeUrl}')"></div>`;
-        }
-        const safeTitle = note.title || "ملاحظة بدون عنوان";
-        const safeContent = (note.content || "").replace(/\n/g, "<br>");
-
-        html += `
-          <div class="note-body">
-            <h3 class="note-title">${safeTitle}</h3>
-            <p class="note-content">${safeContent}</p>
-          </div>
-          <div class="note-actions">
-            <button type="button" data-edit="${index}">تعديل</button>
-            <button type="button" data-delete="${index}">حذف</button>
-          </div>
-        `;
-        card.innerHTML = html;
-        container.appendChild(card);
+      themeButtons.forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.theme === theme);
       });
     }
 
-    function renderAll() {
-      updateGreeting();
-      renderTrackers();
-      renderNotes();
-    }
+    themeButtons.forEach(btn => {
+      btn.addEventListener("click", () => applyTheme(btn.dataset.theme));
+    });
 
-    // مودال النوتة
-    function openNoteModal(index) {
-      editingIndex = (index !== null && index !== undefined) ? index : null;
-      const modal = $("#note-modal");
-      modal.classList.remove("hidden");
+    const savedTheme = localStorage.getItem("atlas-theme") || "dark";
+    applyTheme(savedTheme);
 
-      const note = (editingIndex !== null && state.notes[editingIndex])
-        ? state.notes[editingIndex]
-        : { title: "", content: "", bg: "#0f172a", color: "#f9fafb", fontFamily: "Cairo", fontSize: 16, image: "" };
-
-      $("#note-title-input").value = note.title || "";
-      $("#note-content-input").value = note.content || "";
-      $("#note-bg-input").value = note.bg || "#0f172a";
-      $("#note-color-input").value = note.color || "#f9fafb";
-      $("#note-font-input").value = note.fontFamily || "Cairo";
-      $("#note-size-input").value = note.fontSize || 16;
-      $("#note-image-input").value = note.image || "";
-    }
-
-    function closeNoteModal() {
-      $("#note-modal").classList.add("hidden");
-      editingIndex = null;
-    }
-
-    function saveNoteFromModal() {
-      const note = {
-        title: $("#note-title-input").value.trim(),
-        content: $("#note-content-input").value.trim(),
-        bg: $("#note-bg-input").value || "#0f172a",
-        color: $("#note-color-input").value || "#f9fafb",
-        fontFamily: $("#note-font-input").value || "Cairo",
-        fontSize: parseInt($("#note-size-input").value, 10) || 16,
-        image: $("#note-image-input").value.trim()
-      };
-
-      if (editingIndex !== null && editingIndex >= 0 && editingIndex < state.notes.length) {
-        state.notes[editingIndex] = note;
-      } else {
-        state.notes.unshift(note);
-      }
-
-      saveState();
-      closeNoteModal();
-      renderNotes();
-    }
-
-    // تسجيل الدخول المحلي
-    function showLogin() {
-      $("#login-overlay").classList.remove("hidden");
-    }
-
-    function hideLogin() {
-      $("#login-overlay").classList.add("hidden");
-    }
-
-    function handleLoginSubmit(e) {
-      e.preventDefault();
-      const name = $("#login-name").value.trim() || "ضيف";
-      const email = $("#login-email").value.trim() || "guest@example.com";
-      currentUser = { name, email };
-      saveUserToStorage();
-      loadState();
-      hideLogin();
-    }
-
-    function handleLogout() {
-      const yes = confirm("تسجيل الخروج؟ بياناتك ستبقى محفوظة على هذا الجهاز، ويمكنك الرجوع لها لاحقاً.");
-      if (!yes) return;
-      currentUser = null;
-      saveUserToStorage();
-      showLogin();
-    }
-
-    function initEvents() {
-      // تسجيل الدخول
-      $("#login-form").addEventListener("submit", handleLoginSubmit);
-      $("#logout-btn").addEventListener("click", handleLogout);
-
-      // الثيم
-      $("#theme-select").addEventListener("change", (e) => {
-        state.theme = e.target.value;
-        applyTheme(state.theme);
-        saveState();
-      });
-
-      // ماء
-      $("#water-plus").addEventListener("click", () => {
-        state.trackers.water = Math.min(state.trackers.waterGoal, (state.trackers.water || 0) + 1);
-        saveState();
-        renderTrackers();
-      });
-
-      $("#water-minus").addEventListener("click", () => {
-        state.trackers.water = Math.max(0, (state.trackers.water || 0) - 1);
-        saveState();
-        renderTrackers();
-      });
-
-      // نوم
-      $("#sleep-hours").addEventListener("change", (e) => {
-        state.trackers.sleepHours = parseFloat(e.target.value) || 0;
-        saveState();
-        renderTrackers();
-      });
-
-      // صلاة
-      $$("input[data-prayer]").forEach((cb) => {
-        cb.addEventListener("change", (e) => {
-          const key = e.target.getAttribute("data-prayer");
-          state.trackers.prayers[key] = e.target.checked;
-          saveState();
-          renderTrackers();
-        });
-      });
-
-      // جيم
-      $("#gym-done").addEventListener("change", (e) => {
-        state.trackers.gymDone = e.target.checked;
-        saveState();
-        renderTrackers();
-      });
-
-      // نوتات
-      $("#new-note-btn").addEventListener("click", () => openNoteModal(null));
-      $("#note-cancel-btn").addEventListener("click", (e) => {
-        e.preventDefault();
-        closeNoteModal();
-      });
-      $("#note-save-btn").addEventListener("click", (e) => {
-        e.preventDefault();
-        saveNoteFromModal();
-      });
-
-      $("#notes-grid").addEventListener("click", (e) => {
-        const editIndex = e.target.getAttribute("data-edit");
-        const deleteIndex = e.target.getAttribute("data-delete");
-        if (editIndex !== null && editIndex !== undefined) {
-          openNoteModal(parseInt(editIndex, 10));
-        } else if (deleteIndex !== null && deleteIndex !== undefined) {
-          const idx = parseInt(deleteIndex, 10);
-          const ok = confirm("متأكد أنك تريد حذف هذه الملاحظة؟");
-          if (ok) {
-            state.notes.splice(idx, 1);
-            saveState();
-            renderNotes();
-          }
-        }
-      });
-    }
-
-    window.addEventListener("DOMContentLoaded", () => {
-      loadUserFromStorage();
-      initEvents();
-      if (currentUser) {
-        loadState();
-        hideLogin();
-      } else {
-        applyTheme("dark");
-        showLogin();
+    // --------- تسجيل الدخول / الخروج ---------
+    btnGoogleLogin.addEventListener("click", async () => {
+      try {
+        await signInWithPopup(auth, provider);
+      } catch (err) {
+        console.error(err);
+        alert("حدث خطأ أثناء تسجيل الدخول بحساب Google.");
       }
     });
+
+    btnLogout.addEventListener("click", async () => {
+      if (!currentUser) return;
+      await signOut(auth);
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      if (user) {
+        loginScreen.classList.add("hidden");
+        onlineDot.style.background = "#22c55e";
+        userLabel.textContent = user.displayName || user.email || "مستخدم";
+        updateGreeting(user);
+        await loadNotes();
+      } else {
+        loginScreen.classList.remove("hidden");
+        onlineDot.style.background = "#f97316";
+        userLabel.textContent = "غير مسجل دخول";
+        notesList.innerHTML = "";
+      }
+    });
+
+    function updateGreeting(user) {
+      const now = new Date();
+      const hour = now.getHours();
+      const name = user.displayName || "صديقي";
+      let msg = "مرحباً";
+      if (hour < 12) msg = "صباح الخير";
+      else if (hour < 18) msg = "مساء الخير";
+      else msg = "سهرة لطيفة";
+
+      greetingText.textContent = `${msg}، ${name}`;
+      greetingSub.textContent = "اختر نوتة أو أنشئ واحدة جديدة وابدأ التنظيم.";
+      greetingDate.textContent = now.toLocaleDateString("ar-JO", { weekday:"long", day:"numeric", month:"long" });
+    }
+
+    // --------- ودجات العادات ---------
+    function updateWidgetUI(key) {
+      const w = widgets[key];
+      const ratio = Math.min(w.count / w.max, 1);
+      w.bar.style.width = (ratio * 100) + "%";
+
+      if (key === "water") {
+        w.label.textContent = `${w.count} / ${w.max} كاسات`;
+      } else if (key === "sleep") {
+        w.label.textContent = `${w.count} / ${w.max}`;
+      } else if (key === "prayer") {
+        w.label.textContent = `${w.count} / ${w.max}`;
+      } else if (key === "gym") {
+        w.label.textContent = `${w.count} / ${w.max} أسبوعياً`;
+      }
+    }
+
+    function saveWidgetsLocal() {
+      const data = {};
+      Object.keys(widgets).forEach(k => data[k] = widgets[k].count);
+      localStorage.setItem("atlas-widgets", JSON.stringify(data));
+    }
+
+    function loadWidgetsLocal() {
+      const raw = localStorage.getItem("atlas-widgets");
+      if (!raw) return;
+      try {
+        const data = JSON.parse(raw);
+        Object.keys(widgets).forEach(k => {
+          if (data[k] != null) widgets[k].count = data[k];
+          updateWidgetUI(k);
+        });
+      } catch {}
+    }
+
+    loadWidgetsLocal();
+    Object.keys(widgets).forEach(k => updateWidgetUI(k));
+
+    document.querySelectorAll(".widget").forEach(widgetEl => {
+      const key = widgetEl.dataset.widget;
+      widgetEl.querySelectorAll(".btn-xs").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const action = btn.dataset.action;
+          if (action === "inc") {
+            widgets[key].count = Math.min(widgets[key].count + 1, widgets[key].max);
+          } else if (action === "reset") {
+            widgets[key].count = 0;
+          }
+          updateWidgetUI(key);
+          saveWidgetsLocal();
+        });
+      });
+    });
+
+    // --------- النوتات (Firestore) ---------
+    function resetNoteEditor() {
+      currentNoteId = null;
+      noteTitle.value = "";
+      noteBody.value = "";
+      fontSizeSelect.value = "15";
+      fontColorInput.value = "#ffffff";
+      bgColorInput.value = "#020617";
+      noteImageUrl.value = "";
+      notePreviewImg.classList.add("hidden");
+      applyNoteStyles();
+    }
+
+    function applyNoteStyles() {
+      const size = fontSizeSelect.value;
+      const color = fontColorInput.value;
+      const bg = bgColorInput.value;
+      noteBody.style.fontSize = size + "px";
+      noteBody.style.color = color;
+      noteBody.style.backgroundColor = bg;
+    }
+
+    fontSizeSelect.addEventListener("change", applyNoteStyles);
+    fontColorInput.addEventListener("input", applyNoteStyles);
+    bgColorInput.addEventListener("input", applyNoteStyles);
+
+    noteImageUrl.addEventListener("change", () => {
+      const url = noteImageUrl.value.trim();
+      if (url) {
+        notePreviewImg.src = url;
+        notePreviewImg.classList.remove("hidden");
+      } else {
+        notePreviewImg.classList.add("hidden");
+      }
+    });
+
+    btnNewNote.addEventListener("click", () => {
+      resetNoteEditor();
+    });
+
+    btnSaveNote.addEventListener("click", async () => {
+      if (!currentUser) {
+        alert("سجّل الدخول أولاً.");
+        return;
+      }
+      const title = noteTitle.value.trim() || "نوتة بدون عنوان";
+      const body = noteBody.value.trim();
+      const img = noteImageUrl.value.trim();
+      const fontSize = fontSizeSelect.value;
+      const fontColor = fontColorInput.value;
+      const bgColor = bgColorInput.value;
+
+      try {
+        if (currentNoteId) {
+          await setDoc(doc(db, "notes", currentNoteId), {
+            uid: currentUser.uid,
+            title, body, img, fontSize, fontColor, bgColor,
+            updatedAt: serverTimestamp(),
+          }, { merge: true });
+        } else {
+          const ref = await addDoc(collection(db, "notes"), {
+            uid: currentUser.uid,
+            title, body, img, fontSize, fontColor, bgColor,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp(),
+          });
+          currentNoteId = ref.id;
+        }
+
+        await loadNotes();
+      } catch (err) {
+        console.error(err);
+        alert("حدث خطأ أثناء حفظ النوتة.");
+      }
+    });
+
+    btnDeleteNote.addEventListener("click", async () => {
+      if (!currentUser || !currentNoteId) return;
+      if (!confirm("هل أنت متأكد من حذف هذه النوتة؟")) return;
+      try {
+        await deleteDoc(doc(db, "notes", currentNoteId));
+        resetNoteEditor();
+        await loadNotes();
+      } catch (err) {
+        console.error(err);
+        alert("تعذر حذف النوتة.");
+      }
+    });
+
+    async function loadNotes() {
+      if (!currentUser) return;
+      notesList.innerHTML = "<div style='font-size:11px;color:var(--text-soft);'>جاري تحميل نوتاتك...</div>";
+
+      try {
+        const q = query(
+          collection(db, "notes"),
+          where("uid", "==", currentUser.uid),
+          orderBy("updatedAt", "desc")
+        );
+        const snap = await getDocs(q);
+        notesList.innerHTML = "";
+        if (snap.empty) {
+          notesList.innerHTML = "<div style='font-size:11px;color:var(--text-soft);'>لا توجد نوتات بعد – ابدأ بنوتة جديدة.</div>";
+          return;
+        }
+
+        snap.forEach(docSnap => {
+          const data = docSnap.data();
+          const card = document.createElement("div");
+          card.className = "note-card";
+          card.dataset.id = docSnap.id;
+          card.dataset.payload = JSON.stringify({
+            title: data.title || "",
+            body: data.body || "",
+            img: data.img || "",
+            fontSize: data.fontSize || "15",
+            fontColor: data.fontColor || "#ffffff",
+            bgColor: data.bgColor || "#020617",
+          });
+
+          const titleEl = document.createElement("div");
+          titleEl.className = "note-card-title";
+          titleEl.textContent = data.title || "بدون عنوان";
+
+          const metaEl = document.createElement("div");
+          metaEl.className = "note-card-meta";
+          metaEl.innerHTML =
+            `<span>${(data.body || "").slice(0, 24) || "بدون محتوى"}</span>` +
+            `<span>${data.updatedAt ? new Date(data.updatedAt.toDate()).toLocaleDateString("ar-JO",{day:"numeric",month:"short"}) : ""}</span>`;
+
+          card.appendChild(titleEl);
+          card.appendChild(metaEl);
+          notesList.appendChild(card);
+
+          card.addEventListener("click", () => {
+            const payload = JSON.parse(card.dataset.payload);
+            currentNoteId = card.dataset.id;
+            noteTitle.value = payload.title;
+            noteBody.value = payload.body;
+            noteImageUrl.value = payload.img;
+            fontSizeSelect.value = payload.fontSize;
+            fontColorInput.value = payload.fontColor;
+            bgColorInput.value = payload.bgColor;
+            applyNoteStyles();
+            if (payload.img) {
+              notePreviewImg.src = payload.img;
+              notePreviewImg.classList.remove("hidden");
+            } else {
+              notePreviewImg.classList.add("hidden");
+            }
+          });
+        });
+      } catch (err) {
+        console.error(err);
+        notesList.innerHTML = "<div style='font-size:11px;color:var(--text-soft);'>تعذر تحميل النوتات. تأكد أن Firestore مفعّل في Firebase.</div>";
+      }
+    }
+
+    // تطبيق ستايل مبدئي
+    applyNoteStyles();
   </script>
 </body>
 </html>
