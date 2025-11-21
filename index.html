@@ -2,106 +2,100 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ATLAS Focus Hub – غرفة تركيز يومية</title>
-  <style>
-    :root {
-      --bg: #050815;
-      --bg-soft: #070b18;
-      --card: #0b1020;
-      --accent: #18b4ff;
-      --accent-soft: rgba(24, 180, 255, 0.15);
-      --text: #f9fafb;
-      --text-soft: #9ca3c8;
-      --border: #1f2937;
-      --danger: #fb7185;
-      --radius-lg: 20px;
-      --radius-xl: 26px;
-      --shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
-      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      --transition: 0.18s ease-out;
-    }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATLAS Workspace – مساحة محمود الصمادي اليومية</title>
 
+  <!-- خطوط عربية وإنجليزية بسيطة -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
     }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: var(--font-main);
-      background: radial-gradient(circle at top, #101735 0, #050815 45%, #02030a 100%);
-      color: var(--text);
-      display: flex;
-      justify-content: center;
-      padding: 16px;
+      font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    body.theme-oled {
-      background: #000000;
-    }
-
-    body.theme-dark .shell::before,
-    body.theme-oled .shell::before {
-      opacity: 0.7;
+    /* الثيمات */
+    body.theme-dark {
+      --bg: #020617;
+      --bg-soft: #020617;
+      --card: #020617;
+      --card-soft: #020617;
+      --border-subtle: #1e293b;
+      --accent: #0ea5e9;
+      --accent-soft: rgba(14,165,233,0.1);
+      --accent-strong: #0284c7;
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --danger: #f97373;
     }
 
     body.theme-light {
-      background: #e5edf5;
-      color: #020617;
+      --bg: #f3f4f6;
+      --bg-soft: #e5e7eb;
+      --card: #ffffff;
+      --card-soft: #f9fafb;
+      --border-subtle: #d1d5db;
+      --accent: #2563eb;
+      --accent-soft: rgba(37,99,235,0.08);
+      --accent-strong: #1d4ed8;
+      --text-main: #111827;
+      --text-soft: #6b7280;
+      --danger: #dc2626;
     }
 
-    .shell {
-      width: 100%;
-      max-width: 1100px;
-      background: linear-gradient(145deg, #060a18 0, #050815 30%, #02040c 100%);
-      border-radius: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: var(--shadow);
-      padding: 18px 18px 22px;
-      position: relative;
-      overflow: hidden;
+    body.theme-oled {
+      --bg: #000000;
+      --bg-soft: #020617;
+      --card: #020617;
+      --card-soft: #020617;
+      --border-subtle: #111827;
+      --accent: #22d3ee;
+      --accent-soft: rgba(34,211,238,0.12);
+      --accent-strong: #06b6d4;
+      --text-main: #f9fafb;
+      --text-soft: #9ca3af;
+      --danger: #fb7185;
     }
 
-    @media (min-width: 900px) {
-      .shell {
-        padding: 22px 24px 26px;
-      }
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    .shell::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background:
-        radial-gradient(circle at 0 0, rgba(24, 180, 255, 0.12), transparent 60%),
-        radial-gradient(circle at 100% 0, rgba(88, 101, 242, 0.15), transparent 55%);
-      pointer-events: none;
+    .app-shell {
+      min-height: 100vh;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 12px 32px;
     }
 
-    body.theme-oled .shell {
-      background: #02040b;
-      border-color: rgba(148, 163, 184, 0.35);
-    }
-
-    body.theme-light .shell {
-      background: #f8fafc;
-      border-color: rgba(148, 163, 184, 0.6);
-    }
-
-    .inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    header {
+    /* الهيدر */
+    .topbar {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(14,165,233,0.25), rgba(79,70,229,0.25));
+      border: 1px solid rgba(148,163,184,0.4);
+      box-shadow: 0 18px 45px rgba(15,23,42,0.7);
+      margin-bottom: 20px;
+      backdrop-filter: blur(16px);
     }
 
     .brand {
@@ -110,188 +104,107 @@
       gap: 10px;
     }
 
-    .brand-logo {
-      width: 44px;
-      height: 44px;
+    .brand-avatar {
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 20%, #39f, #18b4ff 30%, #0b89ff 60%, #141b3d 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 22px;
-      color: #03101b;
-      box-shadow: 0 0 0 3px rgba(24, 180, 255, 0.25);
+      background: radial-gradient(circle at 20% 0%, #22d3ee, #0f172a);
+      color: #e5faff;
+      font-weight: 700;
+      font-size: 18px;
     }
 
-    .brand-title {
+    .brand-text-title {
       font-size: 18px;
       font-weight: 700;
-      letter-spacing: 0.04em;
     }
 
-    .brand-sub {
+    .brand-text-sub {
       font-size: 11px;
       color: var(--text-soft);
     }
 
-    .right-header {
+    .topbar-right {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
+      align-items: center;
+      gap: 10px;
     }
 
     .pill {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.65);
+      padding: 4px 8px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      font-size: 11px;
+      color: #e5e7eb;
+    }
+
+    .select {
       border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-main);
       padding: 4px 10px;
-      background: rgba(5, 10, 25, 0.96);
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .pill-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
-    }
-
-    .lang-toggle {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      padding: 3px;
-      background: rgba(5, 10, 25, 0.96);
-      gap: 3px;
-    }
-
-    .lang-btn {
-      border: none;
-      border-radius: 999px;
-      padding: 4px 9px;
-      background: transparent;
-      color: var(--text-soft);
-      font-size: 11px;
+      font-size: 12px;
+      outline: none;
       cursor: pointer;
-      transition: background var(--transition), color var(--transition);
     }
 
-    .lang-btn.active {
-      background: var(--accent);
-      color: #03101b;
-      font-weight: 600;
-    }
-
-    .greeting-row {
-      margin: 6px 0 10px;
-      font-size: 13px;
-      color: var(--text-soft);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .greeting-name {
-      font-weight: 600;
-      color: var(--accent);
-    }
-
-    /* NAV */
-    .main-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-
-    .nav-btn {
-      border: none;
+    .ghost-btn {
       border-radius: 999px;
-      padding: 7px 13px;
-      background: rgba(15, 23, 42, 0.96);
-      color: var(--text-soft);
+      border: 1px solid rgba(248,113,113,0.6);
+      background: rgba(127,29,29,0.08);
+      color: #fecaca;
+      padding: 4px 12px;
       font-size: 12px;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background var(--transition), color var(--transition),
-        transform 0.1s ease-out;
+      transition: background 0.2s ease, transform 0.1s ease;
     }
 
-    .nav-btn span.icon {
-      font-size: 15px;
-    }
-
-    .nav-btn.active {
-      background: var(--accent);
-      color: #02101b;
-      font-weight: 600;
+    .ghost-btn:hover {
+      background: rgba(248,113,113,0.18);
       transform: translateY(-1px);
     }
 
-    .nav-btn:hover {
-      background: #111827;
-    }
-
-    /* LAYOUT */
-    .layout {
+    /* اللياوت الأساسي */
+    .main-layout {
       display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.2fr);
-      gap: 14px;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+      gap: 18px;
     }
 
-    @media (max-width: 850px) {
-      .layout {
+    @media (max-width: 900px) {
+      .main-layout {
         grid-template-columns: minmax(0, 1fr);
       }
     }
 
     .card {
-      background: radial-gradient(circle at top left, rgba(24, 180, 255, 0.14), transparent 40%),
-        linear-gradient(145deg, #080e20, #050815);
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(148, 163, 184, 0.22);
-      padding: 16px 14px 16px;
+      background: radial-gradient(circle at 0 0, rgba(148,163,184,0.25), rgba(15,23,42,0.98));
+      border-radius: 18px;
+      padding: 14px 14px 16px;
+      border: 1px solid rgba(30,64,175,0.4);
+      box-shadow: 0 18px 45px rgba(15,23,42,0.9);
       position: relative;
       overflow: hidden;
     }
 
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 120% -10%, rgba(88, 101, 242, 0.15), transparent 45%);
-      pointer-events: none;
-    }
-
-    body.theme-oled .card {
-      background: #02030a;
-    }
-
-    body.theme-light .card {
-      background: #ffffff;
-      border-color: rgba(148, 163, 184, 0.6);
-    }
-
-    .card-inner {
-      position: relative;
-      z-index: 1;
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
     }
 
     .card-title {
       font-size: 15px;
       font-weight: 700;
-      margin-bottom: 4px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -300,1770 +213,1061 @@
     .card-sub {
       font-size: 11px;
       color: var(--text-soft);
-      margin-bottom: 12px;
-      line-height: 1.6;
     }
 
-    .badge-soft {
+    .badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      padding: 3px 9px;
+      gap: 4px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      color: var(--text-soft);
+      padding: 2px 8px;
+      font-size: 10px;
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: #e5e7eb;
     }
 
-    .grid-2 {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 10px;
-    }
-
-    @media (max-width: 700px) {
-      .grid-2 {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .section {
-      display: none;
-    }
-
-    .section.active {
-      display: block;
-    }
-
-    /* TIMER */
-    .focus-timer {
+    /* كرت الترحيب */
+    .greeting-main {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-bottom: 8px;
+      gap: 8px;
+      margin-top: 4px;
     }
 
-    .timer-display {
-      font-size: 32px;
+    .greeting-line {
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: 0.12em;
-      padding: 10px 14px;
-      border-radius: 18px;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      text-align: center;
     }
 
-    body.theme-light .timer-display {
-      background: #f9fafb;
-      border-color: rgba(148, 163, 184, 0.6);
+    .greeting-name {
+      color: var(--accent);
     }
 
-    .timer-controls {
+    .greeting-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-soft);
       align-items: center;
+      margin-top: 4px;
     }
 
-    .btn {
-      border: none;
-      border-radius: 999px;
-      padding: 7px 14px;
-      font-size: 13px;
-      cursor: pointer;
+    .greeting-meta span {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      background: var(--accent);
-      color: #03101b;
-      font-weight: 600;
-      box-shadow: 0 12px 26px rgba(24, 180, 255, 0.55);
-      transition: transform 0.1s ease-out, box-shadow 0.1s ease-out,
-        background var(--transition), color var(--transition);
+      gap: 4px;
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 32px rgba(24, 180, 255, 0.65);
-    }
-
-    .btn.secondary {
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text-soft);
-      box-shadow: none;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-    }
-
-    .btn.secondary:hover {
-      background: #111827;
-    }
-
-    .btn.small {
-      padding: 5px 10px;
-      font-size: 11px;
-      box-shadow: none;
-    }
-
-    .btn.small.primary-soft {
-      background: rgba(24, 180, 255, 0.15);
-      color: var(--accent);
-      border: 1px solid rgba(24, 180, 255, 0.6);
-    }
-
-    .btn-icon {
-      font-size: 16px;
-    }
-
-    .timer-input-row {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      font-size: 11px;
-      color: var(--text-soft);
-      flex-wrap: wrap;
-    }
-
-    .timer-input-row input {
-      width: 70px;
-      padding: 4px 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text);
-      font-family: var(--font-main);
-      font-size: 11px;
-      text-align: center;
-      outline: none;
-    }
-
-    .timer-input-row input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(24, 180, 255, 0.45);
-    }
-
-    .focus-status {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .stats-row {
-      display: flex;
+    /* الودجات */
+    .widgets-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 8px;
+      margin-top: 12px;
+    }
+
+    .widget {
+      background: rgba(15,23,42,0.85);
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 10px 12px;
       font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .stats-pill {
-      border-radius: 999px;
-      padding: 4px 9px;
-      background: rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-    }
-
-    /* TASKS */
-    .task-input-row {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-
-    .task-input-row input {
-      flex: 1;
-      padding: 7px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text);
-      font-size: 12px;
-      outline: none;
-    }
-
-    .task-input-row input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(24, 180, 255, 0.5);
-    }
-
-    .task-list {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      max-height: 210px;
-      overflow-y: auto;
-      padding-right: 2px;
     }
 
-    .task-item {
+    .widget-header {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 7px 9px;
-      border-radius: 14px;
-      background: rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      font-size: 12px;
-    }
-
-    .task-item input[type="checkbox"] {
-      width: 14px;
-      height: 14px;
-      accent-color: var(--accent);
-      cursor: pointer;
-    }
-
-    .task-text {
-      flex: 1;
-      word-break: break-word;
-    }
-
-    .task-text.done {
-      text-decoration: line-through;
-      color: #6b7280;
-    }
-
-    .task-del {
-      border: none;
-      background: transparent;
-      color: var(--text-soft);
-      font-size: 14px;
-      cursor: pointer;
-      padding: 0 3px;
-    }
-
-    .tagline {
-      font-size: 10px;
-      color: var(--text-soft);
-      margin-top: 6px;
-    }
-
-    /* STUDY PLAN */
-    .field-row {
-      display: flex;
-      flex-wrap: wrap;
+      justify-content: space-between;
       gap: 6px;
-      margin-bottom: 8px;
     }
 
-    .field-row input {
-      padding: 6px 8px;
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text);
-      font-family: var(--font-main);
-      font-size: 12px;
-      outline: none;
-    }
-
-    .field-row input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(24, 180, 255, 0.5);
-    }
-
-    .study-plan-output {
-      background: rgba(15, 23, 42, 0.98);
-      border-radius: 16px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      padding: 9px 10px;
-      font-size: 12px;
-      line-height: 1.7;
-      white-space: pre-line;
-      margin-top: 4px;
-    }
-
-    body.theme-light .study-plan-output {
-      background: #f9fafb;
-      border-color: rgba(148, 163, 184, 0.6);
-    }
-
-    /* MOOD */
-    .mood-row {
+    .widget-title {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-      font-size: 12px;
-      color: var(--text-soft);
-      flex-wrap: wrap;
-    }
-
-    .mood-row input[type="range"] {
-      flex: 1;
-      accent-color: var(--accent);
-    }
-
-    .mood-label {
-      min-width: 70px;
-      text-align: center;
+      gap: 4px;
       font-weight: 600;
       font-size: 11px;
     }
 
-    .mood-advice {
-      background: rgba(15, 23, 42, 0.98);
-      border-radius: 14px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      padding: 9px 10px;
-      font-size: 12px;
-      line-height: 1.7;
+    .widget-body {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
-    body.theme-light .mood-advice {
-      background: #f9fafb;
-      border-color: rgba(148, 163, 184, 0.6);
-    }
-
-    /* NOTES */
-    .note-title-input {
+    .progress-bar {
       width: 100%;
-      padding: 6px 8px;
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text);
-      font-size: 12px;
-      outline: none;
-      margin-bottom: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      overflow: hidden;
+      border: 1px solid rgba(15,118,110,0.7);
     }
 
-    .note-title-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(24, 180, 255, 0.5);
+    .progress-bar-fill {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #22c55e, #a3e635);
+      transition: width 0.2s ease;
     }
 
-    .note-image-row {
+    .widget-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
-      font-size: 11px;
-      color: var(--text-soft);
-      flex-wrap: wrap;
-    }
-
-    .note-image-row input[type="file"] {
-      font-size: 11px;
-      color: var(--text-soft);
-      max-width: 100%;
-    }
-
-    #note-image-preview {
-      max-width: 100%;
-      border-radius: 12px;
-      margin-bottom: 6px;
-      display: none;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 110px;
-      resize: vertical;
-      border-radius: 16px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text);
-      padding: 8px 9px;
-      font-size: 12px;
-      font-family: var(--font-main);
-      outline: none;
-    }
-
-    textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(24, 180, 255, 0.5);
-    }
-
-    .note-status {
-      font-size: 10px;
-      color: var(--text-soft);
-      margin-top: 4px;
-    }
-
-    /* RIGHT SIDE MINI SECTIONS */
-    .mini-card {
-      background: rgba(7, 11, 24, 0.98);
-      border-radius: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.32);
-      padding: 10px 11px;
-      margin-bottom: 10px;
-      font-size: 12px;
-    }
-
-    .mini-header {
-      display: flex;
       justify-content: space-between;
+      gap: 6px;
+    }
+
+    .small-btn {
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-main);
+      padding: 2px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      min-width: 30px;
+      text-align: center;
+    }
+
+    .small-btn:hover {
+      background: rgba(30,64,175,0.8);
+      border-color: rgba(96,165,250,0.8);
+    }
+
+    .small-input {
+      width: 70px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-main);
+      padding: 2px 8px;
+      font-size: 11px;
+      outline: none;
+      text-align: center;
+    }
+
+    .prayer-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      font-size: 10px;
+    }
+
+    .prayer-chip {
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 4px;
+      border-radius: 999px;
+      padding: 1px 6px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .prayer-chip input {
+      accent-color: var(--accent);
+    }
+
+    .switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    /* النوتات */
+    .notes-card {
+      background: radial-gradient(circle at 100% 0, rgba(56,189,248,0.22), rgba(15,23,42,0.97));
+    }
+
+    .notes-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 6px 0 8px;
+    }
+
+    .notes-header-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .notes-header-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .notes-header-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .primary-btn {
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: white;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(15,23,42,0.7);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .primary-btn:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+
+    .notes-grid {
+      margin-top: 6px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 10px;
+    }
+
+    .note-card {
+      background: var(--card-soft);
+      border-radius: 14px;
+      border: 1px solid rgba(15,23,42,0.8);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 140px;
+    }
+
+    .note-cover {
+      height: 70px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .note-body {
+      padding: 8px 10px 6px;
+      flex: 1;
+    }
+
+    .note-title {
+      font-size: 13px;
+      font-weight: 700;
       margin-bottom: 4px;
     }
 
-    .mini-title {
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .mini-text {
+    .note-content {
       font-size: 11px;
       color: var(--text-soft);
-      line-height: 1.7;
-      white-space: pre-line;
+      max-height: 90px;
+      overflow: hidden;
     }
 
-    .counter {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    body.theme-light .mini-card {
-      background: #f8fafc;
-      border-color: rgba(148, 163, 184, 0.6);
-    }
-
-    /* FOOTER */
-    footer {
-      margin-top: 10px;
-      font-size: 10px;
-      color: var(--text-soft);
+    .note-actions {
       display: flex;
       justify-content: space-between;
-      gap: 8px;
-      flex-wrap: wrap;
+      gap: 4px;
+      padding: 4px 7px 8px;
     }
 
-    a {
+    .note-actions button {
+      flex: 1;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-main);
+      font-size: 11px;
+      padding: 2px 0;
+      cursor: pointer;
+    }
+
+    .note-actions button:hover {
+      background: rgba(37,99,235,0.9);
+      border-color: rgba(96,165,250,0.9);
+    }
+
+    .note-actions button:nth-child(2):hover {
+      background: rgba(220,38,38,0.9);
+      border-color: rgba(248,113,113,0.95);
+    }
+
+    .empty-text {
+      font-size: 12px;
+      color: var(--text-soft);
+      padding-top: 10px;
+    }
+
+    /* كرت الأفكار */
+    .gallery-card {
+      margin-top: 14px;
+      background: radial-gradient(circle at 0 0, rgba(251,191,36,0.22), rgba(15,23,42,0.96));
+    }
+
+    .gallery-list {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--text-soft);
+      display: grid;
+      gap: 4px;
+    }
+
+    .gallery-list li {
+      margin-right: 14px;
+    }
+
+    /* الفوتر */
+    .footer {
+      margin-top: 18px;
+      font-size: 11px;
+      color: var(--text-soft);
+      text-align: center;
+    }
+
+    .footer strong {
       color: var(--accent);
-      text-decoration: none;
     }
 
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* MODAL */
-    .modal-backdrop[hidden] {
-      display: none;
-    }
-
-    .modal-backdrop {
+    /* الأوفرلاي (تسجيل الدخول + مودال النوتات) */
+    .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.8);
+      background: rgba(15,23,42,0.78);
+      backdrop-filter: blur(14px);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 40;
     }
 
-    .modal {
-      width: min(420px, 100% - 32px);
-      background: #050815;
-      border-radius: 20px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 16px 18px 14px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+    .overlay.hidden {
+      display: none;
     }
 
-    body.theme-light .modal {
-      background: #ffffff;
-      color: #020617;
+    .login-card, .modal-card {
+      width: 100%;
+      max-width: 380px;
+      background: radial-gradient(circle at 50% 0, rgba(56,189,248,0.22), rgba(15,23,42,0.97));
+      border-radius: 18px;
+      padding: 16px 18px 18px;
+      border: 1px solid rgba(148,163,184,0.5);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
     }
 
-    .modal-title {
-      font-size: 15px;
+    .login-title {
+      font-size: 18px;
       font-weight: 700;
       margin-bottom: 4px;
     }
 
-    .modal-sub {
+    .login-sub {
       font-size: 11px;
       color: var(--text-soft);
       margin-bottom: 10px;
-      line-height: 1.7;
     }
 
-    .modal-section-title {
+    .form-group {
+      margin-bottom: 10px;
       font-size: 12px;
-      font-weight: 600;
-      margin: 6px 0 4px;
     }
 
-    .modal-row {
-      margin-bottom: 6px;
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .modal-row label {
+    .form-label {
       display: block;
       margin-bottom: 3px;
     }
 
-    .modal-row input[type="text"],
-    .modal-row select {
+    .form-input, .form-select, .form-textarea {
       width: 100%;
-      padding: 6px 8px;
       border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text);
+      border: 1px solid var(--border-subtle);
+      background: rgba(15,23,42,0.95);
+      color: var(--text-main);
+      padding: 7px 9px;
       font-size: 12px;
       outline: none;
     }
 
-    .modal-row input[type="text"]:focus,
-    .modal-row select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(24, 180, 255, 0.5);
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
     }
 
-    .chip-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 4px;
-    }
-
-    .chip-btn {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 4px 9px;
-      font-size: 11px;
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text-soft);
-      cursor: pointer;
-    }
-
-    .chip-btn.active-chip {
-      background: var(--accent);
-      color: #02101b;
-      border-color: transparent;
-      font-weight: 600;
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
     }
 
     .modal-actions {
       display: flex;
       justify-content: flex-end;
       gap: 8px;
-      margin-top: 10px;
+      margin-top: 8px;
     }
 
-    body.theme-light .pill,
-    body.theme-light .lang-toggle,
-    body.theme-light .nav-btn,
-    body.theme-light .badge-soft,
-    body.theme-light .stats-pill {
-      background: #e2e8f0;
-      border-color: rgba(148, 163, 184, 0.8);
-      color: #0f172a;
+    .secondary-btn {
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15,23,42,0.95);
+      color: var(--text-main);
+      padding: 5px 14px;
+      font-size: 12px;
+      cursor: pointer;
     }
 
-    body.theme-light .btn.secondary {
-      background: #e5edf5;
-      color: #0f172a;
+    .secondary-btn:hover {
+      background: rgba(30,64,175,0.9);
+      border-color: rgba(96,165,250,0.9);
     }
 
-    body.theme-light .brand-sub,
-    body.theme-light .card-sub,
-    body.theme-light .mini-text,
-    body.theme-light .tagline,
-    body.theme-light .note-status {
-      color: #475569;
+    .login-helper {
+      margin-top: 6px;
+      font-size: 10px;
+      color: var(--text-soft);
     }
 
-    body.theme-light .task-item {
-      background: #f9fafb;
-      border-color: rgba(148, 163, 184, 0.6);
-    }
+    @media (max-width: 600px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        border-radius: 16px;
+      }
 
-    body.theme-light textarea,
-    body.theme-light .note-title-input {
-      background: #f9fafb;
-      border-color: rgba(148, 163, 184, 0.6);
-      color: #020617;
-    }
-
-    body.theme-light .task-text.done {
-      color: #94a3b8;
+      .topbar-right {
+        width: 100%;
+        justify-content: space-between;
+      }
     }
   </style>
 </head>
 <body class="theme-dark">
-<div class="shell">
-  <div class="inner">
-    <header>
+  <div class="app-shell">
+    <!-- شريط علوي -->
+    <header class="topbar">
       <div class="brand">
-        <div class="brand-logo">A</div>
+        <div class="brand-avatar">A</div>
         <div>
-          <div class="brand-title" data-i18n="app_name">ATLAS Focus Hub</div>
-          <div class="brand-sub" data-i18n="app_tagline">
-            غرفة تركيز بسيطة لليوم: مهام، جلسات، مزاج، ونوتات.
-          </div>
+          <div class="brand-text-title">ATLAS Workspace</div>
+          <div class="brand-text-sub">مساحتك اليومية لتنظيم حياتك – من صنع محمود الصمادي</div>
         </div>
       </div>
-      <div class="right-header">
+      <div class="topbar-right">
         <div class="pill">
-          <span class="pill-dot"></span>
-          <span data-i18n="status_live">يعمل الآن 24/7 على جهازك</span>
+          <span>وضع:</span>
+          <select id="theme-select" class="select">
+            <option value="dark">داكن</option>
+            <option value="light">فاتح</option>
+            <option value="oled">أسود OLED</option>
+          </select>
         </div>
-        <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap; justify-content:flex-end;">
-          <div class="lang-toggle">
-            <button class="lang-btn active" data-lang="ar">AR</button>
-            <button class="lang-btn" data-lang="en">EN</button>
-          </div>
-          <button class="btn small secondary" id="btn-open-settings">
-            <span class="btn-icon">👤</span>
-            <span data-i18n="btn_profile">الملف الشخصي</span>
-          </button>
-        </div>
+        <button id="logout-btn" class="ghost-btn">تسجيل الخروج</button>
       </div>
     </header>
 
-    <div class="greeting-row">
-      <span id="greeting-text">صباح الخير 👋</span>
-    </div>
-
-    <nav class="main-nav">
-      <button class="nav-btn active" data-section-btn="focus">
-        <span class="icon">🎯</span><span data-i18n="nav_focus">تركيز</span>
-      </button>
-      <button class="nav-btn" data-section-btn="tasks">
-        <span class="icon">✅</span><span data-i18n="nav_tasks">مهامي</span>
-      </button>
-      <button class="nav-btn" data-section-btn="study">
-        <span class="icon">📚</span><span data-i18n="nav_study">خطة دراسة</span>
-      </button>
-      <button class="nav-btn" data-section-btn="mood">
-        <span class="icon">💭</span><span data-i18n="nav_mood">مزاجي</span>
-      </button>
-      <button class="nav-btn" data-section-btn="notes">
-        <span class="icon">📝</span><span data-i18n="nav_notes">نوتة اليوم</span>
-      </button>
-    </nav>
-
-    <div class="layout">
-      <!-- LEFT -->
-      <div>
-        <!-- FOCUS -->
-        <section id="section-focus" class="section active">
-          <div class="card">
-            <div class="card-inner">
-              <div class="card-title">
-                <span>🎯</span>
-                <span data-i18n="focus_title">غرفة التركيز</span>
-              </div>
-              <div class="card-sub" data-i18n="focus_sub">
-                اختر مدة الجلسة، شغّل المؤقت، وأبعد المشتتات… الموقع يحسب لك الجلسات ويذكرك إنك أنجزت.
-              </div>
-
-              <div class="grid-2">
-                <div class="focus-timer">
-                  <div class="timer-display" id="timer-display">25:00</div>
-                  <div class="timer-controls">
-                    <button class="btn" id="btn-start">
-                      <span class="btn-icon">▶</span>
-                      <span data-i18n="btn_start">بدء</span>
-                    </button>
-                    <button class="btn secondary" id="btn-pause">
-                      <span class="btn-icon">⏸</span>
-                      <span data-i18n="btn_pause">إيقاف مؤقت</span>
-                    </button>
-                    <button class="btn secondary" id="btn-reset">
-                      <span class="btn-icon">↺</span>
-                      <span data-i18n="btn_reset">تصفير</span>
-                    </button>
-                  </div>
-                  <div class="timer-input-row">
-                    <span data-i18n="focus_minutes">مدة الجلسة (دقائق):</span>
-                    <input id="focus-minutes" type="number" min="5" max="180" value="25">
-                    <button class="btn small primary-soft" data-preset="25">25</button>
-                    <button class="btn small primary-soft" data-preset="45">45</button>
-                    <button class="btn small primary-soft" data-preset="60">60</button>
-                  </div>
-                  <div class="focus-status" id="focus-status" data-i18n="focus_status_idle">
-                    جاهز لأول جلسة اليوم ✨
-                  </div>
-                  <div class="stats-row">
-                    <div class="stats-pill">
-                      <span data-i18n="focus_today">جلسات اليوم:</span>
-                      <span id="focus-today-count">0</span>
-                    </div>
-                    <div class="stats-pill">
-                      <span data-i18n="focus_total">إجمالي الجلسات:</span>
-                      <span id="focus-total-count">0</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="badge-soft" style="margin-bottom:6px;">
-                    <span>💡</span>
-                    <span data-i18n="focus_tips_title">نصيحة سريعة للجلسة</span>
-                  </div>
-                  <div class="mini-text" id="focus-tip-text">
-                    1. حط الجوال بعيد عن يدك.  
-                    2. افتح فقط الشيء اللي تحتاجه في الجلسة.  
-                    3. بعد ما يخلص المؤقت، خذ دقيقة تمدّد أو تمشي شوي.
-                  </div>
-                  <button class="btn small secondary" id="btn-new-tip" style="margin-top:8px;">
-                    <span class="btn-icon">🔁</span>
-                    <span data-i18n="btn_new_tip">نصيحة أخرى</span>
-                  </button>
-                  <div class="tagline" data-i18n="focus_disclaimer">
-                    هذا ليس نظام دراسة معقّد… فقط غرفة بسيطة تذكّرك إن كل جلسة تركيز صغيرة
-                    تفرق في تراكمها.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- TASKS -->
-        <section id="section-tasks" class="section">
-          <div class="card">
-            <div class="card-inner">
-              <div class="card-title">
-                <span>✅</span>
-                <span data-i18n="tasks_title">مهامي اليوم</span>
-              </div>
-              <div class="card-sub" data-i18n="tasks_sub">
-                اكتب 3–7 مهام فقط… مو لازم تخلص الدنيا كلها في يوم واحد.
-              </div>
-
-              <div class="task-input-row">
-                <input id="task-input" type="text" data-i18n-placeholder="tasks_placeholder"
-                       placeholder="اكتب مهمة… مثال: مراجعة وحدة 3">
-                <button class="btn small" id="btn-add-task">
-                  <span class="btn-icon">＋</span>
-                  <span data-i18n="btn_add_task">إضافة</span>
-                </button>
-              </div>
-              <div class="task-list" id="task-list"></div>
-              <div class="tagline" data-i18n="tasks_hint">
-                جرّب كل صباح تكتب أهم 3 مهام… لو خلصتهم يعتبر اليوم ناجح حتى لو ما أنجزت غيرهم.
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- STUDY PLAN -->
-        <section id="section-study" class="section">
-          <div class="card">
-            <div class="card-inner">
-              <div class="card-title">
-                <span>📚</span>
-                <span data-i18n="study_title">خطة دراسة سريعة</span>
-              </div>
-              <div class="card-sub" data-i18n="study_sub">
-                اكتب اسم الامتحان وتاريخه… نعطيك صورة تقريبية لعدد الأيام والساعات المقترحة.
-              </div>
-
-              <div class="field-row">
-                <input id="exam-name" type="text" style="flex:2;"
-                       data-i18n-placeholder="study_exam_placeholder"
-                       placeholder="اسم الامتحان… مثل: توجيهي إنجليزي">
-                <input id="exam-date" type="date" style="flex:1;">
-                <input id="study-hours" type="number" min="1" max="10" value="3" style="width:80px;"
-                       data-i18n-placeholder="study_hours_placeholder"
-                       placeholder="ساعات/يوم">
-              </div>
-              <button class="btn small" id="btn-generate-plan">
-                <span class="btn-icon">📅</span>
-                <span data-i18n="btn_plan">اعمل خطة</span>
-              </button>
-
-              <div class="study-plan-output" id="study-output" style="margin-top:8px;"></div>
-              <div class="tagline" data-i18n="study_note">
-                الخطة تقريبية… عدّلها حسب ظروفك وقدرتك الفعلية.
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- MOOD -->
-        <section id="section-mood" class="section">
-          <div class="card">
-            <div class="card-inner">
-              <div class="card-title">
-                <span>💭</span>
-                <span data-i18n="mood_title">مزاجي اليوم</span>
-              </div>
-              <div class="card-sub" data-i18n="mood_sub">
-                قيّم شعورك من 1 إلى 5… وخذ جملة بسيطة تناسب مزاجك (هذا ليس تشخيصاً طبياً).
-              </div>
-
-              <div class="mood-row">
-                <span data-i18n="mood_label">المزاج الآن:</span>
-                <input id="mood-slider" type="range" min="1" max="5" value="3" />
-                <span class="mood-label" id="mood-level-label">3 / 5</span>
-              </div>
-              <div class="mood-advice" id="mood-advice-text"></div>
-            </div>
-          </div>
-        </section>
-
-        <!-- NOTES -->
-        <section id="section-notes" class="section">
-          <div class="card">
-            <div class="card-inner">
-              <div class="card-title">
-                <span>📝</span>
-                <span data-i18n="notes_title">نوتة اليوم</span>
-              </div>
-              <div class="card-sub" data-i18n="notes_sub">
-                أي فكرة، خوف، هدف، أو شيء بسيط لليوم… اكتبه هنا وخليه يطلع من رأسك على الشاشة.
-              </div>
-
-              <input id="note-title" class="note-title-input"
-                     data-i18n-placeholder="notes_title_placeholder"
-                     placeholder="عنوان النوتة… مثال: خطة اليوم أو فكرة مهمة">
-              <div class="note-image-row">
-                <span data-i18n="notes_image_label">صورة للنوتة (اختياري):</span>
-                <input type="file" id="note-image-input" accept="image/*">
-                <button class="btn small secondary" id="btn-clear-image">
-                  <span class="btn-icon">✕</span>
-                  <span data-i18n="notes_image_clear">حذف الصورة</span>
-                </button>
-              </div>
-              <img id="note-image-preview" alt="Note image preview">
-              <textarea id="notes-input" data-i18n-placeholder="notes_placeholder"
-                        placeholder="اكتب هنا أهم ما في بالك اليوم…"></textarea>
-              <div class="note-status" id="notes-status"></div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <!-- RIGHT -->
-      <div>
-        <div class="mini-card">
-          <div class="mini-header">
+    <main class="main-layout">
+      <!-- العمود الأيسر: تحية + ودجات -->
+      <section>
+        <article class="card">
+          <header class="card-header">
             <div>
-              <div class="mini-title" data-i18n="stats_title">عداد جلسات التركيز على جهازك</div>
+              <div class="card-title">مرحباً بك 👋</div>
+              <div class="card-sub">هذه مساحة شخصية يومية تحتفظ بكل شيء يخصك في مكان واحد.</div>
             </div>
-            <div class="counter" id="counter-total">0</div>
-          </div>
-          <div class="mini-text" data-i18n="stats_text">
-            هذا العدد محفوظ فقط على هذا المتصفح.  
-            الهدف مش الكمال… الهدف تشوف إن كل جلسة صغيرة تُحسب.
-          </div>
-        </div>
+            <div class="badge">
+              <span style="width:7px;height:7px;border-radius:50%;background:#22c55e;"></span>
+              <span id="status-text">يعمل الآن</span>
+            </div>
+          </header>
 
-        <div class="mini-card">
-          <div class="mini-header">
-            <div class="mini-title" data-i18n="how_title">كيف تستفيد من ATLAS Focus Hub؟</div>
+          <div class="greeting-main">
+            <div class="greeting-line">
+              <span id="greeting-text">صباح الخير</span>
+              <span class="greeting-name" id="greeting-name">ضيف</span> ☕
+            </div>
+            <div class="greeting-meta">
+              <span id="today-date"></span>
+              <span>•</span>
+              <span>كل شيء محفوظ على جهازك، بدون حسابات معقدة.</span>
+            </div>
           </div>
-          <div class="mini-text" id="how-text">
-            1. اختر جلسة تركيز واشتغل بلا مشتتات.  
-            2. اكتب 3 مهام مهمة فقط لليوم.  
-            3. حدّد مزاجك وشوف النصيحة.  
-            4. سجّل أي فكرة في النوتة بدلاً من تركها تزعجك في رأسك.
-          </div>
-        </div>
 
-        <div class="mini-card">
-          <div class="mini-header">
-            <div class="mini-title" data-i18n="future_title">مستقبلاً…</div>
-          </div>
-          <div class="mini-text" data-i18n="future_text">
-            – قسم خاص للطلاب (تقسيم المواد + بنك أفكار مكافأة بعد الإنجاز).  
-            – أفكار للجيمرز: العب بعد عدد معيّن من الجلسات كجائزة 🎮  
-            – صفحة إنجليزية مستقلة للي يستخدم الموقع من دول ثانية 🌍
-          </div>
-        </div>
-      </div>
-    </div>
+          <!-- ودجات -->
+          <div class="widgets-grid">
+            <!-- عداد الماء -->
+            <div class="widget">
+              <div class="widget-header">
+                <div class="widget-title">💧 مياه</div>
+                <div style="font-size:10px;color:var(--text-soft);">
+                  <span id="water-percent">0%</span> من هدفك
+                </div>
+              </div>
+              <div class="widget-body">
+                <div class="progress-bar">
+                  <div id="water-bar-fill" class="progress-bar-fill"></div>
+                </div>
+                <div class="widget-row">
+                  <span style="font-size:11px;">عدد الأكواب اليوم:</span>
+                  <strong id="water-count">0</strong>
+                </div>
+                <div class="widget-row">
+                  <button id="water-minus" class="small-btn">–</button>
+                  <button id="water-plus" class="small-btn">+</button>
+                </div>
+              </div>
+            </div>
 
-    <footer>
-      <span data-i18n="footer_left">
-        هذا الموقع تجريبي ومجاني – شغّله من أي متصفح بدون تسجيل.
-      </span>
-      <span data-i18n="footer_made">
-        موقع من صنع محمود الصمادي.
-      </span>
-      <span data-i18n="footer_right">
-        لو ناسبك… شاركه مع شخص يحتاج يركّز شوي اليوم 🤍
-      </span>
+            <!-- النوم -->
+            <div class="widget">
+              <div class="widget-header">
+                <div class="widget-title">😴 نوم</div>
+                <div style="font-size:10px;color:var(--text-soft);">آخر ليلة</div>
+              </div>
+              <div class="widget-body">
+                <div class="widget-row">
+                  <span style="font-size:11px;">عدد الساعات:</span>
+                  <input id="sleep-hours" type="number" min="0" max="24" step="0.5" class="small-input" />
+                </div>
+                <div id="sleep-label" style="font-size:10px;color:var(--text-soft);">
+                  لم تسجّل نومك بعد
+                </div>
+              </div>
+            </div>
+
+            <!-- الصلاة -->
+            <div class="widget">
+              <div class="widget-header">
+                <div class="widget-title">🕌 صلاة</div>
+                <div id="prayer-summary" style="font-size:10px;color:var(--text-soft);">0 / 5 صلوات</div>
+              </div>
+              <div class="widget-body">
+                <div class="prayer-list">
+                  <label class="prayer-chip">
+                    <input type="checkbox" data-prayer="fajr" /> فجر
+                  </label>
+                  <label class="prayer-chip">
+                    <input type="checkbox" data-prayer="dhuhr" /> ظهر
+                  </label>
+                  <label class="prayer-chip">
+                    <input type="checkbox" data-prayer="asr" /> عصر
+                  </label>
+                  <label class="prayer-chip">
+                    <input type="checkbox" data-prayer="maghrib" /> مغرب
+                  </label>
+                  <label class="prayer-chip">
+                    <input type="checkbox" data-prayer="isha" /> عشاء
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- الجيم -->
+            <div class="widget">
+              <div class="widget-header">
+                <div class="widget-title">🏋️ جيم / حركة</div>
+                <div style="font-size:10px;color:var(--text-soft);">اليوم</div>
+              </div>
+              <div class="widget-body">
+                <div class="switch-row">
+                  <span id="gym-label">لم تسجّل تمرين اليوم بعد</span>
+                  <input id="gym-done" type="checkbox" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- العمود الأيمن: النوتات + الأفكار -->
+      <section>
+        <article class="card notes-card">
+          <header class="notes-header-row">
+            <div class="notes-header-main">
+              <div class="notes-header-title">نوتاتك اليومية ✍️</div>
+              <div class="notes-header-sub">
+                أنشئ صفحات مخصّصة بالكامل كما تحب – غيّر الألوان، نوع الخط، حجم النص، وأضف صورة لكل نوتة.
+              </div>
+            </div>
+            <button id="new-note-btn" class="primary-btn">
+              + ملاحظة جديدة
+            </button>
+          </header>
+
+          <div class="notes-grid" id="notes-grid">
+            <!-- النوتات تتولّد هنا -->
+          </div>
+        </article>
+
+        <article class="card gallery-card">
+          <header class="card-header">
+            <div>
+              <div class="card-title">معرض الأفكار 💡</div>
+              <div class="card-sub">مساحة إلهام لتجاربك مع النوتات – تماماً مثل الصور اللي أرسلتها من Notion.</div>
+            </div>
+          </header>
+          <ul class="gallery-list">
+            <li>اصنع نوتة بعنوان <strong>خطة مالية</strong>، أضف صورة بسيطة، واستخدم لون خلفية داكن وخط كبير للعناوين.</li>
+            <li>اصنع نوتة بعنوان <strong>مخطط أسبوعي</strong>، قسّم فيها الأيام في النص، واستخدم لون مختلف لكل يوم.</li>
+            <li>جرّب نوتة بعنوان <strong>روتين الصباح</strong> أو <strong>روتين النوم</strong> واضبط معها ودجات الماء / النوم.</li>
+            <li>خذ لقطة شاشة لنوتتك المبدعة وشاركها مع أصحابك – هذا يجعل موقعك جزء من روتين حياتهم اليومي.</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer">
+      صُمّم وبُني بتعاون بين <strong>محمود الصمادي</strong> و ATLAS Workspace.  
+      كل شيء يعمل من المتصفح مباشرة بدون تثبيت أو تسجيل معقد.
     </footer>
   </div>
-</div>
 
-<!-- SETTINGS MODAL -->
-<div class="modal-backdrop" id="settings-modal" hidden>
-  <div class="modal">
-    <div class="modal-title" data-i18n="settings_title">إعدادات الحساب</div>
-    <div class="modal-sub" data-i18n="settings_sub">
-      هنا تقدر تحط اسمك، وتختار ثيم الموقع، والقسم الافتراضي، وطريقة عرض النوتة.
-    </div>
+  <!-- شاشة تسجيل الدخول البسيط -->
+  <div id="login-overlay" class="overlay">
+    <form id="login-form" class="login-card">
+      <div class="login-title">مرحباً بك في مساحة محمود 🌙</div>
+      <div class="login-sub">
+        أدخل اسمك وإيميلك فقط لعرض تحية شخصية وحفظ إعداداتك على هذا الجهاز.
+      </div>
 
-    <div class="modal-row">
-      <label for="profile-name" data-i18n="settings_name_label">اسمك (يظهر في التحية):</label>
-      <input type="text" id="profile-name" placeholder="مثال: محمود">
-    </div>
+      <div class="form-group">
+        <label class="form-label" for="login-name">الاسم</label>
+        <input id="login-name" class="form-input" placeholder="مثال: محمود" />
+      </div>
 
-    <div class="modal-section-title" data-i18n="settings_theme_label">ثيم الواجهة:</div>
-    <div class="chip-group">
-      <button class="chip-btn active-chip" data-theme-option="dark">داكن</button>
-      <button class="chip-btn" data-theme-option="oled">أسود OLED</button>
-      <button class="chip-btn" data-theme-option="light">فاتح / Light</button>
-    </div>
+      <div class="form-group">
+        <label class="form-label" for="login-email">الإيميل</label>
+        <input id="login-email" type="email" class="form-input" placeholder="example@email.com" />
+      </div>
 
-    <div class="modal-row">
-      <label for="default-section-select" data-i18n="settings_default_section_label">القسم الافتراضي عند فتح الموقع:</label>
-      <select id="default-section-select">
-        <option value="focus">🎯 تركيز / Focus</option>
-        <option value="tasks">✅ مهامي / Tasks</option>
-        <option value="study">📚 خطة دراسة / Study</option>
-        <option value="mood">💭 مزاجي / Mood</option>
-        <option value="notes">📝 نوتة اليوم / Notes</option>
-      </select>
-    </div>
-
-    <div class="modal-section-title" data-i18n="settings_note_style_label">تخصيص النوتة:</div>
-    <div class="modal-row">
-      <label for="note-font-size" data-i18n="settings_note_size_label">حجم الخط:</label>
-      <select id="note-font-size">
-        <option value="small">صغير</option>
-        <option value="normal" selected>عادي</option>
-        <option value="large">كبير</option>
-      </select>
-    </div>
-    <div class="modal-row">
-      <label for="note-font-family" data-i18n="settings_note_font_label">نوع الخط:</label>
-      <select id="note-font-family">
-        <option value="system">System</option>
-        <option value="serif">Serif</option>
-        <option value="mono">Monospace</option>
-      </select>
-    </div>
-    <div class="modal-row">
-      <label for="note-font-color" data-i18n="settings_note_color_label">لون الخط:</label>
-      <input type="color" id="note-font-color" value="#f9fafb">
-    </div>
-
-    <div class="modal-actions">
-      <button class="btn small secondary" id="btn-close-settings">
-        <span data-i18n="settings_cancel">إلغاء</span>
+      <button type="submit" class="primary-btn" style="width:100%;justify-content:center;margin-top:6px;">
+        دخول إلى مساحتي
       </button>
-      <button class="btn small" id="btn-save-settings">
-        <span data-i18n="settings_save">حفظ</span>
-      </button>
-    </div>
+
+      <div class="login-helper">
+        ⇢ هذا تسجيل دخول محلي فقط (local). بياناتك تُخزَّن في متصفحك على هذا الجهاز، ويمكنك حذفها في أي وقت من إعدادات المتصفح.
+      </div>
+    </form>
   </div>
-</div>
 
-<script>
-  // --------- i18n TEXTS ----------
-  const I18N = {
-    ar: {
-      app_name: "ATLAS Focus Hub",
-      app_tagline: "غرفة تركيز بسيطة لليوم: مهام، جلسات، مزاج، ونوتات.",
-      status_live: "يعمل الآن 24/7 على جهازك",
-      btn_profile: "الملف الشخصي",
-      nav_focus: "تركيز",
-      nav_tasks: "مهامي",
-      nav_study: "خطة دراسة",
-      nav_mood: "مزاجي",
-      nav_notes: "نوتة اليوم",
+  <!-- مودال إنشاء / تعديل النوتة -->
+  <div id="note-modal" class="overlay hidden">
+    <form class="modal-card">
+      <div class="login-title" style="margin-bottom:6px;">ملاحظة جديدة / تعديل</div>
+      <div class="login-sub">
+        خصّص كل شيء في النوتة: العنوان، النص، الألوان، نوع الخط، وحتى صورة الغلاف مثل Notion.
+      </div>
 
-      focus_title: "غرفة التركيز",
-      focus_sub: "اختر مدة الجلسة، شغّل المؤقت، وأبعد المشتتات… الموقع يحسب لك الجلسات ويذكرك إنك أنجزت.",
-      btn_start: "بدء",
-      btn_pause: "إيقاف مؤقت",
-      btn_reset: "تصفير",
-      focus_minutes: "مدة الجلسة (دقائق):",
-      focus_status_idle: "جاهز لأول جلسة اليوم ✨",
-      focus_today: "جلسات اليوم:",
-      focus_total: "إجمالي الجلسات:",
-      focus_tips_title: "نصيحة سريعة للجلسة",
-      btn_new_tip: "نصيحة أخرى",
-      focus_disclaimer: "هذا ليس نظام دراسة معقّد… فقط غرفة بسيطة تذكّرك إن كل جلسة تركيز صغيرة تفرق في تراكمها.",
+      <div class="form-group">
+        <label class="form-label" for="note-title-input">عنوان النوتة</label>
+        <input id="note-title-input" class="form-input" placeholder="مثال: مخطط أسبوعي، خطة دراسة، خطة مالية..." />
+      </div>
 
-      tasks_title: "مهامي اليوم",
-      tasks_sub: "اكتب 3–7 مهام فقط… مو لازم تخلص الدنيا كلها في يوم واحد.",
-      tasks_placeholder: "اكتب مهمة… مثال: مراجعة وحدة 3",
-      btn_add_task: "إضافة",
-      tasks_hint: "جرّب كل صباح تكتب أهم 3 مهام… لو خلصتهم يعتبر اليوم ناجح حتى لو ما أنجزت غيرهم.",
+      <div class="form-group">
+        <label class="form-label" for="note-content-input">المحتوى</label>
+        <textarea id="note-content-input" class="form-textarea" placeholder="اكتب نوتتك هنا، يمكنك تقسيمها لأسطر مثل Notion..."></textarea>
+      </div>
 
-      study_title: "خطة دراسة سريعة",
-      study_sub: "اكتب اسم الامتحان وتاريخه… نعطيك صورة تقريبية لعدد الأيام والساعات المقترحة.",
-      study_exam_placeholder: "اسم الامتحان… مثل: توجيهي إنجليزي",
-      study_hours_placeholder: "ساعات/يوم",
-      btn_plan: "اعمل خطة",
-      study_note: "الخطة تقريبية… عدّلها حسب ظروفك وقدرتك الفعلية.",
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="note-bg-input">لون الخلفية</label>
+          <input id="note-bg-input" type="color" class="form-input" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="note-color-input">لون الخط</label>
+          <input id="note-color-input" type="color" class="form-input" />
+        </div>
+      </div>
 
-      mood_title: "مزاجي اليوم",
-      mood_sub: "قيّم شعورك من 1 إلى 5… وخذ جملة بسيطة تناسب مزاجك (هذا ليس تشخيصاً طبياً).",
-      mood_label: "المزاج الآن:",
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="note-font-input">نوع الخط</label>
+          <select id="note-font-input" class="form-select form-input">
+            <option value="Cairo">Cairo (عربي مريح)</option>
+            <option value="Nunito">Nunito (إنجليزي ناعم)</option>
+            <option value="system-ui">System UI</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="note-size-input">حجم الخط</label>
+          <input id="note-size-input" type="number" min="10" max="30" class="form-input" />
+        </div>
+      </div>
 
-      notes_title: "نوتة اليوم",
-      notes_sub: "أي فكرة، خوف، هدف، أو شيء بسيط لليوم… اكتبه هنا وخليه يطلع من رأسك على الشاشة.",
-      notes_title_placeholder: "عنوان النوتة… مثال: خطة اليوم أو فكرة مهمة",
-      notes_image_label: "صورة للنوتة (اختياري):",
-      notes_image_clear: "حذف الصورة",
-      notes_placeholder: "اكتب هنا أهم ما في بالك اليوم…",
+      <div class="form-group">
+        <label class="form-label" for="note-image-input">رابط صورة الغلاف (اختياري)</label>
+        <input id="note-image-input" class="form-input" placeholder="الصق رابط صورة من الإنترنت أو اتركه فارغاً" />
+      </div>
 
-      stats_title: "عداد جلسات التركيز على جهازك",
-      stats_text: "هذا العدد محفوظ فقط على هذا المتصفح.\nالهدف مش الكمال… الهدف تشوف إن كل جلسة صغيرة تُحسب.",
-      how_title: "كيف تستفيد من ATLAS Focus Hub؟",
-      future_title: "مستقبلاً…",
-      future_text: "– قسم خاص للطلاب (تقسيم المواد + بنك أفكار مكافأة بعد الإنجاز).\n– أفكار للجيمرز: العب بعد عدد معيّن من الجلسات كجائزة 🎮\n– صفحة إنجليزية مستقلة للي يستخدم الموقع من دول ثانية 🌍",
-      footer_left: "هذا الموقع تجريبي ومجاني – شغّله من أي متصفح بدون تسجيل.",
-      footer_made: "موقع من صنع محمود الصمادي.",
-      footer_right: "لو ناسبك… شاركه مع شخص يحتاج يركّز شوي اليوم 🤍",
+      <div class="modal-actions">
+        <button id="note-cancel-btn" class="secondary-btn">إلغاء</button>
+        <button id="note-save-btn" class="primary-btn" type="submit">حفظ</button>
+      </div>
+    </form>
+  </div>
 
-      settings_title: "إعدادات الحساب",
-      settings_sub: "هنا تقدر تحط اسمك، وتختار ثيم الموقع، والقسم الافتراضي، وطريقة عرض النوتة.",
-      settings_name_label: "اسمك (يظهر في التحية):",
-      settings_theme_label: "ثيم الواجهة:",
-      settings_default_section_label: "القسم الافتراضي عند فتح الموقع:",
-      settings_note_style_label: "تخصيص النوتة:",
-      settings_note_size_label: "حجم الخط:",
-      settings_note_font_label: "نوع الخط:",
-      settings_note_color_label: "لون الخط:",
-      settings_cancel: "إلغاء",
-      settings_save: "حفظ"
-    },
-    en: {
-      app_name: "ATLAS Focus Hub",
-      app_tagline: "A simple focus room for your day: sessions, tasks, mood, and notes.",
-      status_live: "Running 24/7 in your browser",
-      btn_profile: "Profile & Settings",
-      nav_focus: "Focus",
-      nav_tasks: "Tasks",
-      nav_study: "Study Plan",
-      nav_mood: "Mood",
-      nav_notes: "Today’s Note",
+  <script>
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => document.querySelectorAll(sel);
 
-      focus_title: "Focus Room",
-      focus_sub: "Pick a session length, start the timer, and remove distractions… the site counts your sessions and reminds you that you actually did something.",
-      btn_start: "Start",
-      btn_pause: "Pause",
-      btn_reset: "Reset",
-      focus_minutes: "Session length (minutes):",
-      focus_status_idle: "Ready for your first session today ✨",
-      focus_today: "Sessions today:",
-      focus_total: "Total sessions:",
-      focus_tips_title: "Quick tip for this session",
-      btn_new_tip: "Another tip",
-      focus_disclaimer: "This isn’t a complex study system – just a small room that reminds you every focused session counts.",
+    const defaultState = {
+      theme: "dark",
+      trackers: {
+        water: 0,
+        waterGoal: 8,
+        sleepHours: 0,
+        prayers: { fajr: false, dhuhr: false, asr: false, maghrib: false, isha: false },
+        gymDone: false
+      },
+      notes: []
+    };
 
-      tasks_title: "Today’s Tasks",
-      tasks_sub: "Write 3–7 tasks only… you don’t have to finish the entire universe in one day.",
-      tasks_placeholder: "Type a task… e.g. Review Unit 3",
-      btn_add_task: "Add",
-      tasks_hint: "Try writing 3 key tasks every morning – if you finish them, the day is a win even if nothing else happens.",
+    let currentUser = null;
+    let state = JSON.parse(JSON.stringify(defaultState));
+    let editingIndex = null;
 
-      study_title: "Quick Study Plan",
-      study_sub: "Enter the exam name and date – you’ll get an approximate number of days and suggested hours.",
-      study_exam_placeholder: "Exam name… e.g. English final",
-      study_hours_placeholder: "Hours/day",
-      btn_plan: "Generate plan",
-      study_note: "This plan is approximate – adjust based on your real life and energy.",
-
-      mood_title: "My Mood Today",
-      mood_sub: "Rate how you feel from 1 to 5 and get a short line that fits your mood (not medical advice).",
-      mood_label: "Mood now:",
-
-      notes_title: "Today’s Note",
-      notes_sub: "Any thought, worry, or goal for today… write it here instead of letting it spin in your head.",
-      notes_title_placeholder: "Note title… e.g. Today’s plan or important idea",
-      notes_image_label: "Image for this note (optional):",
-      notes_image_clear: "Remove image",
-      notes_placeholder: "Write the main things on your mind today…",
-
-      stats_title: "Focus sessions on this device",
-      stats_text: "This number is stored only in this browser.\nThe point isn’t perfection – it’s seeing that every small session counts.",
-      how_title: "How to use ATLAS Focus Hub?",
-      future_title: "Coming later…",
-      future_text: "– Student area (subject breakdown + reward ideas after finishing).\n– Gamer ideas: unlock gaming after a certain number of sessions 🎮\n– Standalone English page for users around the world 🌍",
-      footer_left: "This site is experimental and free – use it from any browser, no login needed.",
-      footer_made: "Built by Mahmoud Alsmadi.",
-      footer_right: "If it helps you, share it with someone who needs a bit of focus today 🤍",
-
-      settings_title: "Account settings",
-      settings_sub: "Here you can set your name, theme, default section, and how notes look.",
-      settings_name_label: "Your name (for greeting):",
-      settings_theme_label: "Theme:",
-      settings_default_section_label: "Default section on open:",
-      settings_note_style_label: "Note appearance:",
-      settings_note_size_label: "Font size:",
-      settings_note_font_label: "Font family:",
-      settings_note_color_label: "Font color:",
-      settings_cancel: "Cancel",
-      settings_save: "Save"
+    function getUserKey() {
+      if (!currentUser) return null;
+      return "atlas-life-" + currentUser.email;
     }
-  };
 
-  const focusTips = {
-    ar: [
-      "قبل ما تبدأ… سكّر الإشعارات غير الضرورية وخلي شاشة وحدة مفتوحة.",
-      "اكتب على ورقة صغيرة: «في هاي الجلسة هدفي…» وحطها قدامك.",
-      "اتفق مع نفسك إن الجلسة قصيرة، بعدها مسموح لك ترتاح بدون تأنيب ضمير.",
-      "لو تشردت في النص، بس رجّع تركيزك بدون ما تسب نفسك – هذا طبيعي.",
-      "خلي كوب ماء جنبك، لا تبدأ الجلسة وانت عطشان."
-    ],
-    en: [
-      "Before you start, close non-essential tabs and keep only one main window.",
-      "Write on a small note: “In this session my goal is…” and keep it in front of you.",
-      "Remind yourself the session is short – you can rest afterward without guilt.",
-      "If your mind wanders, just gently pull it back. No self-insults needed.",
-      "Keep a glass of water nearby so you don’t interrupt yourself mid-session."
-    ]
-  };
-
-  const moodTexts = {
-    ar: {
-      1: "واضح إنك تعبان جداً اليوم. حاول تخفّف الطلبات على نفسك، خذ راحة بسيطة، وكلّم شخص ترتاح له لو تقدر.",
-      2: "اليوم ثقيل شوي… اختَر مهمة واحدة صغيرة فقط، وانجزها عشان تحس بشعور إنك ما ضيّعت اليوم بالكامل.",
-      3: "مزاج متوسط. ممتاز لبداية هادئة: جلسة تركيز قصيرة + مهمة واحدة حقيقية.",
-      4: "مزاج جيد! استغلّه في شيء مهم، مو كله سوشال ميديا. أعطِ نفسك مكافأة صغيرة بعد الإنجاز.",
-      5: "مزاج عالي! لا تحرق نفسك… ركّز على أهم الأشياء بدل ما تفتح مليون مهمة معاً."
-    },
-    en: {
-      1: "You seem really drained today. Lower the pressure, take a small break, and talk to someone you trust if you can.",
-      2: "The day feels heavy. Pick just ONE small task and finish it so the day doesn’t feel completely wasted.",
-      3: "Average mood. Perfect for a simple start: one short focus session + one real task.",
-      4: "Good mood! Use it on something that matters, not only scrolling. Give yourself a small reward after.",
-      5: "Great mood! Don’t burn yourself out – focus on the most important things instead of opening a hundred tasks."
-    }
-  };
-
-  const state = {
-    lang: "ar",
-    timerSeconds: 25 * 60,
-    timerInterval: null,
-    timerRunning: false,
-    focusTodayCount: 0,
-    focusTotalCount: 0
-  };
-
-  let profile = {
-    name: "",
-    theme: "dark",
-    defaultSection: "focus",
-    noteSize: "normal",
-    noteFont: "system",
-    noteColor: "#f9fafb"
-  };
-
-  // ---------- Helpers ----------
-  function loadProfile() {
-    try {
-      const raw = localStorage.getItem("ATLAS_profile_v1");
+    function loadUserFromStorage() {
+      const raw = localStorage.getItem("atlas-life-user");
       if (raw) {
-        const obj = JSON.parse(raw);
-        Object.assign(profile, obj);
+        try {
+          currentUser = JSON.parse(raw);
+        } catch (e) {
+          currentUser = null;
+        }
       }
-    } catch (e) {}
-  }
+    }
 
-  function saveProfile() {
-    localStorage.setItem("ATLAS_profile_v1", JSON.stringify(profile));
-  }
-
-  function applyTheme() {
-    const body = document.body;
-    body.classList.remove("theme-dark", "theme-oled", "theme-light");
-    let t = profile.theme || "dark";
-    if (!["dark", "oled", "light"].includes(t)) t = "dark";
-    body.classList.add("theme-" + t);
-  }
-
-  function applyNoteStyle() {
-    const ta = document.getElementById("notes-input");
-    const title = document.getElementById("note-title");
-    if (!ta || !title) return;
-    let sizePx = 12;
-    if (profile.noteSize === "small") sizePx = 11;
-    if (profile.noteSize === "large") sizePx = 14;
-
-    const color = profile.noteColor || "#f9fafb";
-
-    function applyTo(el) {
-      el.style.fontSize = sizePx + "px";
-      el.style.color = color;
-      if (profile.noteFont === "serif") {
-        el.style.fontFamily =
-          'Georgia, "Times New Roman", serif';
-      } else if (profile.noteFont === "mono") {
-        el.style.fontFamily =
-          'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
+    function saveUserToStorage() {
+      if (currentUser) {
+        localStorage.setItem("atlas-life-user", JSON.stringify(currentUser));
       } else {
-        el.style.fontFamily = "";
+        localStorage.removeItem("atlas-life-user");
       }
     }
 
-    applyTo(ta);
-    applyTo(title);
-  }
-
-  function updateGreeting() {
-    const el = document.getElementById("greeting-text");
-    if (!el) return;
-    const name = (profile.name || "").trim();
-    const hour = new Date().getHours();
-    let base;
-    if (state.lang === "ar") {
-      if (hour < 12) base = "صباح الخير";
-      else if (hour < 18) base = "مساء الخير";
-      else base = "مساء الخير";
-      if (name) {
-        el.textContent = base + " يا " + name + " 👋";
+    function loadState() {
+      const key = getUserKey();
+      if (!key) return;
+      const raw = localStorage.getItem(key);
+      if (raw) {
+        try {
+          const stored = JSON.parse(raw);
+          state = Object.assign({}, defaultState, stored);
+        } catch (e) {
+          state = JSON.parse(JSON.stringify(defaultState));
+        }
       } else {
-        el.textContent =
-          base + " 👋 أضف اسمك من الإعدادات لو حاب.";
+        state = JSON.parse(JSON.stringify(defaultState));
       }
-    } else {
-      if (hour < 12) base = "Good morning";
-      else if (hour < 18) base = "Good afternoon";
-      else base = "Good evening";
-      if (name) {
-        el.textContent = base + ", " + name + " 👋";
-      } else {
-        el.textContent =
-          base + " 👋 Add your name from Settings if you like.";
+      applyTheme(state.theme || "dark");
+      renderAll();
+    }
+
+    function saveState() {
+      const key = getUserKey();
+      if (!key) return;
+      localStorage.setItem(key, JSON.stringify(state));
+    }
+
+    function applyTheme(theme) {
+      document.body.classList.remove("theme-dark", "theme-light", "theme-oled");
+      const cls = theme === "light" ? "theme-light" : theme === "oled" ? "theme-oled" : "theme-dark";
+      document.body.classList.add(cls);
+      const select = $("#theme-select");
+      if (select) select.value = theme;
+    }
+
+    function getGreetingText() {
+      const hour = new Date().getHours();
+      if (hour < 12) return "صباح الخير";
+      if (hour < 18) return "مساء الخير";
+      return "مساء الخير";
+    }
+
+    function formatTodayDate() {
+      const d = new Date();
+      const days = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+      const months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+      const dayName = days[d.getDay()];
+      const day = d.getDate();
+      const month = months[d.getMonth()];
+      const year = d.getFullYear();
+      return `${dayName} • ${day} ${month} ${year}`;
+    }
+
+    function updateGreeting() {
+      const greetEl = $("#greeting-text");
+      const nameEl = $("#greeting-name");
+      const dateEl = $("#today-date");
+      if (greetEl) greetEl.textContent = getGreetingText();
+      if (nameEl) nameEl.textContent = currentUser ? currentUser.name || "ضيف" : "ضيف";
+      if (dateEl) dateEl.textContent = formatTodayDate();
+    }
+
+    function renderTrackers() {
+      // ماء
+      const water = state.trackers.water || 0;
+      const goal = state.trackers.waterGoal || 8;
+      const percent = goal > 0 ? Math.min(100, Math.round(water / goal * 100)) : 0;
+      $("#water-count").textContent = water;
+      $("#water-percent").textContent = percent + "%";
+      $("#water-bar-fill").style.width = percent + "%";
+
+      // نوم
+      const sleepHoursInput = $("#sleep-hours");
+      if (sleepHoursInput) {
+        sleepHoursInput.value = state.trackers.sleepHours || "";
       }
-    }
-  }
-
-  function formatTime(sec) {
-    const m = Math.floor(sec / 60)
-      .toString()
-      .padStart(2, "0");
-    const s = (sec % 60).toString().padStart(2, "0");
-    return m + ":" + s;
-  }
-
-  function updateTimerDisplay() {
-    document.getElementById("timer-display").textContent = formatTime(
-      state.timerSeconds
-    );
-  }
-
-  function loadFocusCounts() {
-    const total = Number(localStorage.getItem("ATLAS_focus_total") || "0");
-    const todayDate = new Date().toISOString().slice(0, 10);
-    const storedDate = localStorage.getItem("ATLAS_focus_today_date");
-    let todayCount = 0;
-    if (storedDate === todayDate) {
-      todayCount = Number(localStorage.getItem("ATLAS_focus_today") || "0");
-    } else {
-      localStorage.setItem("ATLAS_focus_today_date", todayDate);
-      localStorage.setItem("ATLAS_focus_today", "0");
-    }
-    state.focusTotalCount = isNaN(total) ? 0 : total;
-    state.focusTodayCount = isNaN(todayCount) ? 0 : todayCount;
-  }
-
-  function saveFocusCounts() {
-    localStorage.setItem("ATLAS_focus_total", String(state.focusTotalCount));
-    localStorage.setItem("ATLAS_focus_today", String(state.focusTodayCount));
-    localStorage.setItem(
-      "ATLAS_focus_today_date",
-      new Date().toISOString().slice(0, 10)
-    );
-  }
-
-  function updateFocusCountUI() {
-    document.getElementById("focus-today-count").textContent =
-      state.focusTodayCount;
-    document.getElementById("focus-total-count").textContent =
-      state.focusTotalCount;
-    document.getElementById("counter-total").textContent =
-      state.focusTotalCount;
-  }
-
-  function pickRandomTip() {
-    const arr = focusTips[state.lang] || [];
-    if (!arr.length) return "";
-    return arr[Math.floor(Math.random() * arr.length)];
-  }
-
-  function setLanguage(lang) {
-    state.lang = lang;
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-
-    document.querySelectorAll(".lang-btn").forEach((btn) => {
-      btn.classList.toggle("active", btn.dataset.lang === lang);
-    });
-
-    const dict = I18N[lang];
-    document.querySelectorAll("[data-i18n]").forEach((el) => {
-      const key = el.getAttribute("data-i18n");
-      if (dict[key]) el.textContent = dict[key];
-    });
-
-    document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
-      const key = el.getAttribute("data-i18n-placeholder");
-      if (dict[key]) el.setAttribute("placeholder", dict[key]);
-    });
-
-    document.getElementById("focus-tip-text").innerText = pickRandomTip();
-    document.getElementById("study-output").innerText = "";
-
-    document.querySelector("[data-i18n='stats_text']").innerText =
-      dict["stats_text"];
-    document.querySelector("[data-i18n='future_text']").innerText =
-      dict["future_text"];
-
-    document.getElementById("how-text").innerText =
-      lang === "ar"
-        ? "1. اختر جلسة تركيز واشتغل بلا مشتتات.\n2. اكتب 3 مهام مهمة فقط لليوم.\n3. حدّد مزاجك وشوف النصيحة.\n4. سجّل أي فكرة في النوتة بدلاً من تركها تزعجك في رأسك."
-        : "1. Start a focus session with no distractions.\n2. Write only 3 important tasks for today.\n3. Set your mood and read the note.\n4. Put any thoughts into the note instead of keeping them in your head.";
-
-    updateMoodText();
-    if (!state.timerRunning) {
-      document.getElementById("focus-status").textContent =
-        dict["focus_status_idle"];
-    }
-    localStorage.setItem("ATLAS_lang", lang);
-    updateGreeting();
-  }
-
-  // ---------- TIMER ----------
-  function startTimer() {
-    if (state.timerRunning) return;
-    const inp = document.getElementById("focus-minutes");
-    let mins = Number(inp.value);
-    if (isNaN(mins) || mins < 5) mins = 5;
-    if (mins > 180) mins = 180;
-    inp.value = mins;
-    if (state.timerSeconds <= 0 || state.timerSeconds === 25 * 60) {
-      state.timerSeconds = mins * 60;
-    }
-    state.timerRunning = true;
-    document.getElementById("focus-status").textContent =
-      state.lang === "ar"
-        ? "جلسة شغّالة… خليك مع المهمة الحالية فقط."
-        : "Session running… stay with just this one task.";
-    state.timerInterval = setInterval(() => {
-      state.timerSeconds -= 1;
-      if (state.timerSeconds <= 0) {
-        clearInterval(state.timerInterval);
-        state.timerInterval = null;
-        state.timerSeconds = 0;
-        state.timerRunning = false;
-        updateTimerDisplay();
-        onTimerFinished();
-      } else {
-        updateTimerDisplay();
+      const sleepLabel = $("#sleep-label");
+      if (sleepLabel) {
+        sleepLabel.textContent = state.trackers.sleepHours
+          ? `نمت ${state.trackers.sleepHours} ساعة`
+          : "لم تسجّل نومك بعد";
       }
-    }, 1000);
-  }
 
-  function pauseTimer() {
-    if (!state.timerRunning) return;
-    clearInterval(state.timerInterval);
-    state.timerInterval = null;
-    state.timerRunning = false;
-    document.getElementById("focus-status").textContent =
-      state.lang === "ar"
-        ? "الجلسة موقوفة مؤقتاً، تقدر تكمل لما تكون جاهز."
-        : "Session paused – you can continue when you’re ready.";
-  }
-
-  function resetTimer() {
-    clearInterval(state.timerInterval);
-    state.timerInterval = null;
-    state.timerRunning = false;
-    const mins = Number(document.getElementById("focus-minutes").value) || 25;
-    state.timerSeconds = mins * 60;
-    updateTimerDisplay();
-    document.getElementById("focus-status").textContent =
-      I18N[state.lang]["focus_status_idle"];
-  }
-
-  function onTimerFinished() {
-    state.focusTotalCount += 1;
-    state.focusTodayCount += 1;
-    saveFocusCounts();
-    updateFocusCountUI();
-    document.getElementById("focus-status").textContent =
-      state.lang === "ar"
-        ? "أحسنت! خلصت جلسة تركيز كاملة 👏 خذ دقيقة راحة قبل ما تبدأ جلسة جديدة."
-        : "Nice! You finished a full focus session 👏 Take a short break before the next one.";
-    alert(
-      state.lang === "ar"
-        ? "انتهت الجلسة! أحسنت ✨"
-        : "Session finished! Well done ✨"
-    );
-  }
-
-  // ---------- TASKS ----------
-  let tasks = [];
-
-  function loadTasks() {
-    try {
-      const raw = localStorage.getItem("ATLAS_tasks_v1");
-      tasks = raw ? JSON.parse(raw) : [];
-    } catch (e) {
-      tasks = [];
-    }
-  }
-
-  function saveTasks() {
-    localStorage.setItem("ATLAS_tasks_v1", JSON.stringify(tasks));
-  }
-
-  function renderTasks() {
-    const list = document.getElementById("task-list");
-    list.innerHTML = "";
-    if (!tasks.length) return;
-    tasks.forEach((t, idx) => {
-      const item = document.createElement("div");
-      item.className = "task-item";
-
-      const cb = document.createElement("input");
-      cb.type = "checkbox";
-      cb.checked = !!t.done;
-      cb.addEventListener("change", () => {
-        t.done = cb.checked;
-        saveTasks();
-        renderTasks();
+      // صلاة
+      const prayers = state.trackers.prayers || {};
+      ["fajr","dhuhr","asr","maghrib","isha"].forEach(key => {
+        const cb = document.querySelector(`input[data-prayer="${key}"]`);
+        if (cb) cb.checked = !!prayers[key];
       });
+      const done = Object.values(prayers).filter(Boolean).length;
+      const summary = $("#prayer-summary");
+      if (summary) summary.textContent = `${done} / 5 صلوات`;
 
-      const span = document.createElement("div");
-      span.className = "task-text" + (t.done ? " done" : "");
-      span.textContent = t.text;
-
-      const del = document.createElement("button");
-      del.className = "task-del";
-      del.textContent = "✕";
-      del.addEventListener("click", () => {
-        tasks.splice(idx, 1);
-        saveTasks();
-        renderTasks();
-      });
-
-      item.appendChild(cb);
-      item.appendChild(span);
-      item.appendChild(del);
-      list.appendChild(item);
-    });
-  }
-
-  function addTaskFromInput() {
-    const input = document.getElementById("task-input");
-    const txt = input.value.trim();
-    if (!txt) return;
-    tasks.push({ text: txt, done: false });
-    input.value = "";
-    saveTasks();
-    renderTasks();
-  }
-
-  // ---------- STUDY PLAN ----------
-  function generateStudyPlan() {
-    const name = document.getElementById("exam-name").value.trim();
-    const dateStr = document.getElementById("exam-date").value;
-    const hours = Number(
-      document.getElementById("study-hours").value || "3"
-    );
-    const out = document.getElementById("study-output");
-
-    if (!dateStr) {
-      out.textContent =
-        state.lang === "ar"
-          ? "اختر تاريخ الامتحان أولاً."
-          : "Please choose the exam date first.";
-      return;
-    }
-
-    const examDate = new Date(dateStr + "T00:00:00");
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const diffMs = examDate - today;
-    const days = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-
-    if (days <= 0) {
-      out.textContent =
-        state.lang === "ar"
-          ? "يبدو أن تاريخ الامتحان اليوم أو مضى بالفعل."
-          : "It looks like the exam is today or already passed.";
-      return;
-    }
-
-    if (state.lang === "ar") {
-      out.textContent =
-        "الامتحان: " +
-        (name || "امتحانك") +
-        "\n" +
-        "المتبقي تقريباً: " +
-        days +
-        " يوم.\n" +
-        "لو درست " +
-        hours +
-        " ساعة في اليوم:\n" +
-        "- اجعل أول " +
-        (Math.max(1, Math.floor(days * 0.4))) +
-        " يوم لمراجعة الأساسيات.\n" +
-        "- منتصف الأيام للتدريبات والأسئلة.\n" +
-        "- آخر " +
-        Math.max(1, Math.floor(days * 0.2)) +
-        " يوم للمراجعة السريعة والنوم الجيد.";
-    } else {
-      out.textContent =
-        "Exam: " +
-        (name || "your exam") +
-        "\n" +
-        "Time left: about " +
-        days +
-        " days.\n" +
-        "If you study " +
-        hours +
-        " hours per day:\n" +
-        "- First " +
-        (Math.max(1, Math.floor(days * 0.4))) +
-        " days → review basics.\n" +
-        "- Middle days → practice questions.\n" +
-        "- Last " +
-        Math.max(1, Math.floor(days * 0.2)) +
-        " days → light revision + good sleep.";
-    }
-  }
-
-  // ---------- MOOD ----------
-  function updateMoodText() {
-    const slider = document.getElementById("mood-slider");
-    const level = Number(slider.value);
-    document.getElementById("mood-level-label").textContent =
-      level + " / 5";
-    const text =
-      (moodTexts[state.lang] &&
-        moodTexts[state.lang][level]) ||
-      "";
-    document.getElementById("mood-advice-text").textContent = text;
-  }
-
-  // ---------- NOTES ----------
-  function initNotes() {
-    const key = "ATLAS_notes_v2";
-    const ta = document.getElementById("notes-input");
-    const titleInput = document.getElementById("note-title");
-    const imgPreview = document.getElementById("note-image-preview");
-    const imgInput = document.getElementById("note-image-input");
-    const clearBtn = document.getElementById("btn-clear-image");
-    const status = document.getElementById("notes-status");
-
-    let noteData = { title: "", body: "", image: null };
-
-    const saved = localStorage.getItem(key);
-    if (saved) {
-      try {
-        noteData = Object.assign(noteData, JSON.parse(saved));
-      } catch (e) {}
-    }
-
-    titleInput.value = noteData.title || "";
-    ta.value = noteData.body || "";
-    if (noteData.image) {
-      imgPreview.src = noteData.image;
-      imgPreview.style.display = "block";
-    }
-
-    function updateStatus() {
-      status.textContent =
-        state.lang === "ar"
-          ? "يتم الحفظ تلقائياً على هذا المتصفح فقط."
-          : "Saved automatically on this browser only.";
-    }
-
-    function persist() {
-      noteData.title = titleInput.value;
-      noteData.body = ta.value;
-      try {
-        localStorage.setItem(key, JSON.stringify(noteData));
-      } catch (e) {
-        // ممكن تكون الصورة كبيرة جداً
+      // جيم
+      const gymToggle = $("#gym-done");
+      if (gymToggle) {
+        gymToggle.checked = !!state.trackers.gymDone;
       }
-      updateStatus();
+      const gymLabel = $("#gym-label");
+      if (gymLabel) {
+        gymLabel.textContent = state.trackers.gymDone
+          ? "أحسنت! تمرّنت اليوم 💪"
+          : "لم تسجّل تمرين اليوم بعد";
+      }
     }
 
-    titleInput.addEventListener("input", persist);
-    ta.addEventListener("input", persist);
+    function renderNotes() {
+      const container = $("#notes-grid");
+      if (!container) return;
+      container.innerHTML = "";
 
-    imgInput.addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        noteData.image = ev.target.result;
-        imgPreview.src = noteData.image;
-        imgPreview.style.display = "block";
-        persist();
-      };
-      reader.readAsDataURL(file);
-    });
+      if (!state.notes || !state.notes.length) {
+        container.innerHTML = '<p class="empty-text">لا توجد ملاحظات بعد. اضغط "ملاحظة جديدة" للبدء ✍️</p>';
+        return;
+      }
 
-    clearBtn.addEventListener("click", () => {
-      noteData.image = null;
-      imgPreview.src = "";
-      imgPreview.style.display = "none";
-      imgInput.value = "";
-      persist();
-    });
+      state.notes.forEach((note, index) => {
+        const card = document.createElement("article");
+        card.className = "note-card";
+        card.style.backgroundColor = note.bg || "var(--card-soft)";
+        card.style.color = note.color || "var(--text-main)";
+        card.style.fontFamily = note.fontFamily || "Cairo";
+        card.style.fontSize = (note.fontSize || 16) + "px";
 
-    updateStatus();
-    applyNoteStyle();
-  }
+        let html = "";
+        if (note.image) {
+          const safeUrl = note.image.replace(/'/g, "&#39;");
+          html += `<div class="note-cover" style="background-image:url('${safeUrl}')"></div>`;
+        }
+        const safeTitle = note.title || "ملاحظة بدون عنوان";
+        const safeContent = (note.content || "").replace(/\n/g, "<br>");
 
-  // ---------- SECTIONS NAV ----------
-  function showSection(id) {
-    document.querySelectorAll(".section").forEach((sec) => {
-      sec.classList.toggle("active", sec.id === "section-" + id);
-    });
-    document.querySelectorAll(".nav-btn").forEach((btn) => {
-      btn.classList.toggle("active", btn.dataset.sectionBtn === id);
-    });
-  }
-
-  // ---------- SETTINGS MODAL ----------
-  function setupSettingsModal() {
-    const modal = document.getElementById("settings-modal");
-    const openBtn = document.getElementById("btn-open-settings");
-    const closeBtn = document.getElementById("btn-close-settings");
-    const saveBtn = document.getElementById("btn-save-settings");
-    const nameInput = document.getElementById("profile-name");
-    const defaultSelect = document.getElementById("default-section-select");
-    const themeButtons = document.querySelectorAll("[data-theme-option]");
-    const sizeSelect = document.getElementById("note-font-size");
-    const fontSelect = document.getElementById("note-font-family");
-    const colorInput = document.getElementById("note-font-color");
-
-    function fill() {
-      nameInput.value = profile.name || "";
-      defaultSelect.value = profile.defaultSection || "focus";
-      sizeSelect.value = profile.noteSize || "normal";
-      fontSelect.value = profile.noteFont || "system";
-      colorInput.value = profile.noteColor || "#f9fafb";
-      themeButtons.forEach((btn) => {
-        btn.classList.toggle(
-          "active-chip",
-          btn.dataset.themeOption === (profile.theme || "dark")
-        );
+        html += `
+          <div class="note-body">
+            <h3 class="note-title">${safeTitle}</h3>
+            <p class="note-content">${safeContent}</p>
+          </div>
+          <div class="note-actions">
+            <button type="button" data-edit="${index}">تعديل</button>
+            <button type="button" data-delete="${index}">حذف</button>
+          </div>
+        `;
+        card.innerHTML = html;
+        container.appendChild(card);
       });
     }
 
-    openBtn.addEventListener("click", () => {
-      fill();
-      modal.hidden = false;
-    });
-
-    closeBtn.addEventListener("click", () => {
-      modal.hidden = true;
-    });
-
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) modal.hidden = true;
-    });
-
-    themeButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        themeButtons.forEach((b) => b.classList.remove("active-chip"));
-        btn.classList.add("active-chip");
-        profile.theme = btn.dataset.themeOption;
-        applyTheme();
-      });
-    });
-
-    saveBtn.addEventListener("click", () => {
-      profile.name = nameInput.value.trim();
-      profile.defaultSection = defaultSelect.value || "focus";
-      profile.noteSize = sizeSelect.value || "normal";
-      profile.noteFont = fontSelect.value || "system";
-      profile.noteColor = colorInput.value || "#f9fafb";
-      saveProfile();
-      applyNoteStyle();
+    function renderAll() {
       updateGreeting();
-      showSection(profile.defaultSection || "focus");
-      modal.hidden = true;
-    });
-  }
-
-  // ---------- INIT ----------
-  document.addEventListener("DOMContentLoaded", () => {
-    loadProfile();
-    const storedLang = localStorage.getItem("ATLAS_lang");
-    if (storedLang && (storedLang === "ar" || storedLang === "en")) {
-      state.lang = storedLang;
+      renderTrackers();
+      renderNotes();
     }
 
-    loadFocusCounts();
-    updateFocusCountUI();
-    updateTimerDisplay();
-    applyTheme();
+    // مودال النوتة
+    function openNoteModal(index) {
+      editingIndex = (index !== null && index !== undefined) ? index : null;
+      const modal = $("#note-modal");
+      modal.classList.remove("hidden");
 
-    // Lang buttons
-    document.querySelectorAll(".lang-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        if (btn.dataset.lang === state.lang) return;
-        setLanguage(btn.dataset.lang);
+      const note = (editingIndex !== null && state.notes[editingIndex])
+        ? state.notes[editingIndex]
+        : { title: "", content: "", bg: "#0f172a", color: "#f9fafb", fontFamily: "Cairo", fontSize: 16, image: "" };
+
+      $("#note-title-input").value = note.title || "";
+      $("#note-content-input").value = note.content || "";
+      $("#note-bg-input").value = note.bg || "#0f172a";
+      $("#note-color-input").value = note.color || "#f9fafb";
+      $("#note-font-input").value = note.fontFamily || "Cairo";
+      $("#note-size-input").value = note.fontSize || 16;
+      $("#note-image-input").value = note.image || "";
+    }
+
+    function closeNoteModal() {
+      $("#note-modal").classList.add("hidden");
+      editingIndex = null;
+    }
+
+    function saveNoteFromModal() {
+      const note = {
+        title: $("#note-title-input").value.trim(),
+        content: $("#note-content-input").value.trim(),
+        bg: $("#note-bg-input").value || "#0f172a",
+        color: $("#note-color-input").value || "#f9fafb",
+        fontFamily: $("#note-font-input").value || "Cairo",
+        fontSize: parseInt($("#note-size-input").value, 10) || 16,
+        image: $("#note-image-input").value.trim()
+      };
+
+      if (editingIndex !== null && editingIndex >= 0 && editingIndex < state.notes.length) {
+        state.notes[editingIndex] = note;
+      } else {
+        state.notes.unshift(note);
+      }
+
+      saveState();
+      closeNoteModal();
+      renderNotes();
+    }
+
+    // تسجيل الدخول المحلي
+    function showLogin() {
+      $("#login-overlay").classList.remove("hidden");
+    }
+
+    function hideLogin() {
+      $("#login-overlay").classList.add("hidden");
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const name = $("#login-name").value.trim() || "ضيف";
+      const email = $("#login-email").value.trim() || "guest@example.com";
+      currentUser = { name, email };
+      saveUserToStorage();
+      loadState();
+      hideLogin();
+    }
+
+    function handleLogout() {
+      const yes = confirm("تسجيل الخروج؟ بياناتك ستبقى محفوظة على هذا الجهاز، ويمكنك الرجوع لها لاحقاً.");
+      if (!yes) return;
+      currentUser = null;
+      saveUserToStorage();
+      showLogin();
+    }
+
+    function initEvents() {
+      // تسجيل الدخول
+      $("#login-form").addEventListener("submit", handleLoginSubmit);
+      $("#logout-btn").addEventListener("click", handleLogout);
+
+      // الثيم
+      $("#theme-select").addEventListener("change", (e) => {
+        state.theme = e.target.value;
+        applyTheme(state.theme);
+        saveState();
       });
-    });
 
-    // Nav buttons
-    document.querySelectorAll(".nav-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        showSection(btn.dataset.sectionBtn);
-      });
-    });
-
-    // Timer buttons
-    document.getElementById("btn-start").addEventListener("click", startTimer);
-    document.getElementById("btn-pause").addEventListener("click", pauseTimer);
-    document.getElementById("btn-reset").addEventListener("click", resetTimer);
-    document.querySelectorAll("[data-preset]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const mins = Number(btn.getAttribute("data-preset"));
-        const inp = document.getElementById("focus-minutes");
-        inp.value = mins;
-        state.timerSeconds = mins * 60;
-        updateTimerDisplay();
-      });
-    });
-    document.getElementById("btn-new-tip").addEventListener("click", () => {
-      document.getElementById("focus-tip-text").innerText = pickRandomTip();
-    });
-
-    // Tasks
-    loadTasks();
-    renderTasks();
-    document
-      .getElementById("btn-add-task")
-      .addEventListener("click", addTaskFromInput);
-    document
-      .getElementById("task-input")
-      .addEventListener("keydown", (e) => {
-        if (e.key === "Enter") addTaskFromInput();
+      // ماء
+      $("#water-plus").addEventListener("click", () => {
+        state.trackers.water = Math.min(state.trackers.waterGoal, (state.trackers.water || 0) + 1);
+        saveState();
+        renderTrackers();
       });
 
-    // Study plan
-    document
-      .getElementById("btn-generate-plan")
-      .addEventListener("click", generateStudyPlan);
+      $("#water-minus").addEventListener("click", () => {
+        state.trackers.water = Math.max(0, (state.trackers.water || 0) - 1);
+        saveState();
+        renderTrackers();
+      });
 
-    // Mood
-    document
-      .getElementById("mood-slider")
-      .addEventListener("input", updateMoodText);
+      // نوم
+      $("#sleep-hours").addEventListener("change", (e) => {
+        state.trackers.sleepHours = parseFloat(e.target.value) || 0;
+        saveState();
+        renderTrackers();
+      });
 
-    // Notes
-    initNotes();
+      // صلاة
+      $$("input[data-prayer]").forEach((cb) => {
+        cb.addEventListener("change", (e) => {
+          const key = e.target.getAttribute("data-prayer");
+          state.trackers.prayers[key] = e.target.checked;
+          saveState();
+          renderTrackers();
+        });
+      });
 
-    // Settings modal
-    setupSettingsModal();
+      // جيم
+      $("#gym-done").addEventListener("change", (e) => {
+        state.trackers.gymDone = e.target.checked;
+        saveState();
+        renderTrackers();
+      });
 
-    // Apply language & greeting & default section
-    setLanguage(state.lang);
-    showSection(profile.defaultSection || "focus");
-  });
-</script>
+      // نوتات
+      $("#new-note-btn").addEventListener("click", () => openNoteModal(null));
+      $("#note-cancel-btn").addEventListener("click", (e) => {
+        e.preventDefault();
+        closeNoteModal();
+      });
+      $("#note-save-btn").addEventListener("click", (e) => {
+        e.preventDefault();
+        saveNoteFromModal();
+      });
+
+      $("#notes-grid").addEventListener("click", (e) => {
+        const editIndex = e.target.getAttribute("data-edit");
+        const deleteIndex = e.target.getAttribute("data-delete");
+        if (editIndex !== null && editIndex !== undefined) {
+          openNoteModal(parseInt(editIndex, 10));
+        } else if (deleteIndex !== null && deleteIndex !== undefined) {
+          const idx = parseInt(deleteIndex, 10);
+          const ok = confirm("متأكد أنك تريد حذف هذه الملاحظة؟");
+          if (ok) {
+            state.notes.splice(idx, 1);
+            saveState();
+            renderNotes();
+          }
+        }
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadUserFromStorage();
+      initEvents();
+      if (currentUser) {
+        loadState();
+        hideLogin();
+      } else {
+        applyTheme("dark");
+        showLogin();
+      }
+    });
+  </script>
 </body>
 </html>
