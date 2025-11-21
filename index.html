@@ -38,6 +38,20 @@
       padding: 16px;
     }
 
+    body.theme-oled {
+      background: #000000;
+    }
+
+    body.theme-dark .shell::before,
+    body.theme-oled .shell::before {
+      opacity: 0.7;
+    }
+
+    body.theme-light {
+      background: #e5edf5;
+      color: #020617;
+    }
+
     .shell {
       width: 100%;
       max-width: 1100px;
@@ -63,8 +77,17 @@
       background:
         radial-gradient(circle at 0 0, rgba(24, 180, 255, 0.12), transparent 60%),
         radial-gradient(circle at 100% 0, rgba(88, 101, 242, 0.15), transparent 55%);
-      opacity: 0.7;
       pointer-events: none;
+    }
+
+    body.theme-oled .shell {
+      background: #02040b;
+      border-color: rgba(148, 163, 184, 0.35);
+    }
+
+    body.theme-light .shell {
+      background: #f8fafc;
+      border-color: rgba(148, 163, 184, 0.6);
     }
 
     .inner {
@@ -77,7 +100,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      margin-bottom: 18px;
+      margin-bottom: 10px;
       flex-wrap: wrap;
     }
 
@@ -166,12 +189,28 @@
       font-weight: 600;
     }
 
+    .greeting-row {
+      margin: 6px 0 10px;
+      font-size: 13px;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .greeting-name {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
     /* NAV */
     .main-nav {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
     .nav-btn {
@@ -233,6 +272,15 @@
       inset: 0;
       background: radial-gradient(circle at 120% -10%, rgba(88, 101, 242, 0.15), transparent 45%);
       pointer-events: none;
+    }
+
+    body.theme-oled .card {
+      background: #02030a;
+    }
+
+    body.theme-light .card {
+      background: #ffffff;
+      border-color: rgba(148, 163, 184, 0.6);
     }
 
     .card-inner {
@@ -307,6 +355,11 @@
       text-align: center;
     }
 
+    body.theme-light .timer-display {
+      background: #f9fafb;
+      border-color: rgba(148, 163, 184, 0.6);
+    }
+
     .timer-controls {
       display: flex;
       flex-wrap: wrap;
@@ -328,7 +381,7 @@
       font-weight: 600;
       box-shadow: 0 12px 26px rgba(24, 180, 255, 0.55);
       transition: transform 0.1s ease-out, box-shadow 0.1s ease-out,
-        background var(--transition);
+        background var(--transition), color var(--transition);
     }
 
     .btn:hover {
@@ -487,12 +540,6 @@
     }
 
     /* STUDY PLAN */
-    .field-label {
-      font-size: 11px;
-      margin-bottom: 4px;
-      color: var(--text-soft);
-    }
-
     .field-row {
       display: flex;
       flex-wrap: wrap;
@@ -527,6 +574,11 @@
       margin-top: 4px;
     }
 
+    body.theme-light .study-plan-output {
+      background: #f9fafb;
+      border-color: rgba(148, 163, 184, 0.6);
+    }
+
     /* MOOD */
     .mood-row {
       display: flex;
@@ -559,7 +611,52 @@
       line-height: 1.7;
     }
 
+    body.theme-light .mood-advice {
+      background: #f9fafb;
+      border-color: rgba(148, 163, 184, 0.6);
+    }
+
     /* NOTES */
+    .note-title-input {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.98);
+      color: var(--text);
+      font-size: 12px;
+      outline: none;
+      margin-bottom: 6px;
+    }
+
+    .note-title-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(24, 180, 255, 0.5);
+    }
+
+    .note-image-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 11px;
+      color: var(--text-soft);
+      flex-wrap: wrap;
+    }
+
+    .note-image-row input[type="file"] {
+      font-size: 11px;
+      color: var(--text-soft);
+      max-width: 100%;
+    }
+
+    #note-image-preview {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-bottom: 6px;
+      display: none;
+    }
+
     textarea {
       width: 100%;
       min-height: 110px;
@@ -621,6 +718,12 @@
       color: var(--accent);
     }
 
+    body.theme-light .mini-card {
+      background: #f8fafc;
+      border-color: rgba(148, 163, 184, 0.6);
+    }
+
+    /* FOOTER */
     footer {
       margin-top: 10px;
       font-size: 10px;
@@ -639,9 +742,156 @@
     a:hover {
       text-decoration: underline;
     }
+
+    /* MODAL */
+    .modal-backdrop[hidden] {
+      display: none;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+    }
+
+    .modal {
+      width: min(420px, 100% - 32px);
+      background: #050815;
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 16px 18px 14px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    body.theme-light .modal {
+      background: #ffffff;
+      color: #020617;
+    }
+
+    .modal-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .modal-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    .modal-section-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin: 6px 0 4px;
+    }
+
+    .modal-row {
+      margin-bottom: 6px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .modal-row label {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .modal-row input[type="text"],
+    .modal-row select {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.98);
+      color: var(--text);
+      font-size: 12px;
+      outline: none;
+    }
+
+    .modal-row input[type="text"]:focus,
+    .modal-row select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(24, 180, 255, 0.5);
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .chip-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 4px 9px;
+      font-size: 11px;
+      background: rgba(15, 23, 42, 0.98);
+      color: var(--text-soft);
+      cursor: pointer;
+    }
+
+    .chip-btn.active-chip {
+      background: var(--accent);
+      color: #02101b;
+      border-color: transparent;
+      font-weight: 600;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    body.theme-light .pill,
+    body.theme-light .lang-toggle,
+    body.theme-light .nav-btn,
+    body.theme-light .badge-soft,
+    body.theme-light .stats-pill {
+      background: #e2e8f0;
+      border-color: rgba(148, 163, 184, 0.8);
+      color: #0f172a;
+    }
+
+    body.theme-light .btn.secondary {
+      background: #e5edf5;
+      color: #0f172a;
+    }
+
+    body.theme-light .brand-sub,
+    body.theme-light .card-sub,
+    body.theme-light .mini-text,
+    body.theme-light .tagline,
+    body.theme-light .note-status {
+      color: #475569;
+    }
+
+    body.theme-light .task-item {
+      background: #f9fafb;
+      border-color: rgba(148, 163, 184, 0.6);
+    }
+
+    body.theme-light textarea,
+    body.theme-light .note-title-input {
+      background: #f9fafb;
+      border-color: rgba(148, 163, 184, 0.6);
+      color: #020617;
+    }
+
+    body.theme-light .task-text.done {
+      color: #94a3b8;
+    }
   </style>
 </head>
-<body>
+<body class="theme-dark">
 <div class="shell">
   <div class="inner">
     <header>
@@ -659,12 +909,22 @@
           <span class="pill-dot"></span>
           <span data-i18n="status_live">يعمل الآن 24/7 على جهازك</span>
         </div>
-        <div class="lang-toggle">
-          <button class="lang-btn active" data-lang="ar">AR</button>
-          <button class="lang-btn" data-lang="en">EN</button>
+        <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap; justify-content:flex-end;">
+          <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="ar">AR</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+          </div>
+          <button class="btn small secondary" id="btn-open-settings">
+            <span class="btn-icon">👤</span>
+            <span data-i18n="btn_profile">الملف الشخصي</span>
+          </button>
         </div>
       </div>
     </header>
+
+    <div class="greeting-row">
+      <span id="greeting-text">صباح الخير 👋</span>
+    </div>
 
     <nav class="main-nav">
       <button class="nav-btn active" data-section-btn="focus">
@@ -858,6 +1118,18 @@
                 أي فكرة، خوف، هدف، أو شيء بسيط لليوم… اكتبه هنا وخليه يطلع من رأسك على الشاشة.
               </div>
 
+              <input id="note-title" class="note-title-input"
+                     data-i18n-placeholder="notes_title_placeholder"
+                     placeholder="عنوان النوتة… مثال: خطة اليوم أو فكرة مهمة">
+              <div class="note-image-row">
+                <span data-i18n="notes_image_label">صورة للنوتة (اختياري):</span>
+                <input type="file" id="note-image-input" accept="image/*">
+                <button class="btn small secondary" id="btn-clear-image">
+                  <span class="btn-icon">✕</span>
+                  <span data-i18n="notes_image_clear">حذف الصورة</span>
+                </button>
+              </div>
+              <img id="note-image-preview" alt="Note image preview">
               <textarea id="notes-input" data-i18n-placeholder="notes_placeholder"
                         placeholder="اكتب هنا أهم ما في بالك اليوم…"></textarea>
               <div class="note-status" id="notes-status"></div>
@@ -910,10 +1182,77 @@
       <span data-i18n="footer_left">
         هذا الموقع تجريبي ومجاني – شغّله من أي متصفح بدون تسجيل.
       </span>
+      <span data-i18n="footer_made">
+        موقع من صنع محمود الصمادي.
+      </span>
       <span data-i18n="footer_right">
         لو ناسبك… شاركه مع شخص يحتاج يركّز شوي اليوم 🤍
       </span>
     </footer>
+  </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="modal-backdrop" id="settings-modal" hidden>
+  <div class="modal">
+    <div class="modal-title" data-i18n="settings_title">إعدادات الحساب</div>
+    <div class="modal-sub" data-i18n="settings_sub">
+      هنا تقدر تحط اسمك، وتختار ثيم الموقع، والقسم الافتراضي، وطريقة عرض النوتة.
+    </div>
+
+    <div class="modal-row">
+      <label for="profile-name" data-i18n="settings_name_label">اسمك (يظهر في التحية):</label>
+      <input type="text" id="profile-name" placeholder="مثال: محمود">
+    </div>
+
+    <div class="modal-section-title" data-i18n="settings_theme_label">ثيم الواجهة:</div>
+    <div class="chip-group">
+      <button class="chip-btn active-chip" data-theme-option="dark">داكن</button>
+      <button class="chip-btn" data-theme-option="oled">أسود OLED</button>
+      <button class="chip-btn" data-theme-option="light">فاتح / Light</button>
+    </div>
+
+    <div class="modal-row">
+      <label for="default-section-select" data-i18n="settings_default_section_label">القسم الافتراضي عند فتح الموقع:</label>
+      <select id="default-section-select">
+        <option value="focus">🎯 تركيز / Focus</option>
+        <option value="tasks">✅ مهامي / Tasks</option>
+        <option value="study">📚 خطة دراسة / Study</option>
+        <option value="mood">💭 مزاجي / Mood</option>
+        <option value="notes">📝 نوتة اليوم / Notes</option>
+      </select>
+    </div>
+
+    <div class="modal-section-title" data-i18n="settings_note_style_label">تخصيص النوتة:</div>
+    <div class="modal-row">
+      <label for="note-font-size" data-i18n="settings_note_size_label">حجم الخط:</label>
+      <select id="note-font-size">
+        <option value="small">صغير</option>
+        <option value="normal" selected>عادي</option>
+        <option value="large">كبير</option>
+      </select>
+    </div>
+    <div class="modal-row">
+      <label for="note-font-family" data-i18n="settings_note_font_label">نوع الخط:</label>
+      <select id="note-font-family">
+        <option value="system">System</option>
+        <option value="serif">Serif</option>
+        <option value="mono">Monospace</option>
+      </select>
+    </div>
+    <div class="modal-row">
+      <label for="note-font-color" data-i18n="settings_note_color_label">لون الخط:</label>
+      <input type="color" id="note-font-color" value="#f9fafb">
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn small secondary" id="btn-close-settings">
+        <span data-i18n="settings_cancel">إلغاء</span>
+      </button>
+      <button class="btn small" id="btn-save-settings">
+        <span data-i18n="settings_save">حفظ</span>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -924,6 +1263,7 @@
       app_name: "ATLAS Focus Hub",
       app_tagline: "غرفة تركيز بسيطة لليوم: مهام، جلسات، مزاج، ونوتات.",
       status_live: "يعمل الآن 24/7 على جهازك",
+      btn_profile: "الملف الشخصي",
       nav_focus: "تركيز",
       nav_tasks: "مهامي",
       nav_study: "خطة دراسة",
@@ -962,6 +1302,9 @@
 
       notes_title: "نوتة اليوم",
       notes_sub: "أي فكرة، خوف، هدف، أو شيء بسيط لليوم… اكتبه هنا وخليه يطلع من رأسك على الشاشة.",
+      notes_title_placeholder: "عنوان النوتة… مثال: خطة اليوم أو فكرة مهمة",
+      notes_image_label: "صورة للنوتة (اختياري):",
+      notes_image_clear: "حذف الصورة",
       notes_placeholder: "اكتب هنا أهم ما في بالك اليوم…",
 
       stats_title: "عداد جلسات التركيز على جهازك",
@@ -970,12 +1313,26 @@
       future_title: "مستقبلاً…",
       future_text: "– قسم خاص للطلاب (تقسيم المواد + بنك أفكار مكافأة بعد الإنجاز).\n– أفكار للجيمرز: العب بعد عدد معيّن من الجلسات كجائزة 🎮\n– صفحة إنجليزية مستقلة للي يستخدم الموقع من دول ثانية 🌍",
       footer_left: "هذا الموقع تجريبي ومجاني – شغّله من أي متصفح بدون تسجيل.",
-      footer_right: "لو ناسبك… شاركه مع شخص يحتاج يركّز شوي اليوم 🤍"
+      footer_made: "موقع من صنع محمود الصمادي.",
+      footer_right: "لو ناسبك… شاركه مع شخص يحتاج يركّز شوي اليوم 🤍",
+
+      settings_title: "إعدادات الحساب",
+      settings_sub: "هنا تقدر تحط اسمك، وتختار ثيم الموقع، والقسم الافتراضي، وطريقة عرض النوتة.",
+      settings_name_label: "اسمك (يظهر في التحية):",
+      settings_theme_label: "ثيم الواجهة:",
+      settings_default_section_label: "القسم الافتراضي عند فتح الموقع:",
+      settings_note_style_label: "تخصيص النوتة:",
+      settings_note_size_label: "حجم الخط:",
+      settings_note_font_label: "نوع الخط:",
+      settings_note_color_label: "لون الخط:",
+      settings_cancel: "إلغاء",
+      settings_save: "حفظ"
     },
     en: {
       app_name: "ATLAS Focus Hub",
       app_tagline: "A simple focus room for your day: sessions, tasks, mood, and notes.",
       status_live: "Running 24/7 in your browser",
+      btn_profile: "Profile & Settings",
       nav_focus: "Focus",
       nav_tasks: "Tasks",
       nav_study: "Study Plan",
@@ -1014,6 +1371,9 @@
 
       notes_title: "Today’s Note",
       notes_sub: "Any thought, worry, or goal for today… write it here instead of letting it spin in your head.",
+      notes_title_placeholder: "Note title… e.g. Today’s plan or important idea",
+      notes_image_label: "Image for this note (optional):",
+      notes_image_clear: "Remove image",
       notes_placeholder: "Write the main things on your mind today…",
 
       stats_title: "Focus sessions on this device",
@@ -1022,7 +1382,20 @@
       future_title: "Coming later…",
       future_text: "– Student area (subject breakdown + reward ideas after finishing).\n– Gamer ideas: unlock gaming after a certain number of sessions 🎮\n– Standalone English page for users around the world 🌍",
       footer_left: "This site is experimental and free – use it from any browser, no login needed.",
-      footer_right: "If it helps you, share it with someone who needs a bit of focus today 🤍"
+      footer_made: "Built by Mahmoud Alsmadi.",
+      footer_right: "If it helps you, share it with someone who needs a bit of focus today 🤍",
+
+      settings_title: "Account settings",
+      settings_sub: "Here you can set your name, theme, default section, and how notes look.",
+      settings_name_label: "Your name (for greeting):",
+      settings_theme_label: "Theme:",
+      settings_default_section_label: "Default section on open:",
+      settings_note_style_label: "Note appearance:",
+      settings_note_size_label: "Font size:",
+      settings_note_font_label: "Font family:",
+      settings_note_color_label: "Font color:",
+      settings_cancel: "Cancel",
+      settings_save: "Save"
     }
   };
 
@@ -1069,7 +1442,95 @@
     focusTotalCount: 0
   };
 
+  let profile = {
+    name: "",
+    theme: "dark",
+    defaultSection: "focus",
+    noteSize: "normal",
+    noteFont: "system",
+    noteColor: "#f9fafb"
+  };
+
   // ---------- Helpers ----------
+  function loadProfile() {
+    try {
+      const raw = localStorage.getItem("ATLAS_profile_v1");
+      if (raw) {
+        const obj = JSON.parse(raw);
+        Object.assign(profile, obj);
+      }
+    } catch (e) {}
+  }
+
+  function saveProfile() {
+    localStorage.setItem("ATLAS_profile_v1", JSON.stringify(profile));
+  }
+
+  function applyTheme() {
+    const body = document.body;
+    body.classList.remove("theme-dark", "theme-oled", "theme-light");
+    let t = profile.theme || "dark";
+    if (!["dark", "oled", "light"].includes(t)) t = "dark";
+    body.classList.add("theme-" + t);
+  }
+
+  function applyNoteStyle() {
+    const ta = document.getElementById("notes-input");
+    const title = document.getElementById("note-title");
+    if (!ta || !title) return;
+    let sizePx = 12;
+    if (profile.noteSize === "small") sizePx = 11;
+    if (profile.noteSize === "large") sizePx = 14;
+
+    const color = profile.noteColor || "#f9fafb";
+
+    function applyTo(el) {
+      el.style.fontSize = sizePx + "px";
+      el.style.color = color;
+      if (profile.noteFont === "serif") {
+        el.style.fontFamily =
+          'Georgia, "Times New Roman", serif';
+      } else if (profile.noteFont === "mono") {
+        el.style.fontFamily =
+          'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
+      } else {
+        el.style.fontFamily = "";
+      }
+    }
+
+    applyTo(ta);
+    applyTo(title);
+  }
+
+  function updateGreeting() {
+    const el = document.getElementById("greeting-text");
+    if (!el) return;
+    const name = (profile.name || "").trim();
+    const hour = new Date().getHours();
+    let base;
+    if (state.lang === "ar") {
+      if (hour < 12) base = "صباح الخير";
+      else if (hour < 18) base = "مساء الخير";
+      else base = "مساء الخير";
+      if (name) {
+        el.textContent = base + " يا " + name + " 👋";
+      } else {
+        el.textContent =
+          base + " 👋 أضف اسمك من الإعدادات لو حاب.";
+      }
+    } else {
+      if (hour < 12) base = "Good morning";
+      else if (hour < 18) base = "Good afternoon";
+      else base = "Good evening";
+      if (name) {
+        el.textContent = base + ", " + name + " 👋";
+      } else {
+        el.textContent =
+          base + " 👋 Add your name from Settings if you like.";
+      }
+    }
+  }
+
   function formatTime(sec) {
     const m = Math.floor(sec / 60)
       .toString()
@@ -1143,27 +1604,26 @@
       if (dict[key]) el.setAttribute("placeholder", dict[key]);
     });
 
-    // Multi-line fields (innerText so \n works)
     document.getElementById("focus-tip-text").innerText = pickRandomTip();
     document.getElementById("study-output").innerText = "";
-    document.getElementById("how-text").innerText =
-      lang === "ar"
-        ? "1. اختر جلسة تركيز واشتغل بلا مشتتات.\n2. اكتب 3 مهام مهمة فقط لليوم.\n3. حدّد مزاجك وشوف النصيحة.\n4. سجّل أي فكرة في النوتة بدلاً من تركها تزعجك في رأسك."
-        : "1. Start a focus session with no distractions.\n2. Write only 3 important tasks for today.\n3. Set your mood and read the note.\n4. Put any thoughts into the note instead of keeping them in your head.";
 
     document.querySelector("[data-i18n='stats_text']").innerText =
       dict["stats_text"];
     document.querySelector("[data-i18n='future_text']").innerText =
       dict["future_text"];
 
-    // Update mood text & focus status for current lang
+    document.getElementById("how-text").innerText =
+      lang === "ar"
+        ? "1. اختر جلسة تركيز واشتغل بلا مشتتات.\n2. اكتب 3 مهام مهمة فقط لليوم.\n3. حدّد مزاجك وشوف النصيحة.\n4. سجّل أي فكرة في النوتة بدلاً من تركها تزعجك في رأسك."
+        : "1. Start a focus session with no distractions.\n2. Write only 3 important tasks for today.\n3. Set your mood and read the note.\n4. Put any thoughts into the note instead of keeping them in your head.";
+
     updateMoodText();
     if (!state.timerRunning) {
       document.getElementById("focus-status").textContent =
         dict["focus_status_idle"];
     }
-
     localStorage.setItem("ATLAS_lang", lang);
+    updateGreeting();
   }
 
   // ---------- TIMER ----------
@@ -1330,8 +1790,7 @@
       return;
     }
 
-    const lang = state.lang;
-    if (lang === "ar") {
+    if (state.lang === "ar") {
       out.textContent =
         "الامتحان: " +
         (name || "امتحانك") +
@@ -1385,11 +1844,29 @@
 
   // ---------- NOTES ----------
   function initNotes() {
-    const key = "ATLAS_notes_v1";
+    const key = "ATLAS_notes_v2";
     const ta = document.getElementById("notes-input");
-    const saved = localStorage.getItem(key);
-    if (saved) ta.value = saved;
+    const titleInput = document.getElementById("note-title");
+    const imgPreview = document.getElementById("note-image-preview");
+    const imgInput = document.getElementById("note-image-input");
+    const clearBtn = document.getElementById("btn-clear-image");
     const status = document.getElementById("notes-status");
+
+    let noteData = { title: "", body: "", image: null };
+
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      try {
+        noteData = Object.assign(noteData, JSON.parse(saved));
+      } catch (e) {}
+    }
+
+    titleInput.value = noteData.title || "";
+    ta.value = noteData.body || "";
+    if (noteData.image) {
+      imgPreview.src = noteData.image;
+      imgPreview.style.display = "block";
+    }
 
     function updateStatus() {
       status.textContent =
@@ -1398,12 +1875,43 @@
           : "Saved automatically on this browser only.";
     }
 
-    ta.addEventListener("input", () => {
-      localStorage.setItem(key, ta.value);
+    function persist() {
+      noteData.title = titleInput.value;
+      noteData.body = ta.value;
+      try {
+        localStorage.setItem(key, JSON.stringify(noteData));
+      } catch (e) {
+        // ممكن تكون الصورة كبيرة جداً
+      }
       updateStatus();
+    }
+
+    titleInput.addEventListener("input", persist);
+    ta.addEventListener("input", persist);
+
+    imgInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        noteData.image = ev.target.result;
+        imgPreview.src = noteData.image;
+        imgPreview.style.display = "block";
+        persist();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    clearBtn.addEventListener("click", () => {
+      noteData.image = null;
+      imgPreview.src = "";
+      imgPreview.style.display = "none";
+      imgInput.value = "";
+      persist();
     });
 
     updateStatus();
+    applyNoteStyle();
   }
 
   // ---------- SECTIONS NAV ----------
@@ -1416,16 +1924,81 @@
     });
   }
 
+  // ---------- SETTINGS MODAL ----------
+  function setupSettingsModal() {
+    const modal = document.getElementById("settings-modal");
+    const openBtn = document.getElementById("btn-open-settings");
+    const closeBtn = document.getElementById("btn-close-settings");
+    const saveBtn = document.getElementById("btn-save-settings");
+    const nameInput = document.getElementById("profile-name");
+    const defaultSelect = document.getElementById("default-section-select");
+    const themeButtons = document.querySelectorAll("[data-theme-option]");
+    const sizeSelect = document.getElementById("note-font-size");
+    const fontSelect = document.getElementById("note-font-family");
+    const colorInput = document.getElementById("note-font-color");
+
+    function fill() {
+      nameInput.value = profile.name || "";
+      defaultSelect.value = profile.defaultSection || "focus";
+      sizeSelect.value = profile.noteSize || "normal";
+      fontSelect.value = profile.noteFont || "system";
+      colorInput.value = profile.noteColor || "#f9fafb";
+      themeButtons.forEach((btn) => {
+        btn.classList.toggle(
+          "active-chip",
+          btn.dataset.themeOption === (profile.theme || "dark")
+        );
+      });
+    }
+
+    openBtn.addEventListener("click", () => {
+      fill();
+      modal.hidden = false;
+    });
+
+    closeBtn.addEventListener("click", () => {
+      modal.hidden = true;
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.hidden = true;
+    });
+
+    themeButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        themeButtons.forEach((b) => b.classList.remove("active-chip"));
+        btn.classList.add("active-chip");
+        profile.theme = btn.dataset.themeOption;
+        applyTheme();
+      });
+    });
+
+    saveBtn.addEventListener("click", () => {
+      profile.name = nameInput.value.trim();
+      profile.defaultSection = defaultSelect.value || "focus";
+      profile.noteSize = sizeSelect.value || "normal";
+      profile.noteFont = fontSelect.value || "system";
+      profile.noteColor = colorInput.value || "#f9fafb";
+      saveProfile();
+      applyNoteStyle();
+      updateGreeting();
+      showSection(profile.defaultSection || "focus");
+      modal.hidden = true;
+    });
+  }
+
   // ---------- INIT ----------
   document.addEventListener("DOMContentLoaded", () => {
-    // load language
+    loadProfile();
     const storedLang = localStorage.getItem("ATLAS_lang");
     if (storedLang && (storedLang === "ar" || storedLang === "en")) {
       state.lang = storedLang;
     }
+
     loadFocusCounts();
     updateFocusCountUI();
     updateTimerDisplay();
+    applyTheme();
 
     // Lang buttons
     document.querySelectorAll(".lang-btn").forEach((btn) => {
@@ -1484,9 +2057,12 @@
     // Notes
     initNotes();
 
-    // finally set language
+    // Settings modal
+    setupSettingsModal();
+
+    // Apply language & greeting & default section
     setLanguage(state.lang);
-    updateMoodText();
+    showSection(profile.defaultSection || "focus");
   });
 </script>
 </body>
