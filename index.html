@@ -2,6 +2,1414 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
+  <title>ATLAS Workspace – محمود الصمادي</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- خط عربي + إنجليزي -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --transition-fast: 0.18s ease-out;
+      /* ألوان الوضع الداكن الافتراضي */
+      --bg-main: #050816;
+      --bg-elevated: #0b1020;
+      --bg-softer: #11172a;
+      --border-subtle: rgba(255,255,255,0.06);
+      --accent: #00b3ff;
+      --accent-soft: rgba(0,179,255,0.09);
+      --accent-strong: #00d4ff;
+      --text-main: #f5f7ff;
+      --text-soft: #b8bfdc;
+      --danger: #ff4b6a;
+      --success: #2ecc71;
+      --shadow-soft: 0 18px 45px rgba(0,0,0,0.55);
+    }
+
+    /* ثيم لايت */
+    body.theme-light {
+      --bg-main: #f5f7fb;
+      --bg-elevated: #ffffff;
+      --bg-softer: #eef1fa;
+      --border-subtle: rgba(10,20,60,0.09);
+      --accent: #1769ff;
+      --accent-soft: rgba(23,105,255,0.08);
+      --accent-strong: #1450c8;
+      --text-main: #111827;
+      --text-soft: #6b7280;
+      --shadow-soft: 0 14px 35px rgba(15,23,42,0.18);
+    }
+
+    /* ثيم OLED أسود كامل */
+    body.theme-oled {
+      --bg-main: #000000;
+      --bg-elevated: #050509;
+      --bg-softer: #070711;
+      --border-subtle: rgba(255,255,255,0.05);
+      --accent: #00e0ff;
+      --accent-soft: rgba(0,224,255,0.12);
+      --accent-strong: #4dffb5;
+      --text-main: #f9fafb;
+      --text-soft: #9ca3af;
+      --shadow-soft: 0 20px 60px rgba(0,0,0,0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, var(--bg-main) 45%, #000 100%);
+      color: var(--text-main);
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    /* حاوية التطبيق */
+    .app-shell {
+      flex: 1;
+      max-width: 1320px;
+      margin: 20px auto;
+      display: flex;
+      gap: 18px;
+      padding: 12px;
+    }
+
+    /* شاشة تسجيل الدخول */
+    .auth-screen {
+      margin: auto;
+      max-width: 480px;
+      width: 100%;
+      background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(15,118,255,0.12));
+      border-radius: 28px;
+      padding: 28px 26px 24px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .auth-logo-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #4ade80, #22c55e 40%, #0b1120 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f9fafb;
+      font-weight: 800;
+      font-size: 26px;
+      margin-bottom: 16px;
+      box-shadow: 0 12px 30px rgba(34,197,94,0.45);
+    }
+
+    .auth-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .auth-sub {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 18px;
+    }
+
+    .auth-created {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-bottom: 22px;
+    }
+
+    .auth-created span {
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    .auth-btn {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.3);
+      background: rgba(15,23,42,0.8);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .auth-btn:hover {
+      background: rgba(15,118,255,0.12);
+      border-color: rgba(59,130,246,0.8);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(37,99,235,0.35);
+    }
+
+    .auth-btn img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .auth-btn span {
+      flex: 1;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .auth-divider {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-soft);
+      margin: 18px 0 12px;
+      position: relative;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 32%;
+      height: 1px;
+      background: linear-gradient(to left, transparent, rgba(148,163,184,0.5));
+    }
+
+    .auth-divider::after {
+      left: 68%;
+      transform: translateY(-50%);
+    }
+    .auth-divider::before {
+      right: 68%;
+      transform: translateY(-50%);
+    }
+
+    .auth-footer-note {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .auth-footer-note strong {
+      color: var(--accent-strong);
+    }
+
+    /* بعد تسجيل الدخول */
+    .hidden {
+      display: none !important;
+    }
+
+    /* الشريط الجانبي */
+    .sidebar {
+      width: 240px;
+      background: rgba(8,12,28,0.92);
+      border-radius: 26px;
+      padding: 18px 16px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .sidebar-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(56,189,248,0.8);
+      box-shadow: 0 0 0 2px rgba(15,23,42,0.9);
+      flex-shrink: 0;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 20%, #06b6d4, #3b82f6 40%, #020617 100%);
+      font-weight: 800;
+      font-size: 22px;
+      color: #e5f4ff;
+    }
+
+    .user-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .user-meta-name {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .user-meta-email {
+      font-size: 11px;
+      color: var(--text-soft);
+      direction: ltr;
+      text-align: left;
+    }
+
+    .sidebar-section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav-item {
+      border-radius: 999px;
+      padding: 7px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-soft);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .nav-item span.nav-icon {
+      width: 22px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    .nav-item.active,
+    .nav-item:hover {
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      border-color: rgba(56,189,248,0.7);
+      transform: translateY(-1px);
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .logout-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(248,113,113,0.5);
+      background: rgba(127,29,29,0.2);
+      color: #fecaca;
+      font-size: 12px;
+      padding: 7px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: center;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .logout-btn:hover {
+      background: rgba(220,38,38,0.45);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(185,28,28,0.55);
+    }
+
+    .made-by {
+      font-size: 10px;
+      text-align: center;
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    .made-by strong {
+      color: var(--accent-strong);
+    }
+
+    /* محتوى التطبيق */
+    .main-panel {
+      flex: 1;
+      background: rgba(6,10,24,0.96);
+      border-radius: 26px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow: hidden;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .top-bar-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .greeting {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .greeting span {
+      color: var(--accent-strong);
+    }
+
+    .greeting-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-softer);
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .theme-btn {
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-soft);
+      transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .theme-btn.active {
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      transform: translateY(-1px);
+    }
+
+    .widgets-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 10px;
+    }
+
+    .widget-card {
+      background: var(--bg-softer);
+      border-radius: var(--radius-md);
+      padding: 10px 10px 10px;
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+    }
+
+    .widget-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .widget-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .widget-pill {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      color: var(--accent-strong);
+      border: 1px solid rgba(56,189,248,0.7);
+    }
+
+    .widget-value {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .widget-controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .widget-btn {
+      flex: 1;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15,23,42,0.85);
+      color: var(--text-soft);
+      font-size: 11px;
+      padding: 4px 6px;
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .widget-btn:hover {
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      border-color: rgba(56,189,248,0.8);
+      transform: translateY(-1px);
+    }
+
+    .widget-progress {
+      margin-top: 4px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      overflow: hidden;
+    }
+
+    .widget-progress-inner {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+      transition: width 0.25s ease-out;
+    }
+
+    /* قسم النوتات */
+    .notes-area {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
+      gap: 12px;
+      min-height: 0;
+    }
+
+    .notes-list {
+      background: var(--bg-softer);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+    }
+
+    .section-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .section-title-row h3 {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .section-title-row span {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .primary-pill-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 5px 10px;
+      font-size: 11px;
+      cursor: pointer;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .primary-pill-btn:hover {
+      background: rgba(56,189,248,0.22);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(56,189,248,0.4);
+    }
+
+    .note-card {
+      background: rgba(15,23,42,0.95);
+      border-radius: 14px;
+      border: 1px solid rgba(148,163,184,0.18);
+      padding: 8px 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+    }
+
+    .note-card:hover {
+      border-color: rgba(56,189,248,0.9);
+      background: rgba(15,23,42,0.98);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(15,23,42,0.75);
+    }
+
+    .note-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .note-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .note-chip {
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.5);
+      color: var(--text-soft);
+    }
+
+    .note-card-meta {
+      font-size: 10px;
+      color: var(--text-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .note-card-snippet {
+      font-size: 11px;
+      color: var(--text-soft);
+      max-height: 34px;
+      overflow: hidden;
+    }
+
+    /* محرر النوت */
+    .note-editor {
+      background: var(--bg-softer);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .note-editor input,
+    .note-editor textarea,
+    .note-editor select {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(148,163,184,0.35);
+      background: rgba(15,23,42,0.9);
+      padding: 7px 9px;
+      color: var(--text-main);
+      font-size: 12px;
+      resize: vertical;
+      min-height: 0;
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+      font-family: inherit;
+    }
+
+    .note-editor input:focus,
+    .note-editor textarea:focus,
+    .note-editor select:focus {
+      border-color: rgba(56,189,248,0.9);
+      box-shadow: 0 0 0 1px rgba(56,189,248,0.6);
+      transform: translateY(-0.5px);
+    }
+
+    .note-editor textarea {
+      min-height: 120px;
+      line-height: 1.7;
+    }
+
+    .note-editor-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .note-editor-row > * {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .note-editor-label {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 2px;
+    }
+
+    .note-editor-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .note-editor-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ghost-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.45);
+      background: transparent;
+      color: var(--text-soft);
+      font-size: 11px;
+      padding: 5px 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .ghost-btn:hover {
+      background: rgba(15,23,42,0.95);
+      color: var(--accent-strong);
+      border-color: rgba(56,189,248,0.85);
+      transform: translateY(-1px);
+      box-shadow: 0 9px 20px rgba(15,23,42,0.8);
+    }
+
+    .ghost-btn.destroy {
+      border-color: rgba(248,113,113,0.7);
+      color: #fecaca;
+    }
+
+    .ghost-btn.destroy:hover {
+      background: rgba(127,29,29,0.9);
+      box-shadow: 0 9px 20px rgba(239,68,68,0.7);
+      color: #fff1f2;
+    }
+
+    .note-preview-image {
+      width: 100%;
+      max-height: 160px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid rgba(148,163,184,0.5);
+      margin-top: 4px;
+    }
+
+    .small-helper {
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    @media (max-width: 1024px) {
+      .app-shell {
+        flex-direction: column;
+      }
+      .sidebar {
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        padding: 12px;
+      }
+      .sidebar-top {
+        flex: 1;
+      }
+      .nav-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .sidebar-footer {
+        align-items: flex-end;
+      }
+      .notes-area {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .widgets-row {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+      .auth-screen {
+        margin: 0 10px;
+      }
+    }
+  </style>
+</head>
+
+<body class="theme-dark">
+  <!-- شاشة تسجيل الدخول -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-logo-circle">A</div>
+    <div class="auth-title">ATLAS Workspace</div>
+    <div class="auth-sub">مساحتك اليومية لتنظيم حياتك: نوتات، عادات، وتتبع ماء / نوم / صلاة / جيم… في مكان واحد.</div>
+    <div class="auth-created">هذا الموقع من إنشاء <span>محمود الصمادي</span> – powered by Firebase.</div>
+
+    <button id="google-login" class="auth-btn">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+      <span>تسجيل الدخول بحساب Google</span>
+    </button>
+
+    <div class="auth-divider"> أو </div>
+
+    <p class="auth-footer-note">
+      بعد تسجيل الدخول سيتم حفظ نوتاتك وإعداداتك على حسابك، وتقدر تفتحها من أي جهاز.<br />
+      يمكنك لاحقًا إضافة طرق تسجيل أخرى (Apple, Facebook…) من إعدادات Firebase.
+    </p>
+  </div>
+
+  <!-- التطبيق بعد تسجيل الدخول -->
+  <div id="app-shell" class="app-shell hidden">
+    <!-- الشريط الجانبي -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="avatar">
+          <div id="user-avatar-fallback" class="avatar-fallback">A</div>
+          <img id="user-avatar-img" src="" alt="" style="display:none;" />
+        </div>
+        <div class="user-meta">
+          <div id="user-name" class="user-meta-name">محمود الصمادي</div>
+          <div id="user-email" class="user-meta-email">example@gmail.com</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-section-label">الأقسام</div>
+        <nav class="nav-list">
+          <div class="nav-item active"><span class="nav-icon">🏠</span>لوحة اليوم</div>
+          <div class="nav-item"><span class="nav-icon">📝</span>النوتات</div>
+          <div class="nav-item"><span class="nav-icon">📊</span>العادات / الودجت</div>
+          <div class="nav-item"><span class="nav-icon">🌐</span>المجتمع (قريباً)</div>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <button id="logout-btn" class="logout-btn">تسجيل الخروج</button>
+        <div class="made-by">
+          ATLAS Workspace v1.0<br />
+          صُمم بواسطة <strong>محمود الصمادي</strong> – للإنتاجية اليومية.
+        </div>
+      </div>
+    </aside>
+
+    <!-- لوحة المحتوى الرئيسية -->
+    <main class="main-panel">
+      <header class="top-bar">
+        <div class="top-bar-left">
+          <div id="greeting" class="greeting">صباح الخير، <span>محمود</span> 👋</div>
+          <div class="greeting-sub">رتّب يومك، سجّل نوتاتك، وتابع عاداتك من مكان واحد.</div>
+        </div>
+        <div class="theme-toggle">
+          <button class="theme-btn active" data-theme="dark">داكن</button>
+          <button class="theme-btn" data-theme="light">فاتح</button>
+          <button class="theme-btn" data-theme="oled">أسود OLED</button>
+        </div>
+      </header>
+
+      <!-- ويدجت الحياه اليومية -->
+      <section class="widgets-row" id="widgets-row">
+        <div class="widget-card" data-widget="water">
+          <div class="widget-header">
+            <div class="widget-title"><span>💧</span>ماء اليوم</div>
+            <span class="widget-pill">هدف: 8 أكواب</span>
+          </div>
+          <div class="widget-value" id="water-value">0 / 8 أكواب</div>
+          <div class="widget-controls">
+            <button class="widget-btn" data-action="minus">− 1</button>
+            <button class="widget-btn" data-action="plus">+ 1</button>
+            <button class="widget-btn" data-action="reset">تصفير</button>
+          </div>
+          <div class="widget-progress">
+            <div class="widget-progress-inner" id="water-progress"></div>
+          </div>
+        </div>
+
+        <div class="widget-card" data-widget="sleep">
+          <div class="widget-header">
+            <div class="widget-title"><span>😴</span>نوم الليلة</div>
+            <span class="widget-pill">هدف: 8 ساعات</span>
+          </div>
+          <div class="widget-value" id="sleep-value">0 / 8 ساعات</div>
+          <div class="widget-controls">
+            <button class="widget-btn" data-action="minus">− 1</button>
+            <button class="widget-btn" data-action="plus">+ 1</button>
+            <button class="widget-btn" data-action="reset">تصفير</button>
+          </div>
+          <div class="widget-progress">
+            <div class="widget-progress-inner" id="sleep-progress"></div>
+          </div>
+        </div>
+
+        <div class="widget-card" data-widget="prayer">
+          <div class="widget-header">
+            <div class="widget-title"><span>🕌</span>الصلوات</div>
+            <span class="widget-pill">هدف: 5 / 5</span>
+          </div>
+          <div class="widget-value" id="prayer-value">0 / 5 صلوات</div>
+          <div class="widget-controls">
+            <button class="widget-btn" data-action="minus">− 1</button>
+            <button class="widget-btn" data-action="plus">+ 1</button>
+            <button class="widget-btn" data-action="reset">تصفير</button>
+          </div>
+          <div class="widget-progress">
+            <div class="widget-progress-inner" id="prayer-progress"></div>
+          </div>
+        </div>
+
+        <div class="widget-card" data-widget="gym">
+          <div class="widget-header">
+            <div class="widget-title"><span>🏋️‍♂️</span>التمرين / الجيم</div>
+            <span class="widget-pill">هدف: 3 مرات / أسبوع</span>
+          </div>
+          <div class="widget-value" id="gym-value">0 / 3 جلسات</div>
+          <div class="widget-controls">
+            <button class="widget-btn" data-action="minus">− 1</button>
+            <button class="widget-btn" data-action="plus">+ 1</button>
+            <button class="widget-btn" data-action="reset">تصفير</button>
+          </div>
+          <div class="widget-progress">
+            <div class="widget-progress-inner" id="gym-progress"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- نوتات + محرر -->
+      <section class="notes-area">
+        <!-- قائمة النوتات -->
+        <div class="notes-list">
+          <div class="section-title-row">
+            <div>
+              <h3>نوتاتك</h3>
+              <span>كل نوتة تقدر تخصص شكلها وألوانها وصورتها.</span>
+            </div>
+            <button id="new-note-btn" class="primary-pill-btn">+ نوتة جديدة</button>
+          </div>
+
+          <div id="notes-container">
+            <!-- يتم تعبئتها من جافاسكربت -->
+          </div>
+        </div>
+
+        <!-- محرر النوت -->
+        <div class="note-editor">
+          <div class="section-title-row">
+            <div>
+              <h3 id="editor-title-label">إنشاء نوتة جديدة</h3>
+              <span id="editor-sub-label">ابدأ العنوان… ثم اكتب فكرتك، مذكّرتك، أو خطة اليوم.</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="note-editor-label">العنوان</div>
+            <input id="note-title" placeholder="عنوان النوتة (مثال: خطة تداول NFP، خطة أسبوع الدراسة…)" />
+          </div>
+
+          <div>
+            <div class="note-editor-label">محتوى النوتة</div>
+            <textarea id="note-content" placeholder="اكتب هنا كل التفاصيل، الأفكار، أو المهام…"></textarea>
+          </div>
+
+          <div>
+            <div class="note-editor-label">رابط صورة (اختياري)</div>
+            <input id="note-image" placeholder="مثال: https://…" />
+            <div class="small-helper">لو وضعت رابط صورة صحيح، سيتم عرضها أعلى النوتة كغلاف.</div>
+            <img id="note-preview-image" class="note-preview-image" src="" alt="" style="display:none;" />
+          </div>
+
+          <div class="note-editor-row">
+            <div>
+              <div class="note-editor-label">حجم الخط</div>
+              <select id="note-font-size">
+                <option value="14">صغير مريح</option>
+                <option value="16" selected>متوسط يومي</option>
+                <option value="18">كبير وواضح</option>
+                <option value="20">عنواني / عرض</option>
+              </select>
+            </div>
+            <div>
+              <div class="note-editor-label">سماكة الخط</div>
+              <select id="note-font-weight">
+                <option value="400">عادي</option>
+                <option value="500">شبه عريض</option>
+                <option value="600" selected>عريض واضح</option>
+                <option value="700">عريض جداً</option>
+              </select>
+            </div>
+            <div>
+              <div class="note-editor-label">لون الخط</div>
+              <input id="note-color" type="color" value="#e5e7eb" />
+            </div>
+          </div>
+
+          <div class="note-editor-footer">
+            <div class="small-helper">
+              يمكنك لاحقًا مشاركة لقطات من نوتاتك الإبداعية على TikTok / Instagram كقوالب ATLAS.
+            </div>
+            <div class="note-editor-actions">
+              <button id="delete-note-btn" class="ghost-btn destroy" style="display:none;">حذف النوتة</button>
+              <button id="save-note-btn" class="ghost-btn">💾 حفظ النوتة</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Firebase + منطق التطبيق -->
+  <script type="module">
+    // تحميل Firebase v10 من CDN
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc,
+      collection,
+      addDoc,
+      getDocs,
+      updateDoc,
+      deleteDoc,
+      serverTimestamp,
+      query,
+      orderBy
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // إعدادات مشروعك (من Firebase Console)
+    const firebaseConfig = {
+      apiKey: "AIzaSyDTOtQbGaLpGtDc34GXzcdppCvEJ60TYSs",
+      authDomain: "atlas-workspace.firebaseapp.com",
+      projectId: "atlas-workspace",
+      storageBucket: "atlas-workspace.firebasestorage.app",
+      messagingSenderId: "95882710960",
+      appId: "1:95882710960:web:9fcafcc1d4d057029ad075",
+      measurementId: "G-KJ446WXXHG"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    // عناصر DOM
+    const authScreen = document.getElementById("auth-screen");
+    const appShell = document.getElementById("app-shell");
+    const googleLoginBtn = document.getElementById("google-login");
+    const logoutBtn = document.getElementById("logout-btn");
+    const userNameEl = document.getElementById("user-name");
+    const userEmailEl = document.getElementById("user-email");
+    const userAvatarImg = document.getElementById("user-avatar-img");
+    const userAvatarFallback = document.getElementById("user-avatar-fallback");
+    const greetingEl = document.getElementById("greeting");
+
+    const themeButtons = document.querySelectorAll(".theme-btn");
+
+    const widgetsConfig = {
+      water: { target: 8, label: "أكواب" },
+      sleep: { target: 8, label: "ساعات" },
+      prayer: { target: 5, label: "صلوات" },
+      gym: { target: 3, label: "جلسات" }
+    };
+
+    let currentUser = null;
+    let currentNoteId = null;
+
+    // عناصر النوت
+    const notesContainer = document.getElementById("notes-container");
+    const newNoteBtn = document.getElementById("new-note-btn");
+    const noteTitleInput = document.getElementById("note-title");
+    const noteContentInput = document.getElementById("note-content");
+    const noteImageInput = document.getElementById("note-image");
+    const notePreviewImage = document.getElementById("note-preview-image");
+    const noteFontSizeSelect = document.getElementById("note-font-size");
+    const noteFontWeightSelect = document.getElementById("note-font-weight");
+    const noteColorInput = document.getElementById("note-color");
+    const saveNoteBtn = document.getElementById("save-note-btn");
+    const deleteNoteBtn = document.getElementById("delete-note-btn");
+    const editorTitleLabel = document.getElementById("editor-title-label");
+    const editorSubLabel = document.getElementById("editor-sub-label");
+
+    /*************** 1. تسجيل الدخول / الخروج ***************/
+    googleLoginBtn.addEventListener("click", async () => {
+      try {
+        await signInWithPopup(auth, provider);
+      } catch (err) {
+        alert("صار خطأ أثناء تسجيل الدخول بحساب Google: " + err.message);
+        console.error(err);
+      }
+    });
+
+    logoutBtn.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        currentUser = user;
+        authScreen.classList.add("hidden");
+        appShell.classList.remove("hidden");
+
+        await saveUserProfile(user);
+        applyUserInfoToUI(user);
+        setGreeting(user);
+        loadThemeFromLocal();
+        await loadWidgets();
+        await loadNotes();
+      } else {
+        currentUser = null;
+        appShell.classList.add("hidden");
+        authScreen.classList.remove("hidden");
+      }
+    });
+
+    async function saveUserProfile(user) {
+      const userRef = doc(db, "users", user.uid);
+      const snap = await getDoc(userRef);
+      if (!snap.exists()) {
+        await setDoc(userRef, {
+          displayName: user.displayName || "",
+          email: user.email || "",
+          photoURL: user.photoURL || "",
+          createdAt: serverTimestamp()
+        });
+      } else {
+        // تحديث بسيط للاسم/الصورة لو تغيّروا
+        await updateDoc(userRef, {
+          displayName: user.displayName || "",
+          photoURL: user.photoURL || ""
+        }).catch(() => {});
+      }
+    }
+
+    function applyUserInfoToUI(user) {
+      const name = user.displayName || "بدون اسم";
+      userNameEl.textContent = name;
+      userEmailEl.textContent = user.email || "";
+
+      const firstLetter = (name[0] || "A").toUpperCase();
+      userAvatarFallback.textContent = firstLetter;
+
+      if (user.photoURL) {
+        userAvatarImg.src = user.photoURL;
+        userAvatarImg.style.display = "block";
+        userAvatarFallback.style.display = "none";
+      } else {
+        userAvatarImg.style.display = "none";
+        userAvatarFallback.style.display = "flex";
+      }
+    }
+
+    function setGreeting(user) {
+      const hours = new Date().getHours();
+      let greetingText = "مرحباً";
+      if (hours >= 5 && hours < 12) greetingText = "صباح الخير";
+      else if (hours >= 12 && hours < 18) greetingText = "مساء الخير";
+      else greetingText = "سهرة موفّقة";
+
+      const name = user.displayName ? user.displayName.split(" ")[0] : "صديقي";
+      greetingEl.innerHTML = `${greetingText}، <span>${name}</span> 👋`;
+    }
+
+    /*************** 2. الثيم (داكن / فاتح / OLED) ***************/
+    themeButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const theme = btn.dataset.theme;
+        setTheme(theme);
+      });
+    });
+
+    function setTheme(theme) {
+      document.body.classList.remove("theme-dark", "theme-light", "theme-oled");
+      if (theme === "light") document.body.classList.add("theme-light");
+      else if (theme === "oled") document.body.classList.add("theme-oled");
+      else document.body.classList.add("theme-dark");
+
+      themeButtons.forEach((b) => b.classList.remove("active"));
+      document.querySelector(`.theme-btn[data-theme="${theme}"]`).classList.add("active");
+      localStorage.setItem("atlas-theme", theme);
+    }
+
+    function loadThemeFromLocal() {
+      const saved = localStorage.getItem("atlas-theme") || "dark";
+      setTheme(saved);
+    }
+
+    /*************** 3. ويدجت الماء / النوم / الصلاة / الجيم ***************/
+    async function loadWidgets() {
+      if (!currentUser) return;
+      const ref = doc(db, "users", currentUser.uid, "meta", "widgets");
+      const snap = await getDoc(ref);
+      let data;
+      if (snap.exists()) {
+        data = snap.data();
+      } else {
+        data = { water: 0, sleep: 0, prayer: 0, gym: 0 };
+        await setDoc(ref, data);
+      }
+      Object.keys(widgetsConfig).forEach((key) => {
+        updateWidgetUI(key, data[key] || 0);
+      });
+    }
+
+    async function saveWidgetsPartial(newValues) {
+      if (!currentUser) return;
+      const ref = doc(db, "users", currentUser.uid, "meta", "widgets");
+      await setDoc(ref, newValues, { merge: true });
+    }
+
+    function updateWidgetUI(key, value) {
+      const config = widgetsConfig[key];
+      const valueEl = document.getElementById(`${key}-value`);
+      const progressEl = document.getElementById(`${key}-progress`);
+
+      if (!config) return;
+      valueEl.textContent = `${value} / ${config.target} ${config.label}`;
+      const ratio = Math.min(1, Math.max(0, value / config.target));
+      if (progressEl) progressEl.style.width = (ratio * 100).toFixed(0) + "%";
+    }
+
+    document.querySelectorAll(".widget-card").forEach((card) => {
+      const key = card.dataset.widget;
+      const config = widgetsConfig[key];
+      card.querySelectorAll(".widget-btn").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          if (!currentUser) return;
+          const ref = doc(db, "users", currentUser.uid, "meta", "widgets");
+          const snap = await getDoc(ref);
+          let data = snap.exists() ? snap.data() : { water: 0, sleep: 0, prayer: 0, gym: 0 };
+          let current = data[key] || 0;
+
+          const action = btn.dataset.action;
+          if (action === "plus") current++;
+          if (action === "minus") current = Math.max(0, current - 1);
+          if (action === "reset") current = 0;
+
+          // لا نتجاوز الهدف كثيراً
+          current = Math.min(current, config.target * 2);
+          data[key] = current;
+
+          await saveWidgetsPartial({ [key]: current });
+          updateWidgetUI(key, current);
+        });
+      });
+    });
+
+    /*************** 4. النوتات ***************/
+    function resetEditor() {
+      currentNoteId = null;
+      editorTitleLabel.textContent = "إنشاء نوتة جديدة";
+      editorSubLabel.textContent = "ابدأ العنوان والمحتوى… ثم احفظها لتظهر في قائمة النوتات.";
+      noteTitleInput.value = "";
+      noteContentInput.value = "";
+      noteImageInput.value = "";
+      notePreviewImage.style.display = "none";
+      noteFontSizeSelect.value = "16";
+      noteFontWeightSelect.value = "600";
+      noteColorInput.value = "#e5e7eb";
+      deleteNoteBtn.style.display = "none";
+    }
+
+    newNoteBtn.addEventListener("click", resetEditor);
+
+    noteImageInput.addEventListener("input", () => {
+      const url = noteImageInput.value.trim();
+      if (url) {
+        notePreviewImage.src = url;
+        notePreviewImage.style.display = "block";
+      } else {
+        notePreviewImage.style.display = "none";
+      }
+    });
+
+    async function loadNotes() {
+      if (!currentUser) return;
+      notesContainer.innerHTML = "<div class='small-helper'>جاري تحميل النوتات…</div>";
+      const notesRef = collection(db, "users", currentUser.uid, "notes");
+      const q = query(notesRef, orderBy("updatedAt", "desc"));
+      const snap = await getDocs(q);
+      if (snap.empty) {
+        notesContainer.innerHTML = "<div class='small-helper'>لا توجد نوتات بعد. أنشئ أول نوتة من زر “نوتة جديدة”.</div>";
+        return;
+      }
+      notesContainer.innerHTML = "";
+      snap.forEach((docSnap) => {
+        const note = docSnap.data();
+        const card = document.createElement("div");
+        card.className = "note-card";
+        card.dataset.id = docSnap.id;
+        card.dataset.fontSize = note.fontSize || 16;
+        card.dataset.fontWeight = note.fontWeight || 600;
+        card.dataset.color = note.textColor || "#e5e7eb";
+
+        const updatedDate = note.updatedAt?.toDate ? note.updatedAt.toDate() : new Date();
+        const timeStr = updatedDate.toLocaleString("ar-EG", {
+          month: "short",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit"
+        });
+
+        card.innerHTML = `
+          <div class="note-card-header">
+            <div class="note-card-title">
+              <span>${note.icon || "🗒️"}</span>
+              <span>${note.title || "نوتة بدون عنوان"}</span>
+            </div>
+            <span class="note-chip">${note.category || "عام"}</span>
+          </div>
+          <div class="note-card-snippet" style="font-size:${(note.fontSize || 16) - 2}px; color:${note.textColor || "#e5e7eb"}; font-weight:${note.fontWeight || 600};">
+            ${note.content ? note.content.slice(0, 110) + (note.content.length > 110 ? "…" : "") : "لا يوجد محتوى بعد."}
+          </div>
+          <div class="note-card-meta">
+            <span>آخر تحديث: ${timeStr}</span>
+            <span>${note.pin ? "📌 مثبت" : ""}</span>
+          </div>
+        `;
+
+        card.addEventListener("click", () => {
+          openNoteInEditor(docSnap.id, note);
+        });
+
+        notesContainer.appendChild(card);
+      });
+    }
+
+    function openNoteInEditor(id, note) {
+      currentNoteId = id;
+      editorTitleLabel.textContent = "تعديل النوتة";
+      editorSubLabel.textContent = "عدّل المحتوى أو التنسيق ثم اضغط حفظ لتحديث النوتة.";
+      noteTitleInput.value = note.title || "";
+      noteContentInput.value = note.content || "";
+      noteImageInput.value = note.imageUrl || "";
+      if (note.imageUrl) {
+        notePreviewImage.src = note.imageUrl;
+        notePreviewImage.style.display = "block";
+      } else {
+        notePreviewImage.style.display = "none";
+      }
+      noteFontSizeSelect.value = String(note.fontSize || 16);
+      noteFontWeightSelect.value = String(note.fontWeight || 600);
+      noteColorInput.value = note.textColor || "#e5e7eb";
+      deleteNoteBtn.style.display = "inline-flex";
+    }
+
+    saveNoteBtn.addEventListener("click", async () => {
+      if (!currentUser) {
+        alert("يلزم تسجيل الدخول لحفظ النوتات.");
+        return;
+      }
+      const title = noteTitleInput.value.trim();
+      const content = noteContentInput.value.trim();
+      const imageUrl = noteImageInput.value.trim();
+      const fontSize = parseInt(noteFontSizeSelect.value, 10) || 16;
+      const fontWeight = parseInt(noteFontWeightSelect.value, 10) || 600;
+      const textColor = noteColorInput.value || "#e5e7eb";
+
+      if (!title && !content) {
+        alert("اكتب عنواناً أو محتوى قبل الحفظ.");
+        return;
+      }
+
+      const notesRef = collection(db, "users", currentUser.uid, "notes");
+
+      const payload = {
+        title: title || "نوتة بدون عنوان",
+        content,
+        imageUrl,
+        fontSize,
+        fontWeight,
+        textColor,
+        icon: "🗒️",
+        category: "عام",
+        updatedAt: serverTimestamp()
+      };
+
+      if (currentNoteId) {
+        const ref = doc(db, "users", currentUser.uid, "notes", currentNoteId);
+        await updateDoc(ref, payload);
+      } else {
+        payload.createdAt = serverTimestamp();
+        await addDoc(notesRef, payload);
+      }
+
+      await loadNotes();
+      resetEditor();
+    });
+
+    deleteNoteBtn.addEventListener("click", async () => {
+      if (!currentUser || !currentNoteId) return;
+      const confirmDelete = confirm("متأكد إنك تريد حذف هذه النوتة نهائياً؟");
+      if (!confirmDelete) return;
+      const ref = doc(db, "users", currentUser.uid, "notes", currentNoteId);
+      await deleteDoc(ref);
+      await loadNotes();
+      resetEditor();
+    });
+
+    // تهيئة أولية
+    resetEditor();
+    loadThemeFromLocal();
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ATLAS Workspace – مساحة محمود الصمادي اليومية</title>
 
