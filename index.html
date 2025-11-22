@@ -1,1060 +1,1316 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ATLAS Workspace – محمود الصمادي</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap"
-    rel="stylesheet"
-  />
-
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>ATLAS Workspace — محمود الصمادي</title>
+  <meta name="theme-color" content="#05060a"/>
   <style>
-    :root {
-      --radius-lg: 18px;
-      --radius-xl: 24px;
-      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.35);
-      --shadow-card: 0 12px 25px rgba(0, 0, 0, 0.28);
-      --transition-fast: 0.18s ease-out;
-      --transition-med: 0.25s ease-out;
-
-      --primary: #27b0ff;
-      --primary-soft: rgba(39, 176, 255, 0.13);
-      --danger: #ff5c7a;
-      --success: #46d19b;
-      --text-main: #eaf6ff;
-      --text-soft: #a6b5d2;
-
-      --bg-main: #020717;
-      --bg-elevated: #060b22;
-      --bg-deep: radial-gradient(circle at top left, #132347 0, #020717 55%);
-      --card-bg: #050a1b;
-      --border-subtle: rgba(255, 255, 255, 0.05);
+    :root{
+      --bg: #0a0d14;
+      --bg2:#0f1420;
+      --card:#131a28;
+      --card2:#0e1524;
+      --text:#eaf0ff;
+      --muted:#9db0d1;
+      --accent:#4ea1ff;
+      --accent2:#7b61ff;
+      --ok:#35d07f;
+      --warn:#ffcc55;
+      --danger:#ff6b6b;
+      --radius:18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+      --glass: rgba(255,255,255,.04);
+      --glass2: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.08);
+      --font: "system-ui",-apple-system,"Segoe UI",Tahoma,Arial;
+    }
+    [data-theme="light"]{
+      --bg:#f5f7fb; --bg2:#eef2f9; --card:#ffffff; --card2:#f7f9ff;
+      --text:#0e1320; --muted:#55657e; --border:rgba(0,0,0,.08);
+      --glass: rgba(0,0,0,.03); --glass2: rgba(0,0,0,.05);
+      --shadow: 0 10px 25px rgba(20,30,50,.12);
+    }
+    [data-theme="oled"]{
+      --bg:#000000; --bg2:#030307; --card:#05060a; --card2:#0a0b10;
+      --text:#ecf2ff; --muted:#8ea0bd; --border:rgba(255,255,255,.07);
+      --shadow: 0 10px 28px rgba(0,0,0,.9);
     }
 
-    body[data-theme="light"] {
-      --bg-main: #f4f6fb;
-      --bg-elevated: #ffffff;
-      --bg-deep: radial-gradient(circle at top left, #ffffff 0, #e9f0ff 60%);
-      --card-bg: #ffffff;
-      --text-main: #0e172a;
-      --text-soft: #4b5563;
-      --border-subtle: rgba(15, 23, 42, 0.06);
-      --shadow-soft: 0 16px 35px rgba(15, 23, 42, 0.1);
-      --shadow-card: 0 12px 22px rgba(15, 23, 42, 0.08);
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--font); background:
+        radial-gradient(1200px 800px at 80% -10%, #1c2a66 0%, transparent 55%),
+        radial-gradient(1200px 800px at -10% 30%, #1d3a2a 0%, transparent 55%),
+        var(--bg);
+      color:var(--text);
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit}
+
+    /* Layout */
+    .app{
+      max-width:1400px; margin:0 auto; padding:16px; display:grid; gap:14px;
+      grid-template-columns: 280px 1fr 320px;
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas:
+        "sidebar topbar profile"
+        "sidebar main profile"
+        "sidebar footer footer";
+    }
+    @media (max-width:1100px){
+      .app{
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "topbar"
+          "main"
+          "profile"
+          "sidebar"
+          "footer";
+      }
     }
 
-    body[data-theme="oled"] {
-      --bg-main: #000;
-      --bg-elevated: #02040b;
-      --bg-deep: radial-gradient(circle at top left, #071325 0, #000 60%);
-      --card-bg: #02040b;
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --shadow-soft: none;
-      --shadow-card: none;
+    /* Cards */
+    .card{
+      background:linear-gradient(180deg,var(--glass2),transparent),var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:14px;
     }
 
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Cairo", system-ui, sans-serif;
-      background: var(--bg-deep);
-      color: var(--text-main);
-      display: flex;
-      justify-content: center;
+    /* Sidebar */
+    .sidebar{grid-area:sidebar; position:sticky; top:12px; height:fit-content}
+    .logo{
+      display:flex; align-items:center; gap:10px; padding:10px 8px; margin-bottom:8px;
+    }
+    .logo .mark{
+      width:44px;height:44px;border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, #7b61ff, transparent 60%),
+                  radial-gradient(circle at 70% 70%, #4ea1ff, transparent 60%),
+                  #0d1220;
+      display:grid; place-items:center; font-weight:900; letter-spacing:.5px;
+    }
+    .logo h1{font-size:18px;margin:0}
+    .logo small{color:var(--muted)}
+    .nav{
+      display:grid; gap:8px; margin-top:6px;
+    }
+    .nav button{
+      width:100%; text-align:right; padding:10px 12px; border-radius:12px;
+      background:var(--card2); border:1px solid var(--border); color:var(--text);
+      display:flex; align-items:center; justify-content:space-between; cursor:pointer;
+      transition:.15s;
+    }
+    .nav button:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.18)}
+    .nav button.active{
+      background:linear-gradient(90deg,rgba(78,161,255,.16),transparent),var(--card2);
+      border-color:rgba(78,161,255,.55);
+      box-shadow:0 0 0 2px rgba(78,161,255,.15) inset;
     }
 
-    .app-shell {
-      width: 100%;
-      max-width: 1400px;
-      margin: 14px auto 24px;
-      padding: 14px 14px 18px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(15,23,42,0.7));
-      border-radius: 28px;
-      border: 1px solid rgba(255,255,255,0.06);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(16px);
-      overflow: hidden;
+    /* Topbar */
+    .topbar{grid-area:topbar; display:flex; gap:10px; align-items:center}
+    .pill{
+      background:var(--card); border:1px solid var(--border);
+      padding:8px 10px; border-radius:12px; display:flex; gap:8px; align-items:center;
+      box-shadow:var(--shadow);
+    }
+    .search{
+      flex:1; display:flex; align-items:center; gap:8px;
+      background:var(--card); border:1px solid var(--border); border-radius:12px;
+      padding:8px 10px;
+    }
+    .search input{
+      flex:1;background:transparent;border:0;outline:0;color:var(--text);font-size:14px;
     }
 
-    header.app-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
+    .theme-row{display:flex; gap:6px; flex-wrap:wrap}
+    .theme-btn{
+      padding:7px 10px;border-radius:10px;border:1px solid var(--border);
+      background:var(--card2); color:var(--text); cursor:pointer; font-size:12px;
     }
+    .theme-btn.active{border-color:var(--accent); box-shadow:0 0 0 2px rgba(78,161,255,.15) inset;}
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    /* Profile right */
+    .profile{grid-area:profile; position:sticky; top:12px; height:fit-content}
+    .profile-head{
+      display:flex; align-items:center; gap:10px; margin-bottom:10px;
     }
-    .brand-logo {
-      width: 40px; height: 40px;
-      border-radius: 14px;
-      background: radial-gradient(circle at 25% 0, #4adeff 0, #2563eb 40%, #020617 80%);
-      display: grid; place-items: center;
-      font-weight: 800; font-size: 20px;
-      box-shadow: 0 10px 22px rgba(37,99,235,0.6);
+    .avatar{
+      width:44px;height:44px;border-radius:50%; background:var(--card2);
+      border:1px solid var(--border); display:grid; place-items:center; font-weight:800;
+      overflow:hidden;
     }
-    .brand-title { font-size: 18px; font-weight: 700; }
-    .brand-subtitle { font-size: 11px; color: var(--text-soft); }
+    .avatar img{width:100%;height:100%;object-fit:cover}
+    .profile-actions{display:flex; gap:6px; flex-wrap:wrap}
+    .btn{
+      padding:9px 12px;border-radius:12px;border:1px solid var(--border);
+      background:var(--card2);color:var(--text);cursor:pointer;font-weight:600;
+      transition:.15s;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn.primary{background:linear-gradient(90deg,rgba(78,161,255,.2),rgba(123,97,255,.2)),var(--card2); border-color:rgba(78,161,255,.5)}
+    .btn.danger{border-color:rgba(255,107,107,.6); background:rgba(255,107,107,.08)}
 
-    .user-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .theme-switcher {
-      display: inline-flex; padding: 3px; gap: 3px;
-      border-radius: 999px; background: rgba(15,23,42,0.75);
-      border: 1px solid var(--border-subtle);
-    }
-    .theme-pill {
-      border: none; padding: 4px 9px; border-radius: 999px;
-      font-size: 11px; background: transparent; color: var(--text-soft);
-      cursor: pointer; transition: var(--transition-fast);
-    }
-    .theme-pill.active {
-      background: var(--primary-soft); color: var(--text-main);
-      transform: translateY(-1px);
-    }
+    /* Main */
+    .main{grid-area:main; min-height:60vh}
+    .section{display:none}
+    .section.active{display:block}
 
-    .btn {
-      border-radius: 999px; border: none;
-      padding: 7px 12px; font-size: 12px; font-weight: 700;
-      cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
-      transition: var(--transition-fast);
+    /* Home */
+    .home-grid{
+      display:grid; grid-template-columns:1.2fr 1fr; gap:12px;
     }
-    .btn-primary {
-      background: var(--primary); color: #020617;
-      box-shadow: 0 8px 18px rgba(37,99,235,0.7);
+    @media (max-width:900px){.home-grid{grid-template-columns:1fr}}
+    .welcome{
+      padding:18px; display:grid; gap:6px; background:
+        radial-gradient(800px 600px at 100% 0%, rgba(78,161,255,.25), transparent 55%),
+        radial-gradient(800px 600px at 0% 100%, rgba(123,97,255,.25), transparent 55%),
+        var(--card);
     }
-    .btn-outline {
-      background: transparent; color: var(--text-soft);
-      border: 1px solid var(--border-subtle);
+    .welcome h2{margin:0;font-size:22px}
+    .welcome p{margin:0;color:var(--muted);line-height:1.7}
+    .quick-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    @media (max-width:650px){.quick-cards{grid-template-columns:1fr 1fr}}
+    .quick{
+      padding:12px;border-radius:14px;background:var(--card2);
+      border:1px solid var(--border); display:grid; gap:6px;
     }
-    .btn-small { padding: 5px 9px; font-size: 11px; }
+    .quick .t{font-weight:700}
+    .quick .s{color:var(--muted);font-size:12px}
 
-    /* Tabs */
-    .tabs {
-      display: flex; gap: 6px; flex-wrap: wrap;
-      background: rgba(15,23,42,0.6);
-      padding: 6px; border-radius: 14px;
-      border: 1px solid var(--border-subtle);
-      margin-bottom: 12px;
+    /* Tracker widgets */
+    .tracker-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    .tracker{
+      background:var(--card2); border:1px solid var(--border); border-radius:14px;
+      padding:10px; display:grid; gap:8px;
     }
-    .tab-btn {
-      flex: 1 1 auto;
-      min-width: 120px;
-      padding: 7px 10px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--text-soft);
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: var(--transition-fast);
-      text-align: center;
+    .tracker .row{display:flex;justify-content:space-between;align-items:center}
+    .counter{
+      display:flex;gap:6px;align-items:center;
     }
-    .tab-btn.active {
-      color: var(--text-main);
-      background: var(--primary-soft);
-      border-color: rgba(39,176,255,0.38);
+    .counter button{
+      width:28px;height:28px;border-radius:8px;border:1px solid var(--border);
+      background:var(--card);color:var(--text);cursor:pointer;font-weight:900;
     }
-
-    .section { display: none; }
-    .section.active { display: block; }
-
-    /* Cards & layout */
-    .grid-3 {
-      display: grid; gap: 12px;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      align-items: start;
+    .counter input{
+      width:64px;text-align:center;background:var(--card);border:1px solid var(--border);
+      color:var(--text);border-radius:8px;padding:5px 6px;outline:none;
     }
-    .column { display: flex; flex-direction: column; gap: 12px; }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-card);
-      padding: 12px 14px;
-    }
-    .card-header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 6px; }
-    .card-title { font-size: 14px; font-weight: 800; }
-    .card-subtitle { font-size: 11px; color: var(--text-soft); }
-
-    .stats-row { display: flex; gap: 8px; flex-wrap: wrap; }
-    .stat-chip {
-      flex: 1 1 120px;
-      background: radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 60%);
-      border-radius: 14px; padding: 8px;
-      border: 1px solid var(--border-subtle);
-    }
-    .stat-label { font-size: 11px; color: var(--text-soft); display: flex; justify-content: space-between; }
-    .stat-value { font-size: 15px; font-weight: 800; margin-top: 2px; }
-    .stat-controls { display: flex; gap: 4px; margin-top: 6px; }
-    .stat-controls button {
-      flex: 1; border-radius: 999px; border: 1px solid rgba(148,163,184,0.3);
-      background: rgba(15,23,42,0.8); color: var(--text-soft);
-      font-size: 11px; padding: 3px 0; cursor: pointer;
-      transition: var(--transition-fast);
-    }
-    .stat-controls button:hover { background: var(--primary-soft); color: var(--text-main); }
-
-    .chip-row { display: flex; gap: 6px; flex-wrap: wrap; }
-    .chip {
-      border-radius: 999px; border: 1px solid var(--border-subtle);
-      padding: 4px 9px; font-size: 11px;
-      background: rgba(15,23,42,0.8); color: var(--text-soft);
-      cursor: pointer; transition: var(--transition-fast);
-    }
-    .chip.active { background: var(--primary-soft); color: var(--text-main); transform: translateY(-1px); }
-
-    .excuse-box {
-      margin-top: 6px; padding: 10px 12px; border-radius: 14px;
-      background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(30,64,175,0.9));
-      border: 1px solid rgba(129,140,248,0.45);
-    }
-
-    .trust-bar { height: 6px; border-radius: 999px; background: rgba(15,23,42,0.7); overflow: hidden; margin-top: 4px; }
-    .trust-fill { height: 100%; background: linear-gradient(90deg,#f97316,#facc15,#22c55e); width:70%; transition: width .35s; }
+    .small{font-size:12px;color:var(--muted)}
 
     /* Notes */
-    .note-form {
-      padding: 8px; border-radius: 14px;
-      border: 1px dashed rgba(148,163,184,0.6);
-      background: rgba(15,23,42,0.5);
-      display: flex; flex-direction: column; gap: 6px;
+    .notes-wrap{display:grid; grid-template-columns:320px 1fr; gap:12px;}
+    @media(max-width:900px){.notes-wrap{grid-template-columns:1fr}}
+    .notes-list{
+      display:grid; gap:8px; max-height:72vh; overflow:auto; padding-right:2px;
     }
-    .note-toolbar { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-    .note-form input, .note-form textarea, .note-form select {
-      border-radius: 10px; border: 1px solid rgba(148,163,184,0.35);
-      background: rgba(15,23,42,0.7); color: var(--text-main);
-      padding: 6px 8px; font-size: 12px; outline: none;
+    .note-item{
+      padding:10px;border-radius:12px;background:var(--card2);border:1px solid var(--border);
+      display:flex;gap:10px;align-items:center;cursor:pointer;
+      transition:.12s;
     }
-    .notes-list { display: flex; flex-direction: column; gap: 8px; max-height: 320px; overflow: auto; padding-right: 3px; }
-    .note-card {
-      border-radius: 14px; padding: 8px 10px; border: 1px solid rgba(148,163,184,0.25);
-      background: radial-gradient(circle at top left, rgba(51,65,85,0.4), transparent 55%);
+    .note-item:hover{transform:translateY(-1px); border-color:rgba(78,161,255,.4)}
+    .note-item.active{border-color:var(--accent)}
+    .note-thumb{
+      width:44px;height:44px;border-radius:10px;background:var(--card);
+      display:grid;place-items:center;font-size:22px;overflow:hidden;border:1px solid var(--border);
     }
-    .note-title { font-size: 13px; font-weight: 700; }
-    .note-meta { font-size: 10px; color: var(--text-soft); }
-    .note-body { font-size: 12px; line-height: 1.7; white-space: pre-wrap; margin-top: 2px; }
-    .note-image {
-      margin-top: 6px; border-radius: 10px; max-height: 160px; object-fit: cover; width: 100%;
-      border: 1px solid rgba(148,163,184,0.35);
+    .note-thumb img{width:100%;height:100%;object-fit:cover}
+    .note-meta{display:grid;gap:2px}
+    .note-meta .title{font-weight:700}
+    .note-meta .date{font-size:11px;color:var(--muted)}
+
+    .editor{
+      min-height:72vh; display:grid; gap:10px;
+    }
+    .editor-top{
+      display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+    }
+    .editor-top .left, .editor-top .right{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+    .title-input{
+      width:100%; font-size:26px; font-weight:800; background:transparent; border:0; outline:0; color:var(--text);
+    }
+    .cover{
+      height:160px;border-radius:16px;background:var(--card2);border:1px dashed var(--border);
+      display:grid;place-items:center;overflow:hidden; position:relative;
+    }
+    .cover img{width:100%;height:100%;object-fit:cover}
+    .cover .cover-actions{
+      position:absolute; bottom:8px; left:8px; display:flex; gap:6px;
+    }
+
+    .toolbar{
+      display:flex;gap:6px;flex-wrap:wrap;padding:8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);
+      position:sticky;top:6px;z-index:2;
+    }
+    .tool{
+      padding:6px 8px;border-radius:8px;border:1px solid var(--border);
+      background:var(--card);cursor:pointer;font-size:12px;color:var(--text);
+    }
+    .tool select, .tool input[type="color"]{
+      background:transparent;border:0;color:var(--text);outline:0;font-size:12px;cursor:pointer;
+    }
+
+    .content{
+      background:var(--card2); border:1px solid var(--border); border-radius:12px;
+      padding:12px; min-height:350px; line-height:1.8;
+    }
+    .content[contenteditable="true"]:focus{outline:2px solid rgba(78,161,255,.25)}
+    .content img{max-width:100%;border-radius:12px;margin:8px 0}
+    .content .block{
+      padding:6px 4px; border-radius:8px;
     }
 
     /* PDF Tools */
-    .pdf-grid {
-      display: grid; gap: 10px;
-      grid-template-columns: repeat(4, minmax(0,1fr));
+    .pdf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    @media(max-width:900px){.pdf-grid{grid-template-columns:1fr}}
+    .pdf-card{display:grid;gap:8px}
+    .drop{
+      border:1px dashed var(--border); border-radius:12px; padding:14px; text-align:center; background:var(--card2);
     }
-    .pdf-tile {
-      display: flex; flex-direction: column; gap: 6px;
-      padding: 12px; border-radius: 14px;
-      border: 1px solid var(--border-subtle);
-      background: rgba(15,23,42,0.6);
-      text-decoration: none; color: var(--text-main);
-      transition: var(--transition-fast);
-      min-height: 110px;
-      justify-content: center;
-    }
-    .pdf-tile:hover {
-      transform: translateY(-2px);
-      border-color: rgba(39,176,255,0.5);
-      background: var(--primary-soft);
-    }
-    .pdf-icon { font-size: 20px; }
-    .pdf-title { font-size: 13px; font-weight: 800; }
-    .pdf-sub { font-size: 11px; color: var(--text-soft); }
+    .drop input{display:none}
+    .drop label{cursor:pointer;display:block}
 
-    footer {
-      margin-top: 12px; font-size: 11px; color: var(--text-soft);
-      display: flex; justify-content: space-between; gap: 6px; flex-wrap: wrap;
+    /* Timer */
+    .timer-wrap{
+      display:grid; gap:10px; grid-template-columns:1fr 1fr;
     }
+    @media(max-width:900px){.timer-wrap{grid-template-columns:1fr}}
+    .timer-display{
+      font-size:56px; font-weight:900; text-align:center; padding:22px; background:var(--card2);
+      border:1px solid var(--border); border-radius:16px;
+    }
+    .timer-controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 
-    @media (max-width: 1100px) {
-      .grid-3 { grid-template-columns: 1fr; }
-      .pdf-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    }
-    @media (max-width: 650px) {
-      .pdf-grid { grid-template-columns: 1fr; }
-      .tab-btn { min-width: 90px; }
-    }
+    /* Footer */
+    .footer{grid-area:footer; text-align:center; color:var(--muted); font-size:12px; padding:8px 0}
 
-    /* Modal for Login */
-    .modal-backdrop{
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.55);
-      display: none; place-items: center;
-      z-index: 50;
-    }
+    /* Modal */
     .modal{
-      width: 100%; max-width: 420px;
-      background: rgba(15,23,42,0.98);
-      border: 1px solid rgba(148,163,184,0.45);
-      border-radius: 18px; padding: 16px;
-      box-shadow: 0 22px 70px rgba(0,0,0,0.8);
+      position:fixed; inset:0; background:rgba(0,0,0,.5); display:none; place-items:center; z-index:10;
+      padding:14px;
     }
-    .modal h3{ margin:0 0 6px; font-size:18px; }
-    .modal p{ margin:0 0 10px; font-size:12px; color:var(--text-soft); }
+    .modal.active{display:grid}
+    .modal .box{
+      width:min(520px,100%); background:var(--card); border:1px solid var(--border);
+      border-radius:18px; padding:14px; display:grid; gap:10px;
+      box-shadow:var(--shadow);
+    }
+    .field{
+      display:grid; gap:6px;
+    }
+    .field input{
+      background:var(--card2); border:1px solid var(--border); color:var(--text);
+      border-radius:10px; padding:10px; outline:none;
+    }
+
+    .hint{color:var(--muted); font-size:12px; line-height:1.6}
+    .tag{
+      font-size:11px; padding:4px 8px; border-radius:999px; background:var(--glass2); border:1px solid var(--border)
+    }
   </style>
-
-  <!-- Firebase v8 -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
-
-<body data-theme="dark">
-  <div class="app-shell">
-
-    <header class="app-header">
-      <div class="brand">
-        <div class="brand-logo">A</div>
-        <div>
-          <div class="brand-title">ATLAS Workspace</div>
-          <div class="brand-subtitle">صُنع بواسطة محمود الصمادي – موقع شامل للروتين اليومي</div>
-        </div>
-      </div>
-
-      <div class="user-controls">
-        <div class="theme-switcher">
-          <button class="theme-pill active" data-theme="dark">داكن</button>
-          <button class="theme-pill" data-theme="oled">OLED</button>
-          <button class="theme-pill" data-theme="light">فاتح</button>
-        </div>
-
-        <button class="btn btn-outline btn-small" id="loginBtn">🔐 تسجيل دخول Google</button>
-        <button class="btn btn-outline btn-small" id="logoutBtn" style="display:none;">تسجيل خروج</button>
-
-        <div class="btn btn-outline btn-small" id="userChip" style="cursor:default;">
-          <span id="userNameLabel">زائر</span>
-        </div>
-      </div>
-    </header>
-
-    <!-- Tabs -->
-    <div class="tabs">
-      <button class="tab-btn active" data-tab="home">الرئيسية</button>
-      <button class="tab-btn" data-tab="excuses">الأعذار</button>
-      <button class="tab-btn" data-tab="notes">النوتات</button>
-      <button class="tab-btn" data-tab="pdf">أدوات PDF</button>
-    </div>
-
-    <!-- SECTION: HOME -->
-    <section class="section active" id="home">
-      <div class="grid-3">
-
-        <div class="column">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">روتين اليوم 👋</div>
-                <div class="card-subtitle">عدادات يومية محفوظة</div>
-              </div>
-            </div>
-
-            <div id="greetingMain" style="font-size:17px;font-weight:800;">مرحباً 👋</div>
-            <div id="greetingSecondary" class="card-subtitle" style="margin-top:2px;">
-              خلينا نرتّب يومك.
-            </div>
-
-            <div class="stats-row" style="margin-top:10px;">
-              <div class="stat-chip" data-counter="water">
-                <div class="stat-label"><span>المياه 💧</span><span>هدفك 8</span></div>
-                <div class="stat-value" id="waterValue">0 أكواب</div>
-                <div class="stat-controls">
-                  <button data-action="dec">-</button>
-                  <button data-action="inc">+1</button>
-                </div>
-              </div>
-
-              <div class="stat-chip" data-counter="sleep">
-                <div class="stat-label"><span>النوم 😴</span><span>هدفك 8</span></div>
-                <div class="stat-value" id="sleepValue">0 ساعة</div>
-                <div class="stat-controls">
-                  <button data-action="dec">-</button>
-                  <button data-action="inc">+0.5</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="stats-row" style="margin-top:8px;">
-              <div class="stat-chip" data-counter="prayer">
-                <div class="stat-label"><span>الصلاة 🕌</span><span>5</span></div>
-                <div class="stat-value" id="prayerValue">0 / 5</div>
-                <div class="stat-controls">
-                  <button data-action="dec">-</button>
-                  <button data-action="inc">+1</button>
-                </div>
-              </div>
-
-              <div class="stat-chip" data-counter="gym">
-                <div class="stat-label"><span>الجيم 🏋️‍♂️</span><span>أيام</span></div>
-                <div class="stat-value" id="gymValue">0 حصة</div>
-                <div class="stat-controls">
-                  <button data-action="dec">-</button>
-                  <button data-action="inc">+1</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">عداد المزاج 🎧</div>
-                <div class="card-subtitle">اختيار شعورك اليوم</div>
-              </div>
-            </div>
-            <div class="chip-row" id="moodChips">
-              <button class="chip active" data-mood="focus">مركّز</button>
-              <button class="chip" data-mood="tired">مرهق</button>
-              <button class="chip" data-mood="social">اجتماعي</button>
-              <button class="chip" data-mood="lazy">كسلان</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="column">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">مُلخّص الموقع</div>
-                <div class="card-subtitle">كل الأدوات المهمة بمكان واحد</div>
-              </div>
-            </div>
-
-            <ul style="margin:6px 0 0; padding-right:16px; font-size:13px; line-height:1.9;">
-              <li>مولد أعذار ذكي للواتساب والشغل والدراسة.</li>
-              <li>نوتات قابلة للتخصيص (عنوان + لون + صورة).</li>
-              <li>عدادات يومية للمياه والنوم والصلاة والجيم.</li>
-              <li>قسم أدوات PDF كامل زي iLovePDF.</li>
-              <li>تسجيل دخول Google اختياري لحفظ بياناتك سحابياً.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="column">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">نصيحة ATLAS ✨</div>
-                <div class="card-subtitle">شيء بسيط يوميًا</div>
-              </div>
-            </div>
-            <div style="font-size:13px; line-height:1.8;">
-              جرّب تكتب نوتة واحدة باليوم… حتى لو سطرين. بعد شهر راح تشوف كيف عقلك صار أنظف وروتينك أهدى.
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SECTION: EXCUSES -->
-    <section class="section" id="excuses">
-      <div class="grid-3">
-        <div class="column" style="grid-column: span 2;">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">مولّد الأعذار ATLAS غَذِّرني 🫣</div>
-                <div class="card-subtitle">اختر نوع الموقف والمزاج ثم اضغط اعذرني</div>
-              </div>
-            </div>
-
-            <div style="margin-top:6px;">
-              <div class="card-subtitle">نوع الموقف:</div>
-              <div class="chip-row" id="contextChips" style="margin-top:4px;">
-                <button class="chip active" data-context="whatsapp">واتساب / أونلاين</button>
-                <button class="chip" data-context="family">أهل / عائلة</button>
-                <button class="chip" data-context="work">شغل</button>
-                <button class="chip" data-context="study">دراسة</button>
-                <button class="chip" data-context="delay">تأخير موعد</button>
-              </div>
-            </div>
-
-            <div style="margin-top:10px;">
-              <div class="card-subtitle">مزاج العذر:</div>
-              <div class="chip-row" id="toneChips" style="margin-top:4px;">
-                <button class="chip active" data-tone="soft">لطيف</button>
-                <button class="chip" data-tone="serious">رسمي</button>
-                <button class="chip" data-tone="funny">مزح</button>
-              </div>
-            </div>
-
-            <div style="display:flex;justify-content:flex-end;margin-top:8px;">
-              <button class="btn btn-primary btn-small" id="generateExcuseBtn">🎲 اعذرني</button>
-            </div>
-
-            <div class="excuse-box">
-              <div style="font-size:11px;color:var(--text-soft);">العذر الحالي:</div>
-              <div id="excuseText" style="font-size:14px;line-height:1.7;margin-top:2px;">
-                كنت حاط الجوال على الصامت وما انتبهت للإشعارات، أول ما شفت رسالتك رجعتلك.
-              </div>
-
-              <div style="margin-top:8px;font-size:11px;color:var(--text-soft);">
-                احتمال يصدقوك 👇
-                <div class="trust-bar"><div class="trust-fill" id="trustFill"></div></div>
-                <div id="trustLabel" style="margin-top:4px;">
-                  تقديريًا: 79% – يعتمد على مزاج الشخص المقابل 😅
-                </div>
-              </div>
-
-              <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center;gap:6px;">
-                <small style="color:var(--text-soft);font-size:10px;">
-                  للترفيه فقط.
-                </small>
-                <button class="btn btn-outline btn-small" id="copyExcuseBtn">📋 نسخ</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="column">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">كيف تستعمله؟</div>
-                <div class="card-subtitle">٣ خطوات</div>
-              </div>
-            </div>
-            <ol style="margin:0; padding-right:18px; font-size:12px; line-height:1.8;">
-              <li>اختر الموقف.</li>
-              <li>اختر مزاج العذر.</li>
-              <li>اضغط اعذرني و انسخ.</li>
-            </ol>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: NOTES -->
-    <section class="section" id="notes">
-      <div class="grid-3">
-        <div class="column" style="grid-column: span 2;">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">نوتاتك اليومية 📝</div>
-                <div class="card-subtitle">للزائر: تُحفظ محلياً. للمسجّل: تُزامن مع حسابه.</div>
-              </div>
-            </div>
-
-            <form class="note-form" id="noteForm">
-              <div class="note-toolbar">
-                <span style="font-size:11px;color:var(--text-soft);">نوتة جديدة:</span>
-                <input type="color" id="noteColor" value="#1d4ed8" title="لون النوتة" />
-                <select id="noteFontSize">
-                  <option value="13">خط عادي</option>
-                  <option value="15">متوسط</option>
-                  <option value="17">كبير</option>
-                </select>
-              </div>
-
-              <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                <input id="noteTitle" type="text" placeholder="عنوان النوتة" required style="flex:1;min-width:180px;" />
-                <input id="noteImageUrl" type="text" placeholder="رابط صورة (اختياري)" style="flex:1;min-width:180px;" />
-              </div>
-
-              <textarea id="noteContent" rows="3" placeholder="اكتب نوتتك…" required></textarea>
-
-              <div style="display:flex;justify-content:flex-end;">
-                <button type="submit" class="btn btn-primary btn-small">+ حفظ</button>
-              </div>
-            </form>
-
-            <div class="notes-list" id="notesList"></div>
-          </div>
-        </div>
-
-        <div class="column">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">معلومة سريعة</div>
-                <div class="card-subtitle">ليش تسجيل الدخول مفيد؟</div>
-              </div>
-            </div>
-            <div style="font-size:12px;line-height:1.8;">
-              إذا سجلت Google، نوتاتك وعداداتك بتنحفظ بالسحابة وبترجعلك من أي جهاز.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: PDF -->
-    <section class="section" id="pdf">
-      <div class="card" style="margin-bottom:10px;">
-        <div class="card-header">
-          <div>
-            <div class="card-title">أدوات PDF – داخل ATLAS</div>
-            <div class="card-subtitle">كل التحويلات الأساسية مثل iLovePDF (تفتح أدوات خارجية موثوقة)</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pdf-grid">
-        <!-- Images / PDF -->
-        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/jpg_to_pdf">
-          <div class="pdf-icon">🖼️➡️📄</div>
-          <div class="pdf-title">صور إلى PDF</div>
-          <div class="pdf-sub">JPG / PNG إلى PDF</div>
-        </a>
-
-        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/pdf_to_jpg">
-          <div class="pdf-icon">📄➡️🖼️</div>
-          <div class="pdf-title">PDF إلى صور</div>
-          <div class="pdf-sub">PDF إلى JPG / PNG</div>
-        </a>
-
-        <!-- Word / PDF -->
-        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/word_to_pdf">
-          <div class="pdf-icon">📝➡️📄</div>
-          <div class="pdf-title">Word إلى PDF</div>
-          <div class="pdf-sub">DOC / DOCX إلى PDF</div>
-        </a>
-
-        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/pdf_to_word">
-          <div class="pdf-icon">📄➡️📝</div>
-          <div class="pdf-title">PDF إلى Word</div>
-          <div class="pdf-sub">PDF إلى DOCX</div>
-        </a>
-
-        <!-- PowerPoint / PDF -->
-        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/powerpoint_to_pdf">
-          <div class="pdf-icon">📊➡️📄</div>
-          <div class="pdf-title">PowerPoint إلى PDF</div>
-          <div class="pdf-sub">PPT / PPTX إلى PDF</div>
-        </a>
-
-        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/pdf_to_powerpoint">
-          <div class="pdf-icon">📄➡️📊</div>
-          <div class="pdf-title">PDF إلى PowerPoint</div>
-          <div class="pdf-sub">PDF إلى PPTX</div>
-        </a>
-
-        <!-- Excel / PDF -->
-        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/excel_to_pdf">
-          <div class="pdf-icon">📈➡️📄</div>
-          <div class="pdf-title">Excel إلى PDF</div>
-          <div class="pdf-sub">XLS / XLSX إلى PDF</div>
-        </a>
-
-        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/pdf_to_excel">
-          <div class="pdf-icon">📄➡️📈</div>
-          <div class="pdf-title">PDF إلى Excel</div>
-          <div class="pdf-sub">PDF إلى XLSX</div>
-        </a>
-
-        <!-- Tools -->
-        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/merge_pdf">
-          <div class="pdf-icon">🧩</div>
-          <div class="pdf-title">دمج ملفات PDF</div>
-          <div class="pdf-sub">Merge PDF</div>
-        </a>
-
-        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/split_pdf">
-          <div class="pdf-icon">✂️</div>
-          <div class="pdf-title">تقسيم PDF</div>
-          <div class="pdf-sub">Split PDF</div>
-        </a>
-
-        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/compress_pdf">
-          <div class="pdf-icon">📉</div>
-          <div class="pdf-title">ضغط PDF</div>
-          <div class="pdf-sub">Compress PDF</div>
-        </a>
-
-        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/edit-pdf">
-          <div class="pdf-icon">✍️</div>
-          <div class="pdf-title">تعديل PDF</div>
-          <div class="pdf-sub">Edit PDF</div>
-        </a>
-      </div>
-    </section>
-
-    <footer>
-      <span>ATLAS Workspace © محمود الصمادي</span>
-      <span>موقع شامل للروتين اليومي + أدوات PDF + نوتات + أعذار.</span>
-    </footer>
-  </div>
-
-  <!-- LOGIN MODAL -->
-  <div class="modal-backdrop" id="loginModal">
-    <div class="modal">
-      <h3>تسجيل الدخول (اختياري)</h3>
-      <p>إذا سجلت بحساب Google، بتنحفظ كل بياناتك سحابياً وبتقدر ترجعها من أي جهاز.</p>
-      <div style="display:flex;gap:6px;justify-content:flex-end;">
-        <button class="btn btn-outline btn-small" id="closeLoginModal">إلغاء</button>
-        <button class="btn btn-primary btn-small" id="googleLoginBtn">تسجيل دخول Google</button>
+<body>
+<div class="app" id="app">
+  <!-- Sidebar -->
+  <aside class="card sidebar">
+    <div class="logo">
+      <div class="mark">A</div>
+      <div>
+        <h1>ATLAS Workspace</h1>
+        <small>صنعه محمود الصمادي</small>
       </div>
     </div>
-  </div>
 
-  <script>
-    // ===== Firebase Config =====
-    const firebaseConfig = {
-      apiKey: "AIzaSyDTOtQbGaLpGtDc34GXzcdppCvEJ60TYSs",
-      authDomain: "atlas-workspace.firebaseapp.com",
-      projectId: "atlas-workspace",
-      storageBucket: "atlas-workspace.firebasestorage.app",
-      messagingSenderId: "95882710960",
-      appId: "1:95882710960:web:9fcafcc1d4d057029ad075",
-      measurementId: "G-KJ446WXXHG",
-    };
+    <div class="nav" id="nav">
+      <button data-sec="home" class="active">الرئيسية <span>🏠</span></button>
+      <button data-sec="notes">النوتات <span>📝</span></button>
+      <button data-sec="pdf">أدوات PDF <span>📄</span></button>
+      <button data-sec="tracker">روتين اليوم <span>✅</span></button>
+      <button data-sec="timer">مؤقت <span>⏱️</span></button>
+    </div>
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+    <div style="margin-top:10px" class="card">
+      <div style="font-weight:800;margin-bottom:6px">الثيم</div>
+      <div class="theme-row">
+        <button class="theme-btn active" data-theme="dark">Dark</button>
+        <button class="theme-btn" data-theme="light">Light</button>
+        <button class="theme-btn" data-theme="oled">OLED</button>
+      </div>
+      <div class="hint" style="margin-top:6px">الثيم ينحفظ تلقائياً.</div>
+    </div>
+  </aside>
 
-    // ===== Tabs =====
-    const tabBtns = document.querySelectorAll(".tab-btn");
-    const sections = document.querySelectorAll(".section");
-    tabBtns.forEach(b=>{
-      b.addEventListener("click", ()=>{
-        tabBtns.forEach(x=>x.classList.remove("active"));
-        b.classList.add("active");
-        sections.forEach(s=>s.classList.remove("active"));
-        document.getElementById(b.dataset.tab).classList.add("active");
-      });
-    });
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="pill" id="greeting">...</div>
+    <div class="search">
+      🔎
+      <input id="searchInput" placeholder="ابحث عن نوتة / كلمة..." />
+    </div>
+    <div class="pill">
+      <span class="tag" id="onlineTag">● يعمل الآن</span>
+    </div>
+  </header>
 
-    // ===== Theme =====
-    const themeButtons = document.querySelectorAll(".theme-pill");
-    function applyTheme(theme) {
-      document.body.setAttribute("data-theme", theme);
-      localStorage.setItem("atlas_theme", theme);
-      themeButtons.forEach(btn => btn.classList.toggle("active", btn.dataset.theme === theme));
-      if(currentUser && userDocRef){
-        userDocRef.set({ theme }, { merge:true }).catch(console.error);
-      }
-    }
-    themeButtons.forEach(btn => btn.addEventListener("click", ()=>applyTheme(btn.dataset.theme)));
-    applyTheme(localStorage.getItem("atlas_theme") || "dark");
-
-    // ===== Login Modal =====
-    const loginBtn = document.getElementById("loginBtn");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const loginModal = document.getElementById("loginModal");
-    const closeLoginModal = document.getElementById("closeLoginModal");
-    const googleLoginBtn = document.getElementById("googleLoginBtn");
-
-    loginBtn.addEventListener("click", ()=> loginModal.style.display="grid");
-    closeLoginModal.addEventListener("click", ()=> loginModal.style.display="none");
-    loginModal.addEventListener("click", (e)=> { if(e.target===loginModal) loginModal.style.display="none"; });
-
-    googleLoginBtn.addEventListener("click", async ()=>{
-      try{
-        const provider = new firebase.auth.GoogleAuthProvider();
-        await auth.signInWithPopup(provider);
-        loginModal.style.display="none";
-      }catch(err){
-        alert("تعذر تسجيل الدخول: " + err.message);
-      }
-    });
-    logoutBtn.addEventListener("click", ()=> auth.signOut());
-
-    // ===== User / Greeting =====
-    const userNameLabel = document.getElementById("userNameLabel");
-    const greetingMain = document.getElementById("greetingMain");
-    const greetingSecondary = document.getElementById("greetingSecondary");
-
-    let currentUser=null, userDocRef=null, notesUnsubscribe=null;
-
-    function updateGreeting(name){
-      const h=new Date().getHours();
-      let g="مرحباً", e="✨";
-      if(h>=5 && h<12){ g="صباح الخير"; e="🌤️"; }
-      else if(h>=12 && h<18){ g="مساء الخير"; e="🌇"; }
-      else { g="مساء الهدوء"; e="🌙"; }
-      greetingMain.textContent = `${g}، ${name} ${e}`;
-      greetingSecondary.textContent = "الموقع شغال كزائر أو بحساب Google – اللي بريحك.";
-    }
-
-    auth.onAuthStateChanged(async user=>{
-      currentUser=user||null;
-      if(!user){
-        userNameLabel.textContent="زائر";
-        loginBtn.style.display="inline-flex";
-        logoutBtn.style.display="none";
-        updateGreeting("زائر");
-        loadGuestCounters();
-        loadGuestNotes();
-        if(notesUnsubscribe) notesUnsubscribe();
-        return;
-      }
-
-      const name=(user.displayName||user.email||"مستخدم").split(" ")[0];
-      userNameLabel.textContent=name;
-      loginBtn.style.display="none";
-      logoutBtn.style.display="inline-flex";
-      updateGreeting(name);
-
-      userDocRef=db.collection("users").doc(user.uid);
-      const snap=await userDocRef.get();
-      if(!snap.exists){
-        await userDocRef.set({water:0,sleep:0,prayer:0,gym:0,theme:localStorage.getItem("atlas_theme")||"dark"});
-      }else{
-        const d=snap.data();
-        updateCountersFromData(d);
-        if(d.theme) applyTheme(d.theme);
-      }
-      subscribeToNotes();
-    });
-
-    // ===== Counters =====
-    const counters={water:0,sleep:0,prayer:0,gym:0};
-
-    function updateCounterUI(){
-      waterValue.textContent = counters.water + (counters.water===1?" كوب":" أكواب");
-      sleepValue.textContent = counters.sleep + " ساعة";
-      prayerValue.textContent = `${counters.prayer} / 5`;
-      gymValue.textContent = counters.gym + " حصة";
-    }
-    function updateCountersFromData(d){
-      counters.water=d.water??0;
-      counters.sleep=d.sleep??0;
-      counters.prayer=d.prayer??0;
-      counters.gym=d.gym??0;
-      updateCounterUI();
-    }
-    function saveGuestCounters(){
-      localStorage.setItem("guest_counters", JSON.stringify(counters));
-    }
-    function loadGuestCounters(){
-      const s=localStorage.getItem("guest_counters");
-      if(!s) { updateCounterUI(); return; }
-      try{ Object.assign(counters, JSON.parse(s)); }catch{}
-      updateCounterUI();
-    }
-    async function persistCounters(){
-      if(!currentUser||!userDocRef){ saveGuestCounters(); return; }
-      await userDocRef.set(counters,{merge:true}).catch(console.error);
-    }
-
-    document.querySelectorAll(".stat-chip").forEach(chip=>{
-      const type=chip.dataset.counter;
-      chip.querySelectorAll(".stat-controls button").forEach(btn=>{
-        btn.addEventListener("click", ()=>{
-          const a=btn.dataset.action;
-          if(type==="sleep"){
-            counters.sleep += (a==="inc"?0.5:-0.5);
-            if(counters.sleep<0) counters.sleep=0;
-          }else if(type==="prayer"){
-            counters.prayer += (a==="inc"?1:-1);
-            if(counters.prayer<0) counters.prayer=0;
-            if(counters.prayer>5) counters.prayer=5;
-          }else{
-            counters[type] += (a==="inc"?1:-1);
-            if(counters[type]<0) counters[type]=0;
-          }
-          updateCounterUI();
-          persistCounters();
-        });
-      });
-    });
-
-    // ===== Mood chips =====
-    const moodChips=document.getElementById("moodChips");
-    moodChips.addEventListener("click",(e)=>{
-      if(!e.target.classList.contains("chip")) return;
-      moodChips.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
-      e.target.classList.add("active");
-    });
-
-    function wireChipGroup(id){
-      const c=document.getElementById(id);
-      c.addEventListener("click",(e)=>{
-        if(!e.target.classList.contains("chip")) return;
-        c.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));
-        e.target.classList.add("active");
-      });
-    }
-    wireChipGroup("contextChips"); wireChipGroup("toneChips");
-
-    // ===== Excuses =====
-    const excusesDB={
-      whatsapp:{
-        soft:[
-          "كنت حاط الجوال على الصامت وما انتبهت للإشعارات، أول ما شفت رسالتك رجعتلك.",
-          "النت كان يفصل ويرجع وما وصلني إشعارك غير متأخر."
-        ],
-        serious:[
-          "كنت في اجتماع وما قدرت أمسك الجوال نهائياً، أول ما خلصت رديت عليك.",
-          "كنت خارج البيت وانقطعت البيانات، أول ما رجعت للواي فاي دخلت ورديت."
-        ],
-        funny:[
-          "دخلت الواتساب أنسى ليه دخلت وطلعت بدون ما أرد… دماغي اليوم طيران 😅.",
-          "كنت بنظّف جهات الاتصال وطار عقلي معاهم 🤦‍♂️."
-        ]
-      },
-      family:{
-        soft:["كنت بساعد بالبيت وما انتبهت للجوال.","كنت نايم بدري وما سمعت الرنّة."],
-        serious:["صار ظرف ضروري وما كان عندي مجال أرد، أول ما خلصت رجعت خبرتكم."],
-        funny:["الجوال رن كثير فخفت يكون تحصيل كهربا 😂."]
-      },
-      work:{
-        soft:["كنت مركز في شغل مهم وما فتحت الواتساب عشان ما أتشتت."],
-        serious:["كان عندي ضغط واجتماعات متتالية، فخلّصتهم وبعدها رديت."],
-        funny:["كنت بكتب إيميل محترم ونسخته هون بالغلط 😅."]
-      },
-      study:{
-        soft:["كنت بدرس ومسكر الإشعارات عشان أركز."],
-        serious:["كان عندي محاضرة/امتحان وما كان مسموح نمسك الجوال."],
-        funny:["الكتاب مفتوح والجوال بعيد… والنتيجة لا درست ولا رديت 😅."]
-      },
-      delay:{
-        soft:["علقت بزحمة بسيطة، بس هيني جاي بالطريق."],
-        serious:["صار ظرف طارئ أخّرني شوي، بس أنا بالطريق."],
-        funny:["الزمن اليوم متآمر عليّ 😂."]
-      }
-    };
-
-    const excuseTextEl=document.getElementById("excuseText");
-    const trustFill=document.getElementById("trustFill");
-    const trustLabel=document.getElementById("trustLabel");
-
-    function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-
-    document.getElementById("generateExcuseBtn").addEventListener("click", ()=>{
-      const ctx=document.querySelector("#contextChips .chip.active")?.dataset.context||"whatsapp";
-      const tone=document.querySelector("#toneChips .chip.active")?.dataset.tone||"soft";
-      const pool=excusesDB[ctx]?.[tone]||excusesDB.whatsapp.soft;
-      excuseTextEl.textContent=rand(pool);
-
-      const t=Math.floor(65+Math.random()*30);
-      trustFill.style.width=t+"%";
-      trustLabel.textContent=`تقديريًا: ${t}% – يعتمد على مزاج الشخص المقابل 😅`;
-    });
-
-    document.getElementById("copyExcuseBtn").addEventListener("click", async ()=>{
-      try{
-        await navigator.clipboard.writeText(excuseTextEl.textContent.trim());
-        alert("تم النسخ ✅");
-      }catch{
-        alert("انسخه يدويًا لو سمحت.");
-      }
-    });
-
-    // ===== Notes =====
-    const notesListEl=document.getElementById("notesList");
-    const noteForm=document.getElementById("noteForm");
-    const noteTitleInput=document.getElementById("noteTitle");
-    const noteImageUrlInput=document.getElementById("noteImageUrl");
-    const noteContentInput=document.getElementById("noteContent");
-    const noteColorInput=document.getElementById("noteColor");
-    const noteFontSizeSelect=document.getElementById("noteFontSize");
-
-    function renderNote(note){
-      const div=document.createElement("div");
-      div.className="note-card";
-      if(note.color){
-        div.style.borderColor=note.color;
-        div.style.background=`linear-gradient(135deg, ${note.color}30, transparent 60%)`;
-      }
-      div.innerHTML=`
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div class="note-title">${note.title||"بدون عنوان"}</div>
-          <div class="note-meta">${note.createdAt||""}</div>
+  <!-- Main -->
+  <main class="main">
+    <!-- Home -->
+    <section class="section active" id="sec-home">
+      <div class="home-grid">
+        <div class="card welcome">
+          <h2 id="welcomeTitle">أهلاً بك 👋</h2>
+          <p>
+            هذا موقعك الشخصي الشامل لتنظيم الروتين اليومي + نوتات ستايل نوشن + أدوات PDF
+            وكل شيء محفوظ لحسابك إذا سجلت دخولك.
+          </p>
+          <div class="quick-cards" style="margin-top:10px">
+            <div class="quick">
+              <div class="t">نوتات إبداعية</div>
+              <div class="s">صور + عناوين + تنسيق كامل</div>
+            </div>
+            <div class="quick">
+              <div class="t">روتين يومي</div>
+              <div class="s">ماء / نوم / صلاة / جيم</div>
+            </div>
+            <div class="quick">
+              <div class="t">PDF Tools</div>
+              <div class="s">صور↔PDF / PDF→صور</div>
+            </div>
+          </div>
         </div>
-        <div class="note-body" style="font-size:${note.fontSize||13}px;">${(note.content||"").replace(/\n/g,"<br>")}</div>
-        ${note.imageUrl?`<img class="note-image" src="${note.imageUrl}" onerror="this.style.display='none'"/>`:""}
-      `;
-      notesListEl.appendChild(div);
+
+        <div class="card">
+          <div style="font-weight:800;margin-bottom:8px">لمحة سريعة عن يومك</div>
+          <div class="tracker-grid">
+            <div class="tracker">
+              <div class="row"><div>💧 الماء</div><div class="small" id="w-water">0 كوب</div></div>
+              <div class="counter">
+                <button data-track="water" data-delta="-1">-</button>
+                <input id="in-water" type="number" min="0" value="0"/>
+                <button data-track="water" data-delta="1">+</button>
+              </div>
+            </div>
+
+            <div class="tracker">
+              <div class="row"><div>🌙 النوم</div><div class="small" id="w-sleep">0 ساعة</div></div>
+              <div class="counter">
+                <button data-track="sleep" data-delta="-0.5">-</button>
+                <input id="in-sleep" type="number" min="0" step="0.5" value="0"/>
+                <button data-track="sleep" data-delta="0.5">+</button>
+              </div>
+            </div>
+
+            <div class="tracker">
+              <div class="row"><div>🕌 الصلاة</div><div class="small" id="w-prayer">0 / 5</div></div>
+              <div class="counter">
+                <button data-track="prayer" data-delta="-1">-</button>
+                <input id="in-prayer" type="number" min="0" max="5" value="0"/>
+                <button data-track="prayer" data-delta="1">+</button>
+              </div>
+            </div>
+
+            <div class="tracker">
+              <div class="row"><div>🏋️ الجيم</div><div class="small" id="w-gym">0 دقيقة</div></div>
+              <div class="counter">
+                <button data-track="gym" data-delta="-10">-</button>
+                <input id="in-gym" type="number" min="0" step="10" value="0"/>
+                <button data-track="gym" data-delta="10">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+            <button class="btn primary" id="saveTracker">حفظ روتين اليوم</button>
+            <button class="btn" id="goTracker">افتح صفحة الروتين</button>
+          </div>
+          <div class="hint">إذا كنت مسجّل دخول، الروتين ينحفظ عندك يومياً.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes -->
+    <section class="section" id="sec-notes">
+      <div class="notes-wrap">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div style="font-weight:800">نوتاتك</div>
+            <button class="btn primary" id="newNote">نوتة جديدة +</button>
+          </div>
+          <div class="notes-list" id="notesList"></div>
+          <div class="hint">اضغط على أي نوتة لتفتحها.</div>
+        </div>
+
+        <div class="card editor">
+          <div class="editor-top">
+            <div class="left">
+              <button class="btn" id="pickEmoji">😀 Emoji</button>
+              <button class="btn" id="setCoverBtn">غلاف / صورة</button>
+            </div>
+            <div class="right">
+              <button class="btn" id="saveNote">حفظ</button>
+              <button class="btn danger" id="deleteNote">حذف</button>
+            </div>
+          </div>
+
+          <div class="cover" id="coverBox">
+            <div>اضغط لإضافة Cover</div>
+            <input type="file" id="coverInput" accept="image/*" style="display:none">
+            <div class="cover-actions">
+              <button class="btn" id="removeCover">إزالة الغلاف</button>
+            </div>
+          </div>
+
+          <input class="title-input" id="noteTitle" placeholder="عنوان النوتة..." />
+
+          <div class="toolbar">
+            <button class="tool" data-cmd="bold"><b>B</b></button>
+            <button class="tool" data-cmd="italic"><i>I</i></button>
+            <button class="tool" data-cmd="underline"><u>U</u></button>
+            <button class="tool" data-cmd="insertUnorderedList">• List</button>
+            <button class="tool" data-cmd="formatBlock" data-arg="h2">H2</button>
+            <button class="tool" data-cmd="formatBlock" data-arg="blockquote">Quote</button>
+
+            <span class="tool">
+              الخط:
+              <select id="fontFamily">
+                <option value="system-ui">System</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Arial">Arial</option>
+                <option value="'SF Pro Display',system-ui">SF Pro</option>
+                <option value="'Cairo',Tahoma">Cairo</option>
+              </select>
+            </span>
+            <span class="tool">
+              الحجم:
+              <select id="fontSize">
+                <option value="16">16</option>
+                <option value="18">18</option>
+                <option value="20">20</option>
+                <option value="22">22</option>
+                <option value="26">26</option>
+              </select>
+            </span>
+            <span class="tool">
+              اللون:
+              <input id="fontColor" type="color" value="#eaf0ff"/>
+            </span>
+
+            <button class="tool" id="addImageInline">إضافة صورة داخل النوتة</button>
+            <input type="file" id="inlineImageInput" accept="image/*" style="display:none">
+          </div>
+
+          <div class="content" id="noteContent" contenteditable="true"></div>
+          <div class="hint">
+            * تقدر تكتب عربي/إنجليزي بنفس النوتة.<br>
+            * لما تسجل دخول، كل شيء ينحفظ على حسابك.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PDF Tools -->
+    <section class="section" id="sec-pdf">
+      <div class="card">
+        <div style="font-weight:900;font-size:18px;margin-bottom:10px">أدوات PDF داخل ATLAS</div>
+        <div class="pdf-grid">
+
+          <!-- Images to PDF -->
+          <div class="card pdf-card">
+            <div style="font-weight:800">🖼️ صور → PDF</div>
+            <div class="drop">
+              <label for="imgToPdfInput">اضغط لاختيار صور</label>
+              <input id="imgToPdfInput" type="file" accept="image/*" multiple>
+              <div class="small" id="imgToPdfCount">0 صور</div>
+            </div>
+            <button class="btn primary" id="imgToPdfBtn">حوّل</button>
+            <div class="hint">يدعم صور متعددة ويعطيك ملف PDF واحد.</div>
+          </div>
+
+          <!-- PDF to Images -->
+          <div class="card pdf-card">
+            <div style="font-weight:800">📄 PDF → صور</div>
+            <div class="drop">
+              <label for="pdfToImgInput">اختيار ملف PDF</label>
+              <input id="pdfToImgInput" type="file" accept="application/pdf">
+              <div class="small" id="pdfToImgName">---</div>
+            </div>
+            <button class="btn primary" id="pdfToImgBtn">استخراج صور</button>
+            <div class="hint">يحول صفحات PDF إلى PNG (الصفحات الأولى).</div>
+          </div>
+
+          <!-- PPTX to PDF Placeholder -->
+          <div class="card pdf-card">
+            <div style="font-weight:800">📊 PowerPoint → PDF</div>
+            <div class="drop">
+              <div class="small">بدون سيرفر لا يمكن تحويل PPTX داخل المتصفح بدقة 100%.</div>
+            </div>
+            <a class="btn primary" target="_blank"
+              href="https://www.ilovepdf.com/powerpoint_to_pdf">
+              افتح محول خارجي
+            </a>
+            <div class="hint">لاحقاً بنضيف سيرفر صغير ويحوله داخل موقعك.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Tracker page -->
+    <section class="section" id="sec-tracker">
+      <div class="card">
+        <div style="font-weight:900;font-size:18px;margin-bottom:8px">روتين اليوم ✅</div>
+        <div class="tracker-grid">
+
+          <div class="tracker">
+            <div class="row"><div>💧 الماء</div><div class="small" id="t-water">0 كوب</div></div>
+            <div class="counter">
+              <button data-track="water" data-delta="-1">-</button>
+              <input id="t-in-water" type="number" min="0" value="0"/>
+              <button data-track="water" data-delta="1">+</button>
+            </div>
+          </div>
+
+          <div class="tracker">
+            <div class="row"><div>🌙 النوم</div><div class="small" id="t-sleep">0 ساعة</div></div>
+            <div class="counter">
+              <button data-track="sleep" data-delta="-0.5">-</button>
+              <input id="t-in-sleep" type="number" min="0" step="0.5" value="0"/>
+              <button data-track="sleep" data-delta="0.5">+</button>
+            </div>
+          </div>
+
+          <div class="tracker">
+            <div class="row"><div>🕌 الصلاة</div><div class="small" id="t-prayer">0 / 5</div></div>
+            <div class="counter">
+              <button data-track="prayer" data-delta="-1">-</button>
+              <input id="t-in-prayer" type="number" min="0" max="5" value="0"/>
+              <button data-track="prayer" data-delta="1">+</button>
+            </div>
+          </div>
+
+          <div class="tracker">
+            <div class="row"><div>🏋️ الجيم</div><div class="small" id="t-gym">0 دقيقة</div></div>
+            <div class="counter">
+              <button data-track="gym" data-delta="-10">-</button>
+              <input id="t-in-gym" type="number" min="0" step="10" value="0"/>
+              <button data-track="gym" data-delta="10">+</button>
+            </div>
+          </div>
+
+        </div>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+          <button class="btn primary" id="saveTracker2">حفظ</button>
+          <button class="btn" id="loadTracker2">تحميل اليوم</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timer -->
+    <section class="section" id="sec-timer">
+      <div class="timer-wrap">
+        <div class="card">
+          <div style="font-weight:900;font-size:18px;margin-bottom:8px">⏱️ مؤقت / Pomodoro</div>
+          <div class="timer-display" id="timerDisplay">25:00</div>
+          <div class="timer-controls">
+            <button class="btn primary" id="startTimer">ابدأ</button>
+            <button class="btn" id="pauseTimer">إيقاف مؤقت</button>
+            <button class="btn" id="resetTimer">إعادة</button>
+          </div>
+        </div>
+        <div class="card">
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button class="btn" data-preset="25">Pomodoro 25</button>
+            <button class="btn" data-preset="50">Focus 50</button>
+            <button class="btn" data-preset="10">Break 10</button>
+          </div>
+          <div class="field" style="margin-top:10px">
+            <label>مدة مخصصة (بالدقائق)</label>
+            <input id="customMinutes" type="number" min="1" value="25"/>
+          </div>
+          <button class="btn primary" id="applyCustom" style="margin-top:8px">تطبيق</button>
+          <div class="hint">المؤقت بسيط وعملي لروتينك اليومي.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Profile -->
+  <aside class="card profile">
+    <div class="profile-head">
+      <div class="avatar" id="avatarBox">A</div>
+      <div>
+        <div style="font-weight:800" id="userName">ضيف</div>
+        <div class="small" id="userEmail">يمكنك تسجيل الدخول</div>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+      <button class="btn primary" id="googleLogin">تسجيل دخول Google</button>
+      <button class="btn" id="guestMode">استخدم كضيف</button>
+      <button class="btn danger" id="logoutBtn" style="display:none">تسجيل خروج</button>
+      <button class="btn" id="editProfileBtn">تعديل الاسم</button>
+    </div>
+
+    <div style="margin-top:10px" class="card">
+      <div style="font-weight:800;margin-bottom:6px">إحصائياتك</div>
+      <div class="small">عدد النوتات: <span id="statNotes">0</span></div>
+      <div class="small">آخر حفظ: <span id="statLast">—</span></div>
+    </div>
+
+    <div style="margin-top:10px" class="hint">
+      ATLAS Workspace — مشروع عالمي شامل للروتين اليومي والنوتات وأدوات الحياة.
+    </div>
+  </aside>
+
+  <footer class="footer">
+    © ATLAS Workspace — صنعه محمود الصمادي
+  </footer>
+</div>
+
+<!-- Modal Profile -->
+<div class="modal" id="profileModal">
+  <div class="box">
+    <div style="font-weight:900;font-size:18px">تخصيص اسمك</div>
+    <div class="field">
+      <label>الاسم</label>
+      <input id="profileNameInput" placeholder="مثال: محمود"/>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn" id="closeProfileModal">إلغاء</button>
+      <button class="btn primary" id="saveProfileModal">حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Emoji prompt -->
+<div class="modal" id="emojiModal">
+  <div class="box">
+    <div style="font-weight:900;font-size:18px">اختر Emoji للنوتة</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;font-size:22px">
+      <button class="tool em">😀</button><button class="tool em">✨</button><button class="tool em">📌</button>
+      <button class="tool em">🔥</button><button class="tool em">🌙</button><button class="tool em">💡</button>
+      <button class="tool em">✅</button><button class="tool em">📚</button><button class="tool em">🎮</button>
+      <button class="tool em">🏋️</button><button class="tool em">🧠</button><button class="tool em">❤️</button>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn" id="closeEmoji">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase compat CDN -->
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
+
+<!-- PDF libs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.3.136/pdf.min.mjs" type="module"></script>
+
+<script>
+/* ==============================
+   ATLAS Workspace — Single file
+   by Mahmoud Smadi
+================================ */
+
+// ------- Firebase Config (your keys) ------
+const firebaseConfig = {
+  apiKey: "AIzaSyDTOtQbGaLpGtDc34GXzcdppCvEJ60TYSs",
+  authDomain: "atlas-workspace.firebaseapp.com",
+  projectId: "atlas-workspace",
+  storageBucket: "atlas-workspace.firebasestorage.app",
+  messagingSenderId: "95882710960",
+  appId: "1:95882710960:web:9fcafcc1d4d057029ad075",
+  measurementId: "G-KJ446WXXHG"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db   = firebase.firestore();
+const storage = firebase.storage();
+
+// ------- State ------
+let currentUser = null;
+let notes = [];
+let currentNoteId = null;
+let currentEmoji = "📝";
+let currentCoverURL = "";
+let isGuest = true;
+
+// ------- Helpers ------
+const $ = (s)=>document.querySelector(s);
+const $$ = (s)=>document.querySelectorAll(s);
+
+const todayKey = ()=>{
+  const d=new Date();
+  return d.toISOString().slice(0,10);
+};
+const niceDate = (ts)=>{
+  try{
+    const d = ts?.toDate ? ts.toDate() : (ts? new Date(ts): new Date());
+    return d.toLocaleString("ar",{hour12:true});
+  }catch{return "—"}
+};
+
+function setTheme(theme){
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("atlas-theme", theme);
+  $$(".theme-btn").forEach(b=>b.classList.toggle("active", b.dataset.theme===theme));
+  if(currentUser && !isGuest){
+    db.collection("users").doc(currentUser.uid).set({theme},{merge:true});
+  }
+}
+(function initTheme(){
+  const t = localStorage.getItem("atlas-theme") || "dark";
+  setTheme(t);
+})();
+
+// ------- Nav / Sections ------
+$("#nav").addEventListener("click",(e)=>{
+  const btn = e.target.closest("button[data-sec]");
+  if(!btn) return;
+  const sec = btn.dataset.sec;
+
+  $$("#nav button").forEach(b=>b.classList.toggle("active", b===btn));
+  $$(".section").forEach(s=>s.classList.remove("active"));
+  $("#sec-"+sec).classList.add("active");
+});
+
+// ------- Greeting ------
+function updateGreeting(name=""){
+  const h = new Date().getHours();
+  const g = h<12 ? "صباح الخير" : (h<18 ? "مساء الخير" : "مساء الخير");
+  $("#greeting").textContent = `${g} ${name? "يا "+name : ""} 🌙`;
+  $("#welcomeTitle").textContent = `${g} ${name? name : ""} 👋`;
+}
+
+// ------- Auth UI ------
+async function signInGoogle(){
+  const provider = new firebase.auth.GoogleAuthProvider();
+  await auth.signInWithPopup(provider);
+}
+async function signOut(){
+  await auth.signOut();
+}
+
+$("#googleLogin").onclick = signInGoogle;
+$("#logoutBtn").onclick = signOut;
+$("#guestMode").onclick = ()=>{
+  isGuest = true;
+  currentUser = null;
+  setUserUI();
+  loadLocalNotes();
+  loadLocalTracker();
+};
+
+auth.onAuthStateChanged(async(user)=>{
+  if(user){
+    currentUser = user;
+    isGuest = false;
+    await loadUserProfile();
+    await loadNotes();
+    await loadTracker();
+  }else{
+    currentUser = null;
+    isGuest = true;
+    loadLocalNotes();
+    loadLocalTracker();
+  }
+  setUserUI();
+});
+
+async function loadUserProfile(){
+  const ref = db.collection("users").doc(currentUser.uid);
+  const snap = await ref.get();
+  const data = snap.exists ? snap.data() : {};
+  const name = data.name || currentUser.displayName || "مستخدم";
+  updateGreeting(name);
+  $("#userName").textContent = name;
+  $("#profileNameInput").value = name;
+  if(data.theme) setTheme(data.theme);
+}
+
+function setUserUI(){
+  if(currentUser && !isGuest){
+    $("#userName").textContent = currentUser.displayName || $("#userName").textContent;
+    $("#userEmail").textContent = currentUser.email || "";
+    $("#logoutBtn").style.display="inline-block";
+    $("#googleLogin").style.display="none";
+    $("#guestMode").style.display="none";
+    const photo = currentUser.photoURL;
+    if(photo){
+      $("#avatarBox").innerHTML = `<img src="${photo}">`;
+    }else{
+      $("#avatarBox").textContent = (currentUser.displayName||"A").slice(0,1).toUpperCase();
     }
+  }else{
+    $("#userName").textContent = "ضيف";
+    $("#userEmail").textContent = "يمكنك تسجيل الدخول لحفظ بياناتك";
+    $("#logoutBtn").style.display="none";
+    $("#googleLogin").style.display="inline-block";
+    $("#guestMode").style.display="inline-block";
+    $("#avatarBox").textContent="A";
+    updateGreeting("");
+  }
+}
 
-    function saveGuestNotes(notes){
-      localStorage.setItem("guest_notes", JSON.stringify(notes));
+// ------- Profile modal ------
+$("#editProfileBtn").onclick=()=>$("#profileModal").classList.add("active");
+$("#closeProfileModal").onclick=()=>$("#profileModal").classList.remove("active");
+$("#saveProfileModal").onclick=async()=>{
+  const name = $("#profileNameInput").value.trim() || "مستخدم";
+  $("#profileModal").classList.remove("active");
+  updateGreeting(name);
+  $("#userName").textContent = name;
+  if(currentUser && !isGuest){
+    await db.collection("users").doc(currentUser.uid).set({name},{merge:true});
+  }else{
+    localStorage.setItem("atlas-guest-name", name);
+  }
+};
+
+// restore guest name
+(function(){
+  const n = localStorage.getItem("atlas-guest-name");
+  if(n) updateGreeting(n);
+})();
+
+// ------- Theme buttons ------
+$$(".theme-btn").forEach(b=>{
+  b.onclick=()=>setTheme(b.dataset.theme);
+});
+
+// ------- Tracker -------
+let trackerState = {water:0,sleep:0,prayer:0,gym:0};
+
+function syncTrackerInputs(){
+  const map = [
+    ["water","in-water","w-water","t-in-water","t-water"," كوب"],
+    ["sleep","in-sleep","w-sleep","t-in-sleep","t-sleep"," ساعة"],
+    ["prayer","in-prayer","w-prayer","t-in-prayer","t-prayer"," / 5"],
+    ["gym","in-gym","w-gym","t-in-gym","t-gym"," دقيقة"]
+  ];
+  map.forEach(([k,a,b,c,d,suf])=>{
+    if($("#"+a)) $("#"+a).value = trackerState[k];
+    if($("#"+c)) $("#"+c).value = trackerState[k];
+    if($("#"+b)) $("#"+b).textContent = trackerState[k]+suf;
+    if($("#"+d)) $("#"+d).textContent = trackerState[k]+suf;
+  });
+}
+
+document.body.addEventListener("click",(e)=>{
+  const btn = e.target.closest("button[data-track]");
+  if(!btn) return;
+  const k = btn.dataset.track;
+  const delta = parseFloat(btn.dataset.delta);
+  trackerState[k] = Math.max(0, (trackerState[k]||0) + delta);
+  if(k==="prayer") trackerState[k]=Math.min(5, trackerState[k]);
+  syncTrackerInputs();
+});
+
+$("#saveTracker").onclick=saveTracker;
+$("#saveTracker2").onclick=saveTracker;
+$("#loadTracker2").onclick=loadTracker;
+$("#goTracker").onclick=()=>{
+  $$("#nav button").forEach(b=>b.classList.toggle("active", b.dataset.sec==="tracker"));
+  $$(".section").forEach(s=>s.classList.remove("active"));
+  $("#sec-tracker").classList.add("active");
+};
+
+async function saveTracker(){
+  const key = todayKey();
+  if(currentUser && !isGuest){
+    await db.collection("users").doc(currentUser.uid)
+      .collection("trackers").doc(key)
+      .set({...trackerState, updatedAt: Date.now()},{merge:true});
+  }else{
+    localStorage.setItem("atlas-tracker-"+key, JSON.stringify(trackerState));
+  }
+}
+
+async function loadTracker(){
+  const key = todayKey();
+  if(currentUser && !isGuest){
+    const doc = await db.collection("users").doc(currentUser.uid)
+      .collection("trackers").doc(key).get();
+    trackerState = doc.exists ? doc.data() : trackerState;
+  }else{
+    const j = localStorage.getItem("atlas-tracker-"+key);
+    if(j) trackerState = JSON.parse(j);
+  }
+  syncTrackerInputs();
+}
+function loadLocalTracker(){ loadTracker(); }
+
+// ------- Notes -------
+function renderNotesList(filter=""){
+  const list = $("#notesList");
+  list.innerHTML="";
+  const filtered = notes.filter(n=>{
+    if(!filter) return true;
+    const t = (n.title||"").toLowerCase();
+    const c = (n.contentHTML||"").toLowerCase();
+    return t.includes(filter)||c.includes(filter);
+  });
+
+  filtered.forEach(n=>{
+    const div = document.createElement("div");
+    div.className="note-item"+(n.id===currentNoteId?" active":"");
+    div.dataset.id=n.id;
+    div.innerHTML=`
+      <div class="note-thumb">${n.coverURL?`<img src="${n.coverURL}">`:n.emoji||"📝"}</div>
+      <div class="note-meta">
+        <div class="title">${n.title||"بدون عنوان"}</div>
+        <div class="date">${niceDate(n.updatedAt||n.createdAt)}</div>
+      </div>
+    `;
+    div.onclick=()=>openNote(n.id);
+    list.appendChild(div);
+  });
+  $("#statNotes").textContent = notes.length;
+}
+
+function setEditorEmpty(){
+  currentNoteId=null;
+  currentEmoji="📝";
+  currentCoverURL="";
+  $("#noteTitle").value="";
+  $("#noteContent").innerHTML="";
+  $("#coverBox").innerHTML=`<div>اضغط لإضافة Cover</div><input type="file" id="coverInput" accept="image/*" style="display:none">
+    <div class="cover-actions"><button class="btn" id="removeCover">إزالة الغلاف</button></div>`;
+  bindCoverHandlers();
+}
+
+$("#newNote").onclick=()=>{
+  setEditorEmpty();
+  $("#noteTitle").focus();
+};
+
+function openNote(id){
+  const n = notes.find(x=>x.id===id);
+  if(!n) return;
+  currentNoteId=id;
+  currentEmoji=n.emoji||"📝";
+  currentCoverURL=n.coverURL||"";
+  $("#noteTitle").value=n.title||"";
+  $("#noteContent").innerHTML=n.contentHTML||"";
+  applyStyleToEditor(n.style||{});
+  renderCover(currentCoverURL);
+  renderNotesList($("#searchInput").value.trim().toLowerCase());
+}
+
+function applyStyleToEditor(style){
+  const fam=style.fontFamily || "system-ui";
+  const size=style.fontSize || 18;
+  const color=style.color || getComputedStyle(document.documentElement).getPropertyValue("--text");
+  $("#fontFamily").value=fam;
+  $("#fontSize").value=size;
+  $("#fontColor").value=rgbToHex(color);
+  $("#noteContent").style.fontFamily=fam;
+  $("#noteContent").style.fontSize=size+"px";
+  $("#noteContent").style.color=color;
+}
+
+function rgbToHex(rgb){
+  if(!rgb) return "#eaf0ff";
+  if(rgb.startsWith("#")) return rgb;
+  const m = rgb.match(/\d+/g);
+  if(!m) return "#eaf0ff";
+  return "#"+m.slice(0,3).map(x=>("0"+parseInt(x).toString(16)).slice(-2)).join("");
+}
+
+async function loadNotes(){
+  if(!(currentUser && !isGuest)){ return; }
+  const snap = await db.collection("users").doc(currentUser.uid).collection("notes")
+    .orderBy("updatedAt","desc").get();
+  notes = snap.docs.map(d=>({id:d.id, ...d.data()}));
+  renderNotesList();
+  if(notes[0]) openNote(notes[0].id);
+}
+
+function loadLocalNotes(){
+  const j = localStorage.getItem("atlas-guest-notes");
+  notes = j? JSON.parse(j): [];
+  renderNotesList();
+  if(notes[0]) openNote(notes[0].id);
+}
+
+async function saveNotesLocal(){
+  localStorage.setItem("atlas-guest-notes", JSON.stringify(notes));
+}
+
+$("#saveNote").onclick=async()=>{
+  const title = $("#noteTitle").value.trim();
+  const contentHTML = $("#noteContent").innerHTML.trim();
+  const style={
+    fontFamily: $("#fontFamily").value,
+    fontSize: parseInt($("#fontSize").value),
+    color: $("#fontColor").value
+  };
+  const payload = {
+    title, contentHTML,
+    emoji: currentEmoji,
+    coverURL: currentCoverURL,
+    style,
+    updatedAt: Date.now(),
+    createdAt: currentNoteId? undefined : Date.now()
+  };
+
+  if(currentUser && !isGuest){
+    const ref = currentNoteId
+      ? db.collection("users").doc(currentUser.uid).collection("notes").doc(currentNoteId)
+      : db.collection("users").doc(currentUser.uid).collection("notes").doc();
+
+    if(!currentNoteId) currentNoteId = ref.id;
+    await ref.set(payload,{merge:true});
+    $("#statLast").textContent = niceDate(Date.now());
+    await loadNotes();
+  }else{
+    if(currentNoteId){
+      const idx = notes.findIndex(n=>n.id===currentNoteId);
+      notes[idx]={...notes[idx],...payload};
+    }else{
+      currentNoteId="g_"+Date.now();
+      notes.unshift({id:currentNoteId,...payload});
     }
-    function loadGuestNotes(){
-      notesListEl.innerHTML="";
-      const s=localStorage.getItem("guest_notes");
-      if(!s){
-        notesListEl.innerHTML='<div style="font-size:12px;color:var(--text-soft);">لا توجد نوتات بعد.</div>';
-        return;
-      }
-      let notes=[];
-      try{ notes=JSON.parse(s)||[]; }catch{}
-      if(notes.length===0){
-        notesListEl.innerHTML='<div style="font-size:12px;color:var(--text-soft);">لا توجد نوتات بعد.</div>';
-        return;
-      }
-      notes.forEach(renderNote);
+    await saveNotesLocal();
+    renderNotesList();
+  }
+};
+
+$("#deleteNote").onclick=async()=>{
+  if(!currentNoteId) return;
+  if(!confirm("متأكد بدك تحذف النوتة؟")) return;
+  if(currentUser && !isGuest){
+    await db.collection("users").doc(currentUser.uid).collection("notes").doc(currentNoteId).delete();
+    currentNoteId=null;
+    await loadNotes();
+  }else{
+    notes = notes.filter(n=>n.id!==currentNoteId);
+    currentNoteId=null;
+    await saveNotesLocal();
+    renderNotesList();
+    setEditorEmpty();
+  }
+};
+
+$("#searchInput").addEventListener("input",(e)=>{
+  renderNotesList(e.target.value.trim().toLowerCase());
+});
+
+// ------- Toolbar formatting -------
+$$(".tool[data-cmd]").forEach(b=>{
+  b.onclick=()=>{
+    const cmd=b.dataset.cmd;
+    const arg=b.dataset.arg||null;
+    document.execCommand(cmd,false,arg);
+    $("#noteContent").focus();
+  };
+});
+$("#fontFamily").onchange=()=>{
+  $("#noteContent").style.fontFamily=$("#fontFamily").value;
+};
+$("#fontSize").onchange=()=>{
+  $("#noteContent").style.fontSize=$("#fontSize").value+"px";
+};
+$("#fontColor").onchange=()=>{
+  $("#noteContent").style.color=$("#fontColor").value;
+};
+
+// ------- Emoji -------
+$("#pickEmoji").onclick=()=>$("#emojiModal").classList.add("active");
+$("#closeEmoji").onclick=()=>$("#emojiModal").classList.remove("active");
+$$(".em").forEach(btn=>{
+  btn.onclick=()=>{
+    currentEmoji = btn.textContent.trim();
+    $("#emojiModal").classList.remove("active");
+    renderNotesList($("#searchInput").value.trim().toLowerCase());
+  };
+});
+
+// ------- Cover handlers -------
+function bindCoverHandlers(){
+  const coverBox=$("#coverBox");
+  const coverInput=$("#coverInput");
+  if(!coverBox||!coverInput) return;
+
+  coverBox.onclick=()=>coverInput.click();
+  coverInput.onchange=async(e)=>{
+    const file=e.target.files[0];
+    if(!file) return;
+    if(currentUser && !isGuest){
+      const path=`covers/${currentUser.uid}/${Date.now()}_${file.name}`;
+      const task=await storage.ref(path).put(file);
+      currentCoverURL=await task.ref.getDownloadURL();
+    }else{
+      currentCoverURL=await fileToDataURL(file);
     }
+    renderCover(currentCoverURL);
+  };
+  $("#removeCover").onclick=(ev)=>{
+    ev.stopPropagation();
+    currentCoverURL="";
+    renderCover("");
+  };
+}
+bindCoverHandlers();
 
-    function subscribeToNotes(){
-      if(!currentUser) return;
-      if(notesUnsubscribe) notesUnsubscribe();
-      notesUnsubscribe = db.collection("notes")
-        .where("uid","==",currentUser.uid)
-        .orderBy("createdAt","desc")
-        .onSnapshot(snap=>{
-          notesListEl.innerHTML="";
-          if(snap.empty){
-            notesListEl.innerHTML='<div style="font-size:12px;color:var(--text-soft);">لا توجد نوتات بعد.</div>';
-            return;
-          }
-          snap.forEach(doc=>{
-            const n=doc.data();
-            renderNote({
-              title:n.title,
-              content:n.content,
-              imageUrl:n.imageUrl,
-              color:n.color,
-              fontSize:n.fontSize,
-              createdAt: n.createdAt?.toDate ? n.createdAt.toDate().toLocaleString("ar-JO") : ""
-            });
-          });
-        });
+function renderCover(url){
+  const box=$("#coverBox");
+  if(!box) return;
+  if(url){
+    box.innerHTML=`<img src="${url}"><input type="file" id="coverInput" accept="image/*" style="display:none">
+      <div class="cover-actions"><button class="btn" id="removeCover">إزالة الغلاف</button></div>`;
+  }else{
+    box.innerHTML=`<div>اضغط لإضافة Cover</div><input type="file" id="coverInput" accept="image/*" style="display:none">
+      <div class="cover-actions"><button class="btn" id="removeCover">إزالة الغلاف</button></div>`;
+  }
+  bindCoverHandlers();
+}
+$("#setCoverBtn").onclick=()=>$("#coverInput")?.click();
+
+// inline image
+$("#addImageInline").onclick=()=>$("#inlineImageInput").click();
+$("#inlineImageInput").onchange=async(e)=>{
+  const file=e.target.files[0];
+  if(!file) return;
+  let url="";
+  if(currentUser && !isGuest){
+    const path=`note-images/${currentUser.uid}/${Date.now()}_${file.name}`;
+    const task=await storage.ref(path).put(file);
+    url=await task.ref.getDownloadURL();
+  }else{
+    url=await fileToDataURL(file);
+  }
+  document.execCommand("insertImage",false,url);
+};
+
+function fileToDataURL(file){
+  return new Promise(res=>{
+    const r=new FileReader();
+    r.onload=()=>res(r.result);
+    r.readAsDataURL(file);
+  });
+}
+
+// ------- PDF Tools -------
+const { jsPDF } = window.jspdf;
+
+$("#imgToPdfInput").onchange=(e)=>{
+  $("#imgToPdfCount").textContent = (e.target.files?.length||0)+" صور";
+};
+$("#imgToPdfBtn").onclick=async()=>{
+  const files=[...$("#imgToPdfInput").files||[]];
+  if(!files.length) return alert("اختار صور أولاً");
+  const pdf=new jsPDF();
+  for(let i=0;i<files.length;i++){
+    const data=await fileToDataURL(files[i]);
+    const img=new Image();
+    await new Promise(r=>{img.onload=r; img.src=data;});
+    const w=pdf.internal.pageSize.getWidth();
+    const h=(img.height/img.width)*w;
+    if(i>0) pdf.addPage();
+    pdf.addImage(img,"JPEG",0,0,w,h);
+  }
+  pdf.save("ATLAS-images.pdf");
+};
+
+let pdfjsLib=null;
+(async()=>{
+  // pdf.js is module; grab global from it
+  try{
+    const m = await import("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.3.136/pdf.min.mjs");
+    pdfjsLib=m;
+    pdfjsLib.GlobalWorkerOptions.workerSrc=
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.3.136/pdf.worker.min.mjs";
+  }catch{}
+})();
+
+$("#pdfToImgInput").onchange=(e)=>{
+  $("#pdfToImgName").textContent = e.target.files[0]?.name || "---";
+};
+$("#pdfToImgBtn").onclick=async()=>{
+  const file=$("#pdfToImgInput").files[0];
+  if(!file) return alert("اختار PDF أولاً");
+  if(!pdfjsLib) return alert("PDF engine not ready");
+  const array=await file.arrayBuffer();
+  const pdf=await pdfjsLib.getDocument({data:array}).promise;
+  const maxPages=Math.min(pdf.numPages,5);
+  for(let p=1;p<=maxPages;p++){
+    const page=await pdf.getPage(p);
+    const viewport=page.getViewport({scale:2});
+    const canvas=document.createElement("canvas");
+    const ctx=canvas.getContext("2d");
+    canvas.width=viewport.width; canvas.height=viewport.height;
+    await page.render({canvasContext:ctx,viewport}).promise;
+    const url=canvas.toDataURL("image/png");
+    const a=document.createElement("a");
+    a.href=url; a.download=`page-${p}.png`; a.click();
+  }
+  alert("تم استخراج الصفحات الأولى كصور.");
+};
+
+// ------- Timer -------
+let timerTotal=25*60;
+let timerLeft=timerTotal;
+let timerInt=null;
+function renderTimer(){
+  const m=Math.floor(timerLeft/60).toString().padStart(2,"0");
+  const s=(timerLeft%60).toString().padStart(2,"0");
+  $("#timerDisplay").textContent=`${m}:${s}`;
+}
+renderTimer();
+
+function setTimerMinutes(min){
+  timerTotal=min*60; timerLeft=timerTotal; renderTimer();
+  localStorage.setItem("atlas-timer-min",min);
+}
+(function(){
+  const m=+localStorage.getItem("atlas-timer-min");
+  if(m) setTimerMinutes(m);
+})();
+
+$("#startTimer").onclick=()=>{
+  if(timerInt) return;
+  timerInt=setInterval(()=>{
+    timerLeft--;
+    if(timerLeft<=0){
+      clearInterval(timerInt); timerInt=null; timerLeft=0;
+      alert("انتهى الوقت ✅");
     }
+    renderTimer();
+  },1000);
+};
+$("#pauseTimer").onclick=()=>{
+  clearInterval(timerInt); timerInt=null;
+};
+$("#resetTimer").onclick=()=>{
+  timerLeft=timerTotal; renderTimer();
+};
+$$("[data-preset]").forEach(b=>{
+  b.onclick=()=>setTimerMinutes(+b.dataset.preset);
+});
+$("#applyCustom").onclick=()=>{
+  const m=+$("#customMinutes").value||25;
+  setTimerMinutes(Math.max(1,m));
+};
 
-    noteForm.addEventListener("submit", async (e)=>{
-      e.preventDefault();
-      const title=noteTitleInput.value.trim();
-      const content=noteContentInput.value.trim();
-      const imageUrl=noteImageUrlInput.value.trim();
-      const color=noteColorInput.value;
-      const fontSize=parseInt(noteFontSizeSelect.value,10)||13;
-      if(!content) return;
+// ------- Online tag pulse -------
+setInterval(()=>{
+  $("#onlineTag").textContent = (navigator.onLine? "● يعمل الآن" : "● غير متصل");
+},1500);
 
-      if(!currentUser){
-        const s=localStorage.getItem("guest_notes");
-        let notes=[];
-        try{ notes=JSON.parse(s)||[]; }catch{}
-        notes.unshift({
-          title, content, imageUrl: imageUrl||null, color, fontSize,
-          createdAt: new Date().toLocaleString("ar-JO")
-        });
-        saveGuestNotes(notes);
-        loadGuestNotes();
-      }else{
-        await db.collection("notes").add({
-          uid: currentUser.uid,
-          title, content,
-          imageUrl: imageUrl||null,
-          color, fontSize,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        });
-      }
+// ------- Boot -------
+(async function boot(){
+  await loadTracker();
+  renderNotesList();
+  setEditorEmpty();
+})();
+</script>
 
-      noteTitleInput.value="";
-      noteImageUrlInput.value="";
-      noteContentInput.value="";
-    });
-
-    // Initial guest load
-    loadGuestCounters();
-    loadGuestNotes();
-  </script>
 </body>
 </html>
