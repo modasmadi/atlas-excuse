@@ -2,89 +2,92 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>ATLAS Workspace - محمود الصمادي</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATLAS Workspace – محمود الصمادي</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
     :root {
-      --bg: #050816;
-      --bg-soft: #0b1020;
-      --bg-card: #0f172a;
-      --bg-oled: #000000;
-      --accent: #22c1c3;
-      --accent-soft: rgba(34, 193, 195, 0.15);
-      --text: #f9fafb;
-      --text-soft: #9ca3af;
-      --border: #1f2937;
-      --danger: #ef4444;
-      --radius-xl: 18px;
-      --radius-lg: 14px;
-      --shadow-soft: 0 18px 40px rgba(0,0,0,0.55);
-      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.35);
+      --shadow-card: 0 12px 25px rgba(0, 0, 0, 0.28);
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.25s ease-out;
+
+      --primary: #27b0ff;
+      --primary-soft: rgba(39, 176, 255, 0.13);
+      --danger: #ff5c7a;
+      --success: #46d19b;
+      --text-main: #eaf6ff;
+      --text-soft: #a6b5d2;
+
+      --bg-main: #020717;
+      --bg-elevated: #060b22;
+      --bg-deep: radial-gradient(circle at top left, #132347 0, #020717 55%);
+      --card-bg: #050a1b;
+      --border-subtle: rgba(255, 255, 255, 0.05);
     }
 
-    /* ثيم فاتح */
-    .theme-light {
-      --bg: #f3f4f6;
-      --bg-soft: #e5e7eb;
-      --bg-card: #ffffff;
-      --text: #020617;
+    body[data-theme="light"] {
+      --bg-main: #f4f6fb;
+      --bg-elevated: #ffffff;
+      --bg-deep: radial-gradient(circle at top left, #ffffff 0, #e9f0ff 60%);
+      --card-bg: #ffffff;
+      --text-main: #0e172a;
       --text-soft: #4b5563;
-      --border: #e5e7eb;
-      --shadow-soft: 0 10px 30px rgba(15,23,42,0.12);
+      --border-subtle: rgba(15, 23, 42, 0.06);
+      --shadow-soft: 0 16px 35px rgba(15, 23, 42, 0.1);
+      --shadow-card: 0 12px 22px rgba(15, 23, 42, 0.08);
     }
 
-    /* ثيم أسود OLED */
-    .theme-oled {
-      --bg: #000000;
-      --bg-soft: #020617;
-      --bg-card: #020617;
-      --shadow-soft: 0 18px 40px rgba(0,0,0,0.9);
+    body[data-theme="oled"] {
+      --bg-main: #000;
+      --bg-elevated: #02040b;
+      --bg-deep: radial-gradient(circle at top left, #071325 0, #000 60%);
+      --card-bg: #02040b;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --shadow-soft: none;
+      --shadow-card: none;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; }
     body {
-      font-family: var(--font-main);
-      background: radial-gradient(circle at top, #1e293b 0, var(--bg) 55%);
-      color: var(--text);
+      margin: 0;
       min-height: 100vh;
+      font-family: "Cairo", system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-main);
       display: flex;
-      align-items: stretch;
       justify-content: center;
-      padding: 20px;
     }
 
     .app-shell {
       width: 100%;
-      max-width: 1200px;
-      border-radius: 26px;
-      background: linear-gradient(135deg, rgba(148,163,184,0.1), rgba(15,23,42,0.9));
-      padding: 1px;
+      max-width: 1400px;
+      margin: 14px auto 24px;
+      padding: 14px 14px 18px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(15,23,42,0.7));
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.06);
       box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
     }
 
-    .app-inner {
-      border-radius: 25px;
-      background: radial-gradient(circle at top left, rgba(56,189,248,0.22), transparent 60%),
-                  radial-gradient(circle at bottom right, rgba(251,191,36,0.16), transparent 55%),
-                  var(--bg);
-      min-height: calc(100vh - 40px);
+    header.app-header {
       display: flex;
-      flex-direction: column;
-      padding: 16px;
-      gap: 12px;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
     }
 
     .brand {
@@ -92,1005 +95,966 @@
       align-items: center;
       gap: 10px;
     }
-
     .brand-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #22c1c3, #0f172a);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#e5e7eb;
-      font-weight: 800;
-      font-size: 22px;
-      box-shadow: 0 0 30px rgba(34,193,195,0.6);
+      width: 40px; height: 40px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 25% 0, #4adeff 0, #2563eb 40%, #020617 80%);
+      display: grid; place-items: center;
+      font-weight: 800; font-size: 20px;
+      box-shadow: 0 10px 22px rgba(37,99,235,0.6);
     }
+    .brand-title { font-size: 18px; font-weight: 700; }
+    .brand-subtitle { font-size: 11px; color: var(--text-soft); }
 
-    .brand-text-title {
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .brand-text-sub {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .header-right {
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-
+    .user-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .theme-switcher {
-      display:flex;
-      gap:6px;
-      padding:4px;
-      border-radius:999px;
-      background:rgba(15,23,42,0.9);
-      border:1px solid rgba(148,163,184,0.3);
+      display: inline-flex; padding: 3px; gap: 3px;
+      border-radius: 999px; background: rgba(15,23,42,0.75);
+      border: 1px solid var(--border-subtle);
     }
-
-    .pill-btn {
-      border:none;
-      padding:5px 10px;
-      border-radius:999px;
-      font-size:11px;
-      cursor:pointer;
-      background:transparent;
-      color:var(--text-soft);
+    .theme-pill {
+      border: none; padding: 4px 9px; border-radius: 999px;
+      font-size: 11px; background: transparent; color: var(--text-soft);
+      cursor: pointer; transition: var(--transition-fast);
     }
-
-    .pill-btn.active {
-      background:var(--accent-soft);
-      color:var(--text);
+    .theme-pill.active {
+      background: var(--primary-soft); color: var(--text-main);
+      transform: translateY(-1px);
     }
 
     .btn {
-      border:none;
-      padding:8px 14px;
-      border-radius:999px;
-      font-size:12px;
-      cursor:pointer;
-      background:linear-gradient(135deg,#22c1c3,#6366f1);
-      color:#f9fafb;
-      box-shadow:0 10px 25px rgba(37,99,235,0.45);
-      display:flex;
-      align-items:center;
-      gap:6px;
-      white-space:nowrap;
+      border-radius: 999px; border: none;
+      padding: 7px 12px; font-size: 12px; font-weight: 700;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+      transition: var(--transition-fast);
+    }
+    .btn-primary {
+      background: var(--primary); color: #020617;
+      box-shadow: 0 8px 18px rgba(37,99,235,0.7);
+    }
+    .btn-outline {
+      background: transparent; color: var(--text-soft);
+      border: 1px solid var(--border-subtle);
+    }
+    .btn-small { padding: 5px 9px; font-size: 11px; }
+
+    /* Tabs */
+    .tabs {
+      display: flex; gap: 6px; flex-wrap: wrap;
+      background: rgba(15,23,42,0.6);
+      padding: 6px; border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 12px;
+    }
+    .tab-btn {
+      flex: 1 1 auto;
+      min-width: 120px;
+      padding: 7px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-soft);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      text-align: center;
+    }
+    .tab-btn.active {
+      color: var(--text-main);
+      background: var(--primary-soft);
+      border-color: rgba(39,176,255,0.38);
     }
 
-    .btn-secondary {
-      background:transparent;
-      border:1px solid rgba(148,163,184,0.6);
-      box-shadow:none;
-      color:var(--text-soft);
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* Cards & layout */
+    .grid-3 {
+      display: grid; gap: 12px;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      align-items: start;
+    }
+    .column { display: flex; flex-direction: column; gap: 12px; }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-card);
+      padding: 12px 14px;
+    }
+    .card-header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+    .card-title { font-size: 14px; font-weight: 800; }
+    .card-subtitle { font-size: 11px; color: var(--text-soft); }
+
+    .stats-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .stat-chip {
+      flex: 1 1 120px;
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 60%);
+      border-radius: 14px; padding: 8px;
+      border: 1px solid var(--border-subtle);
+    }
+    .stat-label { font-size: 11px; color: var(--text-soft); display: flex; justify-content: space-between; }
+    .stat-value { font-size: 15px; font-weight: 800; margin-top: 2px; }
+    .stat-controls { display: flex; gap: 4px; margin-top: 6px; }
+    .stat-controls button {
+      flex: 1; border-radius: 999px; border: 1px solid rgba(148,163,184,0.3);
+      background: rgba(15,23,42,0.8); color: var(--text-soft);
+      font-size: 11px; padding: 3px 0; cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    .stat-controls button:hover { background: var(--primary-soft); color: var(--text-main); }
+
+    .chip-row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chip {
+      border-radius: 999px; border: 1px solid var(--border-subtle);
+      padding: 4px 9px; font-size: 11px;
+      background: rgba(15,23,42,0.8); color: var(--text-soft);
+      cursor: pointer; transition: var(--transition-fast);
+    }
+    .chip.active { background: var(--primary-soft); color: var(--text-main); transform: translateY(-1px); }
+
+    .excuse-box {
+      margin-top: 6px; padding: 10px 12px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(30,64,175,0.9));
+      border: 1px solid rgba(129,140,248,0.45);
     }
 
-    .status-dot {
-      width:9px;height:9px;
-      border-radius:999px;
-      background:#22c55e;
-      box-shadow:0 0 10px rgba(34,197,94,0.9);
-    }
+    .trust-bar { height: 6px; border-radius: 999px; background: rgba(15,23,42,0.7); overflow: hidden; margin-top: 4px; }
+    .trust-fill { height: 100%; background: linear-gradient(90deg,#f97316,#facc15,#22c55e); width:70%; transition: width .35s; }
 
-    main {
-      display:grid;
-      grid-template-columns:240px 1fr 250px;
-      gap:12px;
-      flex:1;
-      min-height:0;
+    /* Notes */
+    .note-form {
+      padding: 8px; border-radius: 14px;
+      border: 1px dashed rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.5);
+      display: flex; flex-direction: column; gap: 6px;
     }
-
-    .pane {
-      border-radius:var(--radius-xl);
-      background:rgba(15,23,42,0.92);
-      border:1px solid rgba(148,163,184,0.25);
-      padding:14px;
-      backdrop-filter: blur(30px);
-      box-shadow: var(--shadow-soft);
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+    .note-toolbar { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .note-form input, .note-form textarea, .note-form select {
+      border-radius: 10px; border: 1px solid rgba(148,163,184,0.35);
+      background: rgba(15,23,42,0.7); color: var(--text-main);
+      padding: 6px 8px; font-size: 12px; outline: none;
     }
-
-    .pane-title {
-      font-size:13px;
-      font-weight:600;
-      margin-bottom:4px;
-    }
-
-    .pane-sub {
-      font-size:11px;
-      color:var(--text-soft);
-    }
-
-    .nav-list {
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      margin-top:6px;
-    }
-
-    .nav-item {
-      padding:8px 10px;
-      border-radius:12px;
-      font-size:12px;
-      color:var(--text-soft);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      cursor:pointer;
-      transition:0.15s;
-    }
-
-    .nav-item span {
-      display:flex;
-      align-items:center;
-      gap:6px;
-    }
-
-    .nav-item.active,
-    .nav-item:hover {
-      background:var(--accent-soft);
-      color:var(--text);
-    }
-
-    .badge {
-      font-size:10px;
-      padding:2px 6px;
-      border-radius:999px;
-      background:rgba(15,23,42,0.9);
-      border:1px solid rgba(148,163,184,0.4);
-    }
-
-    .greeting-card {
-      border-radius:var(--radius-lg);
-      padding:10px 12px;
-      background:linear-gradient(135deg,rgba(34,193,195,0.08),rgba(129,140,248,0.1));
-      border:1px solid rgba(129,140,248,0.5);
-      font-size:12px;
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:center;
-    }
-
-    .greeting-main {
-      font-size:13px;
-      font-weight:600;
-    }
-
-    .widgets-grid {
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:8px;
-    }
-
-    .widget {
-      border-radius:14px;
-      padding:8px;
-      background:rgba(15,23,42,0.98);
-      border:1px solid rgba(148,163,184,0.35);
-      font-size:11px;
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-    }
-
-    .widget-top {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:4px;
-    }
-
-    .widget-label {
-      font-weight:600;
-      font-size:11px;
-    }
-
-    .widget-value {
-      font-size:11px;
-      color:var(--text-soft);
-    }
-
-    .widget-bar {
-      height:6px;
-      border-radius:999px;
-      background:rgba(15,23,42,1);
-      overflow:hidden;
-    }
-
-    .widget-fill {
-      height:100%;
-      width:0;
-      border-radius:999px;
-      background:linear-gradient(90deg,#22c1c3,#a855f7);
-      transition: width 0.2s;
-    }
-
-    .widget-actions {
-      display:flex;
-      gap:6px;
-      margin-top:4px;
-    }
-
-    .btn-xs {
-      border:none;
-      padding:3px 6px;
-      border-radius:999px;
-      font-size:10px;
-      cursor:pointer;
-      background:rgba(15,23,42,0.9);
-      border:1px solid rgba(148,163,184,0.5);
-      color:var(--text-soft);
-    }
-
-    .btn-xs.primary {
-      background:var(--accent-soft);
-      color:var(--text);
-      border-color:transparent;
-    }
-
-    .note-toolbar {
-      display:flex;
-      gap:8px;
-      align-items:center;
-      margin-bottom:8px;
-      flex-wrap:wrap;
-    }
-
-    .note-toolbar select,
-    .note-toolbar input {
-      font-size:11px;
-      padding:4px 6px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,0.5);
-      background:rgba(15,23,42,0.9);
-      color:var(--text);
-      outline:none;
-    }
-
-    .note-toolbar label {
-      font-size:11px;
-      color:var(--text-soft);
-    }
-
-    .note-title {
-      width:100%;
-      border:none;
-      outline:none;
-      margin:4px 0 6px;
-      font-size:16px;
-      background:transparent;
-      color:var(--text);
-      font-weight:600;
-    }
-
-    .note-editor {
-      width:100%;
-      min-height:180px;
-      border-radius:16px;
-      border:1px solid rgba(148,163,184,0.4);
-      background:rgba(15,23,42,0.95);
-      padding:10px;
-      font-size:13px;
-      color:var(--text);
-      resize:vertical;
-      outline:none;
-    }
-
-    .note-preview-img {
-      width:100%;
-      max-height:160px;
-      object-fit:cover;
-      border-radius:14px;
-      margin-top:8px;
-      border:1px solid rgba(148,163,184,0.4);
-    }
-
-    .notes-list {
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      margin-top:8px;
-      max-height:260px;
-      overflow:auto;
-    }
-
+    .notes-list { display: flex; flex-direction: column; gap: 8px; max-height: 320px; overflow: auto; padding-right: 3px; }
     .note-card {
-      border-radius:12px;
-      padding:8px 10px;
-      background:rgba(15,23,42,0.96);
-      border:1px solid rgba(55,65,81,0.9);
-      cursor:pointer;
-      font-size:11px;
-      display:flex;
-      flex-direction:column;
-      gap:4px;
+      border-radius: 14px; padding: 8px 10px; border: 1px solid rgba(148,163,184,0.25);
+      background: radial-gradient(circle at top left, rgba(51,65,85,0.4), transparent 55%);
+    }
+    .note-title { font-size: 13px; font-weight: 700; }
+    .note-meta { font-size: 10px; color: var(--text-soft); }
+    .note-body { font-size: 12px; line-height: 1.7; white-space: pre-wrap; margin-top: 2px; }
+    .note-image {
+      margin-top: 6px; border-radius: 10px; max-height: 160px; object-fit: cover; width: 100%;
+      border: 1px solid rgba(148,163,184,0.35);
     }
 
-    .note-card-title {
-      font-weight:600;
-      font-size:12px;
+    /* PDF Tools */
+    .pdf-grid {
+      display: grid; gap: 10px;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+    }
+    .pdf-tile {
+      display: flex; flex-direction: column; gap: 6px;
+      padding: 12px; border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15,23,42,0.6);
+      text-decoration: none; color: var(--text-main);
+      transition: var(--transition-fast);
+      min-height: 110px;
+      justify-content: center;
+    }
+    .pdf-tile:hover {
+      transform: translateY(-2px);
+      border-color: rgba(39,176,255,0.5);
+      background: var(--primary-soft);
+    }
+    .pdf-icon { font-size: 20px; }
+    .pdf-title { font-size: 13px; font-weight: 800; }
+    .pdf-sub { font-size: 11px; color: var(--text-soft); }
+
+    footer {
+      margin-top: 12px; font-size: 11px; color: var(--text-soft);
+      display: flex; justify-content: space-between; gap: 6px; flex-wrap: wrap;
     }
 
-    .note-card-meta {
-      display:flex;
-      justify-content:space-between;
-      color:var(--text-soft);
-      font-size:10px;
+    @media (max-width: 1100px) {
+      .grid-3 { grid-template-columns: 1fr; }
+      .pdf-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 650px) {
+      .pdf-grid { grid-template-columns: 1fr; }
+      .tab-btn { min-width: 90px; }
     }
 
-    .footer {
-      margin-top:6px;
-      font-size:10px;
-      color:var(--text-soft);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:8px;
+    /* Modal for Login */
+    .modal-backdrop{
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55);
+      display: none; place-items: center;
+      z-index: 50;
     }
-
-    .footer span strong {
-      color:#e5e7eb;
+    .modal{
+      width: 100%; max-width: 420px;
+      background: rgba(15,23,42,0.98);
+      border: 1px solid rgba(148,163,184,0.45);
+      border-radius: 18px; padding: 16px;
+      box-shadow: 0 22px 70px rgba(0,0,0,0.8);
     }
-
-    /* شاشة تسجيل الدخول */
-    .login-screen {
-      position:fixed;
-      inset:0;
-      background:radial-gradient(circle at top,#1e293b 0,#020617 55%);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:20;
-    }
-
-    .login-card {
-      width:100%;
-      max-width:420px;
-      border-radius:24px;
-      background:rgba(15,23,42,0.98);
-      border:1px solid rgba(148,163,184,0.5);
-      padding:22px 20px 18px;
-      box-shadow:0 22px 60px rgba(0,0,0,0.85);
-    }
-
-    .login-title {
-      font-size:20px;
-      font-weight:700;
-      margin-bottom:4px;
-    }
-
-    .login-sub {
-      font-size:12px;
-      color:var(--text-soft);
-      margin-bottom:12px;
-    }
-
-    .provider-btn {
-      width:100%;
-      border-radius:999px;
-      padding:10px 12px;
-      border:1px solid rgba(148,163,184,0.6);
-      background:#020617;
-      color:var(--text);
-      font-size:13px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      cursor:pointer;
-      margin-bottom:8px;
-    }
-
-    .provider-logo {
-      width:18px;
-      height:18px;
-      border-radius:4px;
-      background:#ffffff;
-    }
-
-    .login-badge {
-      font-size:11px;
-      color:var(--text-soft);
-      margin-top:8px;
-      text-align:center;
-    }
-
-    .hidden {
-      display:none !important;
-    }
-
-    @media (max-width:900px) {
-      main {
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media (max-width:600px) {
-      .app-inner {
-        padding:10px;
-      }
-    }
+    .modal h3{ margin:0 0 6px; font-size:18px; }
+    .modal p{ margin:0 0 10px; font-size:12px; color:var(--text-soft); }
   </style>
-</head>
-<body class="theme-dark">
 
-  <!-- شاشة تسجيل الدخول -->
-  <div class="login-screen" id="login-screen">
-    <div class="login-card">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+  <!-- Firebase v8 -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+
+<body data-theme="dark">
+  <div class="app-shell">
+
+    <header class="app-header">
+      <div class="brand">
         <div class="brand-logo">A</div>
         <div>
-          <div class="login-title">ATLAS Workspace</div>
-          <div class="login-sub">مساحتك اليومية لتنظيم حياتك – من صنع محمود الصمادي.</div>
+          <div class="brand-title">ATLAS Workspace</div>
+          <div class="brand-subtitle">صُنع بواسطة محمود الصمادي – موقع شامل للروتين اليومي</div>
         </div>
       </div>
 
-      <button class="provider-btn" id="btn-google-login">
-        <div class="provider-logo"></div>
-        <span>تسجيل الدخول بحساب Google</span>
-      </button>
+      <div class="user-controls">
+        <div class="theme-switcher">
+          <button class="theme-pill active" data-theme="dark">داكن</button>
+          <button class="theme-pill" data-theme="oled">OLED</button>
+          <button class="theme-pill" data-theme="light">فاتح</button>
+        </div>
 
-      <!-- أزرار لمستقبل (فيسبوك / أبل...) شكل فقط -->
-      <button class="provider-btn" style="opacity:0.5;cursor:not-allowed;">
-        <span>قريباً: تسجيل الدخول بحسابات أخرى</span>
-      </button>
+        <button class="btn btn-outline btn-small" id="loginBtn">🔐 تسجيل دخول Google</button>
+        <button class="btn btn-outline btn-small" id="logoutBtn" style="display:none;">تسجيل خروج</button>
 
-      <div class="login-badge">
-        بتسجيل الدخول، توافق على حفظ نوتاتك في سحابة Firebase الخاصة بك.
+        <div class="btn btn-outline btn-small" id="userChip" style="cursor:default;">
+          <span id="userNameLabel">زائر</span>
+        </div>
       </div>
-    </div>
-  </div>
+    </header>
 
-  <!-- واجهة التطبيق -->
-  <div class="app-shell">
-    <div class="app-inner">
-      <header>
-        <div class="brand">
-          <div class="brand-logo">A</div>
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="home">الرئيسية</button>
+      <button class="tab-btn" data-tab="excuses">الأعذار</button>
+      <button class="tab-btn" data-tab="notes">النوتات</button>
+      <button class="tab-btn" data-tab="pdf">أدوات PDF</button>
+    </div>
+
+    <!-- SECTION: HOME -->
+    <section class="section active" id="home">
+      <div class="grid-3">
+
+        <div class="column">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">روتين اليوم 👋</div>
+                <div class="card-subtitle">عدادات يومية محفوظة</div>
+              </div>
+            </div>
+
+            <div id="greetingMain" style="font-size:17px;font-weight:800;">مرحباً 👋</div>
+            <div id="greetingSecondary" class="card-subtitle" style="margin-top:2px;">
+              خلينا نرتّب يومك.
+            </div>
+
+            <div class="stats-row" style="margin-top:10px;">
+              <div class="stat-chip" data-counter="water">
+                <div class="stat-label"><span>المياه 💧</span><span>هدفك 8</span></div>
+                <div class="stat-value" id="waterValue">0 أكواب</div>
+                <div class="stat-controls">
+                  <button data-action="dec">-</button>
+                  <button data-action="inc">+1</button>
+                </div>
+              </div>
+
+              <div class="stat-chip" data-counter="sleep">
+                <div class="stat-label"><span>النوم 😴</span><span>هدفك 8</span></div>
+                <div class="stat-value" id="sleepValue">0 ساعة</div>
+                <div class="stat-controls">
+                  <button data-action="dec">-</button>
+                  <button data-action="inc">+0.5</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="stats-row" style="margin-top:8px;">
+              <div class="stat-chip" data-counter="prayer">
+                <div class="stat-label"><span>الصلاة 🕌</span><span>5</span></div>
+                <div class="stat-value" id="prayerValue">0 / 5</div>
+                <div class="stat-controls">
+                  <button data-action="dec">-</button>
+                  <button data-action="inc">+1</button>
+                </div>
+              </div>
+
+              <div class="stat-chip" data-counter="gym">
+                <div class="stat-label"><span>الجيم 🏋️‍♂️</span><span>أيام</span></div>
+                <div class="stat-value" id="gymValue">0 حصة</div>
+                <div class="stat-controls">
+                  <button data-action="dec">-</button>
+                  <button data-action="inc">+1</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">عداد المزاج 🎧</div>
+                <div class="card-subtitle">اختيار شعورك اليوم</div>
+              </div>
+            </div>
+            <div class="chip-row" id="moodChips">
+              <button class="chip active" data-mood="focus">مركّز</button>
+              <button class="chip" data-mood="tired">مرهق</button>
+              <button class="chip" data-mood="social">اجتماعي</button>
+              <button class="chip" data-mood="lazy">كسلان</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">مُلخّص الموقع</div>
+                <div class="card-subtitle">كل الأدوات المهمة بمكان واحد</div>
+              </div>
+            </div>
+
+            <ul style="margin:6px 0 0; padding-right:16px; font-size:13px; line-height:1.9;">
+              <li>مولد أعذار ذكي للواتساب والشغل والدراسة.</li>
+              <li>نوتات قابلة للتخصيص (عنوان + لون + صورة).</li>
+              <li>عدادات يومية للمياه والنوم والصلاة والجيم.</li>
+              <li>قسم أدوات PDF كامل زي iLovePDF.</li>
+              <li>تسجيل دخول Google اختياري لحفظ بياناتك سحابياً.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">نصيحة ATLAS ✨</div>
+                <div class="card-subtitle">شيء بسيط يوميًا</div>
+              </div>
+            </div>
+            <div style="font-size:13px; line-height:1.8;">
+              جرّب تكتب نوتة واحدة باليوم… حتى لو سطرين. بعد شهر راح تشوف كيف عقلك صار أنظف وروتينك أهدى.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: EXCUSES -->
+    <section class="section" id="excuses">
+      <div class="grid-3">
+        <div class="column" style="grid-column: span 2;">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">مولّد الأعذار ATLAS غَذِّرني 🫣</div>
+                <div class="card-subtitle">اختر نوع الموقف والمزاج ثم اضغط اعذرني</div>
+              </div>
+            </div>
+
+            <div style="margin-top:6px;">
+              <div class="card-subtitle">نوع الموقف:</div>
+              <div class="chip-row" id="contextChips" style="margin-top:4px;">
+                <button class="chip active" data-context="whatsapp">واتساب / أونلاين</button>
+                <button class="chip" data-context="family">أهل / عائلة</button>
+                <button class="chip" data-context="work">شغل</button>
+                <button class="chip" data-context="study">دراسة</button>
+                <button class="chip" data-context="delay">تأخير موعد</button>
+              </div>
+            </div>
+
+            <div style="margin-top:10px;">
+              <div class="card-subtitle">مزاج العذر:</div>
+              <div class="chip-row" id="toneChips" style="margin-top:4px;">
+                <button class="chip active" data-tone="soft">لطيف</button>
+                <button class="chip" data-tone="serious">رسمي</button>
+                <button class="chip" data-tone="funny">مزح</button>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+              <button class="btn btn-primary btn-small" id="generateExcuseBtn">🎲 اعذرني</button>
+            </div>
+
+            <div class="excuse-box">
+              <div style="font-size:11px;color:var(--text-soft);">العذر الحالي:</div>
+              <div id="excuseText" style="font-size:14px;line-height:1.7;margin-top:2px;">
+                كنت حاط الجوال على الصامت وما انتبهت للإشعارات، أول ما شفت رسالتك رجعتلك.
+              </div>
+
+              <div style="margin-top:8px;font-size:11px;color:var(--text-soft);">
+                احتمال يصدقوك 👇
+                <div class="trust-bar"><div class="trust-fill" id="trustFill"></div></div>
+                <div id="trustLabel" style="margin-top:4px;">
+                  تقديريًا: 79% – يعتمد على مزاج الشخص المقابل 😅
+                </div>
+              </div>
+
+              <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center;gap:6px;">
+                <small style="color:var(--text-soft);font-size:10px;">
+                  للترفيه فقط.
+                </small>
+                <button class="btn btn-outline btn-small" id="copyExcuseBtn">📋 نسخ</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">كيف تستعمله؟</div>
+                <div class="card-subtitle">٣ خطوات</div>
+              </div>
+            </div>
+            <ol style="margin:0; padding-right:18px; font-size:12px; line-height:1.8;">
+              <li>اختر الموقف.</li>
+              <li>اختر مزاج العذر.</li>
+              <li>اضغط اعذرني و انسخ.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: NOTES -->
+    <section class="section" id="notes">
+      <div class="grid-3">
+        <div class="column" style="grid-column: span 2;">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">نوتاتك اليومية 📝</div>
+                <div class="card-subtitle">للزائر: تُحفظ محلياً. للمسجّل: تُزامن مع حسابه.</div>
+              </div>
+            </div>
+
+            <form class="note-form" id="noteForm">
+              <div class="note-toolbar">
+                <span style="font-size:11px;color:var(--text-soft);">نوتة جديدة:</span>
+                <input type="color" id="noteColor" value="#1d4ed8" title="لون النوتة" />
+                <select id="noteFontSize">
+                  <option value="13">خط عادي</option>
+                  <option value="15">متوسط</option>
+                  <option value="17">كبير</option>
+                </select>
+              </div>
+
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <input id="noteTitle" type="text" placeholder="عنوان النوتة" required style="flex:1;min-width:180px;" />
+                <input id="noteImageUrl" type="text" placeholder="رابط صورة (اختياري)" style="flex:1;min-width:180px;" />
+              </div>
+
+              <textarea id="noteContent" rows="3" placeholder="اكتب نوتتك…" required></textarea>
+
+              <div style="display:flex;justify-content:flex-end;">
+                <button type="submit" class="btn btn-primary btn-small">+ حفظ</button>
+              </div>
+            </form>
+
+            <div class="notes-list" id="notesList"></div>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">معلومة سريعة</div>
+                <div class="card-subtitle">ليش تسجيل الدخول مفيد؟</div>
+              </div>
+            </div>
+            <div style="font-size:12px;line-height:1.8;">
+              إذا سجلت Google، نوتاتك وعداداتك بتنحفظ بالسحابة وبترجعلك من أي جهاز.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: PDF -->
+    <section class="section" id="pdf">
+      <div class="card" style="margin-bottom:10px;">
+        <div class="card-header">
           <div>
-            <div class="brand-text-title">ATLAS Workspace</div>
-            <div class="brand-text-sub">
-              مساحة إنتاجية يومية – تصميم وبرمجة <strong>محمود الصمادي</strong>.
-            </div>
+            <div class="card-title">أدوات PDF – داخل ATLAS</div>
+            <div class="card-subtitle">كل التحويلات الأساسية مثل iLovePDF (تفتح أدوات خارجية موثوقة)</div>
           </div>
         </div>
+      </div>
 
-        <div class="header-right">
-          <div class="theme-switcher">
-            <button class="pill-btn active" data-theme="dark">Dark</button>
-            <button class="pill-btn" data-theme="light">Light</button>
-            <button class="pill-btn" data-theme="oled">OLED</button>
-          </div>
-          <button class="btn-secondary btn" id="btn-logout" style="padding-inline:10px;font-size:11px;">
-            <span class="status-dot" id="online-dot" style="background:#f97316;box-shadow:none;"></span>
-            <span id="user-label">غير مسجل دخول</span>
-          </button>
-        </div>
-      </header>
+      <div class="pdf-grid">
+        <!-- Images / PDF -->
+        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/jpg_to_pdf">
+          <div class="pdf-icon">🖼️➡️📄</div>
+          <div class="pdf-title">صور إلى PDF</div>
+          <div class="pdf-sub">JPG / PNG إلى PDF</div>
+        </a>
 
-      <main>
-        <!-- لوحة جانبية -->
-        <section class="pane">
-          <div class="pane-title">المساحة اليومية</div>
-          <div class="pane-sub">اختر ما تركز عليه اليوم.</div>
+        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/pdf_to_jpg">
+          <div class="pdf-icon">📄➡️🖼️</div>
+          <div class="pdf-title">PDF إلى صور</div>
+          <div class="pdf-sub">PDF إلى JPG / PNG</div>
+        </a>
 
-          <div class="nav-list">
-            <div class="nav-item active">
-              <span>📓 نوتاتي</span>
-              <span class="badge">أساسي</span>
-            </div>
-            <div class="nav-item">
-              <span>✅ مهام اليوم</span>
-              <span class="badge">قريباً</span>
-            </div>
-            <div class="nav-item">
-              <span>📅 جدول أسبوعي</span>
-              <span class="badge">قريباً</span>
-            </div>
-            <div class="nav-item">
-              <span>🌍 مجتمع ATLAS</span>
-              <span class="badge">فكرة / تصميم</span>
-            </div>
-          </div>
+        <!-- Word / PDF -->
+        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/word_to_pdf">
+          <div class="pdf-icon">📝➡️📄</div>
+          <div class="pdf-title">Word إلى PDF</div>
+          <div class="pdf-sub">DOC / DOCX إلى PDF</div>
+        </a>
 
-          <div class="greeting-card" id="greeting-card">
-            <div>
-              <div class="greeting-main" id="greeting-text">مرحباً 👋</div>
-              <div style="font-size:11px;color:var(--text-soft);" id="greeting-sub">
-                سجّل دخولك ليبدأ تنظيم يومك.
-              </div>
-            </div>
-            <div style="text-align:center;">
-              <div style="font-size:11px;color:var(--text-soft);">اليوم</div>
-              <div style="font-size:12px;font-weight:600;" id="greeting-date"></div>
-            </div>
-          </div>
+        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/pdf_to_word">
+          <div class="pdf-icon">📄➡️📝</div>
+          <div class="pdf-title">PDF إلى Word</div>
+          <div class="pdf-sub">PDF إلى DOCX</div>
+        </a>
 
-          <div style="margin-top:6px;font-size:10px;color:var(--text-soft);">
-            💡 جرّب تخصيص النوتة على ذوقك ثم التقط لقطة شاشة وشاركها مع أصدقائك.
-          </div>
-        </section>
+        <!-- PowerPoint / PDF -->
+        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/powerpoint_to_pdf">
+          <div class="pdf-icon">📊➡️📄</div>
+          <div class="pdf-title">PowerPoint إلى PDF</div>
+          <div class="pdf-sub">PPT / PPTX إلى PDF</div>
+        </a>
 
-        <!-- منطقة النوتات -->
-        <section class="pane">
-          <div class="pane-title">دفتر النوتات</div>
-          <div class="pane-sub">أنشئ صفحاتك الخاصة مثل Notion – لكن بطريقتك.</div>
+        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/pdf_to_powerpoint">
+          <div class="pdf-icon">📄➡️📊</div>
+          <div class="pdf-title">PDF إلى PowerPoint</div>
+          <div class="pdf-sub">PDF إلى PPTX</div>
+        </a>
 
-          <div class="note-toolbar">
-            <label>حجم الخط
-              <select id="note-font-size">
-                <option value="13">صغير</option>
-                <option value="15" selected>متوسط</option>
-                <option value="18">كبير</option>
-                <option value="22">عنوان كبير</option>
-              </select>
-            </label>
+        <!-- Excel / PDF -->
+        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/excel_to_pdf">
+          <div class="pdf-icon">📈➡️📄</div>
+          <div class="pdf-title">Excel إلى PDF</div>
+          <div class="pdf-sub">XLS / XLSX إلى PDF</div>
+        </a>
 
-            <label>لون الخط
-              <input type="color" id="note-font-color" value="#ffffff" />
-            </label>
+        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/pdf_to_excel">
+          <div class="pdf-icon">📄➡️📈</div>
+          <div class="pdf-title">PDF إلى Excel</div>
+          <div class="pdf-sub">PDF إلى XLSX</div>
+        </a>
 
-            <label>خلفية النوتة
-              <input type="color" id="note-bg-color" value="#020617" />
-            </label>
+        <!-- Tools -->
+        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/merge_pdf">
+          <div class="pdf-icon">🧩</div>
+          <div class="pdf-title">دمج ملفات PDF</div>
+          <div class="pdf-sub">Merge PDF</div>
+        </a>
 
-            <label>رابط صورة
-              <input type="text" id="note-image-url" placeholder="اختياري" style="min-width:140px;" />
-            </label>
+        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/split_pdf">
+          <div class="pdf-icon">✂️</div>
+          <div class="pdf-title">تقسيم PDF</div>
+          <div class="pdf-sub">Split PDF</div>
+        </a>
 
-            <button class="btn-xs primary" id="btn-new-note">+ نوتة جديدة</button>
-            <button class="btn-xs" id="btn-save-note">💾 حفظ</button>
-            <button class="btn-xs" id="btn-delete-note">🗑 حذف</button>
-          </div>
+        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/compress_pdf">
+          <div class="pdf-icon">📉</div>
+          <div class="pdf-title">ضغط PDF</div>
+          <div class="pdf-sub">Compress PDF</div>
+        </a>
 
-          <input id="note-title" class="note-title" placeholder="عنوان النوتة..." />
+        <a class="pdf-tile" target="_blank" href="https://www.ilovepdf.com/edit-pdf">
+          <div class="pdf-icon">✍️</div>
+          <div class="pdf-title">تعديل PDF</div>
+          <div class="pdf-sub">Edit PDF</div>
+        </a>
+      </div>
+    </section>
 
-          <textarea id="note-body" class="note-editor" placeholder="اكتب أفكارك، خططك، جدولك، أو أي شيء يخطر في بالك"></textarea>
-          <img id="note-preview-img" class="note-preview-img hidden" alt="صورة النوتة" />
+    <footer>
+      <span>ATLAS Workspace © محمود الصمادي</span>
+      <span>موقع شامل للروتين اليومي + أدوات PDF + نوتات + أعذار.</span>
+    </footer>
+  </div>
 
-          <div class="pane-sub" style="margin-top:6px;">
-            ملاحظة: نوتاتك تُحفظ باسم حسابك في Firebase – يمكنك فتحها من أي جهاز بنفس الحساب.
-          </div>
-        </section>
-
-        <!-- لوحة الودجات وقائمة النوتات -->
-        <section class="pane">
-          <div class="pane-title">ودجات حياتك اليومية</div>
-          <div class="pane-sub">تابع عاداتك الأساسية بشكل سريع.</div>
-
-          <div class="widgets-grid" style="margin-top:4px;">
-            <div class="widget" data-widget="water">
-              <div class="widget-top">
-                <div class="widget-label">💧 شرب الماء</div>
-                <div class="widget-value" id="water-label">0 / 8 كاسات</div>
-              </div>
-              <div class="widget-bar"><div class="widget-fill" id="water-bar"></div></div>
-              <div class="widget-actions">
-                <button class="btn-xs primary" data-action="inc">+1</button>
-                <button class="btn-xs" data-action="reset">إعادة</button>
-              </div>
-            </div>
-
-            <div class="widget" data-widget="sleep">
-              <div class="widget-top">
-                <div class="widget-label">😴 ساعات النوم</div>
-                <div class="widget-value" id="sleep-label">0 / 8</div>
-              </div>
-              <div class="widget-bar"><div class="widget-fill" id="sleep-bar"></div></div>
-              <div class="widget-actions">
-                <button class="btn-xs primary" data-action="inc">+1</button>
-                <button class="btn-xs" data-action="reset">إعادة</button>
-              </div>
-            </div>
-
-            <div class="widget" data-widget="prayer">
-              <div class="widget-top">
-                <div class="widget-label">🕌 الصلوات</div>
-                <div class="widget-value" id="prayer-label">0 / 5</div>
-              </div>
-              <div class="widget-bar"><div class="widget-fill" id="prayer-bar"></div></div>
-              <div class="widget-actions">
-                <button class="btn-xs primary" data-action="inc">+1</button>
-                <button class="btn-xs" data-action="reset">إعادة</button>
-              </div>
-            </div>
-
-            <div class="widget" data-widget="gym">
-              <div class="widget-top">
-                <div class="widget-label">🏋️‍♂️ الجيم / التمرين</div>
-                <div class="widget-value" id="gym-label">0 / 4 أسبوعياً</div>
-              </div>
-              <div class="widget-bar"><div class="widget-fill" id="gym-bar"></div></div>
-              <div class="widget-actions">
-                <button class="btn-xs primary" data-action="inc">+1</button>
-                <button class="btn-xs" data-action="reset">إعادة</button>
-              </div>
-            </div>
-          </div>
-
-          <hr style="border:none;border-top:1px solid rgba(148,163,184,0.3);margin:10px 0;" />
-
-          <div class="pane-title">نوتاتي المحفوظة</div>
-          <div class="notes-list" id="notes-list">
-            <!-- تمتلئ من الجافاسكربت -->
-          </div>
-
-          <div class="footer">
-            <span>موقع <strong>ATLAS Workspace</strong> – صُنع بحب بواسطة محمود الصمادي.</span>
-            <span>v1 • تحت التطوير</span>
-          </div>
-        </section>
-      </main>
+  <!-- LOGIN MODAL -->
+  <div class="modal-backdrop" id="loginModal">
+    <div class="modal">
+      <h3>تسجيل الدخول (اختياري)</h3>
+      <p>إذا سجلت بحساب Google، بتنحفظ كل بياناتك سحابياً وبتقدر ترجعها من أي جهاز.</p>
+      <div style="display:flex;gap:6px;justify-content:flex-end;">
+        <button class="btn btn-outline btn-small" id="closeLoginModal">إلغاء</button>
+        <button class="btn btn-primary btn-small" id="googleLoginBtn">تسجيل دخول Google</button>
+      </div>
     </div>
   </div>
 
-  <!-- Firebase + منطق التطبيق -->
-  <script type="module">
-    // 1) استيراد Firebase (نسخة 9)
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import {
-      getAuth,
-      GoogleAuthProvider,
-      signInWithPopup,
-      onAuthStateChanged,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-    import {
-      getFirestore,
-      collection,
-      addDoc,
-      getDocs,
-      query,
-      where,
-      orderBy,
-      doc,
-      setDoc,
-      deleteDoc,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-
-    // 2) إعداد firebaseConfig
-    // TODO: ضع كائن firebaseConfig الذي نسخته من Firebase هنا بدل هذا المثال:
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDTOtQbGaLpGtDc34GXzcdppCvEJ60TYSs",
-  authDomain: "atlas-workspace.firebaseapp.com",
-  projectId: "atlas-workspace",
-  storageBucket: "atlas-workspace.firebasestorage.app",
-  messagingSenderId: "95882710960",
-  appId: "1:95882710960:web:9fcafcc1d4d057029ad075",
-  measurementId: "G-KJ446WXXHG"
-};
-
-    // 3) تهيئة Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const provider = new GoogleAuthProvider();
-
-    // عناصر واجهة الاستخدام
-    const loginScreen = document.getElementById("login-screen");
-    const btnGoogleLogin = document.getElementById("btn-google-login");
-    const btnLogout = document.getElementById("btn-logout");
-    const userLabel = document.getElementById("user-label");
-    const onlineDot = document.getElementById("online-dot");
-
-    const greetingText = document.getElementById("greeting-text");
-    const greetingSub = document.getElementById("greeting-sub");
-    const greetingDate = document.getElementById("greeting-date");
-
-    const themeButtons = document.querySelectorAll(".pill-btn");
-
-    const noteTitle = document.getElementById("note-title");
-    const noteBody = document.getElementById("note-body");
-    const noteImageUrl = document.getElementById("note-image-url");
-    const notePreviewImg = document.getElementById("note-preview-img");
-    const fontSizeSelect = document.getElementById("note-font-size");
-    const fontColorInput = document.getElementById("note-font-color");
-    const bgColorInput = document.getElementById("note-bg-color");
-    const btnNewNote = document.getElementById("btn-new-note");
-    const btnSaveNote = document.getElementById("btn-save-note");
-    const btnDeleteNote = document.getElementById("btn-delete-note");
-    const notesList = document.getElementById("notes-list");
-
-    // ودجات
-    const widgets = {
-      water: { max: 8, count: 0, bar: document.getElementById("water-bar"), label: document.getElementById("water-label") },
-      sleep: { max: 8, count: 0, bar: document.getElementById("sleep-bar"), label: document.getElementById("sleep-label") },
-      prayer: { max: 5, count: 0, bar: document.getElementById("prayer-bar"), label: document.getElementById("prayer-label") },
-      gym: { max: 4, count: 0, bar: document.getElementById("gym-bar"), label: document.getElementById("gym-label") },
+  <script>
+    // ===== Firebase Config =====
+    const firebaseConfig = {
+      apiKey: "AIzaSyDTOtQbGaLpGtDc34GXzcdppCvEJ60TYSs",
+      authDomain: "atlas-workspace.firebaseapp.com",
+      projectId: "atlas-workspace",
+      storageBucket: "atlas-workspace.firebasestorage.app",
+      messagingSenderId: "95882710960",
+      appId: "1:95882710960:web:9fcafcc1d4d057029ad075",
+      measurementId: "G-KJ446WXXHG",
     };
 
-    let currentUser = null;
-    let currentNoteId = null;
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-    // --------- ثيم الواجهة ---------
+    // ===== Tabs =====
+    const tabBtns = document.querySelectorAll(".tab-btn");
+    const sections = document.querySelectorAll(".section");
+    tabBtns.forEach(b=>{
+      b.addEventListener("click", ()=>{
+        tabBtns.forEach(x=>x.classList.remove("active"));
+        b.classList.add("active");
+        sections.forEach(s=>s.classList.remove("active"));
+        document.getElementById(b.dataset.tab).classList.add("active");
+      });
+    });
+
+    // ===== Theme =====
+    const themeButtons = document.querySelectorAll(".theme-pill");
     function applyTheme(theme) {
-      document.body.classList.remove("theme-light", "theme-dark", "theme-oled");
-      if (theme === "light") document.body.classList.add("theme-light");
-      else if (theme === "oled") document.body.classList.add("theme-oled");
-      else document.body.classList.add("theme-dark");
-      localStorage.setItem("atlas-theme", theme);
-
-      themeButtons.forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.theme === theme);
-      });
-    }
-
-    themeButtons.forEach(btn => {
-      btn.addEventListener("click", () => applyTheme(btn.dataset.theme));
-    });
-
-    const savedTheme = localStorage.getItem("atlas-theme") || "dark";
-    applyTheme(savedTheme);
-
-    // --------- تسجيل الدخول / الخروج ---------
-    btnGoogleLogin.addEventListener("click", async () => {
-      try {
-        await signInWithPopup(auth, provider);
-      } catch (err) {
-        console.error(err);
-        alert("حدث خطأ أثناء تسجيل الدخول بحساب Google.");
-      }
-    });
-
-    btnLogout.addEventListener("click", async () => {
-      if (!currentUser) return;
-      await signOut(auth);
-    });
-
-    onAuthStateChanged(auth, async (user) => {
-      currentUser = user;
-      if (user) {
-        loginScreen.classList.add("hidden");
-        onlineDot.style.background = "#22c55e";
-        userLabel.textContent = user.displayName || user.email || "مستخدم";
-        updateGreeting(user);
-        await loadNotes();
-      } else {
-        loginScreen.classList.remove("hidden");
-        onlineDot.style.background = "#f97316";
-        userLabel.textContent = "غير مسجل دخول";
-        notesList.innerHTML = "";
-      }
-    });
-
-    function updateGreeting(user) {
-      const now = new Date();
-      const hour = now.getHours();
-      const name = user.displayName || "صديقي";
-      let msg = "مرحباً";
-      if (hour < 12) msg = "صباح الخير";
-      else if (hour < 18) msg = "مساء الخير";
-      else msg = "سهرة لطيفة";
-
-      greetingText.textContent = `${msg}، ${name}`;
-      greetingSub.textContent = "اختر نوتة أو أنشئ واحدة جديدة وابدأ التنظيم.";
-      greetingDate.textContent = now.toLocaleDateString("ar-JO", { weekday:"long", day:"numeric", month:"long" });
-    }
-
-    // --------- ودجات العادات ---------
-    function updateWidgetUI(key) {
-      const w = widgets[key];
-      const ratio = Math.min(w.count / w.max, 1);
-      w.bar.style.width = (ratio * 100) + "%";
-
-      if (key === "water") {
-        w.label.textContent = `${w.count} / ${w.max} كاسات`;
-      } else if (key === "sleep") {
-        w.label.textContent = `${w.count} / ${w.max}`;
-      } else if (key === "prayer") {
-        w.label.textContent = `${w.count} / ${w.max}`;
-      } else if (key === "gym") {
-        w.label.textContent = `${w.count} / ${w.max} أسبوعياً`;
+      document.body.setAttribute("data-theme", theme);
+      localStorage.setItem("atlas_theme", theme);
+      themeButtons.forEach(btn => btn.classList.toggle("active", btn.dataset.theme === theme));
+      if(currentUser && userDocRef){
+        userDocRef.set({ theme }, { merge:true }).catch(console.error);
       }
     }
+    themeButtons.forEach(btn => btn.addEventListener("click", ()=>applyTheme(btn.dataset.theme)));
+    applyTheme(localStorage.getItem("atlas_theme") || "dark");
 
-    function saveWidgetsLocal() {
-      const data = {};
-      Object.keys(widgets).forEach(k => data[k] = widgets[k].count);
-      localStorage.setItem("atlas-widgets", JSON.stringify(data));
-    }
+    // ===== Login Modal =====
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const loginModal = document.getElementById("loginModal");
+    const closeLoginModal = document.getElementById("closeLoginModal");
+    const googleLoginBtn = document.getElementById("googleLoginBtn");
 
-    function loadWidgetsLocal() {
-      const raw = localStorage.getItem("atlas-widgets");
-      if (!raw) return;
-      try {
-        const data = JSON.parse(raw);
-        Object.keys(widgets).forEach(k => {
-          if (data[k] != null) widgets[k].count = data[k];
-          updateWidgetUI(k);
-        });
-      } catch {}
-    }
+    loginBtn.addEventListener("click", ()=> loginModal.style.display="grid");
+    closeLoginModal.addEventListener("click", ()=> loginModal.style.display="none");
+    loginModal.addEventListener("click", (e)=> { if(e.target===loginModal) loginModal.style.display="none"; });
 
-    loadWidgetsLocal();
-    Object.keys(widgets).forEach(k => updateWidgetUI(k));
-
-    document.querySelectorAll(".widget").forEach(widgetEl => {
-      const key = widgetEl.dataset.widget;
-      widgetEl.querySelectorAll(".btn-xs").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const action = btn.dataset.action;
-          if (action === "inc") {
-            widgets[key].count = Math.min(widgets[key].count + 1, widgets[key].max);
-          } else if (action === "reset") {
-            widgets[key].count = 0;
-          }
-          updateWidgetUI(key);
-          saveWidgetsLocal();
-        });
-      });
-    });
-
-    // --------- النوتات (Firestore) ---------
-    function resetNoteEditor() {
-      currentNoteId = null;
-      noteTitle.value = "";
-      noteBody.value = "";
-      fontSizeSelect.value = "15";
-      fontColorInput.value = "#ffffff";
-      bgColorInput.value = "#020617";
-      noteImageUrl.value = "";
-      notePreviewImg.classList.add("hidden");
-      applyNoteStyles();
-    }
-
-    function applyNoteStyles() {
-      const size = fontSizeSelect.value;
-      const color = fontColorInput.value;
-      const bg = bgColorInput.value;
-      noteBody.style.fontSize = size + "px";
-      noteBody.style.color = color;
-      noteBody.style.backgroundColor = bg;
-    }
-
-    fontSizeSelect.addEventListener("change", applyNoteStyles);
-    fontColorInput.addEventListener("input", applyNoteStyles);
-    bgColorInput.addEventListener("input", applyNoteStyles);
-
-    noteImageUrl.addEventListener("change", () => {
-      const url = noteImageUrl.value.trim();
-      if (url) {
-        notePreviewImg.src = url;
-        notePreviewImg.classList.remove("hidden");
-      } else {
-        notePreviewImg.classList.add("hidden");
+    googleLoginBtn.addEventListener("click", async ()=>{
+      try{
+        const provider = new firebase.auth.GoogleAuthProvider();
+        await auth.signInWithPopup(provider);
+        loginModal.style.display="none";
+      }catch(err){
+        alert("تعذر تسجيل الدخول: " + err.message);
       }
     });
+    logoutBtn.addEventListener("click", ()=> auth.signOut());
 
-    btnNewNote.addEventListener("click", () => {
-      resetNoteEditor();
-    });
+    // ===== User / Greeting =====
+    const userNameLabel = document.getElementById("userNameLabel");
+    const greetingMain = document.getElementById("greetingMain");
+    const greetingSecondary = document.getElementById("greetingSecondary");
 
-    btnSaveNote.addEventListener("click", async () => {
-      if (!currentUser) {
-        alert("سجّل الدخول أولاً.");
+    let currentUser=null, userDocRef=null, notesUnsubscribe=null;
+
+    function updateGreeting(name){
+      const h=new Date().getHours();
+      let g="مرحباً", e="✨";
+      if(h>=5 && h<12){ g="صباح الخير"; e="🌤️"; }
+      else if(h>=12 && h<18){ g="مساء الخير"; e="🌇"; }
+      else { g="مساء الهدوء"; e="🌙"; }
+      greetingMain.textContent = `${g}، ${name} ${e}`;
+      greetingSecondary.textContent = "الموقع شغال كزائر أو بحساب Google – اللي بريحك.";
+    }
+
+    auth.onAuthStateChanged(async user=>{
+      currentUser=user||null;
+      if(!user){
+        userNameLabel.textContent="زائر";
+        loginBtn.style.display="inline-flex";
+        logoutBtn.style.display="none";
+        updateGreeting("زائر");
+        loadGuestCounters();
+        loadGuestNotes();
+        if(notesUnsubscribe) notesUnsubscribe();
         return;
       }
-      const title = noteTitle.value.trim() || "نوتة بدون عنوان";
-      const body = noteBody.value.trim();
-      const img = noteImageUrl.value.trim();
-      const fontSize = fontSizeSelect.value;
-      const fontColor = fontColorInput.value;
-      const bgColor = bgColorInput.value;
 
-      try {
-        if (currentNoteId) {
-          await setDoc(doc(db, "notes", currentNoteId), {
-            uid: currentUser.uid,
-            title, body, img, fontSize, fontColor, bgColor,
-            updatedAt: serverTimestamp(),
-          }, { merge: true });
-        } else {
-          const ref = await addDoc(collection(db, "notes"), {
-            uid: currentUser.uid,
-            title, body, img, fontSize, fontColor, bgColor,
-            createdAt: serverTimestamp(),
-            updatedAt: serverTimestamp(),
-          });
-          currentNoteId = ref.id;
-        }
+      const name=(user.displayName||user.email||"مستخدم").split(" ")[0];
+      userNameLabel.textContent=name;
+      loginBtn.style.display="none";
+      logoutBtn.style.display="inline-flex";
+      updateGreeting(name);
 
-        await loadNotes();
-      } catch (err) {
-        console.error(err);
-        alert("حدث خطأ أثناء حفظ النوتة.");
+      userDocRef=db.collection("users").doc(user.uid);
+      const snap=await userDocRef.get();
+      if(!snap.exists){
+        await userDocRef.set({water:0,sleep:0,prayer:0,gym:0,theme:localStorage.getItem("atlas_theme")||"dark"});
+      }else{
+        const d=snap.data();
+        updateCountersFromData(d);
+        if(d.theme) applyTheme(d.theme);
       }
+      subscribeToNotes();
     });
 
-    btnDeleteNote.addEventListener("click", async () => {
-      if (!currentUser || !currentNoteId) return;
-      if (!confirm("هل أنت متأكد من حذف هذه النوتة؟")) return;
-      try {
-        await deleteDoc(doc(db, "notes", currentNoteId));
-        resetNoteEditor();
-        await loadNotes();
-      } catch (err) {
-        console.error(err);
-        alert("تعذر حذف النوتة.");
-      }
-    });
+    // ===== Counters =====
+    const counters={water:0,sleep:0,prayer:0,gym:0};
 
-    async function loadNotes() {
-      if (!currentUser) return;
-      notesList.innerHTML = "<div style='font-size:11px;color:var(--text-soft);'>جاري تحميل نوتاتك...</div>";
-
-      try {
-        const q = query(
-          collection(db, "notes"),
-          where("uid", "==", currentUser.uid),
-          orderBy("updatedAt", "desc")
-        );
-        const snap = await getDocs(q);
-        notesList.innerHTML = "";
-        if (snap.empty) {
-          notesList.innerHTML = "<div style='font-size:11px;color:var(--text-soft);'>لا توجد نوتات بعد – ابدأ بنوتة جديدة.</div>";
-          return;
-        }
-
-        snap.forEach(docSnap => {
-          const data = docSnap.data();
-          const card = document.createElement("div");
-          card.className = "note-card";
-          card.dataset.id = docSnap.id;
-          card.dataset.payload = JSON.stringify({
-            title: data.title || "",
-            body: data.body || "",
-            img: data.img || "",
-            fontSize: data.fontSize || "15",
-            fontColor: data.fontColor || "#ffffff",
-            bgColor: data.bgColor || "#020617",
-          });
-
-          const titleEl = document.createElement("div");
-          titleEl.className = "note-card-title";
-          titleEl.textContent = data.title || "بدون عنوان";
-
-          const metaEl = document.createElement("div");
-          metaEl.className = "note-card-meta";
-          metaEl.innerHTML =
-            `<span>${(data.body || "").slice(0, 24) || "بدون محتوى"}</span>` +
-            `<span>${data.updatedAt ? new Date(data.updatedAt.toDate()).toLocaleDateString("ar-JO",{day:"numeric",month:"short"}) : ""}</span>`;
-
-          card.appendChild(titleEl);
-          card.appendChild(metaEl);
-          notesList.appendChild(card);
-
-          card.addEventListener("click", () => {
-            const payload = JSON.parse(card.dataset.payload);
-            currentNoteId = card.dataset.id;
-            noteTitle.value = payload.title;
-            noteBody.value = payload.body;
-            noteImageUrl.value = payload.img;
-            fontSizeSelect.value = payload.fontSize;
-            fontColorInput.value = payload.fontColor;
-            bgColorInput.value = payload.bgColor;
-            applyNoteStyles();
-            if (payload.img) {
-              notePreviewImg.src = payload.img;
-              notePreviewImg.classList.remove("hidden");
-            } else {
-              notePreviewImg.classList.add("hidden");
-            }
-          });
-        });
-      } catch (err) {
-        console.error(err);
-        notesList.innerHTML = "<div style='font-size:11px;color:var(--text-soft);'>تعذر تحميل النوتات. تأكد أن Firestore مفعّل في Firebase.</div>";
-      }
+    function updateCounterUI(){
+      waterValue.textContent = counters.water + (counters.water===1?" كوب":" أكواب");
+      sleepValue.textContent = counters.sleep + " ساعة";
+      prayerValue.textContent = `${counters.prayer} / 5`;
+      gymValue.textContent = counters.gym + " حصة";
+    }
+    function updateCountersFromData(d){
+      counters.water=d.water??0;
+      counters.sleep=d.sleep??0;
+      counters.prayer=d.prayer??0;
+      counters.gym=d.gym??0;
+      updateCounterUI();
+    }
+    function saveGuestCounters(){
+      localStorage.setItem("guest_counters", JSON.stringify(counters));
+    }
+    function loadGuestCounters(){
+      const s=localStorage.getItem("guest_counters");
+      if(!s) { updateCounterUI(); return; }
+      try{ Object.assign(counters, JSON.parse(s)); }catch{}
+      updateCounterUI();
+    }
+    async function persistCounters(){
+      if(!currentUser||!userDocRef){ saveGuestCounters(); return; }
+      await userDocRef.set(counters,{merge:true}).catch(console.error);
     }
 
-    // تطبيق ستايل مبدئي
-    applyNoteStyles();
+    document.querySelectorAll(".stat-chip").forEach(chip=>{
+      const type=chip.dataset.counter;
+      chip.querySelectorAll(".stat-controls button").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          const a=btn.dataset.action;
+          if(type==="sleep"){
+            counters.sleep += (a==="inc"?0.5:-0.5);
+            if(counters.sleep<0) counters.sleep=0;
+          }else if(type==="prayer"){
+            counters.prayer += (a==="inc"?1:-1);
+            if(counters.prayer<0) counters.prayer=0;
+            if(counters.prayer>5) counters.prayer=5;
+          }else{
+            counters[type] += (a==="inc"?1:-1);
+            if(counters[type]<0) counters[type]=0;
+          }
+          updateCounterUI();
+          persistCounters();
+        });
+      });
+    });
+
+    // ===== Mood chips =====
+    const moodChips=document.getElementById("moodChips");
+    moodChips.addEventListener("click",(e)=>{
+      if(!e.target.classList.contains("chip")) return;
+      moodChips.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+      e.target.classList.add("active");
+    });
+
+    function wireChipGroup(id){
+      const c=document.getElementById(id);
+      c.addEventListener("click",(e)=>{
+        if(!e.target.classList.contains("chip")) return;
+        c.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));
+        e.target.classList.add("active");
+      });
+    }
+    wireChipGroup("contextChips"); wireChipGroup("toneChips");
+
+    // ===== Excuses =====
+    const excusesDB={
+      whatsapp:{
+        soft:[
+          "كنت حاط الجوال على الصامت وما انتبهت للإشعارات، أول ما شفت رسالتك رجعتلك.",
+          "النت كان يفصل ويرجع وما وصلني إشعارك غير متأخر."
+        ],
+        serious:[
+          "كنت في اجتماع وما قدرت أمسك الجوال نهائياً، أول ما خلصت رديت عليك.",
+          "كنت خارج البيت وانقطعت البيانات، أول ما رجعت للواي فاي دخلت ورديت."
+        ],
+        funny:[
+          "دخلت الواتساب أنسى ليه دخلت وطلعت بدون ما أرد… دماغي اليوم طيران 😅.",
+          "كنت بنظّف جهات الاتصال وطار عقلي معاهم 🤦‍♂️."
+        ]
+      },
+      family:{
+        soft:["كنت بساعد بالبيت وما انتبهت للجوال.","كنت نايم بدري وما سمعت الرنّة."],
+        serious:["صار ظرف ضروري وما كان عندي مجال أرد، أول ما خلصت رجعت خبرتكم."],
+        funny:["الجوال رن كثير فخفت يكون تحصيل كهربا 😂."]
+      },
+      work:{
+        soft:["كنت مركز في شغل مهم وما فتحت الواتساب عشان ما أتشتت."],
+        serious:["كان عندي ضغط واجتماعات متتالية، فخلّصتهم وبعدها رديت."],
+        funny:["كنت بكتب إيميل محترم ونسخته هون بالغلط 😅."]
+      },
+      study:{
+        soft:["كنت بدرس ومسكر الإشعارات عشان أركز."],
+        serious:["كان عندي محاضرة/امتحان وما كان مسموح نمسك الجوال."],
+        funny:["الكتاب مفتوح والجوال بعيد… والنتيجة لا درست ولا رديت 😅."]
+      },
+      delay:{
+        soft:["علقت بزحمة بسيطة، بس هيني جاي بالطريق."],
+        serious:["صار ظرف طارئ أخّرني شوي، بس أنا بالطريق."],
+        funny:["الزمن اليوم متآمر عليّ 😂."]
+      }
+    };
+
+    const excuseTextEl=document.getElementById("excuseText");
+    const trustFill=document.getElementById("trustFill");
+    const trustLabel=document.getElementById("trustLabel");
+
+    function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+    document.getElementById("generateExcuseBtn").addEventListener("click", ()=>{
+      const ctx=document.querySelector("#contextChips .chip.active")?.dataset.context||"whatsapp";
+      const tone=document.querySelector("#toneChips .chip.active")?.dataset.tone||"soft";
+      const pool=excusesDB[ctx]?.[tone]||excusesDB.whatsapp.soft;
+      excuseTextEl.textContent=rand(pool);
+
+      const t=Math.floor(65+Math.random()*30);
+      trustFill.style.width=t+"%";
+      trustLabel.textContent=`تقديريًا: ${t}% – يعتمد على مزاج الشخص المقابل 😅`;
+    });
+
+    document.getElementById("copyExcuseBtn").addEventListener("click", async ()=>{
+      try{
+        await navigator.clipboard.writeText(excuseTextEl.textContent.trim());
+        alert("تم النسخ ✅");
+      }catch{
+        alert("انسخه يدويًا لو سمحت.");
+      }
+    });
+
+    // ===== Notes =====
+    const notesListEl=document.getElementById("notesList");
+    const noteForm=document.getElementById("noteForm");
+    const noteTitleInput=document.getElementById("noteTitle");
+    const noteImageUrlInput=document.getElementById("noteImageUrl");
+    const noteContentInput=document.getElementById("noteContent");
+    const noteColorInput=document.getElementById("noteColor");
+    const noteFontSizeSelect=document.getElementById("noteFontSize");
+
+    function renderNote(note){
+      const div=document.createElement("div");
+      div.className="note-card";
+      if(note.color){
+        div.style.borderColor=note.color;
+        div.style.background=`linear-gradient(135deg, ${note.color}30, transparent 60%)`;
+      }
+      div.innerHTML=`
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div class="note-title">${note.title||"بدون عنوان"}</div>
+          <div class="note-meta">${note.createdAt||""}</div>
+        </div>
+        <div class="note-body" style="font-size:${note.fontSize||13}px;">${(note.content||"").replace(/\n/g,"<br>")}</div>
+        ${note.imageUrl?`<img class="note-image" src="${note.imageUrl}" onerror="this.style.display='none'"/>`:""}
+      `;
+      notesListEl.appendChild(div);
+    }
+
+    function saveGuestNotes(notes){
+      localStorage.setItem("guest_notes", JSON.stringify(notes));
+    }
+    function loadGuestNotes(){
+      notesListEl.innerHTML="";
+      const s=localStorage.getItem("guest_notes");
+      if(!s){
+        notesListEl.innerHTML='<div style="font-size:12px;color:var(--text-soft);">لا توجد نوتات بعد.</div>';
+        return;
+      }
+      let notes=[];
+      try{ notes=JSON.parse(s)||[]; }catch{}
+      if(notes.length===0){
+        notesListEl.innerHTML='<div style="font-size:12px;color:var(--text-soft);">لا توجد نوتات بعد.</div>';
+        return;
+      }
+      notes.forEach(renderNote);
+    }
+
+    function subscribeToNotes(){
+      if(!currentUser) return;
+      if(notesUnsubscribe) notesUnsubscribe();
+      notesUnsubscribe = db.collection("notes")
+        .where("uid","==",currentUser.uid)
+        .orderBy("createdAt","desc")
+        .onSnapshot(snap=>{
+          notesListEl.innerHTML="";
+          if(snap.empty){
+            notesListEl.innerHTML='<div style="font-size:12px;color:var(--text-soft);">لا توجد نوتات بعد.</div>';
+            return;
+          }
+          snap.forEach(doc=>{
+            const n=doc.data();
+            renderNote({
+              title:n.title,
+              content:n.content,
+              imageUrl:n.imageUrl,
+              color:n.color,
+              fontSize:n.fontSize,
+              createdAt: n.createdAt?.toDate ? n.createdAt.toDate().toLocaleString("ar-JO") : ""
+            });
+          });
+        });
+    }
+
+    noteForm.addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      const title=noteTitleInput.value.trim();
+      const content=noteContentInput.value.trim();
+      const imageUrl=noteImageUrlInput.value.trim();
+      const color=noteColorInput.value;
+      const fontSize=parseInt(noteFontSizeSelect.value,10)||13;
+      if(!content) return;
+
+      if(!currentUser){
+        const s=localStorage.getItem("guest_notes");
+        let notes=[];
+        try{ notes=JSON.parse(s)||[]; }catch{}
+        notes.unshift({
+          title, content, imageUrl: imageUrl||null, color, fontSize,
+          createdAt: new Date().toLocaleString("ar-JO")
+        });
+        saveGuestNotes(notes);
+        loadGuestNotes();
+      }else{
+        await db.collection("notes").add({
+          uid: currentUser.uid,
+          title, content,
+          imageUrl: imageUrl||null,
+          color, fontSize,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+      }
+
+      noteTitleInput.value="";
+      noteImageUrlInput.value="";
+      noteContentInput.value="";
+    });
+
+    // Initial guest load
+    loadGuestCounters();
+    loadGuestNotes();
   </script>
 </body>
 </html>
-
