@@ -379,6 +379,54 @@
     .mic-btn{display:inline-flex;align-items:center;gap:6px}
     .badge{font-size:11px;padding:3px 7px;border-radius:999px;background:rgba(53,208,127,.12);border:1px solid rgba(53,208,127,.5);color:var(--text)}
 
+  
+    /* === Notion-like Notes UI === */
+    .page-header{
+      position:relative; border-radius:16px; overflow:hidden;
+      background:var(--card2); border:1px solid var(--border);
+      min-height:170px; display:grid; place-items:center; margin-bottom:10px;
+    }
+    .page-header img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:.95}
+    .page-header .header-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.55) 100%)}
+    .page-icon{
+      position:absolute; bottom:-26px; right:22px; width:64px; height:64px;
+      border-radius:18px; background:var(--card); border:1px solid var(--border);
+      display:grid; place-items:center; font-size:34px; box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    [dir="ltr"] .page-icon{ right:auto; left:22px; }
+    .page-icon img{width:100%;height:100%;object-fit:cover}
+    .page-actions{
+      position:absolute; top:10px; left:10px; display:flex; gap:6px; z-index:2;
+    }
+    [dir="ltr"] .page-actions{ left:auto; right:10px; }
+    .page-actions .mini{
+      padding:6px 8px;border-radius:10px;border:1px solid var(--border);
+      background:rgba(0,0,0,.35); color:#fff; font-size:12px; cursor:pointer;
+      backdrop-filter:blur(6px);
+    }
+    .title-input.notion{
+      margin-top:34px; font-size:34px; font-weight:900; letter-spacing:.2px;
+      padding:6px 4px;
+    }
+    .note-props{
+      display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; color:var(--muted); font-size:12px;
+    }
+    .note-props .prop{
+      background:var(--glass2); border:1px solid var(--border); padding:5px 8px; border-radius:999px;
+    }
+
+    /* Notes grouped list */
+    .notes-group{margin-top:8px}
+    .group-head{
+      display:flex; align-items:center; justify-content:space-between; cursor:pointer;
+      color:var(--muted); font-size:12px; padding:6px 4px;
+    }
+    .group-head b{color:var(--text)}
+    .group-list{display:grid; gap:8px}
+    .note-item .star{margin-inline-start:auto; opacity:.7}
+    .note-item.fav{border-color:rgba(255,204,85,.7)}
+
   </style>
 </head>
 <body>
@@ -409,6 +457,12 @@
         <button class="theme-btn" data-theme="oled">OLED</button>
       </div>
       <div class="hint" style="margin-top:6px">الثيم ينحفظ تلقائياً.</div>
+      <div style="font-weight:800;margin:10px 0 6px">لغة الموقع</div>
+      <div class="theme-row">
+        <button class="theme-btn" data-lang-btn="ar">AR</button>
+        <button class="theme-btn" data-lang-btn="en">EN</button>
+      </div>
+
     </div>
   </aside>
 
@@ -573,7 +627,22 @@
             <div style="font-weight:800">نوتاتك</div>
             <button class="btn primary" id="newNote">نوتة جديدة +</button>
           </div>
-          <div class="notes-list" id="notesList"></div>
+          
+          <div class="notes-list" id="notesList">
+            <div class="notes-group">
+              <div class="group-head" data-group="fav"><b>المفضلة</b><span>⭐</span></div>
+              <div class="group-list" id="favList"></div>
+            </div>
+            <div class="notes-group">
+              <div class="group-head" data-group="private"><b>الخاص</b><span>🔒</span></div>
+              <div class="group-list" id="privateList"></div>
+            </div>
+            <div class="notes-group">
+              <div class="group-head" data-group="shared"><b>المشترك</b><span>👥</span></div>
+              <div class="group-list" id="sharedList"></div>
+            </div>
+          </div>
+
           <div class="hint">اضغط على أي نوتة لتفتحها.</div>
         </div>
 
@@ -582,7 +651,7 @@
             <div class="left">
               <button class="btn primary" id="autoTemplateBtn">⚡ قالب تلقائي</button>
               <button class="btn" id="pickEmoji">😀 Emoji</button>
-              <button class="btn" id="setCoverBtn">غلاف / صورة</button>
+              
             </div>
             <div class="right">
               <button class="btn" id="saveNote">حفظ</button>
@@ -590,15 +659,25 @@
             </div>
           </div>
 
-          <div class="cover" id="coverBox">
+          
+          <div class="page-header" id="coverBox">
             <div>اضغط لإضافة Cover</div>
             <input type="file" id="coverInput" accept="image/*" style="display:none">
-            <div class="cover-actions">
-              <button class="btn" id="removeCover">إزالة الغلاف</button>
+            <div class="page-actions">
+              <button class="mini" id="setCoverBtn">تغيير الغلاف</button>
+              <button class="mini" id="removeCover">إزالة</button>
             </div>
+            <div class="header-overlay"></div>
+            <div class="page-icon" id="pageIcon">📝</div>
           </div>
 
-          <input class="title-input" id="noteTitle" placeholder="عنوان النوتة..." />
+          <div class="note-props">
+            <div class="prop">📅 <span id="noteDateProp">—</span></div>
+            <div class="prop">🕒 <span id="noteTimeProp">—</span></div>
+            <button class="prop btn" id="toggleFav" style="padding:5px 8px;font-size:12px">⭐ مفضلة</button>
+          </div>
+
+          <input class="title-input notion" id="noteTitle placeholder="عنوان النوتة..." />
 
           <div class="toolbar">
             <button class="tool mic-btn" id="startDictation">🎤 إملاء صوتي</button>
@@ -637,6 +716,7 @@
             <button class="tool" id="aiMiniBtn">🧠 AI للنوتة</button>
             <button class="tool" id="addImageInline">إضافة صورة داخل النوتة</button>
             <input type="file" id="inlineImageInput" accept="image/*" style="display:none">
+            <input type="file" id="iconInput" accept="image/*" style="display:none">
           </div>
 
           <div class="content" id="noteContent" contenteditable="true"></div>
@@ -1335,9 +1415,12 @@ async function loadTracker(){
 function loadLocalTracker(){ loadTracker(); }
 
 // ------- Notes -------
+
 function renderNotesList(filter=""){
-  const list = $("#notesList");
-  list.innerHTML="";
+  const favList=$("#favList"), privateList=$("#privateList"), sharedList=$("#sharedList");
+  if(!favList||!privateList||!sharedList) return;
+  favList.innerHTML=""; privateList.innerHTML=""; sharedList.innerHTML="";
+
   const filtered = notes.filter(n=>{
     if(!filter) return true;
     const t = (n.title||"").toLowerCase();
@@ -1345,20 +1428,29 @@ function renderNotesList(filter=""){
     return t.includes(filter)||c.includes(filter);
   });
 
-  filtered.forEach(n=>{
-    const div = document.createElement("div");
-    div.className="note-item"+(n.id===currentNoteId?" active":"");
+  const addItem=(n, host)=>{
+    const div=document.createElement("div");
+    div.className="note-item"+(n.id===currentNoteId?" active":"")+(n.isFavorite?" fav":"");
     div.dataset.id=n.id;
+    const thumb = n.iconURL ? `<img src="${n.iconURL}">` : (n.emoji||"📝");
     div.innerHTML=`
-      <div class="note-thumb">${n.coverURL?`<img src="${n.coverURL}">`:n.emoji||"📝"}</div>
+      <div class="note-thumb">${n.coverURL?`<img src="${n.coverURL}">`:thumb}</div>
       <div class="note-meta">
         <div class="title">${n.title||"بدون عنوان"}</div>
         <div class="date">${niceDate(n.updatedAt||n.createdAt)}</div>
       </div>
+      ${n.isFavorite?`<div class="star">⭐</div>`:""}
     `;
     div.onclick=()=>openNote(n.id);
-    list.appendChild(div);
+    host.appendChild(div);
+  };
+
+  filtered.forEach(n=>{
+    if(n.isFavorite) addItem(n, favList);
+    else if(n.visibility==="shared") addItem(n, sharedList);
+    else addItem(n, privateList);
   });
+
   $("#statNotes").textContent = notes.length;
 }
 
@@ -1366,6 +1458,7 @@ function setEditorEmpty(){
   currentNoteId=null;
   currentEmoji="📝";
   currentCoverURL="";
+  currentIconURL="";
   $("#noteTitle").value="";
   $("#noteContent").innerHTML="";
   $("#coverBox").innerHTML=`<div>اضغط لإضافة Cover</div><input type="file" id="coverInput" accept="image/*" style="display:none">
@@ -1378,6 +1471,7 @@ $("#newNote").onclick=()=>{
   $("#noteTitle").focus();
 };
 
+
 function openNote(id){
   const n = notes.find(x=>x.id===id);
   if(!n) return;
@@ -1388,8 +1482,18 @@ function openNote(id){
   $("#noteContent").innerHTML=n.contentHTML||"";
   applyStyleToEditor(n.style||{});
   renderCover(currentCoverURL);
+  currentIconURL = n.iconURL||"";
+  renderPageIcon(currentIconURL, currentEmoji);
+  // props
+  const d = n.updatedAt||n.createdAt||Date.now();
+  const dt = new Date(d);
+  $("#noteDateProp").textContent = dt.toLocaleDateString(currentLang==="en"?"en":"ar");
+  $("#noteTimeProp").textContent = dt.toLocaleTimeString(currentLang==="en"?"en":"ar");
+  $("#toggleFav").classList.toggle("active", !!n.isFavorite);
+  $("#toggleFav").textContent = (n.isFavorite? "⭐ إزالة من المفضلة" : "⭐ مفضلة");
   renderNotesList($("#searchInput").value.trim().toLowerCase());
 }
+
 
 function applyStyleToEditor(style){
   const fam=style.fontFamily || "system-ui";
@@ -1432,6 +1536,24 @@ async function saveNotesLocal(){
   localStorage.setItem("atlas-guest-notes", JSON.stringify(notes));
 }
 
+
+$("#toggleFav")?.addEventListener("click", ()=>{
+  if(!currentNoteId){
+    // create temp favorite state for new note
+    const tmp = notes.find(n=>n.id===currentNoteId);
+  }
+  const n = notes.find(x=>x.id===currentNoteId);
+  if(n){
+    n.isFavorite=!n.isFavorite;
+    $("#toggleFav").textContent = (n.isFavorite? "⭐ إزالة من المفضلة" : "⭐ مفضلة");
+    renderNotesList($("#searchInput").value.trim().toLowerCase());
+    if(!(currentUser && !isGuest)) localStorage.setItem("atlas-guest-notes", JSON.stringify(notes));
+  }else{
+    // for new note, just flip UI; will be saved in payload via notes lookup after save
+    $("#toggleFav").classList.toggle("active");
+  }
+});
+
 $("#saveNote").onclick=async()=>{
   const title = $("#noteTitle").value.trim();
   const contentHTML = $("#noteContent").innerHTML.trim();
@@ -1446,7 +1568,10 @@ $("#saveNote").onclick=async()=>{
     coverURL: currentCoverURL,
     style,
     updatedAt: Date.now(),
-    createdAt: currentNoteId? undefined : Date.now()
+    createdAt: currentNoteId? undefined : Date.now(),
+    isFavorite: (notes.find(n=>n.id===currentNoteId)?.isFavorite)||false,
+    visibility: (notes.find(n=>n.id===currentNoteId)?.visibility)||"private",
+    iconURL: currentIconURL|| (notes.find(n=>n.id===currentNoteId)?.iconURL)||""
   };
 
   if(currentUser && !isGuest){
@@ -1492,6 +1617,15 @@ $("#searchInput").addEventListener("input",(e)=>{
   renderNotesList(e.target.value.trim().toLowerCase());
 });
 
+
+document.querySelectorAll(".group-head").forEach(h=>{
+  h.addEventListener("click", ()=>{
+    const g = h.dataset.group;
+    const list = document.getElementById(g+"List");
+    if(list) list.style.display = (list.style.display==="none")?"grid":"none";
+  });
+});
+
 // ------- Toolbar formatting -------
 $$(".tool[data-cmd]").forEach(b=>{
   b.onclick=()=>{
@@ -1517,18 +1651,23 @@ $("#closeEmoji").onclick=()=>$("#emojiModal").classList.remove("active");
 $$(".em").forEach(btn=>{
   btn.onclick=()=>{
     currentEmoji = btn.textContent.trim();
+    renderPageIcon('', currentEmoji);
     $("#emojiModal").classList.remove("active");
     renderNotesList($("#searchInput").value.trim().toLowerCase());
   };
 });
 
 // ------- Cover handlers -------
+
 function bindCoverHandlers(){
   const coverBox=$("#coverBox");
   const coverInput=$("#coverInput");
   if(!coverBox||!coverInput) return;
 
-  coverBox.onclick=()=>coverInput.click();
+  coverBox.onclick=(ev)=>{
+    if(ev.target.closest(".page-actions") || ev.target.closest(".page-icon")) return;
+    coverInput.click();
+  };
   coverInput.onchange=async(e)=>{
     const file=e.target.files[0];
     if(!file) return;
@@ -1544,23 +1683,53 @@ function bindCoverHandlers(){
   $("#removeCover").onclick=(ev)=>{
     ev.stopPropagation();
     currentCoverURL="";
+  currentIconURL="";
     renderCover("");
+  };
+  $("#setCoverBtn").onclick=(ev)=>{
+    ev.stopPropagation();
+    coverInput.click();
   };
 }
 bindCoverHandlers();
+
+
+function renderPageIcon(iconURL, emoji){
+  const box=$("#pageIcon");
+  if(!box) return;
+  if(iconURL){
+    box.innerHTML=`<img src="${iconURL}">`;
+  }else{
+    box.textContent=emoji||"📝";
+  }
+}
+
 
 function renderCover(url){
   const box=$("#coverBox");
   if(!box) return;
   if(url){
-    box.innerHTML=`<img src="${url}"><input type="file" id="coverInput" accept="image/*" style="display:none">
-      <div class="cover-actions"><button class="btn" id="removeCover">إزالة الغلاف</button></div>`;
+    box.innerHTML=`<img src="${url}"><div class="header-overlay"></div>
+      <input type="file" id="coverInput" accept="image/*" style="display:none">
+      <div class="page-actions">
+        <button class="mini" id="setCoverBtn">تغيير الغلاف</button>
+        <button class="mini" id="removeCover">إزالة</button>
+      </div>
+      <div class="page-icon" id="pageIcon">📝</div>`;
   }else{
-    box.innerHTML=`<div>اضغط لإضافة Cover</div><input type="file" id="coverInput" accept="image/*" style="display:none">
-      <div class="cover-actions"><button class="btn" id="removeCover">إزالة الغلاف</button></div>`;
+    box.innerHTML=`<div>اضغط لإضافة Cover</div>
+      <input type="file" id="coverInput" accept="image/*" style="display:none">
+      <div class="page-actions">
+        <button class="mini" id="setCoverBtn">تغيير الغلاف</button>
+        <button class="mini" id="removeCover">إزالة</button>
+      </div>
+      <div class="header-overlay"></div>
+      <div class="page-icon" id="pageIcon">📝</div>`;
   }
   bindCoverHandlers();
+  renderPageIcon("", currentEmoji);
 }
+
 $("#setCoverBtn").onclick=()=>$("#coverInput")?.click();
 
 // inline image
@@ -1578,6 +1747,25 @@ $("#inlineImageInput").onchange=async(e)=>{
   }
   document.execCommand("insertImage",false,url);
 };
+
+
+let currentIconURL="";
+document.body.addEventListener("click",(e)=>{
+  if(e.target.closest("#pageIcon")){
+    $("#iconInput").click();
+  }
+});
+$("#iconInput")?.addEventListener("change", async(e)=>{
+  const file=e.target.files[0]; if(!file) return;
+  if(currentUser && !isGuest){
+    const path=`note-icons/${currentUser.uid}/${Date.now()}_${file.name}`;
+    const task=await storage.ref(path).put(file);
+    currentIconURL=await task.ref.getDownloadURL();
+  }else{
+    currentIconURL=await fileToDataURL(file);
+  }
+  renderPageIcon(currentIconURL, currentEmoji);
+});
 
 function fileToDataURL(file){
   return new Promise(res=>{
