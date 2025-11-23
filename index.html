@@ -311,6 +311,28 @@
     .tag{
       font-size:11px; padding:4px 8px; border-radius:999px; background:var(--glass2); border:1px solid var(--border)
     }
+  
+    /* PDF grid responsive improvement */
+    @media (max-width:900px){ .pdf-grid{grid-template-columns:repeat(2,1fr);} }
+    @media (max-width:520px){ .pdf-grid{grid-template-columns:1fr;} }
+
+    /* Language switch */
+    .lang-switch{
+      display:flex;align-items:center;gap:8px;
+      background:var(--card);border:1px solid var(--border);border-radius:12px;
+      padding:6px 8px;box-shadow:var(--shadow); font-size:12px;
+    }
+    .lang-switch .toggle{
+      width:46px;height:24px;border-radius:999px;background:var(--card2);
+      border:1px solid var(--border);position:relative;cursor:pointer;flex-shrink:0;
+    }
+    .lang-switch .knob{
+      position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;
+      background:linear-gradient(180deg,#fff, #c9d6ff);transition:.2s;
+      box-shadow:0 4px 10px rgba(0,0,0,.35);
+    }
+    [data-lang="en"] .lang-switch .knob{ right:auto; left:2px; }
+
   </style>
 </head>
 <body>
@@ -516,9 +538,10 @@
     <section class="section" id="sec-pdf">
       <div class="card">
         <div style="font-weight:900;font-size:18px;margin-bottom:10px">أدوات PDF داخل ATLAS</div>
+        
         <div class="pdf-grid">
 
-          <!-- Images to PDF -->
+          <!-- Images to PDF (local) -->
           <div class="card pdf-card">
             <div style="font-weight:800">🖼️ صور → PDF</div>
             <div class="drop">
@@ -530,7 +553,7 @@
             <div class="hint">يدعم صور متعددة ويعطيك ملف PDF واحد.</div>
           </div>
 
-          <!-- PDF to Images -->
+          <!-- PDF to Images (local) -->
           <div class="card pdf-card">
             <div style="font-weight:800">📄 PDF → صور</div>
             <div class="drop">
@@ -542,86 +565,95 @@
             <div class="hint">يحول صفحات PDF إلى PNG (الصفحات الأولى).</div>
           </div>
 
-          <!-- PPTX to PDF Placeholder -->
+          <!-- PowerPoint to PDF (external) -->
           <div class="card pdf-card">
             <div style="font-weight:800">📊 PowerPoint → PDF</div>
             <div class="drop">
               <div class="small">بدون سيرفر لا يمكن تحويل PPTX داخل المتصفح بدقة 100%.</div>
             </div>
-            <a class="btn primary" target="_blank"
-              href="https://www.ilovepdf.com/powerpoint_to_pdf">
-              افتح محول خارجي
-            </a>
+            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/powerpoint_to_pdf">افتح</a>
             <div class="hint">لاحقاً بنضيف سيرفر صغير ويحوله داخل موقعك.</div>
-          
+          </div>
+
           <!-- Word to PDF -->
           <div class="card pdf-card">
             <div style="font-weight:800">📝 Word → PDF</div>
+            <div class="hint">تحويل DOC/DOCX إلى PDF بسهولة.</div>
             <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/word_to_pdf">افتح</a>
           </div>
 
           <!-- PDF to Word -->
           <div class="card pdf-card">
             <div style="font-weight:800">📄 PDF → Word</div>
+            <div class="hint">تحويل PDF إلى DOCX قابل للتعديل.</div>
             <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/pdf_to_word">افتح</a>
           </div>
 
           <!-- Excel to PDF -->
           <div class="card pdf-card">
             <div style="font-weight:800">📊 Excel → PDF</div>
+            <div class="hint">تحويل XLS/XLSX إلى PDF.</div>
             <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/excel_to_pdf">افتح</a>
           </div>
 
           <!-- PDF to Excel -->
           <div class="card pdf-card">
             <div style="font-weight:800">📄 PDF → Excel</div>
+            <div class="hint">إخراج الجداول إلى Excel.</div>
             <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/pdf_to_excel">افتح</a>
           </div>
 
           <!-- Merge PDF -->
           <div class="card pdf-card">
             <div style="font-weight:800">🌀 دمج ملفات PDF</div>
+            <div class="hint">دمج عدة ملفات في ملف واحد.</div>
             <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/merge_pdf">افتح</a>
           </div>
 
           <!-- Split PDF -->
           <div class="card pdf-card">
             <div style="font-weight:800">✂️ تقسيم PDF</div>
+            <div class="hint">تجزئة الصفحات أو فصل ملف.</div>
             <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/split_pdf">افتح</a>
           </div>
 
           <!-- Compress PDF -->
           <div class="card pdf-card">
             <div style="font-weight:800">🗜️ ضغط PDF</div>
+            <div class="hint">تصغير حجم الملف.</div>
             <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/compress_pdf">افتح</a>
           </div>
 
           <!-- Protect PDF -->
           <div class="card pdf-card">
             <div style="font-weight:800">🔐 حماية PDF</div>
+            <div class="hint">إضافة كلمة مرور للملف.</div>
             <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/protect_pdf">افتح</a>
           </div>
 
           <!-- Unlock PDF -->
           <div class="card pdf-card">
             <div style="font-weight:800">🔓 فك حماية PDF</div>
+            <div class="hint">إزالة كلمة المرور.</div>
             <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/unlock_pdf">افتح</a>
           </div>
 
           <!-- Rotate PDF -->
           <div class="card pdf-card">
             <div style="font-weight:800">🔄 تدوير PDF</div>
+            <div class="hint">تدوير كل الصفحات.</div>
             <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/rotate_pdf">افتح</a>
           </div>
 
           <!-- PDF to HTML -->
           <div class="card pdf-card">
             <div style="font-weight:800">🌐 PDF → HTML</div>
+            <div class="hint">تحويل PDF إلى صفحة HTML.</div>
             <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/pdf_to_html">افتح</a>
           </div>
 
         </div>
-      </div>
+>
     </section>
 
     <!-- Tracker page -->
@@ -666,73 +698,7 @@
             </div>
           
           <!-- Word to PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">📝 Word → PDF</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/word_to_pdf">افتح</a>
-          </div>
-
-          <!-- PDF to Word -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">📄 PDF → Word</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/pdf_to_word">افتح</a>
-          </div>
-
-          <!-- Excel to PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">📊 Excel → PDF</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/excel_to_pdf">افتح</a>
-          </div>
-
-          <!-- PDF to Excel -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">📄 PDF → Excel</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/pdf_to_excel">افتح</a>
-          </div>
-
-          <!-- Merge PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">🌀 دمج ملفات PDF</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/merge_pdf">افتح</a>
-          </div>
-
-          <!-- Split PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">✂️ تقسيم PDF</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/split_pdf">افتح</a>
-          </div>
-
-          <!-- Compress PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">🗜️ ضغط PDF</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/compress_pdf">افتح</a>
-          </div>
-
-          <!-- Protect PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">🔐 حماية PDF</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/protect_pdf">افتح</a>
-          </div>
-
-          <!-- Unlock PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">🔓 فك حماية PDF</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/unlock_pdf">افتح</a>
-          </div>
-
-          <!-- Rotate PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">🔄 تدوير PDF</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/rotate_pdf">افتح</a>
-          </div>
-
-          <!-- PDF to HTML -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">🌐 PDF → HTML</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/pdf_to_html">افتح</a>
-          </div>
-
-        </div>
-        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
           <button class="btn primary" id="saveTracker2">حفظ</button>
           <button class="btn" id="loadTracker2">تحميل اليوم</button>
         </div>
@@ -908,6 +874,153 @@ $("#nav").addEventListener("click",(e)=>{
   $$("#nav button").forEach(b=>b.classList.toggle("active", b===btn));
   $$(".section").forEach(s=>s.classList.remove("active"));
   $("#sec-"+sec).classList.add("active");
+});
+
+
+// ------- i18n (Arabic / English) -------
+let currentLang = localStorage.getItem("atlas-lang") || "ar";
+
+const i18n = {
+  ar: {
+    nav_home:"الرئيسية", nav_notes:"النوتات", nav_pdf:"أدوات PDF", nav_tracker:"روتين اليوم", nav_timer:"مؤقت",
+    search_ph:"ابحث عن نوتة / كلمة...",
+    home_welcome:"هذا موقعك الشخصي الشامل لتنظيم الروتين اليومي + نوتات ستايل نوشن + أدوات PDF وكل شيء محفوظ لحسابك إذا سجلت دخولك.",
+    quick1_t:"نوتات إبداعية", quick1_s:"صور + عناوين + تنسيق كامل",
+    quick2_t:"روتين يومي", quick2_s:"ماء / نوم / صلاة / جيم",
+    quick3_t:"PDF Tools", quick3_s:"صور↔PDF / PDF→صور",
+    home_snapshot:"لمحة سريعة عن يومك",
+    save_routine:"حفظ روتين اليوم", open_routine:"افتح صفحة الروتين",
+    notes_title:"نوتاتك", new_note:"نوتة جديدة +", save:"حفظ", delete:"حذف",
+    cover_btn:"غلاف / صورة", emoji_btn:"😀 Emoji",
+    pdf_title:"أدوات PDF داخل ATLAS",
+    timer_title:"⏱️ مؤقت / Pomodoro", start:"ابدأ", pause:"إيقاف مؤقت", reset:"إعادة",
+    custom_label:"مدة مخصصة (بالدقائق)", apply:"تطبيق",
+    login_google:"تسجيل دخول Google", guest:"استخدم كضيف", logout:"تسجيل خروج", edit_name:"تعديل الاسم",
+    stats:"إحصائياتك", stat_notes_lbl:"عدد النوتات:", stat_last_lbl:"آخر حفظ:",
+    modal_profile_title:"تخصيص اسمك", modal_name_lbl:"الاسم", cancel:"إلغاء",
+    online_on:"● يعمل الآن", online_off:"● غير متصل"
+  },
+  en: {
+    nav_home:"Home", nav_notes:"Notes", nav_pdf:"PDF Tools", nav_tracker:"Daily Routine", nav_timer:"Timer",
+    search_ph:"Search notes / keyword...",
+    home_welcome:"Your all‑in‑one personal workspace for daily routine, Notion‑style notes, and PDF tools. Everything is saved to your account when you sign in.",
+    quick1_t:"Creative Notes", quick1_s:"Images + covers + full formatting",
+    quick2_t:"Daily Routine", quick2_s:"Water / Sleep / Prayer / Gym",
+    quick3_t:"PDF Tools", quick3_s:"Images↔PDF / PDF→Images",
+    home_snapshot:"Quick look at your day",
+    save_routine:"Save today’s routine", open_routine:"Open routine page",
+    notes_title:"Your Notes", new_note:"New note +", save:"Save", delete:"Delete",
+    cover_btn:"Cover / Image", emoji_btn:"😀 Emoji",
+    pdf_title:"PDF tools inside ATLAS",
+    timer_title:"⏱️ Timer / Pomodoro", start:"Start", pause:"Pause", reset:"Reset",
+    custom_label:"Custom duration (minutes)", apply:"Apply",
+    login_google:"Sign in with Google", guest:"Continue as guest", logout:"Sign out", edit_name:"Edit name",
+    stats:"Your stats", stat_notes_lbl:"Notes count:", stat_last_lbl:"Last saved:",
+    modal_profile_title:"Customize your name", modal_name_lbl:"Name", cancel:"Cancel",
+    online_on:"● Online", online_off:"● Offline"
+  }
+};
+
+function applyLang(lang){
+  currentLang = lang;
+  localStorage.setItem("atlas-lang", lang);
+  document.documentElement.setAttribute("data-lang", lang);
+  document.documentElement.lang = lang;
+  document.documentElement.dir = (lang==="ar") ? "rtl" : "ltr";
+
+  const T=i18n[lang];
+
+  // nav buttons (keep icons)
+  const navMap = {home:"nav_home", notes:"nav_notes", pdf:"nav_pdf", tracker:"nav_tracker", timer:"nav_timer"};
+  document.querySelectorAll('#nav button[data-sec]').forEach(btn=>{
+    const sec=btn.dataset.sec;
+    const key=navMap[sec];
+    const icon=btn.querySelector("span")?.outerHTML || "";
+    btn.innerHTML = `${T[key]} ${icon}`;
+  });
+
+  // placeholders & headings
+  const searchInput=document.getElementById("searchInput");
+  if(searchInput) searchInput.placeholder=T.search_ph;
+
+  const welcomeP=document.querySelector("#sec-home .welcome p");
+  if(welcomeP) welcomeP.textContent=T.home_welcome;
+
+  const quicks=document.querySelectorAll("#sec-home .quick");
+  if(quicks[0]){quicks[0].querySelector(".t").textContent=T.quick1_t; quicks[0].querySelector(".s").textContent=T.quick1_s;}
+  if(quicks[1]){quicks[1].querySelector(".t").textContent=T.quick2_t; quicks[1].querySelector(".s").textContent=T.quick2_s;}
+  if(quicks[2]){quicks[2].querySelector(".t").textContent=T.quick3_t; quicks[2].querySelector(".s").textContent=T.quick3_s;}
+
+  const snapshot=document.querySelector("#sec-home .card:nth-child(2) > div");
+  if(snapshot) snapshot.textContent=T.home_snapshot;
+
+  const saveTracker=document.getElementById("saveTracker");
+  if(saveTracker) saveTracker.textContent=T.save_routine;
+  const goTracker=document.getElementById("goTracker");
+  if(goTracker) goTracker.textContent=T.open_routine;
+
+  const notesTitle=document.querySelector("#sec-notes .notes-wrap .card > div > div");
+  if(notesTitle) notesTitle.textContent=T.notes_title;
+  const newNote=document.getElementById("newNote");
+  if(newNote) newNote.textContent=T.new_note;
+  const saveNote=document.getElementById("saveNote");
+  if(saveNote) saveNote.textContent=T.save;
+  const deleteNote=document.getElementById("deleteNote");
+  if(deleteNote) deleteNote.textContent=T.delete;
+  const setCoverBtn=document.getElementById("setCoverBtn");
+  if(setCoverBtn) setCoverBtn.textContent=T.cover_btn;
+  const pickEmoji=document.getElementById("pickEmoji");
+  if(pickEmoji) pickEmoji.textContent=T.emoji_btn;
+
+  const pdfTitle=document.querySelector("#sec-pdf .card > div");
+  if(pdfTitle) pdfTitle.textContent=T.pdf_title;
+
+  const timerTitle=document.querySelector("#sec-timer .card > div");
+  if(timerTitle) timerTitle.textContent=T.timer_title;
+  const startTimer=document.getElementById("startTimer");
+  if(startTimer) startTimer.textContent=T.start;
+  const pauseTimer=document.getElementById("pauseTimer");
+  if(pauseTimer) pauseTimer.textContent=T.pause;
+  const resetTimer=document.getElementById("resetTimer");
+  if(resetTimer) resetTimer.textContent=T.reset;
+  const customLabel=document.querySelector("#sec-timer .field label");
+  if(customLabel) customLabel.textContent=T.custom_label;
+  const applyCustom=document.getElementById("applyCustom");
+  if(applyCustom) applyCustom.textContent=T.apply;
+
+  const googleLogin=document.getElementById("googleLogin");
+  if(googleLogin) googleLogin.textContent=T.login_google;
+  const guestMode=document.getElementById("guestMode");
+  if(guestMode) guestMode.textContent=T.guest;
+  const logoutBtn=document.getElementById("logoutBtn");
+  if(logoutBtn) logoutBtn.textContent=T.logout;
+  const editProfileBtn=document.getElementById("editProfileBtn");
+  if(editProfileBtn) editProfileBtn.textContent=T.edit_name;
+
+  const statsTitle=document.querySelector(".profile .card:nth-of-type(1) > div");
+  if(statsTitle) statsTitle.textContent=T.stats;
+  const statNotesLbl=document.querySelector(".profile .card:nth-of-type(1) .small:nth-of-type(1)");
+  if(statNotesLbl) statNotesLbl.firstChild.textContent = T.stat_notes_lbl+" ";
+  const statLastLbl=document.querySelector(".profile .card:nth-of-type(1) .small:nth-of-type(2)");
+  if(statLastLbl) statLastLbl.firstChild.textContent = T.stat_last_lbl+" ";
+
+  const modalProfileTitle=document.querySelector("#profileModal .box > div");
+  if(modalProfileTitle) modalProfileTitle.textContent=T.modal_profile_title;
+  const modalNameLbl=document.querySelector("#profileModal label");
+  if(modalNameLbl) modalNameLbl.textContent=T.modal_name_lbl;
+  const closeProfileModal=document.getElementById("closeProfileModal");
+  if(closeProfileModal) closeProfileModal.textContent=T.cancel;
+
+  // lang switch label
+  const langLabel=document.getElementById("langLabel");
+  if(langLabel) langLabel.textContent = (lang==="ar") ? "AR" : "EN";
+
+  // re-render greeting in right language (simple)
+  updateGreeting((document.getElementById("userName")?.textContent || "").replace("ضيف","").trim());
+}
+
+document.getElementById("langToggle")?.addEventListener("click", ()=>{
+  applyLang(currentLang==="ar"?"en":"ar");
 });
 
 // ------- Greeting ------
@@ -1431,10 +1544,11 @@ $("#applyCustom").onclick=()=>{
 
 // ------- Online tag pulse -------
 setInterval(()=>{
-  $("#onlineTag").textContent = (navigator.onLine? "● يعمل الآن" : "● غير متصل");
+  $(function(){ const T=i18n[currentLang]||i18n.ar; $("#onlineTag").textContent = (navigator.onLine? T.online_on : T.online_off); })();
 },1500);
 
 // ------- Boot -------
+applyLang(currentLang);
 (async function boot(){
   await loadTracker();
   renderNotesList();
