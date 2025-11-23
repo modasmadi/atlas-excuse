@@ -901,7 +901,16 @@
 ================================ */
 
 // ------- Firebase Config (your keys) ------
-const firebaseConfig = {
+const firebaseConfigMain = {
+  apiKey: "AIzaSyDTOtQbGaLpGtDc34GXzcdppCvEJ60TYSs",
+  authDomain: "atlas-workspace.firebaseapp.com",
+  projectId: "atlas-workspace",
+  storageBucket: "atlas-workspace.firebasestorage.app",
+  messagingSenderId: "95882710960",
+  appId: "1:95882710960:web:9fcafcc1d4d057029ad075",
+  measurementId: "G-KJ446WXXHG"
+};
+const firebaseConfigAI = {
   apiKey: "AIzaSyCIFmF0UM4D0A0abndus2gYAZowiMMsbps",
   authDomain: "planning-with-ai-6c537.firebaseapp.com",
   projectId: "planning-with-ai-6c537",
@@ -909,10 +918,18 @@ const firebaseConfig = {
   messagingSenderId: "134752053062",
   appId: "1:134752053062:web:808fa5434a0d445dd12747"
 };
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db   = firebase.firestore();
-const storage = firebase.storage();
+
+// init both apps
+const appMain = firebase.initializeApp(firebaseConfigMain);
+const appAI   = firebase.initializeApp(firebaseConfigAI, "aiApp");
+
+const auth = appMain.auth();
+const db   = appMain.firestore();
+const storage = appMain.storage();
+
+// AI app handles (use when you start AI features)
+const aiDb = appAI.firestore();
+const aiStorage = appAI.storage();
 
 // ------- State ------
 let currentUser = null;
