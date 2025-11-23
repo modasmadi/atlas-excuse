@@ -357,6 +357,28 @@
     .lang-switch{ position:relative; }
     .lang-switch .knob{ right:auto; left:2px; }
 
+  
+    /* === ATLAS Enhancements (AI / Templates / Streak / Gamification / Reminders / Voice) === */
+    .home-widgets{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+    @media(max-width:900px){.home-widgets{grid-template-columns:1fr}}
+    .widget-title{font-weight:900;margin-bottom:6px;font-size:16px}
+    .mood-row{display:flex;gap:6px;flex-wrap:wrap}
+    .chip{padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:var(--card2);cursor:pointer;font-size:12px}
+    .chip.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(78,161,255,.15) inset;}
+    .streak-box{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:10px}
+    .streak-num{font-size:22px;font-weight:900}
+    .xp-bar{height:10px;border-radius:999px;background:var(--glass2);border:1px solid var(--border);overflow:hidden}
+    .xp-bar > div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%}
+    .templates-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:8px}
+    .template-btn{padding:8px;border-radius:10px;border:1px solid var(--border);background:var(--card2);cursor:pointer;font-size:12px;text-align:center}
+    .ai-panel{display:grid;gap:8px}
+    .ai-row{display:flex;gap:6px;flex-wrap:wrap}
+    .ai-output{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:10px;min-height:80px;white-space:pre-wrap;line-height:1.7}
+    .reminder-list{display:grid;gap:6px;max-height:180px;overflow:auto}
+    .rem-item{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:8px;font-size:12px}
+    .mic-btn{display:inline-flex;align-items:center;gap:6px}
+    .badge{font-size:11px;padding:3px 7px;border-radius:999px;background:rgba(53,208,127,.12);border:1px solid rgba(53,208,127,.5);color:var(--text)}
+
   </style>
 </head>
 <body>
@@ -476,6 +498,71 @@
           <div class="hint">إذا كنت مسجّل دخول، الروتين ينحفظ عندك يومياً.</div>
         </div>
       </div>
+
+      <div class="home-widgets">
+
+        <div class="card">
+          <div class="widget-title">✨ جملة اليوم التحفيزية</div>
+          <div class="mood-row" id="moodRow">
+            <button class="chip" data-mood="happy">😊 سعيد</button>
+            <button class="chip" data-mood="tired">😴 متعب</button>
+            <button class="chip" data-mood="stressed">😤 مضغوط</button>
+            <button class="chip" data-mood="motivated">🔥 متحمس</button>
+          </div>
+          <div class="ai-output" id="moodOutput" style="margin-top:8px">اختر مزاجك ليظهر لك تحفيز مناسب.</div>
+        </div>
+
+        <div class="card">
+          <div class="widget-title">🔥 سلسلة العادات (Streak)</div>
+          <div class="streak-box">
+            <div>
+              <div class="small">أيام متواصلة</div>
+              <div class="streak-num" id="streakDays">0</div>
+            </div>
+            <div style="text-align:left">
+              <div class="small">آخر إنجاز</div>
+              <div id="streakLast">—</div>
+            </div>
+          </div>
+          <div class="hint" style="margin-top:6px">يُحسب لما تحفظ الروتين وتحقق هدفك اليومي.</div>
+        </div>
+
+        <div class="card">
+          <div class="widget-title">🧠 مساعد ATLAS (AI خفيف)</div>
+          <div class="ai-panel">
+            <div class="hint">بدون سيرفر: أدوات ذكية بسيطة داخل المتصفح.</div>
+            <div class="field">
+              <label>اكتب نص أو الصق فقرة</label>
+              <input id="aiInput" placeholder="الصق النص هنا..." />
+            </div>
+            <div class="ai-row">
+              <button class="btn" id="aiSummarize">تلخيص</button>
+              <button class="btn" id="aiRewrite">إعادة صياغة</button>
+              <button class="btn" id="aiTodos">استخراج مهام</button>
+              <a class="btn primary" target="_blank" href="https://chat.openai.com/">افتح ChatGPT</a>
+            </div>
+            <div class="ai-output" id="aiOutput">النتيجة ستظهر هنا.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="widget-title">⏰ أذكّرني</div>
+          <div style="display:grid;gap:6px">
+            <div class="field">
+              <label>نص التذكير</label>
+              <input id="remText" placeholder="مثال: اشرب ماء بعد 30 دقيقة" />
+            </div>
+            <div class="field">
+              <label>بعد كم دقيقة؟</label>
+              <input id="remMinutes" type="number" min="1" value="30" />
+            </div>
+            <button class="btn primary" id="addReminder">إضافة تذكير</button>
+            <div class="reminder-list" id="reminderList"></div>
+          </div>
+        </div>
+
+      </div>
+
     </section>
 
     <!-- Notes -->
@@ -493,6 +580,7 @@
         <div class="card editor">
           <div class="editor-top">
             <div class="left">
+              <button class="btn primary" id="autoTemplateBtn">⚡ قالب تلقائي</button>
               <button class="btn" id="pickEmoji">😀 Emoji</button>
               <button class="btn" id="setCoverBtn">غلاف / صورة</button>
             </div>
@@ -513,6 +601,7 @@
           <input class="title-input" id="noteTitle" placeholder="عنوان النوتة..." />
 
           <div class="toolbar">
+            <button class="tool mic-btn" id="startDictation">🎤 إملاء صوتي</button>
             <button class="tool" data-cmd="bold"><b>B</b></button>
             <button class="tool" data-cmd="italic"><i>I</i></button>
             <button class="tool" data-cmd="underline"><u>U</u></button>
@@ -545,6 +634,7 @@
               <input id="fontColor" type="color" value="#eaf0ff"/>
             </span>
 
+            <button class="tool" id="aiMiniBtn">🧠 AI للنوتة</button>
             <button class="tool" id="addImageInline">إضافة صورة داخل النوتة</button>
             <input type="file" id="inlineImageInput" accept="image/*" style="display:none">
           </div>
@@ -777,6 +867,10 @@
 
     <div style="margin-top:10px" class="card">
       <div style="font-weight:800;margin-bottom:6px">إحصائياتك</div>
+      <div class="small">المستوى: <span id="statLevel">1</span> <span class="badge" id="statBadge">Novice</span></div>
+      <div class="small">النقاط: <span id="statXP">0</span></div>
+      <div class="xp-bar" style="margin:6px 0 2px"><div id="xpFill"></div></div>
+
       <div class="small">عدد النوتات: <span id="statNotes">0</span></div>
       <div class="small">آخر حفظ: <span id="statLast">—</span></div>
     </div>
@@ -1217,8 +1311,12 @@ async function saveTracker(){
     await db.collection("users").doc(currentUser.uid)
       .collection("trackers").doc(key)
       .set({...trackerState, updatedAt: Date.now()},{merge:true});
+    awardXP(10,"save routine");
+    calcStreak();
   }else{
     localStorage.setItem("atlas-tracker-"+key, JSON.stringify(trackerState));
+    awardXP(10,"save routine");
+    calcStreak();
   }
 }
 
@@ -1319,6 +1417,7 @@ async function loadNotes(){
     .orderBy("updatedAt","desc").get();
   notes = snap.docs.map(d=>({id:d.id, ...d.data()}));
   renderNotesList();
+    awardXP(12,"save note");
   if(notes[0]) openNote(notes[0].id);
 }
 
@@ -1358,6 +1457,7 @@ $("#saveNote").onclick=async()=>{
     if(!currentNoteId) currentNoteId = ref.id;
     await ref.set(payload,{merge:true});
     $("#statLast").textContent = niceDate(Date.now());
+    awardXP(12,"save note");
     await loadNotes();
   }else{
     if(currentNoteId){
@@ -1507,6 +1607,7 @@ $("#imgToPdfBtn").onclick=async()=>{
     pdf.addImage(img,"JPEG",0,0,w,h);
   }
   pdf.save("ATLAS-images.pdf");
+  awardXP(6,"imgToPdf");
 };
 
 let pdfjsLib=null;
@@ -1542,6 +1643,7 @@ $("#pdfToImgBtn").onclick=async()=>{
     a.href=url; a.download=`page-${p}.png`; a.click();
   }
   alert("تم استخراج الصفحات الأولى كصور.");
+  awardXP(6,"pdfToImg");
 };
 
 // ------- Timer -------
