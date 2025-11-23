@@ -312,120 +312,164 @@
       font-size:11px; padding:4px 8px; border-radius:999px; background:var(--glass2); border:1px solid var(--border)
     }
   
-    /* PDF grid responsive improvement */
-    @media (max-width:900px){ .pdf-grid{grid-template-columns:repeat(2,1fr);} }
-    @media (max-width:520px){ .pdf-grid{grid-template-columns:1fr;} }
+    /* ===== Notion Notes Mode (OLED) ===== */
+    body.notes-mode{
+      background:#000 !important;
+    }
+    body.notes-mode .sidebar,
+    body.notes-mode .profile,
+    body.notes-mode .topbar,
+    body.notes-mode .footer{
+      display:none !important;
+    }
+    body.notes-mode .app{
+      grid-template-columns: 1fr !important;
+      grid-template-areas:
+        "main" !important;
+      max-width:100% !important;
+      padding:0 !important;
+    }
+    body.notes-mode .main{padding:0 !important;}
 
-    /* Language switch */
-    .lang-switch{
-      display:flex;align-items:center;gap:8px;
-      background:var(--card);border:1px solid var(--border);border-radius:12px;
-      padding:6px 8px;box-shadow:var(--shadow); font-size:12px;
+    .notion-shell{
+      display:grid;
+      grid-template-columns: 260px 1fr;
+      height:100vh;
+      background:#000;
+      color:var(--text);
     }
-    .lang-switch .toggle{
-      width:46px;height:24px;border-radius:999px;background:var(--card2);
-      border:1px solid var(--border);position:relative;cursor:pointer;flex-shrink:0;
+    @media(max-width:900px){
+      .notion-shell{grid-template-columns: 1fr;}
+      .notion-side{position:sticky; top:0; z-index:5;}
     }
-    
-    .lang-menu{
-      position:absolute; top:36px; left:0; right:0;
-      background:var(--card); border:1px solid var(--border); border-radius:10px;
-      padding:6px; display:none; z-index:5; box-shadow:var(--shadow);
-    }
-    .lang-menu button{
-      width:100%; text-align:center; padding:6px; border-radius:8px;
-      background:var(--card2); border:1px solid var(--border); color:var(--text); cursor:pointer; font-size:12px;
-    }
-    .lang-menu button+button{margin-top:6px}
-    .lang-switch{ position:relative; }
-    .lang-switch .knob{
-      position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;
-      background:linear-gradient(180deg,#fff, #c9d6ff);transition:.2s;
-      box-shadow:0 4px 10px rgba(0,0,0,.35);
-    }
-    [data-lang="en"] 
-    .lang-menu{
-      position:absolute; top:36px; left:0; right:0;
-      background:var(--card); border:1px solid var(--border); border-radius:10px;
-      padding:6px; display:none; z-index:5; box-shadow:var(--shadow);
-    }
-    .lang-menu button{
-      width:100%; text-align:center; padding:6px; border-radius:8px;
-      background:var(--card2); border:1px solid var(--border); color:var(--text); cursor:pointer; font-size:12px;
-    }
-    .lang-menu button+button{margin-top:6px}
-    .lang-switch{ position:relative; }
-    .lang-switch .knob{ right:auto; left:2px; }
 
-  
-    /* === ATLAS Enhancements (AI / Templates / Streak / Gamification / Reminders / Voice) === */
-    .home-widgets{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
-    @media(max-width:900px){.home-widgets{grid-template-columns:1fr}}
-    .widget-title{font-weight:900;margin-bottom:6px;font-size:16px}
-    .mood-row{display:flex;gap:6px;flex-wrap:wrap}
-    .chip{padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:var(--card2);cursor:pointer;font-size:12px}
-    .chip.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(78,161,255,.15) inset;}
-    .streak-box{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:10px}
-    .streak-num{font-size:22px;font-weight:900}
-    .xp-bar{height:10px;border-radius:999px;background:var(--glass2);border:1px solid var(--border);overflow:hidden}
-    .xp-bar > div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%}
-    .templates-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:8px}
-    .template-btn{padding:8px;border-radius:10px;border:1px solid var(--border);background:var(--card2);cursor:pointer;font-size:12px;text-align:center}
-    .ai-panel{display:grid;gap:8px}
-    .ai-row{display:flex;gap:6px;flex-wrap:wrap}
-    .ai-output{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:10px;min-height:80px;white-space:pre-wrap;line-height:1.7}
-    .reminder-list{display:grid;gap:6px;max-height:180px;overflow:auto}
-    .rem-item{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:8px;font-size:12px}
-    .mic-btn{display:inline-flex;align-items:center;gap:6px}
-    .badge{font-size:11px;padding:3px 7px;border-radius:999px;background:rgba(53,208,127,.12);border:1px solid rgba(53,208,127,.5);color:var(--text)}
-
-  
-    /* === Notion-like Notes UI === */
-    .page-header{
-      position:relative; border-radius:16px; overflow:hidden;
-      background:var(--card2); border:1px solid var(--border);
-      min-height:170px; display:grid; place-items:center; margin-bottom:10px;
+    .notion-side{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), transparent), #05060a;
+      border-left:1px solid rgba(255,255,255,.06);
+      padding:12px;
+      display:grid;
+      grid-template-rows:auto auto 1fr auto;
+      gap:10px;
+      overflow:auto;
     }
-    .page-header img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:.95}
-    .page-header .header-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.55) 100%)}
+    .notion-user{
+      display:flex; align-items:center; gap:8px;
+      padding:8px; border-radius:10px; background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+    }
+    .notion-user .uava{
+      width:34px;height:34px;border-radius:50%;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,.08);
+      display:grid;place-items:center;font-weight:800;
+    }
+    .notion-user .uava img{width:100%;height:100%;object-fit:cover}
+    .notion-search{
+      display:flex; gap:6px; align-items:center; background:#0a0b10; border:1px solid rgba(255,255,255,.08);
+      padding:6px 8px; border-radius:10px;
+    }
+    .notion-search input{flex:1;background:transparent;border:0;outline:0;color:var(--text);font-size:13px}
+
+    .side-section{display:grid; gap:6px;}
+    .side-title{font-size:12px;color:var(--muted);padding:0 6px;margin-top:4px}
+    .side-item{
+      display:flex; align-items:center; gap:8px; padding:8px 10px; border-radius:10px; cursor:pointer;
+      color:var(--text); background:transparent; border:1px solid transparent;
+    }
+    .side-item:hover{background:rgba(255,255,255,.04); border-color:rgba(255,255,255,.06)}
+    .side-item.active{background:rgba(78,161,255,.12); border-color:rgba(78,161,255,.5)}
+    .side-item .dot{opacity:.7}
+
+    .page-list{display:grid; gap:6px; padding:0 4px;}
+    .page-row{
+      display:flex; align-items:center; gap:8px; padding:7px 8px; border-radius:8px; cursor:pointer;
+      background:#0a0b10; border:1px solid rgba(255,255,255,.06);
+      font-size:13px;
+    }
+    .page-row:hover{border-color:rgba(78,161,255,.5)}
+    .page-row.active{border-color:var(--accent)}
+    .page-row .fav{margin-inline-start:auto; opacity:.8}
+
+    .notion-editor{
+      overflow:auto;
+      background:#000;
+    }
+    .page-cover{
+      height:220px; background:#05060a; border-bottom:1px solid rgba(255,255,255,.06);
+      position:relative; display:grid; place-items:center; overflow:hidden;
+    }
+    .page-cover img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:1}
+    .cover-actions{
+      position:absolute; top:12px; inset-inline-start:12px; display:flex; gap:6px; z-index:2;
+    }
+    .cover-actions .mini{
+      padding:6px 8px;border-radius:8px;border:1px solid rgba(255,255,255,.1);
+      background:rgba(0,0,0,.45); color:#fff; font-size:12px; cursor:pointer; backdrop-filter:blur(6px);
+    }
+
     .page-icon{
-      position:absolute; bottom:-26px; right:22px; width:64px; height:64px;
-      border-radius:18px; background:var(--card); border:1px solid var(--border);
-      display:grid; place-items:center; font-size:34px; box-shadow:var(--shadow);
-      overflow:hidden;
+      width:78px;height:78px;border-radius:20px;background:#0a0b10;border:1px solid rgba(255,255,255,.1);
+      position:relative; margin-top:-39px; margin-inline-start:28px;
+      display:grid;place-items:center;font-size:40px; overflow:hidden;
+      box-shadow:0 12px 28px rgba(0,0,0,.8);
     }
-    [dir="ltr"] .page-icon{ right:auto; left:22px; }
+    [dir="ltr"] .page-icon{margin-inline-start:28px}
     .page-icon img{width:100%;height:100%;object-fit:cover}
-    .page-actions{
-      position:absolute; top:10px; left:10px; display:flex; gap:6px; z-index:2;
+    .page-wrap{max-width:900px;margin:0 auto;padding:0 18px 60px;}
+    .page-title{
+      font-size:38px;font-weight:900;line-height:1.25;margin:8px 0 10px;
+      background:transparent;border:0;outline:0;color:var(--text);width:100%;
     }
-    [dir="ltr"] .page-actions{ left:auto; right:10px; }
-    .page-actions .mini{
-      padding:6px 8px;border-radius:10px;border:1px solid var(--border);
-      background:rgba(0,0,0,.35); color:#fff; font-size:12px; cursor:pointer;
-      backdrop-filter:blur(6px);
-    }
-    .title-input.notion{
-      margin-top:34px; font-size:34px; font-weight:900; letter-spacing:.2px;
-      padding:6px 4px;
-    }
-    .note-props{
-      display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; color:var(--muted); font-size:12px;
-    }
-    .note-props .prop{
-      background:var(--glass2); border:1px solid var(--border); padding:5px 8px; border-radius:999px;
-    }
+    .page-props{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-bottom:10px}
+    .prop-pill{padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
 
-    /* Notes grouped list */
-    .notes-group{margin-top:8px}
-    .group-head{
-      display:flex; align-items:center; justify-content:space-between; cursor:pointer;
-      color:var(--muted); font-size:12px; padding:6px 4px;
+    /* Blocks */
+    .blocks{display:grid;gap:4px}
+    .block{
+      display:flex;gap:8px;align-items:flex-start;padding:4px 2px;border-radius:6px;
+      border:1px solid transparent;
     }
-    .group-head b{color:var(--text)}
-    .group-list{display:grid; gap:8px}
-    .note-item .star{margin-inline-start:auto; opacity:.7}
-    .note-item.fav{border-color:rgba(255,204,85,.7)}
+    .block:hover{background:rgba(255,255,255,.02);border-color:rgba(255,255,255,.04)}
+    .handle{
+      width:18px; height:18px; border-radius:4px; display:grid; place-items:center; cursor:grab;
+      color:var(--muted); font-size:12px; user-select:none; margin-top:4px;
+      opacity:.0;
+    }
+    .block:hover .handle{opacity:.9}
+    .block-content{
+      flex:1; min-height:20px; outline:0; white-space:pre-wrap; line-height:1.8; font-size:16px;
+    }
+    .block[data-type="h1"] .block-content{font-size:30px;font-weight:900;line-height:1.3}
+    .block[data-type="h2"] .block-content{font-size:24px;font-weight:800}
+    .block[data-type="h3"] .block-content{font-size:20px;font-weight:800}
+    .block[data-type="quote"]{border-inline-start:3px solid var(--accent); padding-inline-start:8px}
+    .block[data-type="callout"]{background:rgba(123,97,255,.08);border-color:rgba(123,97,255,.35)}
+    .block[data-type="code"] .block-content{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background:#0a0b10;border:1px solid rgba(255,255,255,.08); padding:8px;border-radius:8px;
+    }
+    .todo-box{display:flex; gap:8px; align-items:flex-start}
+    .todo-box input{margin-top:5px}
+
+    .slash-menu{
+      position:fixed; z-index:9999; background:#0a0b10; border:1px solid rgba(255,255,255,.1);
+      border-radius:12px; padding:6px; width:240px; display:none; box-shadow:0 12px 28px rgba(0,0,0,.9);
+    }
+    .slash-menu button{
+      width:100%; text-align:right; padding:8px; border-radius:8px; cursor:pointer; font-size:13px;
+      background:transparent; border:0; color:var(--text); display:flex; justify-content:space-between; align-items:center;
+    }
+    .slash-menu button:hover{background:rgba(78,161,255,.12)}
+
+    .editor-topbar{
+      position:sticky; top:0; z-index:10; background:rgba(0,0,0,.8); backdrop-filter:blur(8px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+      padding:8px 10px; display:flex; gap:6px; align-items:center; justify-content:space-between;
+    }
+    .editor-topbar .left, .editor-topbar .right{display:flex; gap:6px; align-items:center; flex-wrap:wrap;}
+    .tiny-btn{
+      padding:7px 10px; border-radius:9px; border:1px solid rgba(255,255,255,.1);
+      background:#0a0b10; color:var(--text); cursor:pointer; font-size:12px;
+    }
+    .tiny-btn.primary{border-color:rgba(78,161,255,.6);background:rgba(78,161,255,.12)}
 
   </style>
 </head>
@@ -457,12 +501,6 @@
         <button class="theme-btn" data-theme="oled">OLED</button>
       </div>
       <div class="hint" style="margin-top:6px">الثيم ينحفظ تلقائياً.</div>
-      <div style="font-weight:800;margin:10px 0 6px">لغة الموقع</div>
-      <div class="theme-row">
-        <button class="theme-btn" data-lang-btn="ar">AR</button>
-        <button class="theme-btn" data-lang-btn="en">EN</button>
-      </div>
-
     </div>
   </aside>
 
@@ -552,190 +590,117 @@
           <div class="hint">إذا كنت مسجّل دخول، الروتين ينحفظ عندك يومياً.</div>
         </div>
       </div>
-
-      <div class="home-widgets">
-
-        <div class="card">
-          <div class="widget-title">✨ جملة اليوم التحفيزية</div>
-          <div class="mood-row" id="moodRow">
-            <button class="chip" data-mood="happy">😊 سعيد</button>
-            <button class="chip" data-mood="tired">😴 متعب</button>
-            <button class="chip" data-mood="stressed">😤 مضغوط</button>
-            <button class="chip" data-mood="motivated">🔥 متحمس</button>
-          </div>
-          <div class="ai-output" id="moodOutput" style="margin-top:8px">اختر مزاجك ليظهر لك تحفيز مناسب.</div>
-        </div>
-
-        <div class="card">
-          <div class="widget-title">🔥 سلسلة العادات (Streak)</div>
-          <div class="streak-box">
-            <div>
-              <div class="small">أيام متواصلة</div>
-              <div class="streak-num" id="streakDays">0</div>
-            </div>
-            <div style="text-align:left">
-              <div class="small">آخر إنجاز</div>
-              <div id="streakLast">—</div>
-            </div>
-          </div>
-          <div class="hint" style="margin-top:6px">يُحسب لما تحفظ الروتين وتحقق هدفك اليومي.</div>
-        </div>
-
-        <div class="card">
-          <div class="widget-title">🧠 مساعد ATLAS (AI خفيف)</div>
-          <div class="ai-panel">
-            <div class="hint">بدون سيرفر: أدوات ذكية بسيطة داخل المتصفح.</div>
-            <div class="field">
-              <label>اكتب نص أو الصق فقرة</label>
-              <input id="aiInput" placeholder="الصق النص هنا..." />
-            </div>
-            <div class="ai-row">
-              <button class="btn" id="aiSummarize">تلخيص</button>
-              <button class="btn" id="aiRewrite">إعادة صياغة</button>
-              <button class="btn" id="aiTodos">استخراج مهام</button>
-              <a class="btn primary" target="_blank" href="https://chat.openai.com/">افتح ChatGPT</a>
-            </div>
-            <div class="ai-output" id="aiOutput">النتيجة ستظهر هنا.</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="widget-title">⏰ أذكّرني</div>
-          <div style="display:grid;gap:6px">
-            <div class="field">
-              <label>نص التذكير</label>
-              <input id="remText" placeholder="مثال: اشرب ماء بعد 30 دقيقة" />
-            </div>
-            <div class="field">
-              <label>بعد كم دقيقة؟</label>
-              <input id="remMinutes" type="number" min="1" value="30" />
-            </div>
-            <button class="btn primary" id="addReminder">إضافة تذكير</button>
-            <div class="reminder-list" id="reminderList"></div>
-          </div>
-        </div>
-
-      </div>
-
     </section>
 
     <!-- Notes -->
-    <section class="section" id="sec-notes">
-      <div class="notes-wrap">
-        <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <div style="font-weight:800">نوتاتك</div>
-            <button class="btn primary" id="newNote">نوتة جديدة +</button>
-          </div>
-          
-          <div class="notes-list" id="notesList">
-            <div class="notes-group">
-              <div class="group-head" data-group="fav"><b>المفضلة</b><span>⭐</span></div>
-              <div class="group-list" id="favList"></div>
-            </div>
-            <div class="notes-group">
-              <div class="group-head" data-group="private"><b>الخاص</b><span>🔒</span></div>
-              <div class="group-list" id="privateList"></div>
-            </div>
-            <div class="notes-group">
-              <div class="group-head" data-group="shared"><b>المشترك</b><span>👥</span></div>
-              <div class="group-list" id="sharedList"></div>
-            </div>
-          </div>
+    
+<section class="section" id="sec-notes">
+  <div class="notion-shell">
 
-          <div class="hint">اضغط على أي نوتة لتفتحها.</div>
-        </div>
-
-        <div class="card editor">
-          <div class="editor-top">
-            <div class="left">
-              <button class="btn primary" id="autoTemplateBtn">⚡ قالب تلقائي</button>
-              <button class="btn" id="pickEmoji">😀 Emoji</button>
-              
-            </div>
-            <div class="right">
-              <button class="btn" id="saveNote">حفظ</button>
-              <button class="btn danger" id="deleteNote">حذف</button>
-            </div>
-          </div>
-
-          
-          <div class="page-header" id="coverBox">
-            <div>اضغط لإضافة Cover</div>
-            <input type="file" id="coverInput" accept="image/*" style="display:none">
-            <div class="page-actions">
-              <button class="mini" id="setCoverBtn">تغيير الغلاف</button>
-              <button class="mini" id="removeCover">إزالة</button>
-            </div>
-            <div class="header-overlay"></div>
-            <div class="page-icon" id="pageIcon">📝</div>
-          </div>
-
-          <div class="note-props">
-            <div class="prop">📅 <span id="noteDateProp">—</span></div>
-            <div class="prop">🕒 <span id="noteTimeProp">—</span></div>
-            <button class="prop btn" id="toggleFav" style="padding:5px 8px;font-size:12px">⭐ مفضلة</button>
-          </div>
-
-          <input class="title-input notion" id="noteTitle placeholder="عنوان النوتة..." />
-
-          <div class="toolbar">
-            <button class="tool mic-btn" id="startDictation">🎤 إملاء صوتي</button>
-            <button class="tool" data-cmd="bold"><b>B</b></button>
-            <button class="tool" data-cmd="italic"><i>I</i></button>
-            <button class="tool" data-cmd="underline"><u>U</u></button>
-            <button class="tool" data-cmd="insertUnorderedList">• List</button>
-            <button class="tool" data-cmd="formatBlock" data-arg="h2">H2</button>
-            <button class="tool" data-cmd="formatBlock" data-arg="blockquote">Quote</button>
-
-            <span class="tool">
-              الخط:
-              <select id="fontFamily">
-                <option value="system-ui">System</option>
-                <option value="Tahoma">Tahoma</option>
-                <option value="Arial">Arial</option>
-                <option value="'SF Pro Display',system-ui">SF Pro</option>
-                <option value="'Cairo',Tahoma">Cairo</option>
-              </select>
-            </span>
-            <span class="tool">
-              الحجم:
-              <select id="fontSize">
-                <option value="16">16</option>
-                <option value="18">18</option>
-                <option value="20">20</option>
-                <option value="22">22</option>
-                <option value="26">26</option>
-              </select>
-            </span>
-            <span class="tool">
-              اللون:
-              <input id="fontColor" type="color" value="#eaf0ff"/>
-            </span>
-
-            <button class="tool" id="aiMiniBtn">🧠 AI للنوتة</button>
-            <button class="tool" id="addImageInline">إضافة صورة داخل النوتة</button>
-            <input type="file" id="inlineImageInput" accept="image/*" style="display:none">
-            <input type="file" id="iconInput" accept="image/*" style="display:none">
-          </div>
-
-          <div class="content" id="noteContent" contenteditable="true"></div>
-          <div class="hint">
-            * تقدر تكتب عربي/إنجليزي بنفس النوتة.<br>
-            * لما تسجل دخول، كل شيء ينحفظ على حسابك.
-          </div>
+    <!-- Notion Sidebar -->
+    <aside class="notion-side">
+      <div class="notion-user">
+        <div class="uava" id="notionAvatar">A</div>
+        <div style="display:grid;gap:2px">
+          <div style="font-weight:800" id="notionUserName">ضيف</div>
+          <div class="small" id="notionUserEmail">—</div>
         </div>
       </div>
+
+      <div class="notion-search">
+        🔎 <input id="notionSearch" placeholder="Search" />
+      </div>
+
+      <div class="side-section">
+        <div class="side-item active" data-filter="all"><span class="dot">📄</span><span>All Pages</span></div>
+        <div class="side-item" data-filter="fav"><span class="dot">⭐</span><span>Favorites</span></div>
+        <div class="side-item" data-filter="private"><span class="dot">🔒</span><span>Private</span></div>
+        <div class="side-item" data-filter="shared"><span class="dot">👥</span><span>Shared</span></div>
+        <div class="side-item" data-filter="trash"><span class="dot">🗑️</span><span>Trash</span></div>
+      </div>
+
+      <div class="side-title">Pages</div>
+      <div class="page-list" id="pageList"></div>
+
+      <div class="side-section" style="margin-top:6px">
+        <button class="tiny-btn primary" id="newPageBtn">+ New page</button>
+      </div>
+
+      <div class="side-section">
+        <div class="side-title">Settings</div>
+        <div class="side-item" id="notesSettingsBtn"><span class="dot">⚙️</span><span>Notes Settings</span></div>
+      </div>
+    </aside>
+
+    <!-- Editor -->
+    <section class="notion-editor">
+      <div class="editor-topbar">
+        <div class="left">
+          <button class="tiny-btn" id="backToList">☰</button>
+          <button class="tiny-btn" id="toggleFavBtn">⭐</button>
+          <button class="tiny-btn" id="shareBtn">🔗 Share</button>
+        </div>
+        <div class="right">
+          <button class="tiny-btn" id="undoBtn">↶</button>
+          <button class="tiny-btn" id="redoBtn">↷</button>
+          <button class="tiny-btn primary" id="savePageBtn">Save</button>
+          <button class="tiny-btn" id="deletePageBtn">Delete</button>
+        </div>
+      </div>
+
+      <div class="page-cover" id="pageCover">
+        <div class="cover-actions">
+          <button class="mini" id="changeCoverBtn">Change cover</button>
+          <button class="mini" id="removeCoverBtn">Remove</button>
+        </div>
+        <div class="small" id="coverHint">Click to add cover</div>
+        <input id="coverFile" type="file" accept="image/*" style="display:none">
+      </div>
+
+      <div class="page-wrap">
+        <div class="page-icon" id="pageIcon">📝
+          <input id="iconFile" type="file" accept="image/*" style="display:none">
+        </div>
+
+        <input class="page-title" id="pageTitle" placeholder="Untitled" />
+
+        <div class="page-props">
+          <div class="prop-pill">📅 <span id="pageDate">—</span></div>
+          <div class="prop-pill">🕒 <span id="pageTime">—</span></div>
+        </div>
+
+        <div class="blocks" id="blocks"></div>
+        <div class="hint" style="margin-top:10px">اكتب / لإظهار قائمة البلوكات. اسحب ⋮⋮ لإعادة الترتيب.</div>
+      </div>
     </section>
+  </div>
+
+  <!-- Slash menu -->
+  <div class="slash-menu" id="slashMenu">
+    <button data-type="text">Text <span>T</span></button>
+    <button data-type="h1">Heading 1 <span>H1</span></button>
+    <button data-type="h2">Heading 2 <span>H2</span></button>
+    <button data-type="h3">Heading 3 <span>H3</span></button>
+    <button data-type="bullet">Bulleted list <span>•</span></button>
+    <button data-type="number">Numbered list <span>1.</span></button>
+    <button data-type="todo">To‑do list <span>☑</span></button>
+    <button data-type="toggle">Toggle list <span>▸</span></button>
+    <button data-type="quote">Quote <span>❝</span></button>
+    <button data-type="callout">Callout <span>💡</span></button>
+    <button data-type="divider">Divider <span>—</span></button>
+    <button data-type="code">Code <span>{ }</span></button>
+    <button data-type="columns">2 Columns <span>⫶</span></button>
+  </div>
+</section>
+
 
     <!-- PDF Tools -->
     <section class="section" id="sec-pdf">
       <div class="card">
         <div style="font-weight:900;font-size:18px;margin-bottom:10px">أدوات PDF داخل ATLAS</div>
-        
         <div class="pdf-grid">
 
-          <!-- Images to PDF (local) -->
+          <!-- Images to PDF -->
           <div class="card pdf-card">
             <div style="font-weight:800">🖼️ صور → PDF</div>
             <div class="drop">
@@ -747,7 +712,7 @@
             <div class="hint">يدعم صور متعددة ويعطيك ملف PDF واحد.</div>
           </div>
 
-          <!-- PDF to Images (local) -->
+          <!-- PDF to Images -->
           <div class="card pdf-card">
             <div style="font-weight:800">📄 PDF → صور</div>
             <div class="drop">
@@ -759,95 +724,21 @@
             <div class="hint">يحول صفحات PDF إلى PNG (الصفحات الأولى).</div>
           </div>
 
-          <!-- PowerPoint to PDF (external) -->
+          <!-- PPTX to PDF Placeholder -->
           <div class="card pdf-card">
             <div style="font-weight:800">📊 PowerPoint → PDF</div>
             <div class="drop">
               <div class="small">بدون سيرفر لا يمكن تحويل PPTX داخل المتصفح بدقة 100%.</div>
             </div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/powerpoint_to_pdf">افتح</a>
+            <a class="btn primary" target="_blank"
+              href="https://www.ilovepdf.com/powerpoint_to_pdf">
+              افتح محول خارجي
+            </a>
             <div class="hint">لاحقاً بنضيف سيرفر صغير ويحوله داخل موقعك.</div>
           </div>
 
-          <!-- Word to PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">📝 Word → PDF</div>
-            <div class="hint">تحويل DOC/DOCX إلى PDF بسهولة.</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/word_to_pdf">افتح</a>
-          </div>
-
-          <!-- PDF to Word -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">📄 PDF → Word</div>
-            <div class="hint">تحويل PDF إلى DOCX قابل للتعديل.</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/pdf_to_word">افتح</a>
-          </div>
-
-          <!-- Excel to PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">📊 Excel → PDF</div>
-            <div class="hint">تحويل XLS/XLSX إلى PDF.</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/excel_to_pdf">افتح</a>
-          </div>
-
-          <!-- PDF to Excel -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">📄 PDF → Excel</div>
-            <div class="hint">إخراج الجداول إلى Excel.</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/pdf_to_excel">افتح</a>
-          </div>
-
-          <!-- Merge PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">🌀 دمج ملفات PDF</div>
-            <div class="hint">دمج عدة ملفات في ملف واحد.</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/merge_pdf">افتح</a>
-          </div>
-
-          <!-- Split PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">✂️ تقسيم PDF</div>
-            <div class="hint">تجزئة الصفحات أو فصل ملف.</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/split_pdf">افتح</a>
-          </div>
-
-          <!-- Compress PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">🗜️ ضغط PDF</div>
-            <div class="hint">تصغير حجم الملف.</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/compress_pdf">افتح</a>
-          </div>
-
-          <!-- Protect PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">🔐 حماية PDF</div>
-            <div class="hint">إضافة كلمة مرور للملف.</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/protect_pdf">افتح</a>
-          </div>
-
-          <!-- Unlock PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">🔓 فك حماية PDF</div>
-            <div class="hint">إزالة كلمة المرور.</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/unlock_pdf">افتح</a>
-          </div>
-
-          <!-- Rotate PDF -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">🔄 تدوير PDF</div>
-            <div class="hint">تدوير كل الصفحات.</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/rotate_pdf">افتح</a>
-          </div>
-
-          <!-- PDF to HTML -->
-          <div class="card pdf-card">
-            <div style="font-weight:800">🌐 PDF → HTML</div>
-            <div class="hint">تحويل PDF إلى صفحة HTML.</div>
-            <a class="btn primary" target="_blank" href="https://www.ilovepdf.com/pdf_to_html">افتح</a>
-          </div>
-
         </div>
->
+      </div>
     </section>
 
     <!-- Tracker page -->
@@ -890,9 +781,10 @@
               <input id="t-in-gym" type="number" min="0" step="10" value="0"/>
               <button data-track="gym" data-delta="10">+</button>
             </div>
-          
-          <!-- Word to PDF -->
-<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+          </div>
+
+        </div>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
           <button class="btn primary" id="saveTracker2">حفظ</button>
           <button class="btn" id="loadTracker2">تحميل اليوم</button>
         </div>
@@ -947,10 +839,6 @@
 
     <div style="margin-top:10px" class="card">
       <div style="font-weight:800;margin-bottom:6px">إحصائياتك</div>
-      <div class="small">المستوى: <span id="statLevel">1</span> <span class="badge" id="statBadge">Novice</span></div>
-      <div class="small">النقاط: <span id="statXP">0</span></div>
-      <div class="xp-bar" style="margin:6px 0 2px"><div id="xpFill"></div></div>
-
       <div class="small">عدد النوتات: <span id="statNotes">0</span></div>
       <div class="small">آخر حفظ: <span id="statLast">—</span></div>
     </div>
@@ -1014,13 +902,12 @@
 
 // ------- Firebase Config (your keys) ------
 const firebaseConfig = {
-  apiKey: "AIzaSyDTOtQbGaLpGtDc34GXzcdppCvEJ60TYSs",
-  authDomain: "atlas-workspace.firebaseapp.com",
-  projectId: "atlas-workspace",
-  storageBucket: "atlas-workspace.firebasestorage.app",
-  messagingSenderId: "95882710960",
-  appId: "1:95882710960:web:9fcafcc1d4d057029ad075",
-  measurementId: "G-KJ446WXXHG"
+  apiKey: "AIzaSyCIFmF0UM4D0A0abndus2gYAZowiMMsbps",
+  authDomain: "planning-with-ai-6c537.firebaseapp.com",
+  projectId: "planning-with-ai-6c537",
+  storageBucket: "planning-with-ai-6c537.firebasestorage.app",
+  messagingSenderId: "134752053062",
+  appId: "1:134752053062:web:808fa5434a0d445dd12747"
 };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
@@ -1059,7 +946,7 @@ function setTheme(theme){
   }
 }
 (function initTheme(){
-  const t = localStorage.getItem("atlas-theme") || "dark";
+  const t = localStorage.getItem("atlas-theme") || "oled";
   setTheme(t);
 })();
 
@@ -1072,176 +959,6 @@ $("#nav").addEventListener("click",(e)=>{
   $$("#nav button").forEach(b=>b.classList.toggle("active", b===btn));
   $$(".section").forEach(s=>s.classList.remove("active"));
   $("#sec-"+sec).classList.add("active");
-});
-
-
-// ------- i18n (Arabic / English) -------
-let currentLang = localStorage.getItem("atlas-lang") || "ar";
-
-const i18n = {
-  ar: {
-    nav_home:"الرئيسية", nav_notes:"النوتات", nav_pdf:"أدوات PDF", nav_tracker:"روتين اليوم", nav_timer:"مؤقت",
-    search_ph:"ابحث عن نوتة / كلمة...",
-    home_welcome:"هذا موقعك الشخصي الشامل لتنظيم الروتين اليومي + نوتات ستايل نوشن + أدوات PDF وكل شيء محفوظ لحسابك إذا سجلت دخولك.",
-    quick1_t:"نوتات إبداعية", quick1_s:"صور + عناوين + تنسيق كامل",
-    quick2_t:"روتين يومي", quick2_s:"ماء / نوم / صلاة / جيم",
-    quick3_t:"PDF Tools", quick3_s:"صور↔PDF / PDF→صور",
-    home_snapshot:"لمحة سريعة عن يومك",
-    save_routine:"حفظ روتين اليوم", open_routine:"افتح صفحة الروتين",
-    notes_title:"نوتاتك", new_note:"نوتة جديدة +", save:"حفظ", delete:"حذف",
-    cover_btn:"غلاف / صورة", emoji_btn:"😀 Emoji",
-    pdf_title:"أدوات PDF داخل ATLAS",
-    timer_title:"⏱️ مؤقت / Pomodoro", start:"ابدأ", pause:"إيقاف مؤقت", reset:"إعادة",
-    custom_label:"مدة مخصصة (بالدقائق)", apply:"تطبيق",
-    login_google:"تسجيل دخول Google", guest:"استخدم كضيف", logout:"تسجيل خروج", edit_name:"تعديل الاسم",
-    stats:"إحصائياتك", stat_notes_lbl:"عدد النوتات:", stat_last_lbl:"آخر حفظ:",
-    modal_profile_title:"تخصيص اسمك", modal_name_lbl:"الاسم", cancel:"إلغاء",
-    online_on:"● يعمل الآن", online_off:"● غير متصل"
-  },
-  en: {
-    nav_home:"Home", nav_notes:"Notes", nav_pdf:"PDF Tools", nav_tracker:"Daily Routine", nav_timer:"Timer",
-    search_ph:"Search notes / keyword...",
-    home_welcome:"Your all‑in‑one personal workspace for daily routine, Notion‑style notes, and PDF tools. Everything is saved to your account when you sign in.",
-    quick1_t:"Creative Notes", quick1_s:"Images + covers + full formatting",
-    quick2_t:"Daily Routine", quick2_s:"Water / Sleep / Prayer / Gym",
-    quick3_t:"PDF Tools", quick3_s:"Images↔PDF / PDF→Images",
-    home_snapshot:"Quick look at your day",
-    save_routine:"Save today’s routine", open_routine:"Open routine page",
-    notes_title:"Your Notes", new_note:"New note +", save:"Save", delete:"Delete",
-    cover_btn:"Cover / Image", emoji_btn:"😀 Emoji",
-    pdf_title:"PDF tools inside ATLAS",
-    timer_title:"⏱️ Timer / Pomodoro", start:"Start", pause:"Pause", reset:"Reset",
-    custom_label:"Custom duration (minutes)", apply:"Apply",
-    login_google:"Sign in with Google", guest:"Continue as guest", logout:"Sign out", edit_name:"Edit name",
-    stats:"Your stats", stat_notes_lbl:"Notes count:", stat_last_lbl:"Last saved:",
-    modal_profile_title:"Customize your name", modal_name_lbl:"Name", cancel:"Cancel",
-    online_on:"● Online", online_off:"● Offline"
-  }
-};
-
-function applyLang(lang){
-  currentLang = lang;
-  localStorage.setItem("atlas-lang", lang);
-  document.documentElement.setAttribute("data-lang", lang);
-  document.documentElement.lang = lang;
-  document.documentElement.dir = (lang==="ar") ? "rtl" : "ltr";
-
-  const T=i18n[lang];
-
-  // nav buttons (keep icons)
-  const navMap = {home:"nav_home", notes:"nav_notes", pdf:"nav_pdf", tracker:"nav_tracker", timer:"nav_timer"};
-  document.querySelectorAll('#nav button[data-sec]').forEach(btn=>{
-    const sec=btn.dataset.sec;
-    const key=navMap[sec];
-    const icon=btn.querySelector("span")?.outerHTML || "";
-    btn.innerHTML = `${T[key]} ${icon}`;
-  });
-
-  // placeholders & headings
-  const searchInput=document.getElementById("searchInput");
-  if(searchInput) searchInput.placeholder=T.search_ph;
-
-  const welcomeP=document.querySelector("#sec-home .welcome p");
-  if(welcomeP) welcomeP.textContent=T.home_welcome;
-
-  const quicks=document.querySelectorAll("#sec-home .quick");
-  if(quicks[0]){quicks[0].querySelector(".t").textContent=T.quick1_t; quicks[0].querySelector(".s").textContent=T.quick1_s;}
-  if(quicks[1]){quicks[1].querySelector(".t").textContent=T.quick2_t; quicks[1].querySelector(".s").textContent=T.quick2_s;}
-  if(quicks[2]){quicks[2].querySelector(".t").textContent=T.quick3_t; quicks[2].querySelector(".s").textContent=T.quick3_s;}
-
-  const snapshot=document.querySelector("#sec-home .card:nth-child(2) > div");
-  if(snapshot) snapshot.textContent=T.home_snapshot;
-
-  const saveTracker=document.getElementById("saveTracker");
-  if(saveTracker) saveTracker.textContent=T.save_routine;
-  const goTracker=document.getElementById("goTracker");
-  if(goTracker) goTracker.textContent=T.open_routine;
-
-  const notesTitle=document.querySelector("#sec-notes .notes-wrap .card > div > div");
-  if(notesTitle) notesTitle.textContent=T.notes_title;
-  const newNote=document.getElementById("newNote");
-  if(newNote) newNote.textContent=T.new_note;
-  const saveNote=document.getElementById("saveNote");
-  if(saveNote) saveNote.textContent=T.save;
-  const deleteNote=document.getElementById("deleteNote");
-  if(deleteNote) deleteNote.textContent=T.delete;
-  const setCoverBtn=document.getElementById("setCoverBtn");
-  if(setCoverBtn) setCoverBtn.textContent=T.cover_btn;
-  const pickEmoji=document.getElementById("pickEmoji");
-  if(pickEmoji) pickEmoji.textContent=T.emoji_btn;
-
-  const pdfTitle=document.querySelector("#sec-pdf .card > div");
-  if(pdfTitle) pdfTitle.textContent=T.pdf_title;
-
-  const timerTitle=document.querySelector("#sec-timer .card > div");
-  if(timerTitle) timerTitle.textContent=T.timer_title;
-  const startTimer=document.getElementById("startTimer");
-  if(startTimer) startTimer.textContent=T.start;
-  const pauseTimer=document.getElementById("pauseTimer");
-  if(pauseTimer) pauseTimer.textContent=T.pause;
-  const resetTimer=document.getElementById("resetTimer");
-  if(resetTimer) resetTimer.textContent=T.reset;
-  const customLabel=document.querySelector("#sec-timer .field label");
-  if(customLabel) customLabel.textContent=T.custom_label;
-  const applyCustom=document.getElementById("applyCustom");
-  if(applyCustom) applyCustom.textContent=T.apply;
-
-  const googleLogin=document.getElementById("googleLogin");
-  if(googleLogin) googleLogin.textContent=T.login_google;
-  const guestMode=document.getElementById("guestMode");
-  if(guestMode) guestMode.textContent=T.guest;
-  const logoutBtn=document.getElementById("logoutBtn");
-  if(logoutBtn) logoutBtn.textContent=T.logout;
-  const editProfileBtn=document.getElementById("editProfileBtn");
-  if(editProfileBtn) editProfileBtn.textContent=T.edit_name;
-
-  const statsTitle=document.querySelector(".profile .card:nth-of-type(1) > div");
-  if(statsTitle) statsTitle.textContent=T.stats;
-  const statNotesLbl=document.querySelector(".profile .card:nth-of-type(1) .small:nth-of-type(1)");
-  if(statNotesLbl) statNotesLbl.firstChild.textContent = T.stat_notes_lbl+" ";
-  const statLastLbl=document.querySelector(".profile .card:nth-of-type(1) .small:nth-of-type(2)");
-  if(statLastLbl) statLastLbl.firstChild.textContent = T.stat_last_lbl+" ";
-
-  const modalProfileTitle=document.querySelector("#profileModal .box > div");
-  if(modalProfileTitle) modalProfileTitle.textContent=T.modal_profile_title;
-  const modalNameLbl=document.querySelector("#profileModal label");
-  if(modalNameLbl) modalNameLbl.textContent=T.modal_name_lbl;
-  const closeProfileModal=document.getElementById("closeProfileModal");
-  if(closeProfileModal) closeProfileModal.textContent=T.cancel;
-
-  // lang switch label
-  const langMenuBtn=document.getElementById("langMenuBtn");
-  if(langMenuBtn) langMenuBtn.textContent = (lang==="ar") ? "العربية" : "English";
-
-  const langLabel=document.getElementById("langLabel");
-  if(langLabel) langLabel.textContent = (lang==="ar") ? "AR" : "EN";
-
-  // re-render greeting in right language (simple)
-  updateGreeting((document.getElementById("userName")?.textContent || "").replace("ضيف","").trim());
-}
-
-
-document.getElementById("langMenuBtn")?.addEventListener("click", (e)=>{
-  e.stopPropagation();
-  const menu=document.getElementById("langMenu");
-  if(menu) menu.style.display = (menu.style.display==="block")? "none":"block";
-});
-document.querySelectorAll("#langMenu button[data-lang]").forEach(b=>{
-  b.addEventListener("click",(e)=>{
-    const lang=e.currentTarget.dataset.lang;
-    const menu=document.getElementById("langMenu");
-    if(menu) menu.style.display="none";
-    applyLang(lang);
-  });
-});
-document.addEventListener("click",(e)=>{
-  const menu=document.getElementById("langMenu");
-  if(!menu) return;
-  if(!e.target.closest("#langSwitch")) menu.style.display="none";
-});
-
-document.getElementById("langToggle")?.addEventListener("click", ()=>{
-  applyLang(currentLang==="ar"?"en":"ar");
 });
 
 // ------- Greeting ------
@@ -1391,12 +1108,8 @@ async function saveTracker(){
     await db.collection("users").doc(currentUser.uid)
       .collection("trackers").doc(key)
       .set({...trackerState, updatedAt: Date.now()},{merge:true});
-    awardXP(10,"save routine");
-    calcStreak();
   }else{
     localStorage.setItem("atlas-tracker-"+key, JSON.stringify(trackerState));
-    awardXP(10,"save routine");
-    calcStreak();
   }
 }
 
@@ -1415,218 +1128,420 @@ async function loadTracker(){
 function loadLocalTracker(){ loadTracker(); }
 
 // ------- Notes -------
+// (Replaced by Notion-style editor)
+// ------- Toolbar formatting -------
 
-function renderNotesList(filter=""){
-  const favList=$("#favList"), privateList=$("#privateList"), sharedList=$("#sharedList");
-  if(!favList||!privateList||!sharedList) return;
-  favList.innerHTML=""; privateList.innerHTML=""; sharedList.innerHTML="";
+// ===== Notion-style Notes Editor =====
+let notionNotes = [];
+let notionCurrentId = null;
+let notionFilter = "all";
 
-  const filtered = notes.filter(n=>{
-    if(!filter) return true;
-    const t = (n.title||"").toLowerCase();
-    const c = (n.contentHTML||"").toLowerCase();
-    return t.includes(filter)||c.includes(filter);
+function loadNotionNotes(){
+  if(currentUser && !isGuest){
+    // reuse firestore user notes collection
+    return db.collection("users").doc(currentUser.uid).collection("notes")
+      .orderBy("updatedAt","desc").get()
+      .then(snap=>{
+        notionNotes = snap.docs.map(d=>({id:d.id, ...d.data()}));
+        renderPageList();
+        if(notionNotes[0]) openPage(notionNotes[0].id);
+      });
+  }else{
+    const j = localStorage.getItem("atlas-guest-notes");
+    notionNotes = j? JSON.parse(j): [];
+    renderPageList();
+    if(notionNotes[0]) openPage(notionNotes[0].id);
+  }
+}
+
+function saveNotionNotesLocal(){
+  localStorage.setItem("atlas-guest-notes", JSON.stringify(notionNotes));
+}
+
+function renderPageList(){
+  const host=$("#pageList"); if(!host) return;
+  const q=($("#notionSearch")?.value||"").trim().toLowerCase();
+  host.innerHTML="";
+  const filtered = notionNotes.filter(n=>{
+    if(n.isTrash) return notionFilter==="trash";
+    if(notionFilter==="fav" && !n.isFavorite) return false;
+    if(notionFilter==="private" && (n.visibility||"private")!=="private") return false;
+    if(notionFilter==="shared" && (n.visibility||"private")!=="shared") return false;
+    if(notionFilter==="trash" && !n.isTrash) return false;
+    if(q){
+      return (n.title||"").toLowerCase().includes(q) || (n.contentHTML||"").toLowerCase().includes(q);
+    }
+    return true;
   });
-
-  const addItem=(n, host)=>{
-    const div=document.createElement("div");
-    div.className="note-item"+(n.id===currentNoteId?" active":"")+(n.isFavorite?" fav":"");
-    div.dataset.id=n.id;
-    const thumb = n.iconURL ? `<img src="${n.iconURL}">` : (n.emoji||"📝");
-    div.innerHTML=`
-      <div class="note-thumb">${n.coverURL?`<img src="${n.coverURL}">`:thumb}</div>
-      <div class="note-meta">
-        <div class="title">${n.title||"بدون عنوان"}</div>
-        <div class="date">${niceDate(n.updatedAt||n.createdAt)}</div>
-      </div>
-      ${n.isFavorite?`<div class="star">⭐</div>`:""}
-    `;
-    div.onclick=()=>openNote(n.id);
-    host.appendChild(div);
-  };
 
   filtered.forEach(n=>{
-    if(n.isFavorite) addItem(n, favList);
-    else if(n.visibility==="shared") addItem(n, sharedList);
-    else addItem(n, privateList);
+    const row=document.createElement("div");
+    row.className="page-row"+(n.id===notionCurrentId?" active":"");
+    const icon = n.iconURL ? `<img src="${n.iconURL}" style="width:18px;height:18px;border-radius:4px;object-fit:cover">`
+                           : (n.emoji||"📝");
+    row.innerHTML=`<div>${icon}</div><div style="flex:1">${n.title||"Untitled"}</div>${n.isFavorite?'<div class="fav">⭐</div>':''}`;
+    row.onclick=()=>openPage(n.id);
+    host.appendChild(row);
   });
 
-  $("#statNotes").textContent = notes.length;
+  $("#statNotes") && ($("#statNotes").textContent = notionNotes.filter(n=>!n.isTrash).length);
 }
 
-function setEditorEmpty(){
-  currentNoteId=null;
-  currentEmoji="📝";
-  currentCoverURL="";
-  currentIconURL="";
-  $("#noteTitle").value="";
-  $("#noteContent").innerHTML="";
-  $("#coverBox").innerHTML=`<div>اضغط لإضافة Cover</div><input type="file" id="coverInput" accept="image/*" style="display:none">
-    <div class="cover-actions"><button class="btn" id="removeCover">إزالة الغلاف</button></div>`;
-  bindCoverHandlers();
-}
-
-$("#newNote").onclick=()=>{
-  setEditorEmpty();
-  $("#noteTitle").focus();
-};
-
-
-function openNote(id){
-  const n = notes.find(x=>x.id===id);
-  if(!n) return;
-  currentNoteId=id;
-  currentEmoji=n.emoji||"📝";
-  currentCoverURL=n.coverURL||"";
-  $("#noteTitle").value=n.title||"";
-  $("#noteContent").innerHTML=n.contentHTML||"";
-  applyStyleToEditor(n.style||{});
-  renderCover(currentCoverURL);
-  currentIconURL = n.iconURL||"";
-  renderPageIcon(currentIconURL, currentEmoji);
-  // props
-  const d = n.updatedAt||n.createdAt||Date.now();
-  const dt = new Date(d);
-  $("#noteDateProp").textContent = dt.toLocaleDateString(currentLang==="en"?"en":"ar");
-  $("#noteTimeProp").textContent = dt.toLocaleTimeString(currentLang==="en"?"en":"ar");
-  $("#toggleFav").classList.toggle("active", !!n.isFavorite);
-  $("#toggleFav").textContent = (n.isFavorite? "⭐ إزالة من المفضلة" : "⭐ مفضلة");
-  renderNotesList($("#searchInput").value.trim().toLowerCase());
-}
-
-
-function applyStyleToEditor(style){
-  const fam=style.fontFamily || "system-ui";
-  const size=style.fontSize || 18;
-  const color=style.color || getComputedStyle(document.documentElement).getPropertyValue("--text");
-  $("#fontFamily").value=fam;
-  $("#fontSize").value=size;
-  $("#fontColor").value=rgbToHex(color);
-  $("#noteContent").style.fontFamily=fam;
-  $("#noteContent").style.fontSize=size+"px";
-  $("#noteContent").style.color=color;
-}
-
-function rgbToHex(rgb){
-  if(!rgb) return "#eaf0ff";
-  if(rgb.startsWith("#")) return rgb;
-  const m = rgb.match(/\d+/g);
-  if(!m) return "#eaf0ff";
-  return "#"+m.slice(0,3).map(x=>("0"+parseInt(x).toString(16)).slice(-2)).join("");
-}
-
-async function loadNotes(){
-  if(!(currentUser && !isGuest)){ return; }
-  const snap = await db.collection("users").doc(currentUser.uid).collection("notes")
-    .orderBy("updatedAt","desc").get();
-  notes = snap.docs.map(d=>({id:d.id, ...d.data()}));
-  renderNotesList();
-    awardXP(12,"save note");
-  if(notes[0]) openNote(notes[0].id);
-}
-
-function loadLocalNotes(){
-  const j = localStorage.getItem("atlas-guest-notes");
-  notes = j? JSON.parse(j): [];
-  renderNotesList();
-  if(notes[0]) openNote(notes[0].id);
-}
-
-async function saveNotesLocal(){
-  localStorage.setItem("atlas-guest-notes", JSON.stringify(notes));
-}
-
-
-$("#toggleFav")?.addEventListener("click", ()=>{
-  if(!currentNoteId){
-    // create temp favorite state for new note
-    const tmp = notes.find(n=>n.id===currentNoteId);
-  }
-  const n = notes.find(x=>x.id===currentNoteId);
-  if(n){
-    n.isFavorite=!n.isFavorite;
-    $("#toggleFav").textContent = (n.isFavorite? "⭐ إزالة من المفضلة" : "⭐ مفضلة");
-    renderNotesList($("#searchInput").value.trim().toLowerCase());
-    if(!(currentUser && !isGuest)) localStorage.setItem("atlas-guest-notes", JSON.stringify(notes));
-  }else{
-    // for new note, just flip UI; will be saved in payload via notes lookup after save
-    $("#toggleFav").classList.toggle("active");
-  }
-});
-
-$("#saveNote").onclick=async()=>{
-  const title = $("#noteTitle").value.trim();
-  const contentHTML = $("#noteContent").innerHTML.trim();
-  const style={
-    fontFamily: $("#fontFamily").value,
-    fontSize: parseInt($("#fontSize").value),
-    color: $("#fontColor").value
-  };
-  const payload = {
-    title, contentHTML,
-    emoji: currentEmoji,
-    coverURL: currentCoverURL,
-    style,
-    updatedAt: Date.now(),
-    createdAt: currentNoteId? undefined : Date.now(),
-    isFavorite: (notes.find(n=>n.id===currentNoteId)?.isFavorite)||false,
-    visibility: (notes.find(n=>n.id===currentNoteId)?.visibility)||"private",
-    iconURL: currentIconURL|| (notes.find(n=>n.id===currentNoteId)?.iconURL)||""
-  };
-
-  if(currentUser && !isGuest){
-    const ref = currentNoteId
-      ? db.collection("users").doc(currentUser.uid).collection("notes").doc(currentNoteId)
-      : db.collection("users").doc(currentUser.uid).collection("notes").doc();
-
-    if(!currentNoteId) currentNoteId = ref.id;
-    await ref.set(payload,{merge:true});
-    $("#statLast").textContent = niceDate(Date.now());
-    awardXP(12,"save note");
-    await loadNotes();
-  }else{
-    if(currentNoteId){
-      const idx = notes.findIndex(n=>n.id===currentNoteId);
-      notes[idx]={...notes[idx],...payload};
+function setNotionUserUI(){
+  const name = (currentUser && !isGuest) ? (currentUser.displayName||"User") : "ضيف";
+  const email= (currentUser && !isGuest) ? (currentUser.email||"") : "Guest mode";
+  $("#notionUserName") && ($("#notionUserName").textContent=name);
+  $("#notionUserEmail") && ($("#notionUserEmail").textContent=email);
+  const ava=$("#notionAvatar");
+  if(ava){
+    if(currentUser?.photoURL){
+      ava.innerHTML=`<img src="${currentUser.photoURL}">`;
     }else{
-      currentNoteId="g_"+Date.now();
-      notes.unshift({id:currentNoteId,...payload});
+      ava.textContent=(name||"A").slice(0,1).toUpperCase();
     }
-    await saveNotesLocal();
-    renderNotesList();
   }
-};
+}
 
-$("#deleteNote").onclick=async()=>{
-  if(!currentNoteId) return;
-  if(!confirm("متأكد بدك تحذف النوتة؟")) return;
+function newPage(){
+  notionCurrentId=null;
+  $("#pageTitle").value="";
+  setCover("");
+  setIcon("", "📝");
+  $("#blocks").innerHTML="";
+  addBlock("text","");
+  updatePageProps(Date.now());
+}
+
+function openPage(id){
+  const n = notionNotes.find(x=>x.id===id);
+  if(!n) return;
+  notionCurrentId=id;
+  $("#pageTitle").value=n.title||"";
+  setCover(n.coverURL||"");
+  setIcon(n.iconURL||"", n.emoji||"📝");
+  $("#blocks").innerHTML=n.contentHTML||"";
+  bindBlocks();
+  if(!$("#blocks .block")) addBlock("text","");
+  updatePageProps(n.updatedAt||n.createdAt||Date.now());
+  $("#toggleFavBtn").textContent=n.isFavorite?"⭐ Favorited":"⭐ Favorite";
+  renderPageList();
+}
+
+async function savePage(){
+  const title=$("#pageTitle").value.trim();
+  const contentHTML=$("#blocks").innerHTML.trim();
+  const payload={
+    title,
+    contentHTML,
+    emoji: $("#pageIcon").dataset.emoji||"📝",
+    iconURL: $("#pageIcon").dataset.icon||"",
+    coverURL: $("#pageCover").dataset.cover||"",
+    isFavorite: $("#toggleFavBtn").dataset.fav==="1",
+    visibility: "private",
+    isTrash:false,
+    updatedAt: Date.now(),
+    createdAt: notionCurrentId? undefined: Date.now()
+  };
+
   if(currentUser && !isGuest){
-    await db.collection("users").doc(currentUser.uid).collection("notes").doc(currentNoteId).delete();
-    currentNoteId=null;
-    await loadNotes();
+    const ref = notionCurrentId
+      ? db.collection("users").doc(currentUser.uid).collection("notes").doc(notionCurrentId)
+      : db.collection("users").doc(currentUser.uid).collection("notes").doc();
+    if(!notionCurrentId) notionCurrentId=ref.id;
+    await ref.set(payload,{merge:true});
+    await loadNotionNotes();
   }else{
-    notes = notes.filter(n=>n.id!==currentNoteId);
-    currentNoteId=null;
-    await saveNotesLocal();
-    renderNotesList();
-    setEditorEmpty();
+    if(notionCurrentId){
+      const idx=notionNotes.findIndex(n=>n.id===notionCurrentId);
+      notionNotes[idx]={...notionNotes[idx],...payload};
+    }else{
+      notionCurrentId="g_"+Date.now();
+      notionNotes.unshift({id:notionCurrentId,...payload});
+    }
+    await saveNotionNotesLocal();
+    renderPageList();
   }
-};
+  $("#statLast") && ($("#statLast").textContent=niceDate(Date.now()));
+}
 
-$("#searchInput").addEventListener("input",(e)=>{
-  renderNotesList(e.target.value.trim().toLowerCase());
+async function deletePage(){
+  if(!notionCurrentId) return;
+  const n=notionNotes.find(x=>x.id===notionCurrentId); if(!n) return;
+  if(!confirm("Delete page?")) return;
+  n.isTrash=true;
+  if(currentUser && !isGuest){
+    await db.collection("users").doc(currentUser.uid).collection("notes").doc(notionCurrentId).set({isTrash:true},{merge:true});
+    await loadNotionNotes();
+  }else{
+    await saveNotionNotesLocal();
+    renderPageList();
+  }
+  newPage();
+}
+
+// Cover/Icon
+function setCover(url){
+  const box=$("#pageCover"); if(!box) return;
+  box.dataset.cover=url||"";
+  if(url){
+    box.innerHTML=`<img src="${url}"><div class="cover-actions">
+      <button class="mini" id="changeCoverBtn">Change cover</button>
+      <button class="mini" id="removeCoverBtn">Remove</button>
+    </div><input id="coverFile" type="file" accept="image/*" style="display:none">`;
+  }else{
+    box.innerHTML=`<div class="cover-actions">
+      <button class="mini" id="changeCoverBtn">Change cover</button>
+      <button class="mini" id="removeCoverBtn">Remove</button>
+    </div><div class="small" id="coverHint">Click to add cover</div>
+    <input id="coverFile" type="file" accept="image/*" style="display:none">`;
+  }
+  bindCoverIconHandlers();
+}
+function setIcon(url, emoji){
+  const box=$("#pageIcon"); if(!box) return;
+  box.dataset.icon=url||"";
+  box.dataset.emoji=emoji||"📝";
+  if(url){
+    box.innerHTML=`<img src="${url}"><input id="iconFile" type="file" accept="image/*" style="display:none">`;
+  }else{
+    box.textContent=emoji||"📝";
+    box.innerHTML += `<input id="iconFile" type="file" accept="image/*" style="display:none">`;
+  }
+  bindCoverIconHandlers();
+}
+function bindCoverIconHandlers(){
+  const coverFile=$("#coverFile"), iconFile=$("#iconFile");
+  $("#pageCover")?.addEventListener("click",(e)=>{
+    if(e.target.closest(".cover-actions")) return;
+    coverFile?.click();
+  });
+  $("#changeCoverBtn")?.addEventListener("click",(e)=>{e.stopPropagation(); coverFile?.click();});
+  $("#removeCoverBtn")?.addEventListener("click",(e)=>{e.stopPropagation(); setCover("");});
+  coverFile && (coverFile.onchange=async(e)=>{
+    const file=e.target.files[0]; if(!file) return;
+    let url="";
+    if(currentUser && !isGuest){
+      const path=`covers/${currentUser.uid}/${Date.now()}_${file.name}`;
+      const task=await storage.ref(path).put(file);
+      url=await task.ref.getDownloadURL();
+    }else{
+      url=await fileToDataURL(file);
+    }
+    setCover(url);
+  });
+
+  $("#pageIcon")?.addEventListener("click",(e)=>{
+    e.stopPropagation(); iconFile?.click();
+  });
+  iconFile && (iconFile.onchange=async(e)=>{
+    const file=e.target.files[0]; if(!file) return;
+    let url="";
+    if(currentUser && !isGuest){
+      const path=`note-icons/${currentUser.uid}/${Date.now()}_${file.name}`;
+      const task=await storage.ref(path).put(file);
+      url=await task.ref.getDownloadURL();
+    }else{
+      url=await fileToDataURL(file);
+    }
+    setIcon(url, $("#pageIcon").dataset.emoji||"📝");
+  });
+}
+
+// Props
+function updatePageProps(ts){
+  const d=new Date(ts);
+  $("#pageDate").textContent=d.toLocaleDateString(currentLang==="en"?"en":"ar");
+  $("#pageTime").textContent=d.toLocaleTimeString(currentLang==="en"?"en":"ar");
+}
+
+// Blocks
+function createBlock(type="text", html=""){
+  const div=document.createElement("div");
+  div.className="block";
+  div.draggable=true;
+  div.dataset.type=type;
+  div.innerHTML=`<div class="handle">⋮⋮</div><div class="block-content" contenteditable="true"></div>`;
+  const content=div.querySelector(".block-content");
+  if(type==="divider"){
+    content.contentEditable="false";
+    content.innerHTML="<hr style='border:0;border-top:1px solid rgba(255,255,255,.1)'>";
+  }else if(type==="todo"){
+    content.innerHTML=`<label class="todo-box"><input type="checkbox"> <span contenteditable="true">${html||""}</span></label>`;
+  }else if(type==="toggle"){
+    content.innerHTML=`<details><summary contenteditable="true">${html||"Toggle"}</summary><div contenteditable="true" style="margin-top:6px">...</div></details>`;
+  }else if(type==="columns"){
+    content.innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div contenteditable="true" style="min-height:40px;padding:6px;border:1px dashed rgba(255,255,255,.08);border-radius:8px"></div>
+      <div contenteditable="true" style="min-height:40px;padding:6px;border:1px dashed rgba(255,255,255,.08);border-radius:8px"></div>
+    </div>`;
+  }else{
+    content.innerHTML=html||"";
+  }
+  return div;
+}
+function addBlock(type="text", html=""){
+  const host=$("#blocks");
+  const b=createBlock(type, html);
+  host.appendChild(b);
+  bindBlock(b);
+  focusBlock(b);
+  return b;
+}
+function focusBlock(b){
+  const c=b.querySelector(".block-content [contenteditable='true']") || b.querySelector(".block-content");
+  c?.focus();
+  placeCaretAtEnd(c);
+}
+function placeCaretAtEnd(el){
+  try{
+    const range=document.createRange();
+    range.selectNodeContents(el);
+    range.collapse(false);
+    const sel=window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }catch{}
+}
+
+let slashTarget=null;
+function showSlashMenu(x,y,target){
+  const menu=$("#slashMenu"); if(!menu) return;
+  slashTarget=target;
+  menu.style.display="block";
+  menu.style.left=x+"px"; menu.style.top=y+"px";
+}
+function hideSlashMenu(){
+  const menu=$("#slashMenu"); if(menu) menu.style.display="none";
+  slashTarget=null;
+}
+$("#slashMenu")?.addEventListener("click",(e)=>{
+  const btn=e.target.closest("button[data-type]"); if(!btn||!slashTarget) return;
+  const type=btn.dataset.type;
+  slashTarget.dataset.type=type;
+  const content=slashTarget.querySelector(".block-content");
+  // reset inner structure
+  const oldText=content?.innerText||"";
+  slashTarget.replaceWith(createBlock(type, oldText));
+  bindBlocks();
+  hideSlashMenu();
 });
 
+function bindBlock(b){
+  const content=b.querySelector(".block-content");
+  content.addEventListener("keydown",(e)=>{
+    // Enter -> new block
+    if(e.key==="Enter" && !e.shiftKey){
+      // avoid enter inside details/columns/code or checkbox span
+      if(e.target.closest("details") || b.dataset.type==="code" || b.dataset.type==="columns") return;
+      e.preventDefault();
+      const nb=addBlock("text","");
+      return;
+    }
+    // Slash menu
+    if(e.key==="/" ){
+      setTimeout(()=>{
+        const rect=b.getBoundingClientRect();
+        showSlashMenu(rect.left+20, rect.top+30, b);
+      },0);
+    }
+    // Backspace on empty block -> remove
+    if(e.key==="Backspace"){
+      const t=(content.innerText||"").trim();
+      if(!t && $("#blocks").children.length>1){
+        e.preventDefault();
+        const prev=b.previousElementSibling;
+        b.remove();
+        if(prev) focusBlock(prev);
+        return;
+      }
+    }
+  });
 
-document.querySelectorAll(".group-head").forEach(h=>{
-  h.addEventListener("click", ()=>{
-    const g = h.dataset.group;
-    const list = document.getElementById(g+"List");
-    if(list) list.style.display = (list.style.display==="none")?"grid":"none";
+  // drag
+  b.addEventListener("dragstart",(e)=>{
+    e.dataTransfer.setData("text/plain", b.dataset.id||"");
+    b.classList.add("dragging");
+  });
+  b.addEventListener("dragend",()=>b.classList.remove("dragging"));
+}
+function bindBlocks(){
+  const host=$("#blocks");
+  host.querySelectorAll(".block").forEach(b=>bindBlock(b));
+  // drag over
+  host.ondragover=(e)=>{
+    e.preventDefault();
+    const dragging=host.querySelector(".dragging");
+    const after=getDragAfterElement(host, e.clientY);
+    if(after==null) host.appendChild(dragging);
+    else host.insertBefore(dragging, after);
+  };
+}
+function getDragAfterElement(container, y){
+  const els=[...container.querySelectorAll(".block:not(.dragging)")];
+  return els.reduce((closest, child)=>{
+    const box=child.getBoundingClientRect();
+    const offset=y-box.top-box.height/2;
+    if(offset<0 && offset>closest.offset) return {offset, element:child};
+    return closest;
+  }, {offset:Number.NEGATIVE_INFINITY}).element;
+}
+
+document.addEventListener("click",(e)=>{
+  if(!e.target.closest("#slashMenu")) hideSlashMenu();
+});
+
+// Buttons & events
+$("#newPageBtn")?.addEventListener("click", newPage);
+$("#savePageBtn")?.addEventListener("click", savePage);
+$("#deletePageBtn")?.addEventListener("click", deletePage);
+$("#notionSearch")?.addEventListener("input", renderPageList);
+
+document.querySelectorAll(".side-item[data-filter]").forEach(it=>{
+  it.addEventListener("click", ()=>{
+    document.querySelectorAll(".side-item[data-filter]").forEach(x=>x.classList.remove("active"));
+    it.classList.add("active");
+    notionFilter=it.dataset.filter;
+    renderPageList();
   });
 });
 
-// ------- Toolbar formatting -------
+$("#toggleFavBtn")?.addEventListener("click", ()=>{
+  const n=notionNotes.find(x=>x.id===notionCurrentId);
+  const now=!(n?.isFavorite);
+  $("#toggleFavBtn").dataset.fav= now?"1":"0";
+  $("#toggleFavBtn").textContent=now?"⭐ Favorited":"⭐ Favorite";
+  if(n){ n.isFavorite=now; (currentUser&&!isGuest) && db.collection("users").doc(currentUser.uid).collection("notes").doc(notionCurrentId).set({isFavorite:now},{merge:true}); saveNotionNotesLocal(); renderPageList();}
+});
+
+// Simple undo/redo (native execCommand)
+$("#undoBtn")?.addEventListener("click",()=>document.execCommand("undo"));
+$("#redoBtn")?.addEventListener("click",()=>document.execCommand("redo"));
+
+// When entering notes section, init notion notes
+function enterNotesMode(){
+  document.body.classList.add("notes-mode");
+  setNotionUserUI();
+  loadNotionNotes();
+}
+function leaveNotesMode(){
+  document.body.classList.remove("notes-mode");
+}
+
+// Hook nav to notes-mode
+const _oldNavHandler = $("#nav")?.onclick;
+$("#nav")?.addEventListener("click",(e)=>{
+  const btn = e.target.closest("button[data-sec]");
+  if(!btn) return;
+  if(btn.dataset.sec==="notes") enterNotesMode();
+  else leaveNotesMode();
+});
+
+// Also react to auth changes
+auth.onAuthStateChanged((u)=>{
+  setNotionUserUI();
+  if(document.body.classList.contains("notes-mode")) loadNotionNotes();
+});
+
 $$(".tool[data-cmd]").forEach(b=>{
   b.onclick=()=>{
     const cmd=b.dataset.cmd;
@@ -1651,23 +1566,18 @@ $("#closeEmoji").onclick=()=>$("#emojiModal").classList.remove("active");
 $$(".em").forEach(btn=>{
   btn.onclick=()=>{
     currentEmoji = btn.textContent.trim();
-    renderPageIcon('', currentEmoji);
     $("#emojiModal").classList.remove("active");
     renderNotesList($("#searchInput").value.trim().toLowerCase());
   };
 });
 
 // ------- Cover handlers -------
-
 function bindCoverHandlers(){
   const coverBox=$("#coverBox");
   const coverInput=$("#coverInput");
   if(!coverBox||!coverInput) return;
 
-  coverBox.onclick=(ev)=>{
-    if(ev.target.closest(".page-actions") || ev.target.closest(".page-icon")) return;
-    coverInput.click();
-  };
+  coverBox.onclick=()=>coverInput.click();
   coverInput.onchange=async(e)=>{
     const file=e.target.files[0];
     if(!file) return;
@@ -1683,53 +1593,23 @@ function bindCoverHandlers(){
   $("#removeCover").onclick=(ev)=>{
     ev.stopPropagation();
     currentCoverURL="";
-  currentIconURL="";
     renderCover("");
-  };
-  $("#setCoverBtn").onclick=(ev)=>{
-    ev.stopPropagation();
-    coverInput.click();
   };
 }
 bindCoverHandlers();
-
-
-function renderPageIcon(iconURL, emoji){
-  const box=$("#pageIcon");
-  if(!box) return;
-  if(iconURL){
-    box.innerHTML=`<img src="${iconURL}">`;
-  }else{
-    box.textContent=emoji||"📝";
-  }
-}
-
 
 function renderCover(url){
   const box=$("#coverBox");
   if(!box) return;
   if(url){
-    box.innerHTML=`<img src="${url}"><div class="header-overlay"></div>
-      <input type="file" id="coverInput" accept="image/*" style="display:none">
-      <div class="page-actions">
-        <button class="mini" id="setCoverBtn">تغيير الغلاف</button>
-        <button class="mini" id="removeCover">إزالة</button>
-      </div>
-      <div class="page-icon" id="pageIcon">📝</div>`;
+    box.innerHTML=`<img src="${url}"><input type="file" id="coverInput" accept="image/*" style="display:none">
+      <div class="cover-actions"><button class="btn" id="removeCover">إزالة الغلاف</button></div>`;
   }else{
-    box.innerHTML=`<div>اضغط لإضافة Cover</div>
-      <input type="file" id="coverInput" accept="image/*" style="display:none">
-      <div class="page-actions">
-        <button class="mini" id="setCoverBtn">تغيير الغلاف</button>
-        <button class="mini" id="removeCover">إزالة</button>
-      </div>
-      <div class="header-overlay"></div>
-      <div class="page-icon" id="pageIcon">📝</div>`;
+    box.innerHTML=`<div>اضغط لإضافة Cover</div><input type="file" id="coverInput" accept="image/*" style="display:none">
+      <div class="cover-actions"><button class="btn" id="removeCover">إزالة الغلاف</button></div>`;
   }
   bindCoverHandlers();
-  renderPageIcon("", currentEmoji);
 }
-
 $("#setCoverBtn").onclick=()=>$("#coverInput")?.click();
 
 // inline image
@@ -1747,25 +1627,6 @@ $("#inlineImageInput").onchange=async(e)=>{
   }
   document.execCommand("insertImage",false,url);
 };
-
-
-let currentIconURL="";
-document.body.addEventListener("click",(e)=>{
-  if(e.target.closest("#pageIcon")){
-    $("#iconInput").click();
-  }
-});
-$("#iconInput")?.addEventListener("change", async(e)=>{
-  const file=e.target.files[0]; if(!file) return;
-  if(currentUser && !isGuest){
-    const path=`note-icons/${currentUser.uid}/${Date.now()}_${file.name}`;
-    const task=await storage.ref(path).put(file);
-    currentIconURL=await task.ref.getDownloadURL();
-  }else{
-    currentIconURL=await fileToDataURL(file);
-  }
-  renderPageIcon(currentIconURL, currentEmoji);
-});
 
 function fileToDataURL(file){
   return new Promise(res=>{
@@ -1795,7 +1656,6 @@ $("#imgToPdfBtn").onclick=async()=>{
     pdf.addImage(img,"JPEG",0,0,w,h);
   }
   pdf.save("ATLAS-images.pdf");
-  awardXP(6,"imgToPdf");
 };
 
 let pdfjsLib=null;
@@ -1831,7 +1691,6 @@ $("#pdfToImgBtn").onclick=async()=>{
     a.href=url; a.download=`page-${p}.png`; a.click();
   }
   alert("تم استخراج الصفحات الأولى كصور.");
-  awardXP(6,"pdfToImg");
 };
 
 // ------- Timer -------
@@ -1881,11 +1740,10 @@ $("#applyCustom").onclick=()=>{
 
 // ------- Online tag pulse -------
 setInterval(()=>{
-  $(function(){ const T=i18n[currentLang]||i18n.ar; $("#onlineTag").textContent = (navigator.onLine? T.online_on : T.online_off); })();
+  $("#onlineTag").textContent = (navigator.onLine? "● يعمل الآن" : "● غير متصل");
 },1500);
 
 // ------- Boot -------
-applyLang(currentLang);
 (async function boot(){
   await loadTracker();
   renderNotesList();
