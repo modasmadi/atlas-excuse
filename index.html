@@ -326,12 +326,36 @@
       width:46px;height:24px;border-radius:999px;background:var(--card2);
       border:1px solid var(--border);position:relative;cursor:pointer;flex-shrink:0;
     }
+    
+    .lang-menu{
+      position:absolute; top:36px; left:0; right:0;
+      background:var(--card); border:1px solid var(--border); border-radius:10px;
+      padding:6px; display:none; z-index:5; box-shadow:var(--shadow);
+    }
+    .lang-menu button{
+      width:100%; text-align:center; padding:6px; border-radius:8px;
+      background:var(--card2); border:1px solid var(--border); color:var(--text); cursor:pointer; font-size:12px;
+    }
+    .lang-menu button+button{margin-top:6px}
+    .lang-switch{ position:relative; }
     .lang-switch .knob{
       position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;
       background:linear-gradient(180deg,#fff, #c9d6ff);transition:.2s;
       box-shadow:0 4px 10px rgba(0,0,0,.35);
     }
-    [data-lang="en"] .lang-switch .knob{ right:auto; left:2px; }
+    [data-lang="en"] 
+    .lang-menu{
+      position:absolute; top:36px; left:0; right:0;
+      background:var(--card); border:1px solid var(--border); border-radius:10px;
+      padding:6px; display:none; z-index:5; box-shadow:var(--shadow);
+    }
+    .lang-menu button{
+      width:100%; text-align:center; padding:6px; border-radius:8px;
+      background:var(--card2); border:1px solid var(--border); color:var(--text); cursor:pointer; font-size:12px;
+    }
+    .lang-menu button+button{margin-top:6px}
+    .lang-switch{ position:relative; }
+    .lang-switch .knob{ right:auto; left:2px; }
 
   </style>
 </head>
@@ -1012,12 +1036,35 @@ function applyLang(lang){
   if(closeProfileModal) closeProfileModal.textContent=T.cancel;
 
   // lang switch label
+  const langMenuBtn=document.getElementById("langMenuBtn");
+  if(langMenuBtn) langMenuBtn.textContent = (lang==="ar") ? "العربية" : "English";
+
   const langLabel=document.getElementById("langLabel");
   if(langLabel) langLabel.textContent = (lang==="ar") ? "AR" : "EN";
 
   // re-render greeting in right language (simple)
   updateGreeting((document.getElementById("userName")?.textContent || "").replace("ضيف","").trim());
 }
+
+
+document.getElementById("langMenuBtn")?.addEventListener("click", (e)=>{
+  e.stopPropagation();
+  const menu=document.getElementById("langMenu");
+  if(menu) menu.style.display = (menu.style.display==="block")? "none":"block";
+});
+document.querySelectorAll("#langMenu button[data-lang]").forEach(b=>{
+  b.addEventListener("click",(e)=>{
+    const lang=e.currentTarget.dataset.lang;
+    const menu=document.getElementById("langMenu");
+    if(menu) menu.style.display="none";
+    applyLang(lang);
+  });
+});
+document.addEventListener("click",(e)=>{
+  const menu=document.getElementById("langMenu");
+  if(!menu) return;
+  if(!e.target.closest("#langSwitch")) menu.style.display="none";
+});
 
 document.getElementById("langToggle")?.addEventListener("click", ()=>{
   applyLang(currentLang==="ar"?"en":"ar");
