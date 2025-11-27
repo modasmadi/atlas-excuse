@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <title>محمود | موقعي الشخصي</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="الموقع الشخصي لـ محمود" />
+  <meta name="description" content="الموقع الشخصي لـ محمود مع شات ذكاء اصطناعي" />
 
-  <!-- خط عربي جميل -->
+  <!-- خط عربي -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
   <style>
@@ -88,7 +88,7 @@
       padding: 24px 20px 50px;
     }
 
-    /* قسم الهيرو */
+    /* الهيرو */
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
@@ -237,7 +237,6 @@
       color: #bbf7d0;
     }
 
-    /* الأقسام */
     section {
       margin-top: 40px;
     }
@@ -294,41 +293,86 @@
       opacity: 0.75;
     }
 
-    /* الأعمال */
-    .projects-grid {
+    /* شات الذكاء الاصطناعي */
+    .ai-card {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 16px;
     }
 
-    .project-card {
+    .chat-box {
       background: rgba(15, 23, 42, 0.95);
-      border-radius: 14px;
-      padding: 14px;
-      border: 1px solid rgba(75, 85, 99, 0.7);
+      border-radius: 16px;
+      border: 1px solid rgba(75, 85, 99, 0.8);
       display: flex;
       flex-direction: column;
+      height: 360px;
+      overflow: hidden;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+
+    .msg {
+      margin-bottom: 10px;
+      max-width: 90%;
+      padding: 8px 10px;
+      border-radius: 12px;
+      word-wrap: break-word;
+    }
+
+    .msg-user {
+      margin-left: auto;
+      background: #007aff;
+    }
+
+    .msg-ai {
+      margin-right: auto;
+      background: #2c2c2e;
+    }
+
+    .chat-input-area {
+      display: flex;
       gap: 8px;
+      padding: 8px;
+      border-top: 1px solid rgba(55, 65, 81, 0.8);
+      background: rgba(15, 23, 42, 0.98);
     }
 
-    .project-title {
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .project-desc {
-      font-size: 13px;
-      opacity: 0.85;
-    }
-
-    .project-tag {
-      display: inline-block;
-      margin-top: 4px;
-      font-size: 11px;
-      padding: 3px 8px;
+    .chat-input {
+      flex: 1;
+      padding: 8px 10px;
       border-radius: 999px;
-      background: rgba(59, 130, 246, 0.15);
-      border: 1px solid rgba(59, 130, 246, 0.6);
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: transparent;
+      color: #fff;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .chat-send-btn {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(120deg, #22c1c3, #4b6cff);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-text {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-top: 6px;
     }
 
     /* التواصل */
@@ -384,8 +428,7 @@
       margin-top: 40px;
     }
 
-    /* استجابة للشاشات الصغيرة */
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       .hero {
         grid-template-columns: minmax(0, 1fr);
         text-align: center;
@@ -399,12 +442,16 @@
         justify-content: center;
       }
 
-      .contact-grid {
+      .nav-links {
+        display: none;
+      }
+
+      .ai-card {
         grid-template-columns: minmax(0, 1fr);
       }
 
-      .nav-links {
-        display: none;
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
       }
 
       .hero-title {
@@ -424,7 +471,7 @@
       <div class="nav-links">
         <a href="#about">نبذة عني</a>
         <a href="#skills">المهارات</a>
-        <a href="#projects">الأعمال</a>
+        <a href="#ai">ذكاء اصطناعي</a>
         <a href="#contact">تواصل</a>
       </div>
     </nav>
@@ -438,23 +485,22 @@
           أهلاً، أنا <span>محمود</span> 👋
         </h1>
         <p class="hero-subtitle">
-          هذا موقعي الشخصي البسيط. هنا تقدر تتعرّف عليّ، على مهاراتي،
-          وعلى بعض الأعمال والأفكار اللي أشتغل عليها.
+          هذا موقعي الشخصي. تجمع بيني وبين شغفي بالتقنية، ومعه شات ذكاء اصطناعي شغال من الباك إند اللي بنيته.
         </p>
 
         <div class="hero-tags">
           <span class="hero-tag">مهتم بالبرمجة والتقنية</span>
-          <span class="hero-tag">تعلّم ذاتي وتطوير مستمر</span>
-          <span class="hero-tag">أحب تجربة أشياء جديدة</span>
+          <span class="hero-tag">تعلّم ذاتي</span>
+          <span class="hero-tag">تجارب على الذكاء الاصطناعي</span>
         </div>
 
         <div class="hero-buttons">
-          <a href="#contact" class="btn-primary">
-            تواصل معي
-            <span>✉️</span>
+          <a href="#ai" class="btn-primary">
+            جرّب شات الـ AI
+            <span>🤖</span>
           </a>
           <a href="#projects" class="btn-ghost">
-            مشاهدة الأعمال
+            الأعمال والتجارب
           </a>
         </div>
       </div>
@@ -464,7 +510,7 @@
           <div class="hero-avatar-card">
             <div class="hero-avatar-circle">م</div>
             <div class="hero-avatar-name">محمود</div>
-            <div class="hero-avatar-role">صاحب هذا الموقع 👨‍💻</div>
+            <div class="hero-avatar-role">مطور هاوي وفضولي 👨‍💻</div>
             <div class="hero-avatar-status">متصل بالأفكار دائماً 😉</div>
           </div>
         </div>
@@ -477,13 +523,10 @@
       <p class="section-subtitle">تعريف بسيط عن نفسي</p>
       <div class="card">
         <p class="about-text">
-          أنا محمود، أحب التكنولوجيا والبرمجة وتطوير نفسي باستمرار.
-          أجرّب أدوات جديدة، أتعلم لغات برمجة مختلفة، وأحاول أطبّق اللي
-          أتعلمه في مشاريع حقيقية، سواء كانت مواقع، سكربتات، أو أفكار
-          صغيرة للتجربة.
+          أنا محمود، أحب البرمجة، تجربة تقنيات جديدة، وبناء أشياء عملية حتى لو بسيطة.
+          من ضمن الأشياء اللي اشتغلت عليها: باك إند لشات ذكاء اصطناعي باستخدام FastAPI و MongoDB و Emergent LLM.
           <br /><br />
-          هدفي إني أطور مهاراتي خطوة بخطوة، وأبني حضور رقمي خاص فيني،
-          وهذا الموقع واحد من هذه الخطوات.
+          هذا الموقع هو واجهة بسيطة تربط بيني وبين المشروع، وتعرض معلومات عني وشات AI يشتغل من نفس الـ API.
         </p>
       </div>
     </section>
@@ -494,55 +537,82 @@
       <p class="section-subtitle">بعض الأشياء اللي أتعلمها وأشتغل عليها</p>
       <div class="skills-grid">
         <div class="skill-item">
+          <div class="skill-name">FastAPI &amp; Python</div>
+          <div class="skill-level">تجارب عملية مع شات AI</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">MongoDB</div>
+          <div class="skill-level">تخزين محادثات وبيانات</div>
+        </div>
+        <div class="skill-item">
           <div class="skill-name">HTML &amp; CSS</div>
-          <div class="skill-level">أساسيات جيدة</div>
+          <div class="skill-level">بناء واجهات بسيطة</div>
         </div>
         <div class="skill-item">
-          <div class="skill-name">C++ / أساسيات البرمجة</div>
-          <div class="skill-level">تطوّر مستمر</div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-name">Git &amp; GitHub</div>
-          <div class="skill-level">إدارة بسيطة للمشاريع</div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-name">التعلّم الذاتي</div>
-          <div class="skill-level">كل يوم خطوة جديدة</div>
+          <div class="skill-name">الذكاء الاصطناعي</div>
+          <div class="skill-level">تجربة نماذج مختلفة</div>
         </div>
       </div>
     </section>
 
-    <!-- الأعمال / المشاريع -->
+    <!-- قسم شات الذكاء الاصطناعي -->
+    <section id="ai">
+      <h2 class="section-title">شات الذكاء الاصطناعي</h2>
+      <p class="section-subtitle">
+        هذا الشات يشتغل فوق الـ API اللي عندك: <code>/api/conversations</code> و <code>/api/conversations/{id}/messages</code>
+      </p>
+
+      <div class="ai-card">
+        <div class="chat-box">
+          <div id="chatMessages" class="chat-messages">
+            <div class="msg msg-ai">
+              مرحباً 👋، أنا مساعد الذكاء الاصطناعي في موقع محمود. اسألني أي شيء.
+            </div>
+          </div>
+          <div class="chat-input-area">
+            <input
+              id="chatInput"
+              type="text"
+              class="chat-input"
+              placeholder="اكتب رسالتك واضغط إرسال..."
+            />
+            <button id="sendBtn" class="chat-send-btn">
+              إرسال
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <p class="about-text">
+              🧠 <strong>كيف يشتغل هذا الشات؟</strong><br /><br />
+              - عند أول فتح للصفحة، يتم إنشاء محادثة جديدة عن طريق:
+              <code>POST /api/conversations</code>.
+              <br />
+              - كل ما ترسل رسالة، يتم استدعاء:
+              <code>POST /api/conversations/{conversation_id}/messages</code>
+              مع <code>content</code>.
+              <br />
+              - الباك إند يرجّع <code>ai_message.content</code> ويتم عرضه هنا.
+            </p>
+            <p id="statusText" class="status-text">
+              الحالة: جاري إنشاء محادثة جديدة مع الـ AI...
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- تقدر تضيف قسم أعمال / مشاريع هنا لاحقاً -->
     <section id="projects">
-      <h2 class="section-title">أعمال بسيطة وتجارب</h2>
-      <p class="section-subtitle">مجموعة من الأفكار الصغيرة اللي أقدر أضيفها لاحقاً</p>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-title">موقع شخصي</div>
-          <div class="project-desc">
-            تصميم وبناء هذا الموقع من الصفر باستخدام HTML و CSS فقط،
-            كنقطة بداية لعالم تطوير الويب.
-          </div>
-          <span class="project-tag">واجهة أمامية</span>
-        </div>
-
-        <div class="project-card">
-          <div class="project-title">تجارب برمجة C++</div>
-          <div class="project-desc">
-            كتابة برامج صغيرة لتثبيت مفاهيم مثل المتغيرات، الحلقات،
-            الدوال، وهياكل البيانات البسيطة.
-          </div>
-          <span class="project-tag">تعلم البرمجة</span>
-        </div>
-
-        <div class="project-card">
-          <div class="project-title">أفكار مستقبلية</div>
-          <div class="project-desc">
-            مشروع ويب متكامل أو تطبيق بسيط يستخدم API أو قاعدة بيانات،
-            يتم إضافته هنا لاحقاً إن شاء الله.
-          </div>
-          <span class="project-tag">قريباً</span>
-        </div>
+      <h2 class="section-title">أعمال وتجارب</h2>
+      <p class="section-subtitle">ممكن تضيف مشاريعك هنا لاحقاً</p>
+      <div class="card">
+        <p class="about-text">
+          - باك إند شات ذكاء اصطناعي باستخدام FastAPI و MongoDB و Emergent LLM.<br />
+          - هذا الموقع الشخصي كواجهة بسيطة للمشروع.<br />
+          - مشاريع أخرى قيد الإنشاء ✨.
+        </p>
       </div>
     </section>
 
@@ -565,7 +635,7 @@
 
           <div class="contact-item">
             <div class="contact-label">الموقع:</div>
-            <div>الأردن (أستقبل العمل عن بُعد 😉)</div>
+            <div>الأردن</div>
           </div>
         </div>
 
@@ -587,8 +657,121 @@
   </footer>
 
   <script>
-    // تحديث السنة تلقائياً في الفوتر
+    // تحديث السنة في الفوتر
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ===== إعداد API =====
+    // إذا الباك إند شغال على نفس الجهاز والمنفذ 8000:
+    const API_BASE = "http://localhost:8000/api";
+
+    let conversationId = null;
+    const chatMessages = document.getElementById("chatMessages");
+    const chatInput = document.getElementById("chatInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const statusText = document.getElementById("statusText");
+
+    // إنشاء محادثة جديدة عند تحميل الصفحة
+    async function createConversation() {
+      try {
+        const res = await fetch(`${API_BASE}/conversations`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: "محادثة من الموقع الشخصي",
+            description: "Website chat session for Mahmoud",
+            ai_model: "gpt-4o",
+          }),
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to create conversation");
+        }
+
+        const data = await res.json();
+        conversationId = data.id || data.conversation_id || null;
+
+        if (conversationId) {
+          statusText.textContent =
+            "الحالة: المحادثة جاهزة ✅ – تقدر تبدأ ترسل رسائل.";
+        } else {
+          statusText.textContent =
+            "الحالة: ما قدرت أحصل على conversation_id من الـ API.";
+        }
+      } catch (err) {
+        console.error(err);
+        statusText.textContent =
+          "الحالة: خطأ في الاتصال بالـ API. تأكد أن الباك إند شغال.";
+      }
+    }
+
+    // إضافة رسالة في واجهة الشات
+    function addMessage(text, from = "ai") {
+      const div = document.createElement("div");
+      div.classList.add("msg");
+      if (from === "user") {
+        div.classList.add("msg-user");
+      } else {
+        div.classList.add("msg-ai");
+      }
+      div.textContent = text;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // إرسال رسالة للباك إند
+    async function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text || !conversationId) return;
+
+      addMessage(text, "user");
+      chatInput.value = "";
+      statusText.textContent = "الحالة: جاري انتظار رد الـ AI...";
+
+      try {
+        const res = await fetch(
+          `${API_BASE}/conversations/${conversationId}/messages`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              conversation_id: conversationId,
+              content: text,
+            }),
+          }
+        );
+
+        if (!res.ok) {
+          throw new Error("Failed to send message");
+        }
+
+        const data = await res.json();
+        const aiContent =
+          (data.ai_message && data.ai_message.content) ||
+          "تعذر قراءة رد الذكاء الاصطناعي من الـ API.";
+
+        addMessage(aiContent, "ai");
+        statusText.textContent = "الحالة: جاهز لاستقبال رسالة جديدة ✅";
+      } catch (err) {
+        console.error(err);
+        addMessage("حدث خطأ في الاتصال بالـ API. تأكد أن السيرفر شغال.", "ai");
+        statusText.textContent = "الحالة: خطأ في الاتصال بالـ API.";
+      }
+    }
+
+    sendBtn.addEventListener("click", sendMessage);
+    chatInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // تشغيل
+    createConversation();
   </script>
 </body>
 </html>
